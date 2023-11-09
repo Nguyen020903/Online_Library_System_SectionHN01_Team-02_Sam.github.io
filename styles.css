@@ -1,0 +1,9 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+#Logo {
+    mix-blend-mode: multiply;
+    height: 35px;
+}
