@@ -7,3 +7,9 @@
     mix-blend-mode: normal;
     height: 35px;
 }
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    transition: 30s ease-out;
+}
