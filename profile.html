@@ -12,9 +12,9 @@
 
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg bg-success">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img src="Assets\Images\Logo.png" id="Logo"></a>
+            <a class="navbar-brand" href="#"><i class="fas fa-home text-white"></i></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -22,17 +22,17 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Others</a>
+                        <a class="nav-link text-white" href="#">Others</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Others</a>
+                        <a class="nav-link text-white" href="#">Others</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Dropdown link
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -57,19 +57,20 @@
             </div>
         </div>
         <div class="row mt-4">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <h3>General Information</h3>
                 <ul id="generalInfoList" class="list-group">
                     <li class="list-group-item">Full Name: <span id="fullName">Your Full Name</span></li>
                     <li class="list-group-item">Date of Birth: <span id="dob">January 1, 1990</span></li>
+                    <li class="list-group-item">Gender: <span id="gender">Male</span></li>
                     <li class="list-group-item">Email Address: <span id="email">your.email@example.com</span>
-                        <button class="btn btn-outline-secondary btn-sm"
+                        <button class="btn btn-outline-secondary btn-sm float-end "
                             onclick="copyToClipboard('email')">Copy</button>
                     </li>
                     <li class="list-group-item">Phone Number: <span id="phone">123-456-7890</span></li>
                 </ul>
             </div>
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
                 <h3>Contact Information</h3>
                 <ul id="contactList" class="list-group">
                     <li class="list-group-item"><a href="#" id="facebook" class="text-decoration-none text-reset"><i
@@ -81,12 +82,36 @@
                     <li class="list-group-item"><a href="#" id="twitter" class="text-decoration-none text-reset"><i
                                 class="fab fa-twitter text-primary"></i> Twitter</a></li>
                 </ul>
-            </div>
+            </div> -->
 
         </div>
-        <button class="btn btn-outline-danger btn-sm float-end">Log out</button>
-    </div>
 
+    </div>
+    <!-- <div class="container mt-5">
+        <button class="btn btn-outline-danger btn-sm float-end">Log out</button>
+    </div> -->
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Contact Information</h3>
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="#" class="text-decoration-none text-reset"><i
+                                    class="fab fa-facebook text-primary"></i> Facebook</a></li>
+                        <li class="list-inline-item"><a href="#" class="text-decoration-none text-reset"><i
+                                    class="fab fa-instagram text-danger"></i> Instagram</a></li>
+                        <li class="list-inline-item"><a href="#" class="text-decoration-none text-reset"><i
+                                    class="fab fa-discord text-primary"></i> Discord</a></li>
+                        <li class="list-inline-item"><a href="#" class="text-decoration-none text-reset"><i
+                                    class="fab fa-twitter text-primary"></i> Twitter</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
