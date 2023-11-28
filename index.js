@@ -4,10 +4,10 @@ const port = 3000;
 const mongoose = require('mongoose');
 
 // Import model
-const User = require('/models/User');
-const Book = require('/models/Book');
-const BookCategory = require('/models/BookCategory');
-const BookTransaction = require('/models/BookTransaction');
+const User = require('./models/user');
+const Book = require('./models/book');
+const BookCategory = require('./models/bookCategory');
+const BookTransaction = require('./models/bookTransaction');
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));

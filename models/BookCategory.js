@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');;
+const mongoose = require('mongoose');
 
 const bookCategorySchema = new mongoose.Schema(
   {
@@ -18,5 +18,5 @@ const bookCategorySchema = new mongoose.Schema(
   }
 );
 
-const BookCategory = mongoose.model("Book", bookCategorySchema);
+const BookCategory = mongoose.model("BookCategory", bookCategorySchema);
 module.exports = BookCategory;
