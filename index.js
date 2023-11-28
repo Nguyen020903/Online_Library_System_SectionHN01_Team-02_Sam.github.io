@@ -28,6 +28,9 @@ app.use(express.urlencoded({ extended: true }));
 app.get('*', checkUser, (req, res) => {
 });
 
+app.get("/signup", (req, res) => {
+    res.render('signup')
+});
 
 
 app.listen(port, () => {
