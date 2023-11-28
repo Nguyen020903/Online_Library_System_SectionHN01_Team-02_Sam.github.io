@@ -1,28 +1,23 @@
 const express = require('express');
+const app = express();
+const port = 3000;
 const mongoose = require('mongoose');
 
-const app = express();
-
-// Middleware
-app.use(express.static('public'));
-app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
+app.use(express.static('public'));
 
 // Database Connection
-const dbURI =
-  'mongodb+srv://hmyle:C6lrHMWYYDO2K5Bz@cluster0.sujlcna.mongodb.net/';
-mongoose
-  .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then((result) => app.listen(3000))
-  .catch((err) => console.log(err));
+mongoose.connect('mongodb+srv://hmyle:ingsqEe3t4CevFzo@onlinelibrarysystem.dpdir84.mongodb.net/?retryWrites=true&w=majority')
+.then(() => console.log('Connected to MongoDB Atlas'))
+.catch((error) => console.log(error.message));
 
-// Homepage
-app.get('/', async (req, res) => {
-    res.render('login.html');
+// Use the `express.urlencoded` middleware to parse incoming form data
+app.use(express.urlencoded({ extended: true }));
+
+
+app.get('/', (req, res) => {
 });
 
-
-// Port Connect
 app.listen(port, () => {
-    console.log("port connected");
-  });
+    console.log(`Server started on port ${port}`);
+});
