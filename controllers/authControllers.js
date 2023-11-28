@@ -1,13 +1,17 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
-const User = require("./models/user");
+const User = require("../models/user");
 
-module.exports.signup_get = async (req, res) => {
+module.exports.signup_get = (req, res) => {
     res.render('signup');
 };
 
 module.exports.signup_post = async (req, res) => {
+    const { fullName, email, password, confirmPassword } = req.body;
+    console.log(fullName, email, password, confirmPassword);
+    console.log(req.body);
+
     try {
         /* Salting and Hashing the Password */
         const salt = await bcrypt.genSalt(10);
@@ -32,14 +36,16 @@ module.exports.signup_post = async (req, res) => {
     }
 };
 
-module.exports.login_get = async (req, res) => {
+module.exports.login_get = (req, res) => {
     res.render('login');
 };
 
 module.exports.login_post = async (req, res) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
+    console.log(req.body);
+
     try {
-        let user = await User.findOne({ username, password });
+        let user = await User.findOne({ email : email });
 
         if (!user) {
             return res.status(404).json({ error: "User not found" });
