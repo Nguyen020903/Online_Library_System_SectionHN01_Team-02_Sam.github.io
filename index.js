@@ -10,7 +10,7 @@ app.set('view engine', 'ejs');
 
 // Database Connection
 const dbURI =
-  'mongodb+srv://hmyle:C6lrHMWYYDO2K5Bz@cluster0.sujlcna.mongodb.net/';
+  'mongodb+srv://hmyle:2XPKuoM05U0YdC0c@onlinelibrarysystem.dpdir84.mongodb.net/?retryWrites=true&w=majority';
 mongoose
   .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((result) => app.listen(3000))
