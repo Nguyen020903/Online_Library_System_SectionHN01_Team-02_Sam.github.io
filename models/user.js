@@ -3,43 +3,13 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
     userType: {
         type: String,
+        enum: ['Manager','Reader'],
         require: true
     },
     userFullName: {
         type: String,
         require: true,
         unique: true
-    },
-    admissionId: {
-        type: String,
-        min: 3,
-        max: 15,
-    },
-    employeeId: {
-        type: String,
-        min: 3,
-        max: 15,
-    },
-    age: {
-        type: Number
-    },
-    gender: {
-        type: String
-    },
-    dob: {
-        type: String
-    },
-    address: {
-        type: String,
-        default: ""
-    },
-    mobileNumber: {
-        type: Number,
-        require: true
-    },
-    photo: {
-        type: String,
-        default: ""
     },
     email: {
         type: String,
@@ -51,6 +21,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         require: true,
         min: 6
+    },
+    totalBookCheckedOut: {
+        type: Number,
+        default: 0,
     },
     points: {
         type: Number,
@@ -64,6 +38,10 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: "BookTransaction"
     }],
+    favoriteBook: [{
+        type: mongoose.Types.ObjectId,
+        ref: "Book",
+    }],
     isAdmin: {
         type: Boolean,
         default: false
@@ -75,7 +53,7 @@ const userSchema = new mongoose.Schema({
 
 
 // Define a model based on the schema
-const User = mongoose.model('User', productSchema);
+const User = mongoose.model('User', userSchema);
 
 // the module exports the "Product" model so that it can be used by other parts of the application.
 module.exports = User;
