@@ -8,6 +8,10 @@ const User = require('./models/user');
 const Book = require('./models/book');
 const BookCategory = require('./models/bookCategory');
 const BookTransaction = require('./models/bookTransaction');
+const {
+    requireAuth,
+    checkUser,
+} = require('./middleware/authMiddleware');
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -21,7 +25,7 @@ mongoose.connect('mongodb+srv://hmyle:ingsqEe3t4CevFzo@onlinelibrarysystem.dpdir
 app.use(express.urlencoded({ extended: true }));
 
 
-app.get('/', (req, res) => {
+app.get('*', checkUser, (req, res) => {
 });
 
 
