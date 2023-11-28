@@ -1,7 +1,8 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const routes = require('./routes/routes');
 const app = express();
 const port = 3000;
-const mongoose = require('mongoose');
 
 // Import model
 const User = require('./models/user');
@@ -15,6 +16,7 @@ const {
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
+app.use(routes);
 
 // Database Connection
 mongoose.connect('mongodb+srv://hmyle:ingsqEe3t4CevFzo@onlinelibrarysystem.dpdir84.mongodb.net/?retryWrites=true&w=majority')
@@ -24,14 +26,12 @@ mongoose.connect('mongodb+srv://hmyle:ingsqEe3t4CevFzo@onlinelibrarysystem.dpdir
 // Use the `express.urlencoded` middleware to parse incoming form data
 app.use(express.urlencoded({ extended: true }));
 
-
 app.get('*', checkUser, (req, res) => {
 });
 
 app.get("/signup", (req, res) => {
     res.render('signup')
 });
-
 
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);
