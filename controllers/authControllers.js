@@ -1,7 +1,16 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
-const router = express.Router();
+const bcrypt = require('bcrypt');   
 const User = require("../models/user");
+const jwt = require('jsonwebtoken');
+const session = require('express-session');
+const fs = require('fs');
+
+const maxAge = 60 * 60 * 24 * 7;
+const createToken = (id) => {
+    return jwt.sign({ id }, 'user secret', {
+        expiresIn: maxAge,
+    });
+};
 
 module.exports.signup_get = (req, res) => {
     res.render('signup');
@@ -45,7 +54,7 @@ module.exports.login_post = async (req, res) => {
     console.log(req.body);
 
     try {
-        let user = await User.findOne({ email : email });
+        let user = await User.findOne({ email: email });
 
         if (!user) {
             return res.status(404).json({ error: "User not found" });

@@ -1,5 +1,4 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
 const router = express.Router();
 const authController = require('../controllers/authControllers');
 
@@ -10,6 +9,5 @@ router.post("/signup", authController.signup_post);
 /* User Login */
 router.get("/login", authController.login_get);
 router.post("/login", authController.login_post);
-
 
 module.exports = router;

@@ -26,9 +26,6 @@ mongoose.connect('mongodb+srv://hmyle:ingsqEe3t4CevFzo@onlinelibrarysystem.dpdir
 .then(() => console.log('Connected to MongoDB Atlas'))
 .catch((error) => console.log(error.message));
 
-// Use the `express.urlencoded` middleware to parse incoming form data
-app.use(express.urlencoded({ extended: true }));
-
 // app.get('*', checkUser, (req, res) => {
 // });
 
