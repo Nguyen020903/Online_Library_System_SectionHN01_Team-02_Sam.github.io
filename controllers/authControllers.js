@@ -63,13 +63,13 @@ module.exports.signup_post = async (req, res) => {
         /* Save User and Return */
         newUser.save()
             .then(() => res.status(200).json({ message: 'User registered successfully' }))
-            .catch((error) => {
-                const error = handleErrors(error);
-                res.status(500).json({ error: error.message });
+            .catch((err) => {
+                let error = handleErrors(err);
+                res.status(500).json({ err: err.message });
             }
         );
     } catch (err) {
-        const error = handleErrors(error);
+        let error = handleErrors(error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };

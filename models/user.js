@@ -9,8 +9,7 @@ const userSchema = new mongoose.Schema({
     },
     userFullName: {
         type: String,
-        require: [true, 'Please enter your full name'],
-        unique: true
+        require: [true, 'Please enter your full name']
     },
     email: {
         type: String,
@@ -51,6 +50,16 @@ const userSchema = new mongoose.Schema({
 },
     {
         timestamps: true
+});
+
+userSchema.post('save', function (doc, next) {
+    console.log('New User was created & saved', doc);
+    next();
+});
+
+userSchema.pre('save', function (next) {
+    console.log('User about to be created and save', this);
+    next();
 });
 
 
