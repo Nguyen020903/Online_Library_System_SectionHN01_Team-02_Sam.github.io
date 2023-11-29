@@ -7,11 +7,24 @@ const fs = require('fs');
 
 const maxAge = 60 * 60 * 24 * 7;
 const createToken = (id) => {
-    return jwt.sign({ id }, 'user secret', {
+    return jwt.sign({ id }, 'your-secret-key', {
         expiresIn: maxAge,
     });
 };
 
+// Handle errors
+const handleErrors = (err) => {
+    console.log(err.message, err.code);
+    let error = { email: '', password: ''};
+
+    // Validation errors
+    if (err.message.include('User validation failed')) {
+        console.log(err);
+    }
+};
+
+
+// Function for Signup (Get & Post method)
 module.exports.signup_get = (req, res) => {
     res.render('signup');
 };
@@ -38,13 +51,18 @@ module.exports.signup_post = async (req, res) => {
         /* Save User and Return */
         newUser.save()
             .then(() => res.status(200).json({ message: 'User registered successfully' }))
-            .catch((error) => res.status(500).json({ error: error.message }));
+            .catch((error) => {
+                let error = handleErrors(error);
+                res.status(500).json({ error: error.message });
+            }
+        );
     } catch (err) {
-        console.log(err);
+        let error = handleErrors(error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
 
+// Function for Login (Get & Post method)
 module.exports.login_get = (req, res) => {
     res.render('login');
 };
@@ -70,7 +88,7 @@ module.exports.login_post = async (req, res) => {
         res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
         res.status(200).json({ userId: user._id });
     } catch (err) {
-        console.error(err);
+        let error = handleErrors(error);
         res.status(500).json({ error: "Internal Server Error" });
     }
 
