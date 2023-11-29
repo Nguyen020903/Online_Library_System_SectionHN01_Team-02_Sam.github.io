@@ -17,29 +17,29 @@
                 <div class="card">
                     <div class="card-body">
                         <h3 class="text-center mb-4">Sign Up</h3>
-                        <form>
+                        <form action="/signup" method="post" enctype="application/x-www-form-urlencoded" content-type="application/x-www-form-urlencoded">
                             <div class="mb-3">
                                 <label for="fullName" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" id="fullName" placeholder="Enter your full name">
+                                <input type="text" class="form-control" name="fullName" id="fullName" placeholder="Enter your full name">
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email Address</label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter your email address">
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email address">
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password">
                             </div>
                             <div class="mb-3">
                                 <label for="confirmPassword" class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password">
+                                <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirm your password">
                             </div>
                             <div class="d-grid mb-3">
                                 <button type="submit" class="btn btn-success">Sign Up</button>
                             </div>
                         </form>
                         <div class="text-center">
-                            <p class="mb-0">Already have an account? <a href="login.html">Login</a></p>
+                            <p class="mb-0">Already have an account? <a href="/login">Login</a></p>
                         </div>
                     </div>
                 </div>
