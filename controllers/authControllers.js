@@ -15,12 +15,24 @@ const createToken = (id) => {
 // Handle errors
 const handleErrors = (err) => {
     console.log(err.message, err.code);
-    let error = { email: '', password: ''};
+    let errors = { email: '', password: ''};
 
-    // Validation errors
-    if (err.message.include('User validation failed')) {
-        console.log(err);
+    // Duplicate Error Code
+    if (err.code == 11000) {
+        errors.email = 'That email has already registered';
+        return errors;
     }
+
+    // Validation Errors
+    if (err.message.include('User validation failed')) {
+        Object.values(err.errors).forEach(({properties}) => {
+            console.log(properties);
+            errors[properties.path] = properties.message;
+            
+        });
+    }
+
+    return errors;
 };
 
 
@@ -52,12 +64,12 @@ module.exports.signup_post = async (req, res) => {
         newUser.save()
             .then(() => res.status(200).json({ message: 'User registered successfully' }))
             .catch((error) => {
-                let error = handleErrors(error);
+                const error = handleErrors(error);
                 res.status(500).json({ error: error.message });
             }
         );
     } catch (err) {
-        let error = handleErrors(error);
+        const error = handleErrors(error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
@@ -88,7 +100,7 @@ module.exports.login_post = async (req, res) => {
         res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
         res.status(200).json({ userId: user._id });
     } catch (err) {
-        let error = handleErrors(error);
+        const error = handleErrors(error);
         res.status(500).json({ error: "Internal Server Error" });
     }
 
