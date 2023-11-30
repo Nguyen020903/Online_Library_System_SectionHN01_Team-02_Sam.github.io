@@ -7,11 +7,36 @@ const fs = require('fs');
 
 const maxAge = 60 * 60 * 24 * 7;
 const createToken = (id) => {
-    return jwt.sign({ id }, 'user secret', {
+    return jwt.sign({ id }, 'your-secret-key', {
         expiresIn: maxAge,
     });
 };
 
+// Handle errors
+const handleErrors = (err) => {
+    console.log(err.message, err.code);
+    let errors = { email: '', password: ''};
+
+    // Duplicate Error Code
+    if (err.code == 11000) {
+        errors.email = 'That email has already registered';
+        return errors;
+    }
+
+    // Validation Errors
+    if (err.message.include('User validation failed')) {
+        Object.values(err.errors).forEach(({properties}) => {
+            console.log(properties);
+            errors[properties.path] = properties.message;
+            
+        });
+    }
+
+    return errors;
+};
+
+
+// Function for Signup (Get & Post method)
 module.exports.signup_get = (req, res) => {
     res.render('signup');
 };
@@ -38,13 +63,18 @@ module.exports.signup_post = async (req, res) => {
         /* Save User and Return */
         newUser.save()
             .then(() => res.status(200).json({ message: 'User registered successfully' }))
-            .catch((error) => res.status(500).json({ error: error.message }));
+            .catch((err) => {
+                let error = handleErrors(err);
+                res.status(500).json({ err: err.message });
+            }
+        );
     } catch (err) {
-        console.log(err);
+        let error = handleErrors(error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
 
+// Function for Login (Get & Post method)
 module.exports.login_get = (req, res) => {
     res.render('login');
 };
@@ -70,7 +100,7 @@ module.exports.login_post = async (req, res) => {
         res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
         res.status(200).json({ userId: user._id });
     } catch (err) {
-        console.error(err);
+        const error = handleErrors(error);
         res.status(500).json({ error: "Internal Server Error" });
     }
 

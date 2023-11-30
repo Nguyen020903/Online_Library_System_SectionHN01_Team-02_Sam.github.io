@@ -1,3 +1,6 @@
+const jwt = require('jsonwebtoken');
+const User = require('../models/user');
+
 const requireAuth = (req, res, next) => {
   const token = req.cookies.jwt;
 
@@ -29,7 +32,7 @@ const checkUser = (req, res, next) => {
         res.locals.user = null;
         next();
       } else {
-        user = await User.findById(decodedToken.id);
+        const user = await User.findById(decodedToken.id);
         next();
       }
     });
@@ -39,4 +42,4 @@ const checkUser = (req, res, next) => {
   }
 };
 
-module.export = { requireAuth, checkUser };
+module.exports = { requireAuth, checkUser };
