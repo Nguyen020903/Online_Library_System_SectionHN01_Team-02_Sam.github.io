@@ -15,10 +15,10 @@ const createToken = (id) => {
 // Handle errors
 const handleErrors = (err) => {
     console.log(err.message, err.code);
-    let errors = { email: '', password: ''};
+    let errors = { email: ' ', password: ' '};
 
     // Duplicate Error Code
-    if (err.code == 11000) {
+    if (err.code === 11000) {
         errors.email = 'That email has already registered';
         return errors;
     }
@@ -105,3 +105,8 @@ module.exports.login_post = async (req, res) => {
     }
 
 };
+
+module.exports.logout_get = (req, res) => {
+    res.cookie('jwt', '', {maxAge: 1});
+    res.redirect('/');
+}
