@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
     <title>OLS</title>
 </head>
 
@@ -15,7 +16,7 @@
         <div class="container">
             <div class="row gy-3">
                 <!-- Left elements -->
-                <div class="col-lg-4 col-md-3 col-sm-6">
+                <div class="col-lg-4 col-md-3 col-sm-4 col-xs-">
                     <a href="#" class="float-start">
                         <img src="Assets\Images\Logo.png" id="Logo">
                     </a>
@@ -23,7 +24,7 @@
                 <!-- Left elements -->
 
                 <!-- Center elements -->
-                <div class="col-lg-4 col-md-6 col-sm-0">
+                <div class="col-lg-4 col-md-6 col-sm-4 col-xs-">
                     <div class="input-group d-flex justify-content-center">
                         <div class="form-outline w-75">
                             <input type="search" id="form1" class="form-control float" placeholder="Search">
@@ -36,11 +37,12 @@
                 <!-- Center elements -->
 
                 <!-- Right elements -->
-                <div class="col-lg-4 col-md-3 col-sm-6">
+                <div class="col-lg-4 col-md-3 col-sm-4 col-xs-">
                     <div class="d-flex float-end">
-                        <a href="login.html" class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center"
-                            > <i class="fas fa-user-alt m-1 me-md-2"></i>
-                            <p class="d-none d-md-block mb-0">Sign in</p>
+                        <a href="login.html"
+                            class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center"></a>
+                        <i class="fas fa-user-alt m-1 me-md-2"></i>
+                        <p class="d-none d-md-block mb-0">Sign in</p>
                         </a>
                     </div>
                 </div>
@@ -51,6 +53,7 @@
 </header>
 
 <!-- body starts here -->
+
 <body>
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg bg-success">
@@ -71,8 +74,8 @@
                         <a class="nav-link text-white" href="#">Others</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Dropdown link
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -85,6 +88,43 @@
             </div>
         </div>
     </nav>
+
+    <!-- Book image carousel start -->
+    <section class="categories">
+        <div class="container">
+            <div class="row">
+                <div class="categories__slider owl-carousel">
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="Assets\Images\book1.webp">
+                            <h5><a href="#">Fresh Fruit</a></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="Assets\Images\book1.webp">
+                            <h5><a href="#">Dried Fruit</a></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="Assets\Images\book1.webp">
+                            <h5><a href="#">Vegetables</a></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="Assets\Images\book1.webp">
+                            <h5><a href="#">drink fruits</a></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="Assets\Images\book1.webp">
+                            <h5><a href="#">drink fruits</a></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Book image carousel end -->
+
 </body>
 
 <footer>
