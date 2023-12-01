@@ -47,16 +47,12 @@ module.exports.signup_post = async (req, res) => {
     console.log(req.body);
 
     try {
-        /* Salting and Hashing the Password */
-        const salt = await bcrypt.genSalt(10);
-        const hashedPass = await bcrypt.hash(req.body.password, salt);
-
         /* Create a new user */
         const newUser = new User({
             userType: req.body.userType,
             userFullName: req.body.fullName,
             email: req.body.email,
-            password: hashedPass, // Save the hashed password
+            password: req.body.password, // Save the hashed password
             isAdmin: req.body.isAdmin,
         });
 
