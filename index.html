@@ -8,7 +8,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <title>OLS</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <title>Playbook</title>
+    <link rel="icon" type="image/x-icon" href="Assets/Images/play.png">
 </head>
 
 <header>
@@ -18,7 +20,7 @@
                 <!-- Left elements -->
                 <div class="col-lg-4 col-md-3 col-sm-4 col-xs-">
                     <a href="#" class="float-start">
-                        <img src="Assets\Images\Logo.png" id="Logo">
+                        <img src="Assets/Images/play.png" id="Logo" alt="">
                     </a>
                 </div>
                 <!-- Left elements -->
@@ -89,47 +91,62 @@
         </div>
     </nav>
 
-    <!-- Book image carousel start -->
-    <section class="categories">
-        <div class="container">
-            <div class="row">
-                <div class="categories__slider owl-carousel">
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="Assets\Images\book1.webp">
-                            <h5><a href="#">Fresh Fruit</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="Assets\Images\book1.webp">
-                            <h5><a href="#">Dried Fruit</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="Assets\Images\book1.webp">
-                            <h5><a href="#">Vegetables</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="Assets\Images\book1.webp">
-                            <h5><a href="#">drink fruits</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="Assets\Images\book1.webp">
-                            <h5><a href="#">drink fruits</a></h5>
-                        </div>
-                    </div>
+    <!--Home carousel start -->
+    <section class="home" id="home">
+        <div class="row">
+            <div class="content">
+                <h3>Welcome to Playbook!</h3>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and scrambled it to make a type specimen book.</p>
+                <a href="#" class="btn">Shop Now!</a>
+            </div>
+            <div class="swiper books-slider">
+                <div class="swiper-wrapper">
+                    <a href="#" class="swiper-slide"><img src="Assets\Images\book1.webp" alt=""></a>
+                    <a href="#" class="swiper-slide"><img src="Assets\Images\book2.webp" alt=""></a>
+                    <a href="#" class="swiper-slide"><img src="Assets\Images\book3.webp" alt=""></a>
+                    <a href="#" class="swiper-slide"><img src="Assets\Images\book1.webp" alt=""></a>
+                    <a href="#" class="swiper-slide"><img src="Assets\Images\book2.webp" alt=""></a>
+                    <a href="#" class="swiper-slide"><img src="Assets\Images\book3.webp" alt=""></a>
                 </div>
+                <img src="Assets/Images/Bookshelf.png" class="stand" alt="insert a stand picture here">
             </div>
         </div>
     </section>
-    <!-- Book image carousel end -->
+    <!-- Home carousel end -->
+
+    <!-- Featured start-->
+    <div class="featured" id="featured">
+        <div class="row">
+            <div class="title">
+                <h3>Featured books</h3>
+            </div>
+            <section>
+                <div class="swiper books-sliderfeatured">
+                    <div class="swiper-wrapper">
+                        <a href="#" class="swiper-slide"><img src="Assets\Images\book1.webp" alt=""></a>
+                        <a href="#" class="swiper-slide"><img src="Assets\Images\book2.webp" alt=""></a>
+                        <a href="#" class="swiper-slide"><img src="Assets\Images\book3.webp" alt=""></a>
+                        <a href="#" class="swiper-slide"><img src="Assets\Images\book1.webp" alt=""></a>
+                        <a href="#" class="swiper-slide"><img src="Assets\Images\book1.webp" alt=""></a>
+                        <a href="#" class="swiper-slide"><img src="Assets\Images\book1.webp" alt=""></a>
+                        <a href="#" class="swiper-slide"><img src="Assets\Images\book1.webp" alt=""></a>
+                        <a href="#" class="swiper-slide"><img src="Assets\Images\book1.webp" alt=""></a>
+                </div>
+
+            </section>
+        </div>
+    </div>
+
 
 </body>
 
 <footer>
 
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 

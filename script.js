@@ -72,50 +72,43 @@ window.onmousemove = e => handleOnMove(e);
 
 window.ontouchmove = e => handleOnMove(e.touches[0]);
 
+// Home Carousel
+var swiper = new Swiper(".books-slider", {
+    loop:true,
+    centeredSlides: true,
+    autoplay: {
+        delay: 9500,
+        disableOnInteraction: false,
+    },
+    breakpoints: {
+        0: {
+            slidesPerView: 1,
+        },
+        768: {
+            slidesPerView: 2,
+        },
+        1024: {
+            slidesPerView: 3,
+        },
+    },
+});
 
-
-// //Background Set for Categories
-
-// $('.set-bg').each(function () {
-//   var bg = $(this).data('setbg');
-//   $(this).css('background-image', 'url(' + bg + ')');
-// });
-
-// //// Carousel
-
-// $(".categories__slider").owlCarousel({
-//   loop: true,
-//   margin: 0,
-//   items: 4,
-//   dots: false,
-//   nav: true,
-//   navText: ["<span class='fa fa-angle-left'><span/>", "<span class='fa fa-angle-right'><span/>"],
-//   animateOut: 'fadeOut',
-//   animateIn: 'fadeIn',
-//   smartSpeed: 1200,
-//   autoHeight: false,
-//   autoplay: true,
-//   responsive: {
-
-//       0: {
-//           items: 1,
-//       },
-
-//       480: {
-//           items: 2,
-//       },
-
-//       768: {
-//           items: 3,
-//       },
-
-//       992: {
-//           items: 4,
-//       }
-//   }
-// });
-
-
-// $('.hero__categories__all').on('click', function(){
-//   $('.hero__categories ul').slideToggle(400);
-// });
+// Featured carousel
+var swiper = new Swiper(".books-sliderfeatured", {
+    loop: true,
+    centeredSlides: true,
+breakpoints: {
+    0: {
+        slidesPerView: 2,
+    },
+    768: {
+        slidesPerView: 3,
+    },
+    1024: {
+        slidesPerView: 4,
+    },
+    1600: {
+        slidesPerView: 6,
+    }
+},
+});
