@@ -46,52 +46,62 @@
     </nav>
 
     <!-- main body -->
-    <div class="container mt-5">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12 text-center">
-                <img src="\Assets\Images\Logo.png" alt="Profile Picture" class="img-fluid rounded-circle"
-                    id="profilePic">
-                <h2 id="name">Your Name</h2>
-                <button class="btn btn-primary" id="editBtn">Edit Profile</button>
-            </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <h3>General Information</h3>
-                <ul id="generalInfoList" class="list-group">
-                    <li class="list-group-item">Full Name: <span id="fullName">Your Full Name</span></li>
-                    <li class="list-group-item">Date of Birth: <span id="dob">January 1, 1990</span></li>
-                    <li class="list-group-item">Gender: <span id="gender">Male</span></li>
-                    <li class="list-group-item">Email Address: <span id="email">your.email@example.com</span>
-                        <button class="btn btn-outline-secondary btn-sm float-end "
-                            onclick="copyToClipboard('email')">Copy</button>
-                    </li>
-                    <li class="list-group-item">Phone Number: <span id="phone">123-456-7890</span></li>
-                </ul>
-            </div>
-            <div class="col-md-12">
-                <h3>Contact Information</h3>
-                <ul id="contactList" class="list-group">
-                    <li class="list-group-item"><a href="#" id="facebook" class="text-decoration-none text-reset"><i
-                                class="fab fa-facebook text-primary"></i> Facebook</a></li>
-                    <li class="list-group-item"><a href="#" id="instagram" class="text-decoration-none text-reset"><i
-                                class="fab fa-instagram text-danger"></i> Instagram</a></li>
-                    <li class="list-group-item"><a href="#" id="discord" class="text-decoration-none text-reset"><i
-                                class="fab fa-discord text-primary"></i> Discord</a></li>
-                    <li class="list-group-item"><a href="#" id="twitter" class="text-decoration-none text-reset"><i
-                                class="fab fa-twitter text-primary"></i> Twitter</a></li>
-                </ul>
+            <!-- Right Half - General Information, Contact Information, Profile Image, and Name -->
+            <div class="col-md-6">
+                <div class="text-center">
+                    <img src="/Assets/Images/Logo.png" alt="Profile Picture" class="img-fluid rounded-circle"
+                        id="profilePic">
+                    <h2 id="name">Your Name</h2>
+                    <button class="btn btn-primary" id="editBtn">Edit Profile</button>
+                </div>
+
+                <div>
+                    <h3>General Information</h3>
+                    <ul id="generalInfoList" class="list-group">
+                        <li class="list-group-item">Full Name: <span id="fullName">Your Full Name</span></li>
+                        <li class="list-group-item">Date of Birth: <span id="dob">January 1, 1990</span></li>
+                        <li class="list-group-item">Gender: <span id="gender">Male</span></li>
+                        <li class="list-group-item">Email Address: <span id="email">your.email@example.com</span>
+                            <button class="btn btn-outline-secondary btn-sm float-end "
+                                onclick="copyToClipboard('email')">Copy</button>
+                        </li>
+                        <li class="list-group-item">Phone Number: <span id="phone">123-456-7890</span></li>
+                    </ul>
+                </div>
+                <!-- <div>
+                    <h3>Contact Information</h3>
+                    <ul id="contactList" class="list-group">
+                        <li class="list-group-item"><a href="#" id="facebook" class="text-decoration-none text-reset"><i
+                                    class="fab fa-facebook text-primary"></i> Facebook</a></li>
+                        <li class="list-group-item"><a href="#" id="instagram"
+                                class="text-decoration-none text-reset"><i class="fab fa-instagram text-danger"></i>
+                                Instagram</a></li>
+                        <li class="list-group-item"><a href="#" id="discord" class="text-decoration-none text-reset"><i
+                                    class="fab fa-discord text-primary"></i> Discord</a></li>
+                        <li class="list-group-item"><a href="#" id="twitter" class="text-decoration-none text-reset"><i
+                                    class="fab fa-twitter text-primary"></i> Twitter</a></li>
+                </div> -->
             </div>
 
+            <!-- left Half - Three Big Buttons -->
+            <div class="col-md-6 d-flex flex-md-column flex-sm-row justify-content-around">
+                <div class="text-center mt-5" id="profileButton">
+                    <button class="btn btn-lg btn-success flex-fill">Bookmark</button>
+                    <button class="btn btn-lg btn-danger flex-fill">Wishlist</button>
+                    <button class="btn btn-lg btn-warning flex-fill">Borrowed Book</button>
+                </div>
+            </div>
+            
         </div>
-
     </div>
     <!-- <div class="container mt-5">
         <button class="btn btn-outline-danger btn-sm float-end">Log out</button>
     </div> -->
 
     <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-4">
+    <!-- <footer class="bg-dark text-white text-center py-4">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -110,7 +120,7 @@
             </div>
         </div>
     </footer>
-    
+     -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
