@@ -37,12 +37,15 @@
 
                 <!-- Right elements -->
                 <div class="col-lg-4 col-md-3 col-sm-6">
-                    <div class="d-flex float-end">
-                        <a href="login.html" class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center"
-                            > <i class="fas fa-user-alt m-1 me-md-2"></i>
-                            <p class="d-none d-md-block mb-0">Sign in</p>
-                        </a>
-                    </div>
+                    <ul> 
+                        <% if (user) {%>
+                        <li> Welcome, <%= user.email %></li>
+                        <li> <a href = '/logout'>Logout</a></li>
+                        <%} else {%>
+                        <li><a href = '/login'>Login</a></li>
+                        <li><a href = '/signup'>Sign up</a></li>
+                        <%}; %>
+                    </ul>
                 </div>
                 <!-- Right elements -->
             </div>

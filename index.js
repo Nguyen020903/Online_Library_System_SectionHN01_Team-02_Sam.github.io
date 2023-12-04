@@ -44,9 +44,7 @@ mongoose.connect('mongodb+srv://hmyle:ingsqEe3t4CevFzo@onlinelibrarysystem.dpdir
 // For every route the status of current user will be cheked
 app.get('*', checkUser);
 
-app.get('/', (req,res) => {
-  res.render('index');
-});
+app.get('/', (req,res) => {res.render('index')});
 
 // My Account page
 app.get('/myAccount', requireAuth, async (req, res) => {

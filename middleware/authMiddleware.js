@@ -22,20 +22,22 @@ const requireAuth = (req, res, next) => {
 };
 
 // Check current User
-const checkUser = (req, res, next) => {
+const checkUser = async (req, res, next) => {
   const token = req.cookies.jwt;
 
   if (token) {
     jwt.verify(token, 'your-secret-key', async (err, decodedToken) => {
       if (err) {
-        console.log(err.message);
-        res.locals.user = null;
+        console.error(err.message);
         next();
       } else {
+        // User is authenticated, access decodedToken to get user information
+        console.log(decodedToken);
         const user = await User.findById(decodedToken.id);
+        res.locals.user = user;
         next();
       }
-    });
+    })
   } else {
     res.locals.user = null;
     next();

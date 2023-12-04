@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const session = require('express-session');
 const fs = require('fs');
-const User = require("../models/user");
+const User = require('../models/user');
 
 const maxAge = 3 * 24 * 60 * 60;
 
@@ -75,7 +75,7 @@ module.exports.signup_post = async (req, res) => {
                 const token = createToken(user._id);
 
                 // Create Cookie based on user information
-                res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+                res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
                 res.status(200).json({ user: user._id });
             })
             .catch((err) => {
@@ -106,7 +106,7 @@ module.exports.login_post = async (req, res) => {
         const token = createToken(user._id);
 
         // Create Cookie based on user information
-        res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+        res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
 
         res.status(200).json({ user: user._id });
     } catch (err) {
