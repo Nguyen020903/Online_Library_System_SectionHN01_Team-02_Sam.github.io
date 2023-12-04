@@ -26,7 +26,7 @@ const checkUser = (req, res, next) => {
   const token = req.cookies.jwt;
 
   if (token) {
-    jwt.verify(token, "user secret", async (err, decodedToken) => {
+    jwt.verify(token, "your-secret-key", async (err, decodedToken) => {
       if (err) {
         console.log(err.message);
         res.locals.user = null;

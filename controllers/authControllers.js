@@ -1,11 +1,13 @@
 const express = require('express');
 const bcrypt = require('bcrypt');   
-const User = require("../models/user");
 const jwt = require('jsonwebtoken');
 const session = require('express-session');
 const fs = require('fs');
+const User = require("../models/user");
 
-const maxAge = 60 * 60 * 24 * 7;
+const maxAge = 3 * 24 * 60 * 60;
+
+
 const createToken = (id) => {
     return jwt.sign({ id }, 'your-secret-key', {
         expiresIn: maxAge,
@@ -58,12 +60,20 @@ module.exports.signup_post = async (req, res) => {
 
         /* Save User and Return */
         newUser.save()
-            .then(() => res.status(200).json({ message: 'User registered successfully' }))
+            .then((user) => {
+                // Create Token for current user
+                const token = createToken(user._id);
+
+                // Create Cookie based on user information
+                res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+                res.status(200).json({ user: user._id });
+            })
             .catch((err) => {
                 let error = handleErrors(err);
                 res.status(500).json({ err: err.message });
             }
         );
+
     } catch (err) {
         let error = handleErrors(error);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -80,24 +90,17 @@ module.exports.login_post = async (req, res) => {
     console.log(req.body);
 
     try {
-        let user = await User.findOne({ email: email });
+        const user = await User.login(email, password);
+        res.status(200).json({ user: user._id });
 
-        if (!user) {
-            return res.status(404).json({ error: "User not found" });
-        }
+        // // Create Token for current user
+        // const token = createToken(user._id);
 
-        const validPass = await bcrypt.compare(password, user.password);
-
-        if (!validPass) {
-            return res.status(401).json({ error: "Incorrect password" });
-        }
-
-        const token = createToken(user._id);
-        res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-        res.status(200).json({ userId: user._id });
+        // // Create Cookie based on user information
+        // res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+    
     } catch (err) {
-        const error = handleErrors(error);
+        // const error = handleErrors(err);
         res.status(500).json({ error: "Internal Server Error" });
     }
-
 };
