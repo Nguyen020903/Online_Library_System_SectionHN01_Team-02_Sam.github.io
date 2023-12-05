@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { isEmail } = require('validator');
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
     userType: {
@@ -57,11 +58,29 @@ userSchema.post('save', function (doc, next) {
     next();
 });
 
-userSchema.pre('save', function (next) {
+userSchema.pre('save', async function (next) {
+    /* Salting and Hashing the Password */
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+
     console.log('User about to be created and save', this);
     next();
 });
 
+userSchema.statics.login = async function(email, password) {
+    // Find user and validate
+    const user = await this.findOne({ email });
+
+    if (user) {
+        const validPass = await bcrypt.compare(password, user.password);
+        if (validPass) {
+            return user;
+        } 
+        throw Error ('Incorrect password');
+    }
+    throw Error('Incorrect email');
+    
+};
 
 // Define a model based on the schema
 const User = mongoose.model('User', userSchema);

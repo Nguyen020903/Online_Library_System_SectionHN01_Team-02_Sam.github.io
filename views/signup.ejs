@@ -17,7 +17,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h3 class="text-center mb-4">Sign Up</h3>
-                        <form action="/signup" method="post" enctype="application/x-www-form-urlencoded" content-type="application/x-www-form-urlencoded">
+                        <form action="/signup" enctype="application/x-www-form-urlencoded" content-type="application/x-www-form-urlencoded">
                             <div class="mb-3">
                                 <label for="fullName" class="form-label">Full Name</label>
                                 <input type="text" class="form-control" name="fullName" id="fullName" placeholder="Enter your full name">
@@ -25,10 +25,12 @@
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email Address</label>
                                 <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email address">
+                                <div class="email error"></div>
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
                                 <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password">
+                                <div class="password error"></div>
                             </div>
                             <div class="mb-3">
                                 <label for="confirmPassword" class="form-label">Confirm Password</label>
@@ -48,6 +50,45 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script> 
+        const form = document.querySelector('form');
+        const emailError = document.querySelector('.email.error');
+        const passwordError = document.querySelector('.password.error');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Reset Error
+            emailError.textContent = '';
+            passwordError.textContent = '';
+
+            // Get the value
+            const email = form.email.value;
+            const password = form.password.value;
+
+            try {
+                const res = await fetch('/signup', {
+                    method: "POST",
+                    body: JSON.stringify({ email, password }),
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const data = await res.json();
+                console.log(data);
+
+                if (data.errors) {
+                    emailError.textContent = data.errors.email;
+                    passwordError.textContent = data.errors.password;
+                }
+                if (data.user) {  
+                    location.assign('/');
+                }
+
+            } catch (err) {
+            console.log(err);
+            }
+        });
+    </script>
 </body>
 
 </html>

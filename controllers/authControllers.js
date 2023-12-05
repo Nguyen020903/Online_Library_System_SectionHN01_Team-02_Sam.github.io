@@ -1,11 +1,13 @@
 const express = require('express');
-const bcrypt = require('bcrypt');   
-const User = require("../models/user");
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const session = require('express-session');
 const fs = require('fs');
+const User = require('../models/user');
 
-const maxAge = 60 * 60 * 24 * 7;
+const maxAge = 3 * 24 * 60 * 60;
+
+
 const createToken = (id) => {
     return jwt.sign({ id }, 'your-secret-key', {
         expiresIn: maxAge,
@@ -15,7 +17,19 @@ const createToken = (id) => {
 // Handle errors
 const handleErrors = (err) => {
     console.log(err.message, err.code);
-    let errors = { email: ' ', password: ' '};
+
+    let errors = { email: '', password: '' };
+
+    // Incorrect Email
+    if (err.message === 'Incorrect email') {
+        errors.email = 'That email is not registered';
+    }
+
+    // Incorrect Password
+    if (err.message === 'Incorrect password') {
+        errors.password = 'That password is invalid';
+    }
+
 
     // Duplicate Error Code
     if (err.code === 11000) {
@@ -24,11 +38,11 @@ const handleErrors = (err) => {
     }
 
     // Validation Errors
-    if (err.message.include('User validation failed')) {
-        Object.values(err.errors).forEach(({properties}) => {
+    if (err.message.includes('User validation failed')) {
+        Object.values(err.errors).forEach(({ properties }) => {
             console.log(properties);
             errors[properties.path] = properties.message;
-            
+
         });
     }
 
@@ -47,27 +61,31 @@ module.exports.signup_post = async (req, res) => {
     console.log(req.body);
 
     try {
-        /* Salting and Hashing the Password */
-        const salt = await bcrypt.genSalt(10);
-        const hashedPass = await bcrypt.hash(req.body.password, salt);
-
         /* Create a new user */
         const newUser = new User({
             userType: req.body.userType,
             userFullName: req.body.fullName,
             email: req.body.email,
-            password: hashedPass, // Save the hashed password
+            password: req.body.password, // Save the hashed password
             isAdmin: req.body.isAdmin,
         });
 
         /* Save User and Return */
         newUser.save()
-            .then(() => res.status(200).json({ message: 'User registered successfully' }))
+            .then((user) => {
+                // Create Token for current user
+                const token = createToken(user._id);
+
+                // Create Cookie based on user information
+                res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+                res.status(200).json({ user: user._id });
+            })
             .catch((err) => {
                 let error = handleErrors(err);
                 res.status(500).json({ err: err.message });
             }
-        );
+            );
+
     } catch (err) {
         let error = handleErrors(error);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -84,29 +102,24 @@ module.exports.login_post = async (req, res) => {
     console.log(req.body);
 
     try {
-        let user = await User.findOne({ email: email });
+        const user = await User.login(email, password);
 
-        if (!user) {
-            return res.status(404).json({ error: "User not found" });
-        }
-
-        const validPass = await bcrypt.compare(password, user.password);
-
-        if (!validPass) {
-            return res.status(401).json({ error: "Incorrect password" });
-        }
-
+        // Create Token for current user
         const token = createToken(user._id);
-        res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-        res.status(200).json({ userId: user._id });
-    } catch (err) {
-        const error = handleErrors(error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
 
+        // Create Cookie based on user information
+        res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+
+        res.status(200).json({ user: user._id });
+    } catch (err) {
+        let error = handleErrors(err);
+        res.status(400).json({ error });
+    }
 };
 
-module.exports.logout_get = (req, res) => {
-    res.cookie('jwt', '', {maxAge: 1});
+// Function for Logout (Get method)
+module.exports.logout_get = async (req, res) => {
+    res.cookie('jwt', '',  { maxAge: 1}); // Replace with blank cookie with small expiry time
     res.redirect('/');
-}
+};
+
