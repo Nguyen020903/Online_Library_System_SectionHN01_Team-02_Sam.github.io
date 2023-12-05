@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const routes = require('./routes/authRoutes');
+const authRoutes = require('./routes/authRoutes');
+const bookRoutes = require('./routes/bookRoutes');
 const app = express();
 const port = 3000;
 const jwt = require('jsonwebtoken');
@@ -23,7 +24,11 @@ const {
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
-app.use(routes);
+
+app.get('*', checkUser);
+
+app.use(authRoutes);
+app.use(bookRoutes);
 
 // using session to implement shopping cart
 // app.use(
@@ -42,7 +47,7 @@ mongoose.connect('mongodb+srv://hmyle:ingsqEe3t4CevFzo@onlinelibrarysystem.dpdir
 .catch((error) => console.log(error.message));
 
 // For every route the status of current user will be cheked
-app.get('*', checkUser);
+// app.get('*', checkUser);
 
 app.get('/', (req,res) => {res.render('index')});
 
