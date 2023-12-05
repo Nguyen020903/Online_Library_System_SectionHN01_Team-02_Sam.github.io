@@ -13,4 +13,7 @@ router.post('/login', authController.login_post);
 // User Logout
 router.get('/logout', authController.logout_get);
 
+/* User Logout */
+router.get("/logout", authController.logout_get);
+router.post("/logout", authController.logout_post);
 module.exports = router;

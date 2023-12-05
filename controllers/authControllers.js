@@ -17,6 +17,7 @@ const createToken = (id) => {
 // Handle errors
 const handleErrors = (err) => {
     console.log(err.message, err.code);
+
     let errors = { email: '', password: '' };
 
     // Incorrect Email
@@ -29,8 +30,9 @@ const handleErrors = (err) => {
         errors.password = 'That password is invalid';
     }
 
+
     // Duplicate Error Code
-    if (err.code == 11000) {
+    if (err.code === 11000) {
         errors.email = 'That email has already registered';
         return errors;
     }
@@ -120,3 +122,4 @@ module.exports.logout_get = async (req, res) => {
     res.cookie('jwt', '',  { maxAge: 1}); // Replace with blank cookie with small expiry time
     res.redirect('/');
 };
+
