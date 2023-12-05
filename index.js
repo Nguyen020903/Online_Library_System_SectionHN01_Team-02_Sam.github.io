@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const routes = require('./routes/authRoutes');
+const authRoutes = require('./routes/authRoutes');
+const bookRoutes = require('./routes/bookRoutes');
 const app = express();
 const port = 3000;
 const jwt = require('jsonwebtoken');
@@ -14,18 +15,22 @@ app.use(cookieParser());
 // Import model
 const User = require('./models/user');
 const Book = require('./models/book');
-const BookCategory = require('./models/BookCategory');
-const BookTransaction = require('./models/BookTransaction');
+const BookCategory = require('./models/bookCategory');
+const BookTransaction = require('./models/bookTransaction');
 const {
     requireAuth,
     checkUser,
 } = require('./middleware/authMiddleware');
 
+app.set('view engine', 'ejs');
 app.use(express.static('public'));
-app.use(routes);
+
+app.get('*', checkUser);
+
+app.use(authRoutes);
+app.use(bookRoutes);
 
 // using session to implement shopping cart
-
 // app.use(
 //   session({
 //     secret: 'your-secret-key',
@@ -36,14 +41,13 @@ app.use(routes);
 //   })
 // );
 
-
 // Database Connection
 mongoose.connect('mongodb+srv://hmyle:ingsqEe3t4CevFzo@onlinelibrarysystem.dpdir84.mongodb.net/?retryWrites=true&w=majority')
 .then(() => console.log('Connected to MongoDB Atlas'))
 .catch((error) => console.log(error.message));
 
 // For every route the status of current user will be cheked
-app.get('*', checkUser);
+// app.get('*', checkUser);
 
 app.get('/', (req,res) => {res.render('index')});
 

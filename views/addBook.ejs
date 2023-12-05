@@ -1,0 +1,40 @@
+<form action="/addbook" enctype="application/x-www-form-urlencoded">
+    <div class="mb-3">
+        <label for="bookTitle" class="form-label">bookTitle</label>
+        <input type="text" class="form-control" name="bookTitle" id="bookTitle"
+            placeholder="Enter your book title">
+        <div class="title error"></div>
+    </div>
+    <div class="mb-3">
+        <label for="author" class="form-label">Author</label>
+        <input type="text" class="form-control" name="author" id="author"
+            placeholder="Enter book Author">
+        <div class="author error"></div>
+    </div>
+    <div class="d-grid mb-3">
+        <button type="submit" class="btn btn-success">Author</button>
+    </div>
+</form>
+
+<script>
+    const form = document.querySelector('form');
+    form.addEventListener('submit' , async (e) => {
+        e.preventDefault();
+
+        const bookTitle = form.bookTitle.value;
+        const author = form.author.value;
+
+        try {
+            const res = await fetch('/addbook', {
+                method: 'POST',
+                body: JSON.stringify({ bookTitle, author }),
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const data = await res.json();
+            console.log(data);
+        } catch (err) {
+            console.log(err);
+        }
+    })
+</script>
