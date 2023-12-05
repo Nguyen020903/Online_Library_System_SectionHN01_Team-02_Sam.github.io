@@ -14,18 +14,18 @@ app.use(cookieParser());
 // Import model
 const User = require('./models/user');
 const Book = require('./models/book');
-const BookCategory = require('./models/BookCategory');
-const BookTransaction = require('./models/BookTransaction');
+const BookCategory = require('./models/bookCategory');
+const BookTransaction = require('./models/bookTransaction');
 const {
     requireAuth,
     checkUser,
 } = require('./middleware/authMiddleware');
 
+app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(routes);
 
 // using session to implement shopping cart
-
 // app.use(
 //   session({
 //     secret: 'your-secret-key',
@@ -35,7 +35,6 @@ app.use(routes);
 //     cookie: { secure: false },
 //   })
 // );
-
 
 // Database Connection
 mongoose.connect('mongodb+srv://hmyle:ingsqEe3t4CevFzo@onlinelibrarysystem.dpdir84.mongodb.net/?retryWrites=true&w=majority')
