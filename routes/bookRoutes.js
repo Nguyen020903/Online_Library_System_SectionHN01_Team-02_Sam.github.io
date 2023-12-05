@@ -17,6 +17,10 @@ router.get('/addbook', checkUser, isAdmin, bookController.addbook_get);
 router.post('/addbook', checkUser, isAdmin, bookController.addbook_post);
 
 // Modify book
+router.get('/update/:id', checkUser, isAdmin, bookController.updatebook_get);
+router.post('/update/:id', checkUser, isAdmin, bookController.updatebook_post);
 
+// Delete book
+router.post('/delete/:id', checkUser, isAdmin, bookController.deletebook);
 
 module.exports = router;

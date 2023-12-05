@@ -46,5 +46,15 @@ const bookSchema = new mongoose.Schema(
   }
 );
 
+bookSchema.post('save', function (doc, next) {
+  console.log('New book was created & saved', doc);
+  next();
+});
+
+bookSchema.post('updateOne', async function (doc, next) {
+  console.log('Book has been updated', doc);
+  next();
+});
+
 const Book = mongoose.model("Book", bookSchema);
 module.exports = Book;
