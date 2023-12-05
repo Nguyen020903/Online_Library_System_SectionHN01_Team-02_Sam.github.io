@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
         enum: ['Manager','Reader'],
         require: true
     },
-    userFullName: {
+    fullName: {
         type: String,
         require: [true, 'Please enter your full name']
     },
