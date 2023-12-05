@@ -23,4 +23,11 @@ router.post('/update/:id', checkUser, isAdmin, bookController.updatebook_post);
 // Delete book
 router.post('/delete/:id', checkUser, isAdmin, bookController.deletebook);
 
+//Route for author, category and publisher
+router.get('/author',checkUser,isAdmin, bookController.author_get);
+router.post('/author',isAdmin, bookController.author_post);
+router.get('/category',checkUser,isAdmin, bookController.category_get);
+router.post('/category',isAdmin, bookController.category_post);
+router.get('/publisher',checkUser,isAdmin,bookController.publisher_get);
+router.post('/publisher',isAdmin, bookController.publisher_post);
 module.exports = router;

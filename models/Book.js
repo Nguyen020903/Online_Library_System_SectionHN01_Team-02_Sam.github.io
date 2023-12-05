@@ -12,12 +12,16 @@ const bookSchema = new mongoose.Schema(
       require: true,
     },
     publisher: {
-      type: String,
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'publisher'
+    },
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'author'
     },
     numberOfPages: {
-        type: Number,
-        required: true,
+      type: Number,
+      required: true,
     },
     bookCountAvailable: {
       type: Number,
@@ -28,18 +32,20 @@ const bookSchema = new mongoose.Schema(
       default: "Available",
       enum: ['Available', 'Borrowed'],
     },
-    categories: [
+    category: 
       {
         type: mongoose.Types.ObjectId,
         ref: "BookCategory",
       },
-    ],
     transactions: [
       {
         type: mongoose.Types.ObjectId,
         ref: "BookTransaction",
       },
     ],
+    description: {
+      type: String
+    },
   },
   {
     timestamps: true,

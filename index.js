@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
 const bookRoutes = require('./routes/bookRoutes');
 const app = express();
-const port = 3000;
+const port = 4000;
 const jwt = require('jsonwebtoken');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -49,7 +49,7 @@ mongoose.connect('mongodb+srv://hmyle:ingsqEe3t4CevFzo@onlinelibrarysystem.dpdir
 // For every route the status of current user will be cheked
 // app.get('*', checkUser);
 
-app.get('/', (req,res) => {res.render('index')});
+app.get('/', checkUser, (req,res) => {res.render('index')});
 
 // My Account page
 app.get('/myAccount', requireAuth, async (req, res) => {
