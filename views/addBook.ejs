@@ -59,6 +59,7 @@
     const titleError = document.querySelector('.title.error');
     const numberOfPagesError = document.querySelector('.numberOfPages.error');
     const bookCountAvailableError = document.querySelector('.bookCountAvailable.error');
+    const descriptionError = document.querySelector('.description.error');
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -67,6 +68,7 @@
         titleError.textContent = '';
         numberOfPagesError.textContent = '';
         bookCountAvailableError.textContent = '';
+        descriptionError.textContent = '';
 
         //get value
         const ISBN = form.ISBN.value;
@@ -100,9 +102,10 @@
                 titleError.textContent = data.errors.titleError;
                 numberOfPagesError.textContent = data.errors.numberOfPages;
                 bookCountAvailableError.textContent = data.errors.bookCountAvailable;
+                descriptionError.textContent = data.errors.description;
             }
             else{
-                titleError.textContent = ('Added successfully');
+                descriptionError.textContent = ('Added successfully');
             }
         }
         catch (err){

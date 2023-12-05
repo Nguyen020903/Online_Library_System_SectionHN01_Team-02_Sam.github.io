@@ -55,6 +55,7 @@ module.exports.addbook_get = async (req, res) => {
 };
 
 module.exports.addbook_post = async (req, res) => {
+    console.log('hi');
     const {ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description} = req.body;
     try {
         const book = await Book.create({ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description});

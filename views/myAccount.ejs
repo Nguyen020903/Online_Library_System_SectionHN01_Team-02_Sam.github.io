@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
-
+<%- include('partials/header'); -%>
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg bg-success">
@@ -44,7 +44,12 @@
             </div>
         </div>
     </nav>
-
+        <a href="/borrow" class="btn">Book borrowed</a>
+        <a href="/favourite" class="btn">Favourite</a>
+        <a href="/author" class="btn">Add author</a>
+        <a href="/addbook" class="btn">Add book</a>
+        <a href="/category" class="btn">Add category</a>
+        <a href="/publisher" class="btn">Add publisher</a>
     <!-- main body -->
     <div class="container mt-5">
         <div class="row">
