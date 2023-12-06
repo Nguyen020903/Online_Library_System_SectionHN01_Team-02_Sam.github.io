@@ -7,7 +7,10 @@
 }
 
 body {
-    background-color: #ffff;
+    background-color: #ECE3CE;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .logo img {
@@ -40,12 +43,16 @@ header {
     position: relative;
 }
 
+#Web-name {
+    color: #fff;
+}
+
 nav {
     display: flex;
     align-items: center;
     justify-content: space-around;
     padding: 0 30px;
-    background-color: #333;
+    background-color: #3A4D39;
     z-index: 1;
     width: 100%;
     position: fixed;
@@ -60,6 +67,7 @@ nav ul {
 }
 
 nav ul li a {
+    background-color: #3A4D39;
     height: 40px;
     line-height: 43px;
     margin: 8px;
@@ -94,23 +102,58 @@ nav .navbar-toggle {
     justify-content: space-around;
     align-items: center;
     margin-top: 100px;
+    flex: 1;
 }
 #editBtn{
     margin-top: 20px;
+    margin-bottom: 20px;
     margin-left: 20px;
     padding: 10px;
     border-radius: 5px;
-    background-color: #28e901;
+    background-color: #4F6F52;
     color: #fff;
     border: none;
     cursor: pointer;
     transition: 0.3s ease-in-out;
 }
+
+#editBtn:hover{
+    background-color: #3A4D39;
+    color: #fff;
+}
+
+#editBtn:active{
+    background-color: #2f3d2e;
+    color: #fff;
+}
+
+.btn {
+    background-color: #4F6F52;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.btn:hover {
+    background-color: #3A4D39;
+    color: #fff;
+}
+
+.btn:active {
+    background-color: #2f3d2e;
+    color: #fff;
+}
+
 .profilePic {
     width: 200px;
     height: 200px;
     border-radius: 50%;
     border: 2px solid #333;
+}
+
+#generalInfoList li{
+    padding: 5px 0 5px 0;
 }
 
 .leftContainer {
@@ -121,13 +164,41 @@ nav .navbar-toggle {
     width: 50%;
 }
 
-.leftContainer{
+.rightContainer{
     width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+
+.main_btn{
+    margin-top: 50px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #4F6F52;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    width: 120px;
+    height: 60px;
+}
+
+.main_btn:hover{
+    background-color: #3A4D39;
+    color: #fff;
+}
+
+.main_btn:active{
+    background-color: #2f3d2e;
+    color: #fff;
+}
+
 /* Footer */
 footer {
     padding: 25px 0;
-    background-color: #333;
+    background-color: #3A4D39;
     margin-top: 50px;
 }
 
@@ -168,7 +239,7 @@ footer {
         top: 65px;
         left: 0px;
         background-color: #fff;
-        border-bottom: 4px solid #596e79;
+        border-bottom: none;
         width: 100%;
     }
 
@@ -183,8 +254,9 @@ footer {
         align-items: center;
         margin: 0px;
         padding: 25px;
-        border: 1px solid #596e79;
-        color: #333;
+        border: 1px solid #4F6F52;
+        background-color: #4F6F52;
+        color: #fff;
     }
 
     .navbar-icon {

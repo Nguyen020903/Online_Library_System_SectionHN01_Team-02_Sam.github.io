@@ -14,7 +14,7 @@
         <nav>
             <a href="index.html" class="logo">
                 <img src="\Assets\Images\logo.png" alt="logo">
-                <h3>The Book Store</h3>
+                <h3 id="Web-name">The Book Store</h3>
             </a>
             <input class="navbar-toggle" type="checkbox" id="navbar-toggle">
             <label class="navbar-icon" for="navbar-toggle">
@@ -30,11 +30,10 @@
     </header>
     <!-- Main Body -->
     <div class="main-part">
-        <!-- Right Half - General Information, Contact Information, Profile Image, and Name -->
-        <div class="col-md-6 rightContainer">
+        <!-- Left Half - General Information, Contact Information, Profile Image, and Name -->
+        <div class="col-md-6 leftContainer">
             <div class="text-center">
-                <img src="/Assets/Images/Logo.png" alt="Profile Picture" class="profilePic"
-                    id="profilePic">
+                <img src="/Assets/Images/Logo.png" alt="Profile Picture" class="profilePic" id="profilePic">
                 <h2 id="name">Your Name</h2>
                 <button id="editBtn">Edit Profile</button>
             </div>
@@ -53,19 +52,16 @@
             </div>
 
         </div>
-        <!-- Left Half - Three Big Buttons -->
-
-        <div class="leftContainer col-md-6">
-            <div class="text-center mt-5" id="profileButton">
-                <div>
-                    <button class="btn">Bookmark</button>
-                </div>
-                <div>
-                    <button class="btn">Wishlist</button>
-                </div>
-                <div>
-                    <button class="btn">Borrowed Book</button>
-                </div>
+        <!-- Right Half - Three Big Buttons -->
+        <div class="rightContainer col-md-6">
+            <div>
+                <button class="main_btn">Bookmark</button>
+            </div>
+            <div>
+                <button class="main_btn">Wishlist</button>
+            </div>
+            <div>
+                <button class="main_btn">Borrowed Book</button>
             </div>
         </div>
     </div>
