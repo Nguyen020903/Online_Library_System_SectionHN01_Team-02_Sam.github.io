@@ -5,125 +5,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="profile.css">
 </head>
 
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg bg-success">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#"><i class="fas fa-home text-white"></i></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <img src="\Assets\Images\logo.png" alt="logo">
+                <h3 id="Web-name">The Book Store</h3>
+            </a>
+            <input class="navbar-toggle" type="checkbox" id="navbar-toggle">
+            <label class="navbar-icon" for="navbar-toggle">
+                <span class="hamburger"></span>
+            </label>
+            <ul class="navbar">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Something</a></li>
+                <li><a href="#">Something</a></li>
+                <li><a href="#">Something</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-- Main Body -->
+    <div class="main-part">
+        <!-- Left Half - General Information, Contact Information, Profile Image, and Name -->
+        <div class="col-md-6 leftContainer">
+            <div class="text-center">
+                <img src="/Assets/Images/Logo.png" alt="Profile Picture" class="profilePic" id="profilePic">
+                <h2 id="name">Your Name</h2>
+                <button id="editBtn">Edit Profile</button>
+            </div>
+            <div>
+                <h3 class="heading">General Information</h3>
+                <ul id="generalInfoList">
+                    <li>Full Name: <span id="fullName">Your Full Name</span></li>
+                    <li>Date of Birth: <span id="dob">January 1, 1990</span></li>
+                    <li>Gender: <span id="gender">Male</span></li>
+                    <li>Email Address: <span id="email">your.email@example.com</span>
+                        <button class="btn btn-outline-secondary btn-sm float-end "
+                            onclick="copyToClipboard('email')">Copy</button>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Others</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Others</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink"
-                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown link
-                        </a>
-                        <ul class="dropdown-menu bg-success border-0" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item bg-success text-white" href="#">Something else here</a></li>
-                            <li><a class="dropdown-item bg-success text-white" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
+                    <li>Phone Number: <span id="phone">123-456-7890</span></li>
                 </ul>
             </div>
+
         </div>
-    </nav>
-
-    <!-- main body -->
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Right Half - General Information, Contact Information, Profile Image, and Name -->
-            <div class="col-md-6">
-                <div class="text-center">
-                    <img src="/Assets/Images/Logo.png" alt="Profile Picture" class="img-fluid rounded-circle"
-                        id="profilePic">
-                    <h2 id="name">Your Name</h2>
-                    <button class="btn btn-primary" id="editBtn">Edit Profile</button>
-                </div>
-
-                <div>
-                    <h3>General Information</h3>
-                    <ul id="generalInfoList" class="list-group">
-                        <li class="list-group-item">Full Name: <span id="fullName">Your Full Name</span></li>
-                        <li class="list-group-item">Date of Birth: <span id="dob">January 1, 1990</span></li>
-                        <li class="list-group-item">Gender: <span id="gender">Male</span></li>
-                        <li class="list-group-item">Email Address: <span id="email">your.email@example.com</span>
-                            <button class="btn btn-outline-secondary btn-sm float-end "
-                                onclick="copyToClipboard('email')">Copy</button>
-                        </li>
-                        <li class="list-group-item">Phone Number: <span id="phone">123-456-7890</span></li>
-                    </ul>
-                </div>
-                <!-- <div>
-                    <h3>Contact Information</h3>
-                    <ul id="contactList" class="list-group">
-                        <li class="list-group-item"><a href="#" id="facebook" class="text-decoration-none text-reset"><i
-                                    class="fab fa-facebook text-primary"></i> Facebook</a></li>
-                        <li class="list-group-item"><a href="#" id="instagram"
-                                class="text-decoration-none text-reset"><i class="fab fa-instagram text-danger"></i>
-                                Instagram</a></li>
-                        <li class="list-group-item"><a href="#" id="discord" class="text-decoration-none text-reset"><i
-                                    class="fab fa-discord text-primary"></i> Discord</a></li>
-                        <li class="list-group-item"><a href="#" id="twitter" class="text-decoration-none text-reset"><i
-                                    class="fab fa-twitter text-primary"></i> Twitter</a></li>
-                </div> -->
+        <!-- Right Half - Three Big Buttons -->
+        <div class="rightContainer col-md-6">
+            <div>
+                <button class="main_btn">Bookmark</button>
             </div>
-
-            <!-- left Half - Three Big Buttons -->
-            <div class="col-md-6 d-flex flex-md-column flex-sm-row justify-content-around">
-                <div class="text-center mt-5" id="profileButton">
-                    <button class="btn btn-lg btn-success flex-fill">Bookmark</button>
-                    <button class="btn btn-lg btn-danger flex-fill">Wishlist</button>
-                    <button class="btn btn-lg btn-warning flex-fill">Borrowed Book</button>
-                </div>
+            <div>
+                <button class="main_btn">Wishlist</button>
             </div>
-            
+            <div>
+                <button class="main_btn">Borrowed Book</button>
+            </div>
         </div>
     </div>
-    <!-- <div class="container mt-5">
-        <button class="btn btn-outline-danger btn-sm float-end">Log out</button>
-    </div> -->
-
-    <!-- Footer -->
-    <!-- <footer class="bg-dark text-white text-center py-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h3>Contact Information</h3>
-                    <ul class="list-inline">
-                        <li class="list-inline-item"><a href="#" class="text-decoration-none text-reset"><i
-                                    class="fab fa-facebook text-primary"></i> Facebook</a></li>
-                        <li class="list-inline-item"><a href="#" class="text-decoration-none text-reset"><i
-                                    class="fab fa-instagram text-danger"></i> Instagram</a></li>
-                        <li class="list-inline-item"><a href="#" class="text-decoration-none text-reset"><i
-                                    class="fab fa-discord text-primary"></i> Discord</a></li>
-                        <li class="list-inline-item"><a href="#" class="text-decoration-none text-reset"><i
-                                    class="fab fa-twitter text-primary"></i> Twitter</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <footer>
+        <ul class="footer-list">
+            <li><a href="About_Us.html">About Us</a></li>
+            <li><a href="Privacy.html">Privacy Policy</a></li>
+            <li><a href="term.html">Terms</a></li>
+            <li><a href="copyright.html">Copyright</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
     </footer>
-     -->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
     <script src="script.js"></script>
 </body>
 
