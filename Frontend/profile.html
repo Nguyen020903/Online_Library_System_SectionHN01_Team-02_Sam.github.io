@@ -44,8 +44,8 @@
                     <li>Date of Birth: <span id="dob">January 1, 1990</span></li>
                     <li>Gender: <span id="gender">Male</span></li>
                     <li>Email Address: <span id="email">your.email@example.com</span>
-                        <button class="btn btn-outline-secondary btn-sm float-end "
-                            onclick="copyToClipboard('email')">Copy</button>
+                        <!-- <button class="btn btn-outline-secondary btn-sm float-end "
+                            onclick="copyToClipboard('email')">Copy</button> -->
                     </li>
                     <li>Phone Number: <span id="phone">123-456-7890</span></li>
                 </ul>
@@ -53,18 +53,19 @@
 
         </div>
         <!-- Right Half - Three Big Buttons -->
-        <div class="rightContainer col-md-6">
+        <div class="rightContainer">
             <div>
-                <button class="main_btn">Bookmark</button>
+                <button class="main_btn" id="btn_1">Bookmark</button>
             </div>
             <div>
-                <button class="main_btn">Wishlist</button>
+                <button class="main_btn" id="btn_2">Wishlist</button>
             </div>
             <div>
-                <button class="main_btn">Borrowed Book</button>
+                <button class="main_btn" id="btn_3">Borrowed Book</button>
             </div>
         </div>
     </div>
+    <!-- footer -->
     <footer>
         <ul class="footer-list">
             <li><a href="About_Us.html">About Us</a></li>
