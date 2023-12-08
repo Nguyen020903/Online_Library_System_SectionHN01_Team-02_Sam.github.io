@@ -107,7 +107,7 @@ module.exports.deletebook = async (req, res) => {
         
         // Remove book from Category
         Category.update(
-            { _id: publisher },
+            { _id: category },
             { $pull: { 'book': {_id: req.params.id} }}
         );
 
