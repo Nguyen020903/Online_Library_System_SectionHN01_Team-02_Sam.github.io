@@ -94,12 +94,38 @@ module.exports.updatebook_post = (req, res) => {
 
 // Delete book
 module.exports.deletebook = async (req, res) => {
-    // let author = await Book.findOne({ _id: req.params.id }, (book) => {
-    //     return book.author;
-    // });
+    try {
+        let author, category, publisher = await Book.findOne({ _id: req.params.id }, (book) => {
+            return book.author, book.category, book.publisher;
+        });
 
-    // Author.findOneAndUpdate({author}, {})
-    // Book.deleteOne({ _id: req.params.id });
+        // Remove book from Author
+        Author.update(
+            { _id: author }, 
+            { $pull: { 'book': {_id: req.params.id} }}
+        );
+        
+        // Remove book from Category
+        Category.update(
+            { _id: publisher },
+            { $pull: { 'book': {_id: req.params.id} }}
+        );
+
+        // Remove book from Publisher
+        Publisher.update(
+            { _id: publisher },
+            { $pull: { 'book': {_id: req.params.id} }}
+        );
+        
+        // Remove book
+        Book.deleteOne({ _id: req.params.id });
+
+        res.status(200).json('')
+
+    } catch (err) {
+        const errors = handleErrors(err);
+        res.status(400).json({ errors });
+    }
 }
 
 // get and post for author, category, publisher
