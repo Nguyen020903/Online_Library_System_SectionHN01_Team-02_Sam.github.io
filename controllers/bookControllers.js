@@ -78,7 +78,7 @@ module.exports.updatebook_get = (req, res) => {
 
 module.exports.updatebook_post = (req, res) => {
     const { ISBN, title, publisher, numberOfPages, bookCountAvailable } = req.body;
-    console.log(ISBN, title, publisher, numberOfPages, bookCountAvailable);
+    console.log (ISBN, title, publisher, numberOfPages, bookCountAvailable);
     
     // Update book in database
     Book.updateOne( {_id : req.params.id }, {
@@ -93,8 +93,13 @@ module.exports.updatebook_post = (req, res) => {
 }
 
 // Delete book
-module.exports.deletebook = (req, res) => {
-    Book.deleteOne({ _id: req.params.id });
+module.exports.deletebook = async (req, res) => {
+    // let author = await Book.findOne({ _id: req.params.id }, (book) => {
+    //     return book.author;
+    // });
+
+    // Author.findOneAndUpdate({author}, {})
+    // Book.deleteOne({ _id: req.params.id });
 }
 
 // get and post for author, category, publisher
