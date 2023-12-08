@@ -61,11 +61,10 @@ module.exports.signup_post = async (req, res) => {
     try {
         /* Create a new user */
         const newUser = new User({
-            userType: req.body.userType,
-            userFullName: req.body.fullName,
+            fullName: req.body.fullName,
             email: req.body.email,
             password: req.body.password, // Save the hashed password
-            isAdmin: req.body.isAdmin,
+            isAdmin: Boolean(req.body.isAdmin),
         });
 
         /* Save User and Return */

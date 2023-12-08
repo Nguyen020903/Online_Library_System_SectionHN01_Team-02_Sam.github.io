@@ -2,20 +2,14 @@ const mongoose = require('mongoose');
 
 const bookTransactionSchema = new mongoose.Schema({
     bookId: {
-        type: String,
-        require: true
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "book",
+        require: true,
     },
     borrowerId: { //EmployeeId or AdmissionId
-        type: String,
-        require: true
-    },
-    bookName: {
-        type: String,
-        require: true
-    },
-    borrowerName: {
-        type: String,
-        require: true
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "user",
+        require: true,
     },
     transactionType: { //Issue or Reservation
         type: String,
@@ -30,11 +24,12 @@ const bookTransactionSchema = new mongoose.Schema({
         require: true,
     },
     returnDate: {
-        type: String
+        type: String,
     },
     transactionStatus: {
         type: String,
-        default: "Active"
+        default: "Active",
+        enum: ['Active', 'Inactive'],
     }
 },
     {

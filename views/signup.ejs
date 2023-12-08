@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
-
+<%- include('partials/header'); -%>
 <body class="d-flex align-items-center justify-content-center" style="min-height: 100vh;">
 
     <div class="container">
@@ -22,23 +22,35 @@
                                 <label for="fullName" class="form-label">Full Name</label>
                                 <input type="text" class="form-control" name="fullName" id="fullName" placeholder="Enter your full name">
                             </div>
+
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email Address</label>
                                 <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email address">
                                 <div class="email error"></div>
                             </div>
+
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
                                 <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password">
                                 <div class="password error"></div>
                             </div>
+
                             <div class="mb-3">
                                 <label for="confirmPassword" class="form-label">Confirm Password</label>
                                 <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirm your password">
                             </div>
+                            <div class="mb-3">
+                                <lable for="isAdmin">UserType</lable>
+                                <input type="radio" id="Reader" name="isAdmin" value="true" checked="true">
+                                <label for="Reader">Reader</label><br>
+                                <input type="radio" id="Manager" name="isAdmin" value="false">
+                                <label for="Manager">Manager</label>
+                                <div class="isAdmin error"></div>
+                            </div>
                             <div class="d-grid mb-3">
                                 <button type="submit" class="btn btn-success">Sign Up</button>
                             </div>
+                            
                         </form>
                         <div class="text-center">
                             <p class="mb-0">Already have an account? <a href="/login">Login</a></p>
@@ -63,13 +75,15 @@
             passwordError.textContent = '';
 
             // Get the value
+            const fullName = form.fullName.value;
             const email = form.email.value;
             const password = form.password.value;
+            const isAdmin = form.isAdmin.value;
 
             try {
                 const res = await fetch('/signup', {
                     method: "POST",
-                    body: JSON.stringify({ email, password }),
+                    body: JSON.stringify({ fullName, email, password, isAdmin }),
                     headers: { 'Content-Type': 'application/json' }
                 });
 

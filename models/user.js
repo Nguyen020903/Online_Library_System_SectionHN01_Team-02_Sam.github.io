@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
         enum: ['Manager','Reader'],
         require: true
     },
-    userFullName: {
+    fullName: {
         type: String,
         require: [true, 'Please enter your full name']
     },
@@ -53,20 +53,19 @@ const userSchema = new mongoose.Schema({
         timestamps: true
 });
 
+userSchema.pre('save', async function (next) {
+    /* Salting and Hashing the Password */
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+});
+
 userSchema.post('save', function (doc, next) {
     console.log('New User was created & saved', doc);
     next();
 });
 
-userSchema.pre('save', async function (next) {
-    /* Salting and Hashing the Password */
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-
-    console.log('User about to be created and save', this);
-    next();
-});
-
+// User method
 userSchema.statics.login = async function(email, password) {
     // Find user and validate
     const user = await this.findOne({ email });

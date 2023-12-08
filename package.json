@@ -18,6 +18,7 @@
     "fs": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.1",
+    "nodemon": "^3.0.2",
     "validator": "^13.11.0"
   }
 }
