@@ -66,7 +66,6 @@ module.exports.addbook_get = async (req, res) => {
 };
 
 module.exports.addbook_post = async (req, res) => {
-    console.log('hi');
     const { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description } = req.body;
     try {
         const book = await Book.create({ ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description });
@@ -83,8 +82,17 @@ module.exports.addbook_post = async (req, res) => {
 };
 
 // Update book
-module.exports.updatebook_get = (req, res) => {
-    res.render('updateBook');
+module.exports.updatebook_get = async (req, res) => {
+    let book = await Book.findOne({ _id: req.params.id });
+    let authors = await Author.find();
+    let categories = await Category.find();
+    let publishers = await Publisher.find();
+
+    if (book) {
+        res.render('updateBook', { book, authors, categories, publishers });
+    } else {
+        res.send('Book not found.')
+    }
 }
 
 // Update book
@@ -176,7 +184,7 @@ module.exports.deletebook = async (req, res) => {
     }
 }
 
-// get and post for author, category, publisher
+// Get and post for author, category, publisher
 module.exports.author_get = (req, res) => {
     res.render('author');
 }
