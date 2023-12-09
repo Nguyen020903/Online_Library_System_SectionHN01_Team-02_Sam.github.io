@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
 const bookRoutes = require('./routes/bookRoutes');
 const app = express();
-const port = 4000;
+const port = 3000;
 const jwt = require('jsonwebtoken');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -14,9 +14,6 @@ app.use(cookieParser());
 
 // Import model
 const User = require('./models/user');
-const Book = require('./models/book');
-const BookCategory = require('./models/bookCategory');
-const BookTransaction = require('./models/bookTransaction');
 const {
     requireAuth,
     checkUser,

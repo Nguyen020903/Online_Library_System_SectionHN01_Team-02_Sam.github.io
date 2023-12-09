@@ -12,11 +12,14 @@ const isAdmin = async (req, res, next) => {
     }
 };
 
+// Book detail page
+router.get('/bookDetail/:id', checkUser, isAdmin, bookController.bookdetail_get);
+
 // Add book
 router.get('/addbook', checkUser, isAdmin, bookController.addbook_get);
 router.post('/addbook', checkUser, isAdmin, bookController.addbook_post);
 
-// Modify book
+// Update book
 router.get('/update/:id', checkUser, isAdmin, bookController.updatebook_get);
 router.post('/update/:id', checkUser, isAdmin, bookController.updatebook_post);
 
