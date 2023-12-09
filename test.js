@@ -10,12 +10,6 @@ mongoose.connect(`${mongoURI}/${databaseName}`, {
   useUnifiedTopology: true,
 });
 
-const User = mongoose.model('User', {
-  email: String,
-  // ... other user schema fields
-  updatedAt: Date,
-});
-
 const agenda = new Agenda({ db: { address: mongoURI, collection: 'agendaJobs' } });
 
 agenda.define('deleteInactiveUsers', async (job) => {

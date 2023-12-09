@@ -88,6 +88,41 @@
             </div>
         </div>
     </nav>
+
+    <h1>Book List</h1>
+    
+    <div class="row justify-content-start g-3">
+        <% books.slice().reverse().forEach(book => { %>
+            <div class="col-lg-4 col-md-6 col-sm-12 d-flex">
+                <div class="card px-3">
+                    <a href="/bookDetailPage/<%= book._id %>">
+                        <!-- Assuming you have an image property for books -->
+                        <img src="/images/<%= book.image %>" alt="<%= book.title %>" class="ratio ratio-1x1" />
+                    </a>
+                    <div class="card-body text-center">
+                        <h4 class="card-title overflow-hidden">
+                            <%= book.title %>
+                        </h4>
+                        <p class="lead card-subtitle">
+                            <%= book.author %>
+                        </p>
+                        <p class="display-5 my-4 text-muted fw-bold">$<%= book.price %></p>
+                        <form method="post" action="/addToCart">
+                            <input type="hidden" name="book_id" value="<%= book._id %>" />
+                            <input type="hidden" name="book_title" value="<%= book.title %>" />
+                            <input type="hidden" name="book_price" value="<%= book.price %>" />
+                            <button type="submit" class="btn btn-outline-dark btn-lg my-2 rounded-pill">
+                                Add to Cart
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+
+
+
 </body>
 
 <footer>
