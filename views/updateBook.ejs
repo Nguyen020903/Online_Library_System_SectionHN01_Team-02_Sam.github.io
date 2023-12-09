@@ -1,0 +1,56 @@
+<%- include('partials/header'); -%>
+
+<form action="/addBook">
+    <h2>Add Book</h2>
+    <lable for="ISBN">ISBN</lable>
+    <input type="text" name="ISBN"/>
+    <div class="ISBN error"></div>
+
+    <lable for="title">title</lable>
+    <input type="text" name="title"/>
+    <div class="title error"></div>
+
+    <lable for="numberOfPages">Number Of Pages</lable>
+    <input type="number" name="numberOfPages"/>
+    <div class="numberOfPages error"></div>
+
+    <label for="author">Select an Author:</label>
+    <select id="author" name="author">
+      <% authors.forEach(author => { %>
+        <option value="<%= author._id %>" name="author"><%= author.name %></option>
+      <% }); %>
+    </select>
+    <div class="author error"></div>
+    
+    <label for="category">Select a Category:</label>
+    <select id="category" name="category">
+      <% categories.forEach(category => { %>
+        <option value="<%= category._id %>" name="category"><%= category.name %></option>
+      <% }); %>
+    </select>
+    <div class="category error"></div>
+
+    <label for="publisher">Select a Publisher:</label>
+    <select id="publisher" name="publisher">
+      <% publishers.forEach(publisher => { %>
+        <option value="<%= publisher._id %>" name="publisher"><%= publisher.name %></option>
+      <% }); %>
+    </select>
+    <div class="publisher error"></div>
+
+    <lable for="bookCountAvailable">Number of Book</lable>
+    <input type="number" id="bookCountAvailable" name="bookCountAvailable"/>
+    <div class="bookCountAvailable error"></div>
+
+    <lable for="description">Description</lable>
+    <textarea name="description" id="description" rows="5" cols="40">Book description</textarea>
+    <div class="description error"></div>
+
+    <button>Add</button>
+
+</form>
+<div id="successAlert" style="display: none;">
+    <p>Data saved successfully!</p>
+  </div>
+<script>
+<%- include('partials/footer'); -%>
