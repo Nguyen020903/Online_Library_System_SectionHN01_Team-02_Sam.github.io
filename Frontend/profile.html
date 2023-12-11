@@ -6,26 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile</title>
     <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
     <!-- Navbar -->
-    <header>
+    <header class="header">
         <nav>
-            <a href="index.html" class="logo">
-                <img src="\Assets\Images\logo.png" alt="logo">
-                <h3 id="Web-name">The Book Store</h3>
-            </a>
-            <input class="navbar-toggle" type="checkbox" id="navbar-toggle">
-            <label class="navbar-icon" for="navbar-toggle">
-                <span class="hamburger"></span>
-            </label>
-            <ul class="navbar">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Something</a></li>
-                <li><a href="#">Something</a></li>
-                <li><a href="#">Something</a></li>
-            </ul>
+            <section class="header-1">
+
+                <a href="#" class="logo"> <i class="fas fa-play"></i> playbook </a>
+    
+                <form action="" class="search-form">
+                    <input type="search" name="" placeholder="search here..." id="search-box">
+                    <label for="search-box" class="fas fa-search"></label>
+                </form>
+    
+                <div class="icons">
+                    <div id="search-btn" class="fas fa-search"></div>
+                    <a href="#" class="fas fa-heart"></a>
+                    <a href="#" class="fas fa-shopping-cart"></a>
+                    <a href="login.html" class="fas fa-user"></a>
+                </div>
+   
+            </section>
         </nav>
     </header>
     <!-- Main Body -->
@@ -76,7 +80,7 @@
         </ul>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>
