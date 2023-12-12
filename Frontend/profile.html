@@ -16,18 +16,18 @@
             <section class="header-1">
 
                 <a href="#" class="logo"> <i class="fas fa-play"></i> playbook </a>
-    
+
                 <form action="" class="search-form">
                     <input type="search" name="" placeholder="search here..." id="search-box">
                     <label for="search-box" class="fas fa-search"></label>
                 </form>
-    
+
                 <div class="icons">
                     <div id="search-btn" class="fas fa-search"></div>
                     <a href="#" class="fas fa-heart"></a>
                     <a href="#" class="fas fa-shopping-cart"></a>
                     <a href="login.html" class="fas fa-user"></a>
-                </div>   
+                </div>
             </section>
         </nav>
     </header>
@@ -40,7 +40,7 @@
                 <h2 id="name">Your Name</h2>
                 <button id="editBtn">Edit Profile</button>
             </div>
-            <div>
+            <div class="generalInfo">
                 <h3 class="heading">General Information</h3>
                 <ul id="generalInfoList">
                     <li>Full Name: <span id="fullName">Your Full Name</span></li>
@@ -53,19 +53,15 @@
                     <li>Phone Number: <span id="phone">123-456-7890</span></li>
                 </ul>
             </div>
-
         </div>
         <!-- Left Half - Three Big Buttons -->
         <div class="rightContainer">
-            <div>
-                <button class="main_btn" id="btn_1">Bookmark</button>
-            </div>
-            <div>
-                <button class="main_btn" id="btn_2">Wishlist</button>
-            </div>
-            <div>
-                <button class="main_btn" id="btn_3">Borrowed Book</button>
-            </div>
+            <ul class="horizontalNavList">
+                <li class="horizontalNavItems"><i class="fa-regular fa-user"></i><a href="#">Profile</a></li>
+                <li class="horizontalNavItems"><i class="fa-regular fa-bookmark"></i><a href="#">Profile</a></li>
+                <li class="horizontalNavItems"><i class="icons fa-solid fa-arrow-right-from-bracket"></i><a href="#">Profile</a></li>
+                <li class="horizontalNavItems"><i class="icons fa-solid fa-arrow-right-from-bracket"></i><a href="#">Profile</a></li>
+            </ul>
         </div>
     </div>
     <!-- footer -->
@@ -80,6 +76,7 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <script src="https://kit.fontawesome.com/120cd899b7.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

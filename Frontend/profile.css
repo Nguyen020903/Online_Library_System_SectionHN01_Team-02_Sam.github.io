@@ -55,6 +55,7 @@ img {
     text-align: center;
     margin-bottom: 2rem;
     position: relative;
+    font-size: x-large;
 }
 
 .heading::before{
@@ -164,15 +165,12 @@ section{
 
 
 /* Main Body styles */
-/* .profilePic {
-    
-} */
 .main-part {
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-around;
     align-items: center;
-    margin-top: 50px;
+    /* margin-top: 50px; */
     flex: 1;
 }
 
@@ -223,20 +221,36 @@ section{
     border: 2px solid #333;
 }
 
+/* general info box */
+.generalInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 20rem;
+}
+
+#generalInfoList {
+    display: flex;
+    flex-direction: column;
+}
+
 #generalInfoList li {
     padding: 5px 0 5px 0;
+    font-size: 14.5px;
 }
 
 .leftContainer {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 50%;
+    width: 70%;
     padding: 10px;
     border-radius: 5px;
     box-shadow:  0.5rem  0.5rem 0.5rem 0.5rem rgba(0,0,0,.1);
     margin-right: 3rem;
+    height: 50vh;
 }
 
 .text-center{
@@ -247,43 +261,28 @@ section{
     justify-content: center;
 }
 
+
+/* horizontal navbar */
 .rightContainer {
-    width: 50%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.main_btn {
+    flex-direction: row;
+    justify-content: center;
+    width: 70%;
     padding: 10px;
-    border-radius: 10px;
-    background-color: #4F6F52;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    transition: 0.3s ease-in-out;
-    width: 150px;
-    height: 80px;
-    font-size: 18px;
+    border-radius: 5px;
+    box-shadow:  0.5rem  0.5rem 0.5rem 0.5rem rgba(0,0,0,.1);
+    margin-right: 3rem;
+    height: 50vh;
 }
 
-#btn_1 {
-    margin-bottom: 70%; 
+.horizontalNavItems {
+background-color: red;
+margin: 10px;
+border-radius: 5px;
+padding: 10px;
 }
 
-#btn_3 {
-    margin-top: 70%; 
-}
 
-.main_btn:hover {
-    background-color: #3A4D39;
-    color: #fff;
-}
-
-.main_btn:active {
-    background-color: #2f3d2e;
-    color: #fff;
-}
 
 /* Footer */
 footer {
