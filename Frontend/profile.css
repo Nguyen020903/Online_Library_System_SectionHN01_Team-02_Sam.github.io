@@ -268,11 +268,11 @@ section{
 }
 
 #btn_1 {
-    margin-bottom: 80%; /* Align at the top */
+    margin-bottom: 70%; 
 }
 
 #btn_3 {
-    margin-top: 90%; /* Align at the bottom */
+    margin-top: 70%; 
 }
 
 .main_btn:hover {
@@ -395,15 +395,15 @@ footer {
 
     .main_btn {
         margin-top: 50px;
-        padding: 10px;
+        padding: 2rem 1rem 2rem 1rem;
         border-radius: 5px;
         background-color: #4F6F52;
         color: #fff;
         border: none;
         cursor: pointer;
         transition: 0.3s ease-in-out;
-        width: 90px;
-        height: 50px;
+        width: 15rem;
+        height: 9rem;
         font-size: 15px;
     }
 
