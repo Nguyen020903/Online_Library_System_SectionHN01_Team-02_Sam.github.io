@@ -75,14 +75,16 @@ img {
     background: #fff;
     border:var(--border);
 }
-.header
+.header {
+    box-shadow: var(--box-shadow);
+}
 
 .header .header-1{
     background:#fff;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: var(--box-shadow);
+    
 }
 
 .header .header-1 .logo{
