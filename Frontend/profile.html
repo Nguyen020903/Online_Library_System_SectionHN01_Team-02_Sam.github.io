@@ -34,33 +34,101 @@
     <!-- Main Body -->
     <div class="main-part">
         <!-- Right Half - General Information, Contact Information, Profile Image, and Name -->
-        <div class="col-md-6 leftContainer">
-            <div class="text-center">
-                <img src="/Assets/Images/Logo.png" alt="Profile Picture" class="profilePic" id="profilePic">
-                <h2 id="name">Your Name</h2>
-                <button id="editBtn">Edit Profile</button>
+        <div class="leftContainer">
+            <div id="tab1" class="tab-content tab1 active">
+                <div class="text-center">
+                    <img src="/Assets/Images/Logo.png" alt="Profile Picture" class="profilePic" id="profilePic">
+                    <h2 id="name">Your Name</h2>
+                    <button id="editBtn">Edit Profile</button>
+                </div>
+                <div class="generalInfo">
+                    <h3 class="heading">General Information</h3>
+                    <ul id="generalInfoList">
+                        <li>Full Name: <span id="fullName">Your Full Name</span></li>
+                        <li>Date of Birth: <span id="dob">January 1, 1990</span></li>
+                        <li>Gender: <span id="gender">Male</span></li>
+                        <li>Email Address: <span id="email">your.email@example.com</span></li>
+                        <li>Phone Number: <span id="phone">123-456-7890</span></li>
+                    </ul>
+                </div>
             </div>
-            <div class="generalInfo">
-                <h3 class="heading">General Information</h3>
-                <ul id="generalInfoList">
-                    <li>Full Name: <span id="fullName">Your Full Name</span></li>
-                    <li>Date of Birth: <span id="dob">January 1, 1990</span></li>
-                    <li>Gender: <span id="gender">Male</span></li>
-                    <li>Email Address: <span id="email">your.email@example.com</span>
-                        <!-- <button class="btn btn-outline-secondary btn-sm float-end "
-                            onclick="copyToClipboard('email')">Copy</button> -->
-                    </li>
-                    <li>Phone Number: <span id="phone">123-456-7890</span></li>
-                </ul>
+            <!-- Tab Content inside leftContainer -->
+            <div id="tab2" class="tab-content tab2">
+                <h3>Wishlist Content</h3>
+                <p>This is the content for the Wishlist tab.</p>
+            </div>
+
+            <div id="tab3" class="tab-content tab3">
+                <h3>Borrowed Book Content</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên Sách</th>
+                            <th>Ngày Mượn</th>
+                            <th>Ngày Phải Trả</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Sample data, you can replace this with dynamic data -->
+                        <tr>
+                            <td>1</td>
+                            <td>Book 1</td>
+                            <td>2023-01-01</td>
+                            <td>2023-01-15</td>
+                            <td>Đã Trả</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Book 2</td>
+                            <td>2023-02-01</td>
+                            <td>2023-02-15</td>
+                            <td>Chưa Trả</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Book 1</td>
+                            <td>2023-01-01</td>
+                            <td>2023-01-15</td>
+                            <td>Đã Trả</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Book 1</td>
+                            <td>2023-01-01</td>
+                            <td>2023-01-15</td>
+                            <td>Đã Trả</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Book 1</td>
+                            <td>2023-01-01</td>
+                            <td>2023-01-15</td>
+                            <td>Đã Trả</td>
+                        </tr>
+                        
+                        <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="tab4" class="tab-content tab4">
+                <h3>Logout Content</h3>
+                <p>This is the content for the Logout tab.</p>
             </div>
         </div>
-        <!-- Left Half - Three Big Buttons -->
+        <!-- Left Half - vertical Navbar -->
         <div class="rightContainer">
-            <ul class="horizontalNavList">
-                <li class="horizontalNavItems"><i class="fa-regular fa-user"></i><a href="#">Profile</a></li>
-                <li class="horizontalNavItems"><i class="fa-regular fa-bookmark"></i><a href="#">Profile</a></li>
-                <li class="horizontalNavItems"><i class="icons fa-solid fa-arrow-right-from-bracket"></i><a href="#">Profile</a></li>
-                <li class="horizontalNavItems"><i class="icons fa-solid fa-arrow-right-from-bracket"></i><a href="#">Profile</a></li>
+            <ul class="verticalNavList">
+                <li class="verticalNavItems" onclick="openTab('tab1')"><i class="far fa-user"></i><a
+                        href="#">Profile</a></li>
+                <li class="verticalNavItems" onclick="openTab('tab2')"><i class="far fa-bookmark"></i><a
+                        href="#">Wishlist</a></li>
+                <li class="verticalNavItems" onclick="openTab('tab3')"><i class="fas fa-arrow-right-from-bracket"></i><a
+                        href="#">Borrowed Book</a></li>
+                <li class="verticalNavItems" onclick="openTab('tab4')"><i class="fas fa-arrow-right-from-bracket"></i><a
+                        href="#">Logout</a></li>
             </ul>
         </div>
     </div>
@@ -76,6 +144,7 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <script src="js/profile.js"></script>
     <script src="https://kit.fontawesome.com/120cd899b7.js" crossorigin="anonymous"></script>
 </body>
 
