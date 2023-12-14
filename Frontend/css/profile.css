@@ -25,6 +25,7 @@ html {
     overflow-x: hidden;
     scroll-padding-top: 5rem;
     scroll-behavior: smooth;
+    
 }
 
 body {
@@ -32,6 +33,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     height: 100%;
+    background: #ddd;
 }
 
 .logo img {
@@ -81,6 +83,7 @@ img {
 
 .header {
     box-shadow: var(--box-shadow);
+    background-color: #fff;
 }
 
 .header .header-1 {
@@ -164,9 +167,6 @@ section {
     display: none;
 }
 
-
-
-
 /* Main Body styles */
 .main-part {
     display: flex;
@@ -249,10 +249,11 @@ section {
     justify-content: center;
     width: 80%;
     padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0.5rem 0.5rem 0.5rem 0.5rem rgba(0, 0, 0, .1);
-    margin-right: 3rem;
+    border-radius: 5px 0 5px 5px;
+    /* box-shadow: 0.5rem 0.5rem 0.5rem 0.5rem rgba(0, 0, 0, .1); */
+    /* margin-right: 3rem; */
     height: 50vh;
+    background-color: #fff;
 }
 
 .text-center {
@@ -291,6 +292,8 @@ section {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    height: 100%;
 }
 
 .styled-table {
@@ -298,12 +301,14 @@ section {
     border-collapse: collapse;
     font-size: 18px;
     text-align: left;
+    overflow: auto;
 }
 
 .styled-table th,
 .styled-table td {
     padding: 12px 15px;
     border-bottom: 1px solid #ddd;
+    text-align: center;
 }
 
 .styled-table th {
@@ -334,18 +339,31 @@ section {
     width: 20%;
     padding: 10px;
     border-radius: 5px;
-    box-shadow: 0.5rem 0.5rem 0.5rem 0.5rem rgba(0, 0, 0, .1);
+    /* box-shadow: 0.5rem 0.5rem 0.5rem 0.5rem rgba(0, 0, 0, .1); */
     margin-right: 3rem;
     height: 50vh;
+    background-color: #ddd;
 }
 
+/* button styling */
 .verticalNavItems {
-    background-color: red;
+    background-color: #ddd;
     margin: 10px;
     border-radius: 5px;
     padding: 10px;
 }
 
+.verticalNavItems a {
+    color: #000;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 1rem;
+}
+
+.active1{
+    background-color: #4F6F52;
+}
 
 
 /* Footer */

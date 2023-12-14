@@ -27,3 +27,14 @@ function openTab(tabName) {
         }
     }
 }
+
+function openTab(tabName) {
+    var tabs = document.querySelectorAll('.verticalNavItems');
+
+    tabs.forEach(function(tab) {
+        tab.classList.remove('active1');
+    });
+
+    var currentTab = document.querySelector('.verticalNavItems[data-tab="' + tabName + '"]');
+    currentTab.classList.add('active1');
+}
