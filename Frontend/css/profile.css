@@ -47,6 +47,7 @@ ul {
 
 a {
     text-decoration: none;
+    color: #000;
 }
 
 img {
@@ -345,7 +346,7 @@ section {
     background-color: #ddd;
 }
 
-/* button styling */
+/* button styling for vertical navbar*/
 .verticalNavItems {
     background-color: #ddd;
     margin: 10px;
@@ -354,16 +355,17 @@ section {
 }
 
 .verticalNavItems a {
-    color: #000;
     text-decoration: none;
     font-size: 12px;
     font-weight: bold;
     margin-left: 1rem;
 }
 
-.active1{
-    background-color: #4F6F52;
+.verticalNavItems.active, .verticalNavItems.active a {
+    background-color: #3A4D39;
+    color: #fff;
 }
+
 
 
 /* Footer */

@@ -8,15 +8,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function openTab(tabName) {
     var tabs = document.querySelectorAll('.tab-content');
+    var tabLinks = document.querySelectorAll('.verticalNavItems');
 
-    // Remove the 'active' class from all tabs
+    // Remove the 'active' class from all tabs and tab links
     for (var i = 0; i < tabs.length; i++) {
         tabs[i].classList.remove('active');
     }
+    
+    for (var i = 0; i < tabLinks.length; i++) {
+        tabLinks[i].classList.remove('active');
+    }
 
-    // Add the 'active' class to the selected tab
+    // Add the 'active' class to the selected tab and tab link
     var currentTab = document.getElementById(tabName);
     currentTab.classList.add('active');
+    
+    var currentTabLink = document.querySelector(`.verticalNavItems[onclick="openTab('${tabName}')"]`);
+    currentTabLink.classList.add('active');
 
     // Hide all tabs except the selected one
     for (var i = 0; i < tabs.length; i++) {
@@ -26,15 +34,4 @@ function openTab(tabName) {
             tabs[i].style.display = 'none'; // Hide other tabs
         }
     }
-}
-
-function openTab(tabName) {
-    var tabs = document.querySelectorAll('.verticalNavItems');
-
-    tabs.forEach(function(tab) {
-        tab.classList.remove('active1');
-    });
-
-    var currentTab = document.querySelector('.verticalNavItems[data-tab="' + tabName + '"]');
-    currentTab.classList.add('active1');
 }
