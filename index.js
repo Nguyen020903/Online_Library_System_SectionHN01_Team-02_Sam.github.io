@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
 const bookRoutes = require('./routes/bookRoutes');
 const reservationRoutes = require('./routes/reservationRoutes');
+const multer = require('multer');
+const path = require('path');
+const bcrypt = require('bcrypt');
+const fs = require('fs');
 
 const app = express();
 const port = 3000;
@@ -109,6 +113,145 @@ app.get('/myAccount', requireAuth, async (req, res) => {
     }
 });
 
+app.get('/updateUser', requireAuth, (req, res) => {
+  res.render('updateUser');
+});
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+      cb(null, 'public/images/userImage/');
+  },
+  filename: function(req, file, cb) { // 'file' and 'cb' parameters were swapped
+      const token = req.cookies.jwt;
+      const decodedToken = jwt.verify(token, 'your-secret-key');
+      const userId = decodedToken.id;
+      // Get the current date
+      const date = new Date();
+      // Format the date
+      const formattedDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}-${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
+      // Add the date to the filename
+      const newFilename = `${formattedDate}-${userId}-${file.originalname}`;
+      cb(null, newFilename);
+  }
+});
+
+const upload = multer({ storage: storage });
+
+// app.post('/updateUser', upload.single('profileImage'), async (req, res) => {
+//   const token = req.cookies.jwt;
+//   const { fullName, email, password } = req.body;
+
+//   try {
+//       // Verify the token and extract the user ID
+//       const decodedToken = jwt.verify(token, 'your-secret-key');
+//       const userId = decodedToken.id;
+
+//       // Salt and hash the password
+//       const salt = await bcrypt.genSalt(10);
+//       const hashedPassword = await bcrypt.hash(password, salt);
+
+//       // Get the user from the database
+//       const user = await User.findById(userId);
+
+//       // If the user has an old image, delete it
+//       if (user.profileImage) {
+//           fs.unlink(path.join(__dirname, 'public', user.profileImage), err => {
+//               if (err) console.error(err);
+//           });
+//       }
+
+//       // Extract the filename from the uploaded file
+//       const profileImage = "/images/userImage/" + (req.file ? req.file.filename : '');
+
+//       const updatedUser = await User.findOneAndUpdate(
+//           { _id: userId }, // find a user with the provided user ID
+//           { fullName, email, password: hashedPassword, profileImage }, // update the user with the new data
+//           { new: true } // return the updated user
+//       );
+
+//       if (!updatedUser) {
+//           return res.status(404).json({ message: 'User not found' });
+//       }
+
+//       // Send a response indicating that the update was successful
+//       res.json({ message: 'Update successful' });
+//   } catch (error) {
+//       console.error(error);
+//       res.status(500).json({ message: 'An error occurred while updating the user' });
+//   }
+// });
+
+// Route for uploading the profile image
+app.post('/updateUserImage', upload.single('profileImage'), async (req, res) => {
+  const token = req.cookies.jwt;
+
+  try {
+      // Verify the token and extract the user ID
+      const decodedToken = jwt.verify(token, 'your-secret-key');
+      const userId = decodedToken.id;
+
+      // Get the user from the database
+      const user = await User.findById(userId);
+
+      // If the user has an old image, delete it
+      if (user.profileImage) {
+          fs.unlink(path.join(__dirname, 'public', user.profileImage), err => {
+              if (err) console.error(err);
+          });
+      }
+
+      // Extract the filename from the uploaded file
+      const profileImage = "/images/userImage/" + (req.file ? req.file.filename : '');
+
+      const updatedUser = await User.findOneAndUpdate(
+          { _id: userId }, // find a user with the provided user ID
+          { profileImage }, // update the user with the new image
+          { new: true } // return the updated user
+      );
+
+      if (!updatedUser) {
+          return res.status(404).json({ message: 'User not found' });
+      }
+
+      // Send a response indicating that the update was successful
+      res.json({ message: 'Image update successful' });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'An error occurred while updating the user image' });
+  }
+});
+
+// Route for updating the user's details
+app.post('/updateUserDetails', async (req, res) => {
+  const token = req.cookies.jwt;
+  const { fullName, email, password } = req.body;
+
+  try {
+      // Verify the token and extract the user ID
+      const decodedToken = jwt.verify(token, 'your-secret-key');
+      const userId = decodedToken.id;
+
+      // Salt and hash the password
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+
+      const updatedUser = await User.findOneAndUpdate(
+          { _id: userId }, // find a user with the provided user ID
+          { fullName, email, password: hashedPassword }, // update the user with the new data
+          { new: true } // return the updated user
+      );
+
+      if (!updatedUser) {
+          return res.status(404).json({ message: 'User not found' });
+      }
+
+      // Send a response indicating that the update was successful
+      res.json({ message: 'Details update successful' });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'An error occurred while updating the user details' });
+  }
+});
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);
 });
