@@ -264,6 +264,91 @@ app.post('/addbook', (req, res, next) => {
     res.status(400).json({ errors });
   }
 });
+
+// Route for displaying book details
+app.get('/bookDetail/:id', async (req, res) => {
+  try {
+      const book = await Book.findById(req.params.id);
+      res.render('bookDetail', { book: book });
+  } catch (err) {
+      console.error(err);
+      res.redirect('/');
+  }
+});
+
+// Route for updating book details
+app.post('/bookDetail/:id', async (req, res) => {
+  try {
+      const updatedBook = await Book.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      res.redirect(`/bookDetail/${updatedBook._id}`);
+  } catch (err) {
+      console.error(err);
+      res.redirect('/');
+  }
+});
+
+// Route for displaying the book update form
+app.get('/updateBook/:id', async (req, res) => {
+  try {
+      const book = await Book.findById(req.params.id);
+      const authors = await Author.find();
+      const categories = await Category.find();
+      const publishers = await Publisher.find();
+      res.render('updateBook', { book: book, authors: authors, categories: categories, publishers: publishers });
+  } catch (err) {
+      console.error(err);
+      res.redirect('/');
+  }
+});
+
+// Route for submitting the book update form
+// app.post('/updateBook/:id', async (req, res) => {
+//   try {
+//     if (Book.bookImage) {
+//       fs.unlink(path.join(__dirname, 'public', book.bookImage), err => {
+//           if (err) console.error(err);
+//       });
+//   }
+//   const bookImage = "/images/bookImage/" + (req.file ? req.file.filename : '');
+
+//       const updatedBook = await Book.findOneAndUpdate(
+//           { _id: req.params.id }, // find a user with the provided book ID
+//           { bookImage }, // update the book with the new image
+//           { new: true } // return the updated book
+//       );
+//       if (!updatedBook) {
+//         return res.status(404).json({ message: 'Book not found' });
+//       }
+//       await Book.findByIdAndUpdate(req.params.id, req.body);
+//       res.redirect(`/bookDetail/${req.params.id}`);
+//   } catch (err) {
+//       console.error(err);
+//       res.redirect('/');
+//   }
+// });
+// Route for submitting the book update form
+
+app.post('/updateBook/:id', bookImageUpload.single('bookImage'), async (req, res) => {
+  const { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description } = req.body;
+  try{
+    const book = await Book.findById(req.params.id);
+    if (book.bookImage) {
+      fs.unlink(path.join(__dirname, 'public', book.bookImage), err => {
+          if (err) console.error(err);
+      });
+    }
+    const bookImage = "/images/bookImage/" + (req.file ? req.file.filename : '');
+
+    const updatedBook = await Book.findByIdAndUpdate(req.params.id, { ISBN, title, bookImage, author, category, publisher, numberOfPages, bookCountAvailable, description }, { new: true });
+    if (!updatedBook) {
+      return res.status(404).json({ message: 'Book not found' });
+    }
+    res.json({ message: 'Book update successful' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'An error occurred while updating the book' });
+  }
+});
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);
 });

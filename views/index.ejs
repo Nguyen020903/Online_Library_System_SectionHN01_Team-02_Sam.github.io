@@ -95,9 +95,9 @@
         <% books.slice().reverse().forEach(book => { %>
             <div class="col-lg-4 col-md-6 col-sm-12 d-flex">
                 <div class="card px-3">
-                    <a href="/bookDetailPage/<%= book._id %>">
+                    <a href="/bookDetail/<%= book._id %>">
                         <!-- Assuming you have an image property for books -->
-                        <img src="/images/<%= book.image %>" alt="<%= book.title %>" class="ratio ratio-1x1" />
+                        <img src="<%= book.bookImage %>" alt="<%= book.title %>" class="ratio ratio-1x1" />
                     </a>
                     <div class="card-body text-center">
                         <h4 class="card-title overflow-hidden">
