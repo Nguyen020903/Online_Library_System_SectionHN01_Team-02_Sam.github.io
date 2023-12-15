@@ -91,13 +91,17 @@
 
     <h1>Book List</h1>
     
+
+
     <div class="row justify-content-start g-3">
         <% books.slice().reverse().forEach(book => { %>
+            <% const isBookInWishlist = user && user.favoriteBook.includes(book._id); %>
+
             <div class="col-lg-4 col-md-6 col-sm-12 d-flex">
                 <div class="card px-3">
-                    <a href="/bookDetailPage/<%= book._id %>">
+                    <a href="/bookDetail/<%= book._id %>">
                         <!-- Assuming you have an image property for books -->
-                        <img src="/images/<%= book.image %>" alt="<%= book.title %>" class="ratio ratio-1x1" />
+                        <img src="<%= book.bookImage %>" alt="<%= book.title %>" class="ratio ratio-1x1" />
                     </a>
                     <div class="card-body text-center">
                         <h4 class="card-title overflow-hidden">
@@ -107,27 +111,63 @@
                             <%= book.author %>
                         </p>
                         <p class="display-5 my-4 text-muted fw-bold">$<%= book.price %></p>
-                        <form method="post" action="/addToCart">
-                            <input type="hidden" name="book_id" value="<%= book._id %>" />
-                            <input type="hidden" name="book_title" value="<%= book.title %>" />
-                            <input type="hidden" name="book_price" value="<%= book.price %>" />
-                            <button type="submit" class="btn btn-outline-dark btn-lg my-2 rounded-pill">
-                                Add to Cart
-                            </button>
-                        </form>
+                        <% if (!isBookInWishlist) { %>
+                            <form action="/addToWishlist">
+                                <input type="hidden" name="book_id" value="<%= book._id %>" />
+                                <button type="submit" class="btn btn-outline-dark btn-lg my-2 rounded-pill">
+                                    Add to Wishlist
+                                </button>
+                            </form>
+                        <% } else { %>
+                            <button disabled>Already in Wishlist.</button>
+                        <% } %>
                     </div>
                 </div>
             </div>
         <% }) %>
     </div>
-
-
-
 </body>
 
 <footer>
 
 </footer>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const forms = document.querySelectorAll('form');
+
+    forms.forEach(form => {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const bookId = form.elements.book_id.value;
+            console.log(bookId);
+
+            try {
+                const res = await fetch('/addToWishlist', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        bookId
+                    }),
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const data = await res.json();
+                console.log(data);
+
+                if (data.errors) {
+                    alert(data.errors);
+                } else {
+                    alert('Book added to cart successfully!');
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        });
+    });
+});
+
+</script>
+
 <script src="script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </html>

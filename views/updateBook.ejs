@@ -1,7 +1,10 @@
 <%- include('partials/header'); -%>
+<form method="post" action="/updateBook/<%= book._id %>">
+    <h2>Add Book</h2>
+    <label for="bookImage">Book Image</label>
+    <input type="file" name="bookImage"/>
+    <div class="bookImage error"></div>
 
-<form action="/addBook">
-    <h2>Update Book</h2>
     <lable for="ISBN">ISBN</lable>
     <input type="text" name="ISBN" value="<%= book.ISBN %>"/>
     <div class="ISBN error"></div>
@@ -15,7 +18,7 @@
     <div class="numberOfPages error"></div>
 
     <label for="author">Select an Author:</label>
-    <select id="author" name="author" value="<%= book.author %>">
+    <select id="author" name="author">
       <% authors.forEach(author => { %>
         <option value="<%= author._id %>" name="author"><%= author.name %></option>
       <% }); %>
@@ -23,7 +26,7 @@
     <div class="author error"></div>
     
     <label for="category">Select a Category:</label>
-    <select id="category" name="category" value="<%= book.category %>">
+    <select id="category" name="category">
       <% categories.forEach(category => { %>
         <option value="<%= category._id %>" name="category"><%= category.name %></option>
       <% }); %>
@@ -31,7 +34,7 @@
     <div class="category error"></div>
 
     <label for="publisher">Select a Publisher:</label>
-    <select id="publisher" name="publisher" value="<%= book.publisher %>">
+    <select id="publisher" name="publisher">
       <% publishers.forEach(publisher => { %>
         <option value="<%= publisher._id %>" name="publisher"><%= publisher.name %></option>
       <% }); %>
@@ -43,18 +46,13 @@
     <div class="bookCountAvailable error"></div>
 
     <lable for="description">Description</lable>
-    <textarea name="description" id="description" value="<%= book.description %>" rows="5" cols="40">Book description</textarea>
+    <textarea name="description" id="description" rows="5" cols="40"><%= book.description %></textarea>
     <div class="description error"></div>
 
-    <button>Add</button>
-
+    <button type="submit">Update</button>
 </form>
-<div id="successAlert" style="display: none;">
-    <p>Data saved successfully!</p>
-  </div>
 
   <script>
-    
     const form = document.querySelector('form');
     // read the error
     const ISBNError = document.querySelector('.ISBN.error');
@@ -62,6 +60,7 @@
     const numberOfPagesError = document.querySelector('.numberOfPages.error');
     const bookCountAvailableError = document.querySelector('.bookCountAvailable.error');
     const descriptionError = document.querySelector('.description.error');
+    const bookImageError = document.querySelector('.bookImage.error');
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -71,40 +70,40 @@
         numberOfPagesError.textContent = '';
         bookCountAvailableError.textContent = '';
         descriptionError.textContent = '';
+        bookImageError.textContent = '';
 
-        //get value
-        const ISBN = form.ISBN.value;
-        const title = form.title.value;
-        const publisher = form.publisher.value;
-        const author = form.author.value;
-        const numberOfPages = form.numberOfPages.value;
-        const category = form.category.value;
-        const bookCountAvailable = form.bookCountAvailable.value;
-        const description = form.description.value;
+        // Create a FormData instance
+        const formData = new FormData();
+        formData.append('ISBN', form.ISBN.value);
+        formData.append('title', form.title.value);
+        formData.append('numberOfPages', form.numberOfPages.value);
+        formData.append('author', form.author.value);
+        formData.append('category', form.category.value);
+        formData.append('publisher', form.publisher.value);
+        formData.append('bookCountAvailable', form.bookCountAvailable.value);
+        formData.append('description', form.description.value);
+        if (form.bookImage.files.length > 0) {
+          formData.append('bookImage', form.bookImage.files[0]);
+        }
 
+        console.log(formData);
+        
         try{
-            const res = await fetch('/addBook', {
+            const id = '<%= book._id %>'
+            const res = await fetch(`/updatebook/${id}`, {
                 method: 'POST',
-                body: JSON.stringify({
-                    ISBN,
-                    title,
-                    publisher: document.getElementsByName('publisher')[0].value,
-                    author: document.getElementsByName('author')[0].value,
-                    numberOfPages,
-                    category: document.getElementsByName('category')[0].value,
-                    bookCountAvailable,
-                    description,
-                }),
-                headers: { 'Content-Type': 'application/json' },
+                body: formData, // Send the form data
             });
             const data = await res.json();
             console.log(data);
+
             if (data.errors){
                 ISBNError.textContent = data.errors.ISBN;
                 titleError.textContent = data.errors.titleError;
                 numberOfPagesError.textContent = data.errors.numberOfPages;
                 bookCountAvailableError.textContent = data.errors.bookCountAvailable;
                 descriptionError.textContent = data.errors.description;
+                bookImageError.textContent = data.errors.bookImage;
             }
             else{
                 descriptionError.textContent = ('Added successfully');

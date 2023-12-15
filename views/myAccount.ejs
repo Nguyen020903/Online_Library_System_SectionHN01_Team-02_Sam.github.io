@@ -51,16 +51,17 @@
         <a href="/addbook" class="btn">Add book</a>
         <a href="/category" class="btn">Add category</a>
         <a href="/publisher" class="btn">Add publisher</a>
+        <a href="/wishlist" class="btn">Wishlist</a>
         <a href="/update/:656f55a6cf30f2e13b54a23c" class="btn"> Modify Book</a>
 
     <!-- main body -->
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12 text-center">
-                <img src="\Assets\Images\Logo.png" alt="Profile Picture" class="img-fluid rounded-circle"
+                <img src="<%=user.profileImage%>" alt="Profile Picture" class="img-fluid rounded-circle"
                     id="profilePic">
                 <h2 id="name">Your Name</h2>
-                <button class="btn btn-primary" id="editBtn">Edit Profile</button>
+                    <button class="btn btn-primary" id="editBtn" onclick="location.href='/updateUser'">Edit Profile</button>
             </div>
         </div>
         <div class="row mt-4">

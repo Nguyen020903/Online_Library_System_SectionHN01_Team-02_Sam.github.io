@@ -632,9 +632,49 @@ section{
     height:10rem;
 }
 
+.wishlist .container {
+    background-color: lightgray;
+    border-radius: 10px;
+    width: 70%;
+    margin-top: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    text-align: center;
+}
 
+.wishlist .container .bookcover {
+    margin: 1%;
+}
 
+.wishlist .container .bookcover img {
+    width: 40%;
+    
+}
 
+.wishlist .container .verticalline {
+    border-left: 2px solid darkgray;
+    height: auto;
+}
+
+.wishlist .container .bookinfo {
+    font-size: 100%;
+    width: 60%;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 5rem;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.wishlist .container .bookinfo-buttons {
+    margin-left: auto;
+    margin-top: auto;
+    width: 20%;
+    height: 100%;
+}
 
 
 

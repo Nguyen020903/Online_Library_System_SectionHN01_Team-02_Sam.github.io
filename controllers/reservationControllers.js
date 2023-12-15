@@ -1,25 +1,47 @@
 const User = require('../models/user');
+const Book = require('../models/book');
 
-module.exports.add_to_cart_post = (req, res) => {
-    const book_id = req.body.book_id;
+module.exports.wishlist_get = async (req, res) => {
   
-    if (!req.session.cart) {
-      req.session.cart = [];
+  let user = res.locals.user;
+  let books = [];
+
+  if (user) {
+    try {
+      // Find the user's favorite books
+      books = await Book.find({ _id: { $in: user.favoriteBook } });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred while fetching the user\'s favorite books' });
     }
-  
-    let count = 0;
-    for (let i = 0; i < req.session.cart.length; i++) {
-      if (req.session.cart[i].product_id === product_id) {
-        req.session.cart[i].quantity += 1;
-        count++;
+  }
+
+  res.render('wishlist', { user, books });
+}
+
+module.exports.add_to_wishlist_post = async (req, res) => {
+  const { bookId } = req.body;
+
+  let user = res.locals.user;
+  if (user) {
+    try {
+      const book = await Book.findById(bookId);
+
+      if (book) {
+        // Add the book_id to the user's favoriteBook array
+        user.favoriteBook.push(bookId);
+        // Save the updated user
+        await user.save();
+      } else {
+        // Handle case where book with the given ID is not found
+        return res.status(404).json({ error: 'Book not found' });
       }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred while adding the book to the cart' });
     }
-    if (count === 0) {
-      const cart_data = {
-        book_id: book_id,
-        quantity: 1
-      };
-      req.session.cart.push(cart_data);
-    }
+  }
+
+  // Send a 200 OK response
+  res.status(200).end();
 };
-  

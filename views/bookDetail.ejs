@@ -1,0 +1,46 @@
+<%- include('partials/header'); -%>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- ... same as in index.ejs ... -->
+</head>
+
+<body>
+    <!-- ... same header and navbar as in index.ejs ... -->
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8 col-sm-12">
+                <div class="card mt-5">
+                    <img src="<%= book.bookImage %>" alt="<%= book.title %>" class="card-img-top" />
+                    <div class="card-body text-center">
+                        <h4 class="card-title">
+                            <%= book.title %>
+                        </h4>
+                        <p class="lead card-subtitle">
+                            <%= book.author %>
+                        </p>
+                        <p class="display-5 my-4 text-muted fw-bold">$<%= book.price %></p>
+                        <form method="post" action="/addToCart">
+                            <input type="hidden" name="book_id" value="<%= book._id %>" />
+                            <input type="hidden" name="book_title" value="<%= book.title %>" />
+                            <button type="submit" class="btn btn-outline-dark btn-lg my-2 rounded-pill">
+                                Add to Cart
+                            </button>
+                            
+                        </form>
+                        <button onclick="location.href='/updateBook/<%= book._id %>'" class="btn btn-outline-primary btn-lg my-2 rounded-pill">
+                            Update Book
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ... same footer and scripts as in index.ejs ... -->
+</body>
+
+</html>
+<%- include('partials/footer'); -%>

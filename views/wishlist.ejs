@@ -1,0 +1,39 @@
+<%- include('partials/header'); -%>
+<body>
+
+    <h1>User's Wishlist</h1>
+
+    <% if (books) { %>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>ISBN</th>
+                    <th>Category</th>
+                    <!-- Add more columns if needed -->
+                </tr>
+            </thead>
+            <tbody>
+                <% books.forEach(book => { %>
+                    <tr>
+                        <td><%= book.title %></td>
+                        <td><%= book.author %></td>
+                        <td><%= book.ISBN %></td>
+                        <td><%= book.category%></td>
+                        <!-- Add more columns if needed -->
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <p>No books in the wishlist.</p>
+    <% } %>
+
+    <!-- Add any additional content or scripts if needed -->
+
+</body>
+
+
+
+<%- include('partials/footer'); -%>
