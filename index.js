@@ -162,11 +162,16 @@ app.post('/updateUserImage', userImgUpload.single('profileImage'), async (req, r
       const user = await User.findById(userId);
 
       // If the user has an old image, delete it
-      if (user.profileImage) {
-          fs.unlink(path.join(__dirname, 'public', user.profileImage), err => {
-              if (err) console.error(err);
-          });
-      }
+      // if (user.profileImage) {
+      //     fs.unlink(path.join(__dirname, 'public', user.profileImage), err => {
+      //         if (err) console.error(err);
+      //     });
+      // }
+      if (user.profileImage && user.profileImage !== 'https://drive.google.com/uc?id=1j9oMUsNA88sQYIgwRpD2FPBKZXlbYUyF') {
+            fs.unlink(path.join(__dirname, 'public', user.profileImage), err => {
+                if (err) console.error(err);
+            });
+        }
 
       // Extract the filename from the uploaded file
       const profileImage = "/images/userImage/" + (req.file ? req.file.filename : '');

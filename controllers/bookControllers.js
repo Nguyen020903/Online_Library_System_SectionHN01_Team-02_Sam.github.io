@@ -278,7 +278,7 @@ module.exports.deletebook = async (req, res) => {
         );
 
         // remove Image
-        if (book.bookImage) {
+        if (book.bookImage && book.bookImage !== 'https://drive.google.com/uc?id=1j9oMUsNA88sQYIgwRpD2FPBKZXlbYUyF') {
             fs.unlink(path.join(__dirname, 'public', book.bookImage), err => {
                 if (err) console.error(err);
             });
