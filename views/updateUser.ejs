@@ -10,15 +10,15 @@
 <!-- Form for updating the user's details -->
 <form id="detailsForm">
     <label for="fullName">Full Name*</label>
-    <input type="text" name="fullName" />
+    <input type="text" name="fullName" value="<%= user.fullName %>"/>
     <div class="fullName error"></div>
 
     <label for="email">Email*</label>
-    <input type="text" name="email" />
+    <input type="text" name="email" value="<%= user.email %>"/>
     <div class="email error"></div>
 
     <label for="password">Password*</label>
-    <input type="password" name="password" />
+    <input type="password" name="password"/>
     <div class="password error"></div>
 
     <button>Save Details</button>
@@ -60,6 +60,10 @@
     // Event listener for the details form
     detailsForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        // reset error
+        fullNameError.textContent = '';
+        emailError.textContent = '';
+        passwordError.textContent = '';
 
         const formData = new FormData();
         formData.append('fullName', detailsForm.fullName.value);
@@ -79,9 +83,6 @@
                 emailError.textContent = data.errors.email;
                 passwordError.textContent = data.errors.password;
             } else {
-                fullNameError.textContent = ('Updated successfully');
-                emailError.textContent = ('Updated successfully');
-                passwordError.textContent = ('Updated successfully');
                 window.location.href = '/myAccount';
                 alert('Details updated successfully');
             }
