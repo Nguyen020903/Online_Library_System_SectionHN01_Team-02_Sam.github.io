@@ -34,6 +34,7 @@ module.exports.add_to_wishlist_post = async (req, res) => {
         await user.save();
         // Send a success response back to the client
         res.status(200).json({ message: 'Book removed from wishlist successfully' });
+        
       }
     } catch (error) {
       console.error(error);
@@ -59,7 +60,6 @@ module.exports.remove_from_wishlist_post = async (req, res) => {
         user.favoriteBook.pull(bookId);
         // Save the updated user
         await user.save();
-
         // Send a success response back to the client
         res.status(200).json({ message: 'Book removed from wishlist successfully' });
       }

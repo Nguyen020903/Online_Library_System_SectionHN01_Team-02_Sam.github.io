@@ -116,14 +116,14 @@
                                 <p class="display-5 my-4 text-muted fw-bold">$<%= book.price %>
                                 </p>
                                 <% if (!isBookInWishlist) { %>
-                                    <form method="post" id="wishlist-form" action="/addToWishlist">
+                                    <form method="post" class="wishlist-form" action="/addToWishlist">
                                         <input type="hidden" name="book_id" value="<%= book._id %>" />
                                         <button type="submit" class="btn btn-outline-dark btn-lg my-2 rounded-pill">
                                             Add to Wishlist
                                         </button>
                                     </form>
                                     <% } else { %>
-                                        <form method="post" id="unwishlist-form" action="/removeFromWishlist">
+                                        <form method="post" class="unwishlist-form" action="/removeFromWishlist">
                                             <input type="hidden" name="book_id" value="<%= book._id %>" />
                                             <button type="submit" class="btn btn-outline-dark btn-lg my-2 rounded-pill">
                                                 Remove from Wishlist
@@ -142,68 +142,65 @@
     </footer>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const wishlist = document.querySelectorAll('#wishlist-form');
-            const unwishlist = document.querySelectorAll('#unwishlist-form');
+        const wishlistForms = document.querySelectorAll('.wishlist-form');
+        const unwishlistForms = document.querySelectorAll('.unwishlist-form');
 
-            wishlist.forEach(form => {
-                form.addEventListener('submit', async (e) => {
-                    const bookId = form.elements.book_id.value;
-                    console.log(bookId);
+        wishlistForms.forEach(form => {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const bookId = form.elements.book_id.value;
+                console.log(bookId);
 
-                    try {
-                        const res = await fetch('/addToWishlist', {
-                            method: 'POST',
-                            body: JSON.stringify({
-                                bookId
-                            }),
-                            headers: { 'Content-Type': 'application/json' }
-                        });
+                try {
+                    const res = await fetch('/addToWishlist', {
+                        method: 'POST',
+                        body: JSON.stringify({ bookId }),
+                        headers: { 'Content-Type': 'application/json' }
+                    });
 
-                        const data = await res.json();
-                        console.log(data);
+                    const data = await res.json();
+                    console.log(data);
 
-                        if (data.errors) {
-                            alert(data.errors);
-                        } else {
-                            alert('Book added to wishlist successfully!');
-                            location.assign('/');
-                        }
-                    } catch (err) {
-                        console.log(err);
+                    if (data.errors) {
+                        alert(data.errors);
+                    } else {
+                        alert('Book added to wishlist successfully!');
+                        location.reload(); // Reload the page instead of assigning a new location
                     }
-                });
-            });
-
-            unwishlist.forEach(form => {
-                form.addEventListener('submit', async (e) => {
-                    const bookId = form.elements.book_id.value;
-                    console.log(bookId);
-
-                    try {
-                        const res = await fetch('/removeFromWishlist', {
-                            method: 'POST',
-                            body: JSON.stringify({
-                                bookId
-                            }),
-                            headers: { 'Content-Type': 'application/json' }
-                        });
-
-                        const data = await res.json();
-                        console.log(data);
-
-                        if (data.errors) {
-                            alert(data.errors);
-                        } else {
-                            alert('Book removed from wishlist successfully!');
-                            location.assign('/');
-                        }
-                    } catch (err) {
-                        console.log(err);
-                    }
-                });
+                } catch (err) {
+                    console.log(err);
+                }
             });
         });
 
+        unwishlistForms.forEach(form => {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const bookId = form.elements.book_id.value;
+                console.log(bookId);
+
+                try {
+                    const res = await fetch('/removeFromWishlist', {
+                        method: 'POST',
+                        body: JSON.stringify({ bookId }),
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+
+                    const data = await res.json();
+                    console.log(data);
+
+                    if (data.errors) {
+                        alert(data.errors);
+                    } else {
+                        alert('Book removed from wishlist successfully!');
+                        location.reload(); // Reload the page instead of assigning a new location
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
+            });
+        });
+    });
     </script>
 
     <script src="script.js"></script>
