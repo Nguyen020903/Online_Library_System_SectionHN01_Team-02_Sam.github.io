@@ -30,12 +30,19 @@ const {
     requireAuth,
     checkUser,
 } = require('./middleware/authMiddleware');
-const { isAdmin } = require('./routes/bookRoutes');
-
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 app.get('*', checkUser);
+
+// Check if User is Librarian
+const isAdmin = async (req, res, next) => {
+  if (res.locals.user && res.locals.user.isAdmin) {
+      next(); // User is authenticated and is an admin, continue to the next middleware or route handler
+  } else {
+      res.status(403).send('You do not have permission to enter this page');
+  }
+};
 
 app.use(authRoutes);
 app.use(bookRoutes);
@@ -91,9 +98,6 @@ const agenda = new Agenda({ db: { address: mongoURI, collection: 'agendaJobs' } 
 //   // Schedule the job to run every day
 //   await agenda.every('24 hours', 'deleteInactiveUsers');
 // })();
-
-
-
 
 app.get('/', checkUser, async (req,res) => {
   req.session.cart = req.session.cart || {};
@@ -186,7 +190,7 @@ app.post('/updateUserImage', userImgUpload.single('profileImage'), async (req, r
 });
 
 // Route for updating the user's details
-app.post('/updateUserDetails', async (req, res) => {
+app.post('/updateUserDetails', checkUser, requireAuth, async (req, res) => {
   const token = req.cookies.jwt;
   const { fullName, email, password } = req.body;
 
@@ -239,11 +243,16 @@ const bookImageStorage = multer.diskStorage({
 
 const bookImageUpload = multer({ storage: bookImageStorage });
 
-// Add book
-app.post('/addbook', checkUser, isAdmin, bookImageUpload.single('profileImage'), async (req, res) => {
-  const { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description } = req.body;
-  const bookImage = "/images/bookImage/" + (req.file ? req.file.filename : '');
+
+app.post('/addbook', (req, res, next) => {
+  console.log('Request Body:', req.body);
+  console.log('Request File:', req.file);
+  next();
+}, checkUser, isAdmin, multer({ storage: bookImageStorage }).single('bookImage'), async (req, res) => {  
   try {
+    const { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description } = req.body;
+    const bookImage = "/images/bookImage/" + (req.file ? req.file.filename : '');
+
     const book = await Book.create({ ISBN, title, bookImage, author, category, publisher, numberOfPages, bookCountAvailable, description });
     const updatedAuthor = await Author.findOneAndUpdate({ _id: author }, { $push: { book: book._id } }, { new: true });
     const updatedCategory = await Category.findOneAndUpdate({ _id: category }, { $push: { book: book._id } }, { new: true });

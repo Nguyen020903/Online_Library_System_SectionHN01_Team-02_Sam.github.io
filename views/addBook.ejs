@@ -1,5 +1,5 @@
 <%- include('partials/header'); -%>
-<form enctype="multipart/form-data">
+<form enctype="multipart/form-data" action="/addbook">
     <h2>Add Book</h2>
     <label for="bookImage">Book Image</label>
     <input type="file" name="bookImage" />
@@ -49,8 +49,9 @@
     <textarea name="description" id="description" rows="5" cols="40">Book description</textarea>
     <div class="description error"></div>
 
-    <button>Add</button>
+    <button type="submit">Add</button>
 </form>
+
   <script>
     const form = document.querySelector('form');
     // read the error
@@ -72,7 +73,7 @@
         bookImageError.textContent = '';
 
         // Create a FormData instance
-        const formData = new FormData(form);
+        const formData = new FormData();
         formData.append('ISBN', form.ISBN.value);
         formData.append('title', form.title.value);
         formData.append('numberOfPages', form.numberOfPages.value);
@@ -84,14 +85,17 @@
         if (form.bookImage.files.length > 0) {
           formData.append('bookImage', form.bookImage.files[0]);
         }
+
+        console.log(formData);
         
         try{
             const res = await fetch('/addbook', {
                 method: 'POST',
-                body: formData,// Send the form data
+                body: formData, // Send the form data
             });
             const data = await res.json();
             console.log(data);
+
             if (data.errors){
                 ISBNError.textContent = data.errors.ISBN;
                 titleError.textContent = data.errors.titleError;

@@ -33,5 +33,5 @@ router.get('/category',checkUser, isAdmin, bookController.category_get);
 router.post('/category',checkUser, isAdmin, bookController.category_post);
 router.get('/publisher',checkUser, isAdmin,bookController.publisher_get);
 router.post('/publisher',checkUser, isAdmin, bookController.publisher_post);
+
 module.exports = router;
-module.exports = { isAdmin };
