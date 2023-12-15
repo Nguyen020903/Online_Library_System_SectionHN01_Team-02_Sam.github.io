@@ -340,6 +340,25 @@ app.post('/updateBook/:id', bookImageUpload.single('bookImage'), async (req, res
     const bookImage = "/images/bookImage/" + (req.file ? req.file.filename : '');
 
     const updatedBook = await Book.findByIdAndUpdate(req.params.id, { ISBN, title, bookImage, author, category, publisher, numberOfPages, bookCountAvailable, description }, { new: true });
+    // Update the author, category, and publisher if provided
+    if (author) {
+      // Remove the book from the old author
+      await Author.updateOne({ 'book._id': req.params.id }, { $pull: { book: { _id: req.params.id } } });
+      await Author.findOneAndUpdate({ _id: author }, { $push: { book: req.params.id } });
+  }
+
+  if (category) {
+      // Remove the book from the old category
+      await Category.updateOne({ 'book._id': req.params.id }, { $pull: { book: { _id: req.params.id } } });
+      await Category.findOneAndUpdate({ _id: category }, { $push: { book: req.params.id } });
+  }
+
+  if (publisher) {
+      // Remove the book from the old publisher
+      await Publisher.updateOne({ 'book._id': req.params.id }, { $pull: { book: { _id: req.params.id } } });
+      await Publisher.findOneAndUpdate({ _id: publisher }, { $push: { book: req.params.id } });
+  }
+
     if (!updatedBook) {
       return res.status(404).json({ message: 'Book not found' });
     }

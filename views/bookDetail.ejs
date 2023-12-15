@@ -33,6 +33,13 @@
                         <button onclick="location.href='/updateBook/<%= book._id %>'" class="btn btn-outline-primary btn-lg my-2 rounded-pill">
                             Update Book
                         </button>
+                        <!-- <button onclick="location.href='/deletebook/<%= book._id %>'" class="btn btn-outline-danger btn-lg my-2 rounded-pill">
+                            Delete Book
+                        </button> -->
+                        <form method="POST" action="/deletebook/<%= book._id %>">
+                            <input type="hidden" name="bookId" value="<%= book._id %>">
+                            <button type="submit">Delete Book</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -41,6 +48,22 @@
 
     <!-- ... same footer and scripts as in index.ejs ... -->
 </body>
-
+<script>
+    fetch(`/deletebook/${bookId}`, {
+    method: 'DELETE',
+})
+.then(response => response.json())
+.then(data => {
+    if (data.message === 'Book deleted successfully') {
+        alert('Book deleted successfully');
+        window.location.href = '/'; // Redirect to main page
+    } else {
+        alert('Failed to delete book');
+    }
+})
+.catch((error) => {
+    console.error('Error:', error);
+});
+</script>
 </html>
 <%- include('partials/footer'); -%>

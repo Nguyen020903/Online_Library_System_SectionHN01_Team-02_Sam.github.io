@@ -7,6 +7,7 @@ const Category = require('../models/category');
 const Publisher = require('../models/publisher');
 const multer = require('multer');
 const jwt = require('jsonwebtoken');
+const path = require('path');
 // error handler, use to handle error message from models (author,book, category and publisher)
 const handleErrors = (err) => {
     console.log(err.message, err.code);
@@ -137,102 +138,157 @@ module.exports.addbook_get = async (req, res) => {
 //     }
 // };
 // Update book
-module.exports.updatebook_get = async (req, res) => {
-    let book = await Book.findOne({ _id: req.params.id });
-    let authors = await Author.find();
-    let categories = await Category.find();
-    let publishers = await Publisher.find();
+// module.exports.updatebook_get = async (req, res) => {
+//     let book = await Book.findOne({ _id: req.params.id });
+//     let authors = await Author.find();
+//     let categories = await Category.find();
+//     let publishers = await Publisher.find();
 
-    if (book) {
-        res.render('updateBook', { book, authors, categories, publishers });
-    } else {
-        res.send('Book not found.')
-    }
-}
+//     if (book) {
+//         res.render('updateBook', { book, authors, categories, publishers });
+//     } else {
+//         res.send('Book not found.')
+//     }
+// }
 
 // Update book
-module.exports.updatebook_post = async (req, res) => {
-    const { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable } = req.body;
+// module.exports.updatebook_post = async (req, res) => {
+//     const { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable } = req.body;
 
-    try {
-        // Find the book to update
-        const updatedBook = await Book.findOneAndUpdate(
-            { _id: req.params.id },
-            {
-                $set: {
-                    ISBN: ISBN,
-                    title: title,
-                    author: author,
-                    category: category,
-                    publisher: publisher,
-                    numberOfPages: numberOfPages,
-                    bookCountAvailable: bookCountAvailable
-                }
-            },
-            { new: true }
-        );
+//     try {
+//         // Find the book to update
+//         const updatedBook = await Book.findOneAndUpdate(
+//             { _id: req.params.id },
+//             {
+//                 $set: {
+//                     ISBN: ISBN,
+//                     title: title,
+//                     author: author,
+//                     category: category,
+//                     publisher: publisher,
+//                     numberOfPages: numberOfPages,
+//                     bookCountAvailable: bookCountAvailable
+//                 }
+//             },
+//             { new: true }
+//         );
 
-        if (!updatedBook) {
-            return res.status(404).json({ message: 'Book not found' });
-        }
+//         if (!updatedBook) {
+//             return res.status(404).json({ message: 'Book not found' });
+//         }
 
-        // Update the author, category, and publisher if provided
-        if (author) {
-            // Remove the book from the old author
-            await Author.updateOne({ 'book._id': req.params.id }, { $pull: { book: { _id: req.params.id } } });
-            await Author.findOneAndUpdate({ _id: author }, { $push: { book: req.params.id } });
-        }
+//         // Update the author, category, and publisher if provided
+//         if (author) {
+//             // Remove the book from the old author
+//             await Author.updateOne({ 'book._id': req.params.id }, { $pull: { book: { _id: req.params.id } } });
+//             await Author.findOneAndUpdate({ _id: author }, { $push: { book: req.params.id } });
+//         }
 
-        if (category) {
-            // Remove the book from the old category
-            await Category.updateOne({ 'book._id': req.params.id }, { $pull: { book: { _id: req.params.id } } });
-            await Category.findOneAndUpdate({ _id: category }, { $push: { book: req.params.id } });
-        }
+//         if (category) {
+//             // Remove the book from the old category
+//             await Category.updateOne({ 'book._id': req.params.id }, { $pull: { book: { _id: req.params.id } } });
+//             await Category.findOneAndUpdate({ _id: category }, { $push: { book: req.params.id } });
+//         }
 
-        if (publisher) {
-            // Remove the book from the old publisher
-            await Publisher.updateOne({ 'book._id': req.params.id }, { $pull: { book: { _id: req.params.id } } });
-            await Publisher.findOneAndUpdate({ _id: publisher }, { $push: { book: req.params.id } });
-        }
+//         if (publisher) {
+//             // Remove the book from the old publisher
+//             await Publisher.updateOne({ 'book._id': req.params.id }, { $pull: { book: { _id: req.params.id } } });
+//             await Publisher.findOneAndUpdate({ _id: publisher }, { $push: { book: req.params.id } });
+//         }
 
-        res.status(200).json({ message: 'Book updated successfully', updatedBook });
-    } catch (err) {
-        const errors = handleErrors(err);
-        res.status(400).json({ errors });
-    }
-};
+//         res.status(200).json({ message: 'Book updated successfully', updatedBook });
+//     } catch (err) {
+//         const errors = handleErrors(err);
+//         res.status(400).json({ errors });
+//     }
+// };
 
 
 // Delete book
+// module.exports.deletebook = async (req, res) => {
+//     const bookId = req.params.id;
+//     // const book = await Book.findOne({ _id: req.params.id });
+//     try {
+//         let author, category, publisher = await Book.findOne({ _id: req.params.id }, (book) => {
+//             return book.author, book.category, book.publisher;
+//         });
+
+//         // Remove book from Author
+//         Author.update(
+//             { _id: author },
+//             { $pull: { 'book': { _id: req.params.id } } }
+//         );
+
+//         // Remove book from Category
+//         Category.update(
+//             { _id: category },
+//             { $pull: { 'book': { _id: req.params.id } } }
+//         );
+
+//         // Remove book from Publisher
+//         Publisher.update(
+//             { _id: publisher },
+//             { $pull: { 'book': { _id: req.params.id } } }
+//         );
+//         // remove Image
+//         if (Book.bookImage) {
+//             fs.unlink(path.join(__dirname, 'public', book.bookImage), err => {
+//                 if (err) console.error(err);
+//             });
+//           }
+//         // Remove book
+//         Book.deleteOne({ _id: req.params.id });
+
+//         res.status(200).json({ message: 'Book deleted successfully', deletedBookId: bookId });
+//         res.redirect('/');
+//     } catch (err) {
+//         const errors = handleErrors(err);
+//         res.status(400).json({ errors });
+//     }
+// }
+
 module.exports.deletebook = async (req, res) => {
+    const bookId = req.params.id;
     try {
-        let author, category, publisher = await Book.findOne({ _id: req.params.id }, (book) => {
-            return book.author, book.category, book.publisher;
-        });
+        let book = await Book.findOne({ _id: req.params.id });
+        if (!book) {
+            return res.status(404).json({ message: 'Book not found' });
+        }
+
+        let author = book.author;
+        let category = book.category;
+        let publisher = book.publisher;
 
         // Remove book from Author
-        Author.update(
+        await Author.updateOne(
             { _id: author },
             { $pull: { 'book': { _id: req.params.id } } }
         );
 
         // Remove book from Category
-        Category.update(
+        await Category.updateOne(
             { _id: category },
             { $pull: { 'book': { _id: req.params.id } } }
         );
 
         // Remove book from Publisher
-        Publisher.update(
+        await Publisher.updateOne(
             { _id: publisher },
             { $pull: { 'book': { _id: req.params.id } } }
         );
 
+        // remove Image
+        if (book.bookImage) {
+            fs.unlink(path.join(__dirname, 'public', book.bookImage), err => {
+                if (err) console.error(err);
+            });
+        }
+
         // Remove book
-        Book.deleteOne({ _id: req.params.id });
+        await Book.deleteOne({ _id: req.params.id });
 
-        res.status(200).json({ message: 'Book deleted successfully', deletedBookId: req.params.id });
-
+        res.status(200).json({ message: 'Book deleted successfully', deletedBookId: bookId });
+        res.redirect('/');
     } catch (err) {
         const errors = handleErrors(err);
         res.status(400).json({ errors });
