@@ -10,11 +10,11 @@
 <!-- Form for updating the user's details -->
 <form id="detailsForm">
     <label for="fullName">Full Name*</label>
-    <input type="text" name="fullName" />
+    <input type="text" name="fullName" value="<%= user.fullName %>"/>
     <div class="fullName error"></div>
 
     <label for="email">Email*</label>
-    <input type="text" name="email" />
+    <input type="text" name="email" value="<%= user.email %>"/>
     <div class="email error"></div>
 
     <label for="password">Password*</label>

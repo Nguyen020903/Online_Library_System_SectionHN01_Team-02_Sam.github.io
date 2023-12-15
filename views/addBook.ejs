@@ -9,6 +9,10 @@
     <input type="text" name="title"/>
     <div class="title error"></div>
 
+    <label for="bookImage">book Image</label>
+    <input type="file" name="bookImage" />
+    <div class="bookImage error"></div>
+
     <lable for="numberOfPages">Number Of Pages</lable>
     <input type="number" name="numberOfPages"/>
     <div class="numberOfPages error"></div>
@@ -60,7 +64,8 @@
     const numberOfPagesError = document.querySelector('.numberOfPages.error');
     const bookCountAvailableError = document.querySelector('.bookCountAvailable.error');
     const descriptionError = document.querySelector('.description.error');
-
+    const bookImageInput = document.querySelector('input[name="bookImage"]');
+    const bookImageError = document.querySelector('.bookImage.error');
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         //reset errors
@@ -69,31 +74,24 @@
         numberOfPagesError.textContent = '';
         bookCountAvailableError.textContent = '';
         descriptionError.textContent = '';
+        bookImageError.textContent = '';
 
         //get value
-        const ISBN = form.ISBN.value;
-        const title = form.title.value;
-        const publisher = form.publisher.value;
-        const author = form.author.value;
-        const numberOfPages = form.numberOfPages.value;
-        const category = form.category.value;
-        const bookCountAvailable = form.bookCountAvailable.value;
-        const description = form.description.value;
+        const formData = new FormData(form);
+        formData.append('ISBN', form.ISBN.value);
+        formData.append('title', form.title.value);
+        formData.append('bookImage',bookImageInput.files[0]);
+        formData.append('numberOfPages', form.numberOfPages.value);
+        formData.append('author', form.author.value);
+        formData.append('category', form.category.value);
+        formData.append('publisher', form.publisher.value);
+        formData.append('bookCountAvailable', form.bookCountAvailable.value);
+        formData.append('description', form.description.value);
 
         try{
             const res = await fetch('/addBook', {
                 method: 'POST',
-                body: JSON.stringify({
-                    ISBN,
-                    title,
-                    publisher: document.getElementsByName('publisher')[0].value,
-                    author: document.getElementsByName('author')[0].value,
-                    numberOfPages,
-                    category: document.getElementsByName('category')[0].value,
-                    bookCountAvailable,
-                    description,
-                }),
-                headers: { 'Content-Type': 'application/json' },
+                body: formData,
             });
             const data = await res.json();
             console.log(data);
@@ -103,6 +101,7 @@
                 numberOfPagesError.textContent = data.errors.numberOfPages;
                 bookCountAvailableError.textContent = data.errors.bookCountAvailable;
                 descriptionError.textContent = data.errors.description;
+                bookImageError.textContent = data.errors.bookImage;
             }
             else{
                 descriptionError.textContent = ('Added successfully');

@@ -13,7 +13,9 @@ const bookSchema = new mongoose.Schema(
     },
     bookImage: {
       type: String,
-  },
+      default: "https://drive.google.com/uc?id=1j9oMUsNA88sQYIgwRpD2FPBKZXlbYUyF",
+      require: true,
+    },
     publisher: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'publisher'

@@ -117,7 +117,7 @@ app.get('/updateUser', requireAuth, (req, res) => {
   res.render('updateUser');
 });
 
-const storage = multer.diskStorage({
+const storageUserImage = multer.diskStorage({
   destination: function(req, file, cb) {
       cb(null, 'public/images/userImage/');
   },
@@ -135,7 +135,7 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({ storage: storage });
+const uploadProfileImage = multer({ storage: storageUserImage });
 
 // app.post('/updateUser', upload.single('profileImage'), async (req, res) => {
 //   const token = req.cookies.jwt;
@@ -182,7 +182,7 @@ const upload = multer({ storage: storage });
 // });
 
 // Route for uploading the profile image
-app.post('/updateUserImage', upload.single('profileImage'), async (req, res) => {
+app.post('/updateUserImage', uploadProfileImage.single('profileImage'), async (req, res) => {
   const token = req.cookies.jwt;
 
   try {
@@ -250,6 +250,44 @@ app.post('/updateUserDetails', async (req, res) => {
   } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'An error occurred while updating the user details' });
+  }
+});
+
+//UserImage for book image
+const storageBookImage = multer.diskStorage({
+  destination: function(req, file, cb) {
+      cb(null, 'public/images/bookImage/');
+  },
+  filename: function(req, file, cb) { // 'file' and 'cb' parameters were swapped
+      const token = req.cookies.jwt;
+      const decodedToken = jwt.verify(token, 'your-secret-key');
+      const userId = decodedToken.id;
+      // Get the current date
+      const date = new Date();
+      // Format the date
+      const formattedDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}-${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
+      // Add the date to the filename
+      const newFilename = `${formattedDate}-${userId}-${file.originalname}`;
+      cb(null, newFilename);
+  }
+});
+
+const uploadBookImage = multer({ storage: storageBookImage });
+
+// Route for uploading the book image
+app.post('/addBook', uploadBookImage.single('bookImage'), async (req, res) => {
+  const { ISBN, title, numberOfPages, author, category, publisher, bookCountAvailable, description } = req.body;
+  const bookImage = "/images/bookImage/"+(req.file ? req.file.filename : '');
+
+  try {
+      // Here you would typically create a new book in your database
+      const book = await Book.create({ ISBN, title, bookImage, numberOfPages, author, category, publisher, bookCountAvailable, description });
+      
+      // For now, we'll just send a success response
+      res.json({ message: 'Book added successfully' });
+  } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'An error occurred while adding the book' });
   }
 });
 app.listen(port, () => {

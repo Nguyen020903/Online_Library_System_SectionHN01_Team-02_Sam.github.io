@@ -17,7 +17,7 @@ router.get('/bookDetail/:id', checkUser, isAdmin, bookController.bookdetail_get)
 
 // Add book
 router.get('/addbook', checkUser, isAdmin, bookController.addbook_get);
-router.post('/addbook', checkUser, isAdmin, bookController.addbook_post);
+// router.post('/addbook', checkUser, isAdmin, bookController.addbook_post);
 
 // Update book
 router.get('/update/:id', checkUser, isAdmin, bookController.updatebook_get);
