@@ -1,6 +1,23 @@
 const User = require('../models/user');
 const Book = require('../models/book');
 
+module.exports.wishlist_get = async (req, res) => {
+  
+  let user = res.locals.user;
+  let books = [];
+
+  if (user) {
+    try {
+      // Find the user's favorite books
+      books = await Book.find({ _id: { $in: user.favoriteBook } });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred while fetching the user\'s favorite books' });
+    }
+  }
+
+  res.render('wishlist', { user, books });
+}
 
 module.exports.add_to_wishlist_post = async (req, res) => {
   const { bookId } = req.body;

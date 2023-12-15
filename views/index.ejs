@@ -91,8 +91,12 @@
 
     <h1>Book List</h1>
     
+
+
     <div class="row justify-content-start g-3">
         <% books.slice().reverse().forEach(book => { %>
+            <% const isBookInWishlist = user && user.favoriteBook.includes(book._id); %>
+
             <div class="col-lg-4 col-md-6 col-sm-12 d-flex">
                 <div class="card px-3">
                     <a href="/bookDetail/<%= book._id %>">
@@ -107,12 +111,16 @@
                             <%= book.author %>
                         </p>
                         <p class="display-5 my-4 text-muted fw-bold">$<%= book.price %></p>
-                        <form action="/addToWishlist">
-                            <input type="hidden" name="book_id" value="<%= book._id %>" />
-                            <button type="submit" class="btn btn-outline-dark btn-lg my-2 rounded-pill">
-                                Add to Wishlist
-                            </button>
-                        </form>
+                        <% if (!isBookInWishlist) { %>
+                            <form action="/addToWishlist">
+                                <input type="hidden" name="book_id" value="<%= book._id %>" />
+                                <button type="submit" class="btn btn-outline-dark btn-lg my-2 rounded-pill">
+                                    Add to Wishlist
+                                </button>
+                            </form>
+                        <% } else { %>
+                            <button disabled>Already in Wishlist.</button>
+                        <% } %>
                     </div>
                 </div>
             </div>
@@ -135,7 +143,7 @@
             console.log(bookId);
 
             try {
-                const res = await fetch('/addToCart', {
+                const res = await fetch('/addToWishlist', {
                     method: 'POST',
                     body: JSON.stringify({
                         bookId
