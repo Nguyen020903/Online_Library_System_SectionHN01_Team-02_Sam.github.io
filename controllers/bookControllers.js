@@ -288,7 +288,6 @@ module.exports.deletebook = async (req, res) => {
         await Book.deleteOne({ _id: req.params.id });
 
         res.status(200).json({ message: 'Book deleted successfully', deletedBookId: bookId });
-        res.redirect('/');
     } catch (err) {
         const errors = handleErrors(err);
         res.status(400).json({ errors });

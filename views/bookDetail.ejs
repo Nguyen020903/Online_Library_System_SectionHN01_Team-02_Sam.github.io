@@ -36,7 +36,7 @@
                         <!-- <button onclick="location.href='/deletebook/<%= book._id %>'" class="btn btn-outline-danger btn-lg my-2 rounded-pill">
                             Delete Book
                         </button> -->
-                        <form method="POST" action="/deletebook/<%= book._id %>">
+                        <form id="deletebook" action="/deletebook/<%= book._id %>">
                             <input type="hidden" name="bookId" value="<%= book._id %>">
                             <button type="submit">Delete Book</button>
                         </form>
@@ -49,21 +49,32 @@
     <!-- ... same footer and scripts as in index.ejs ... -->
 </body>
 <script>
-    fetch(`/deletebook/${bookId}`, {
-    method: 'DELETE',
-})
-.then(response => response.json())
-.then(data => {
-    if (data.message === 'Book deleted successfully') {
-        alert('Book deleted successfully');
-        window.location.href = '/'; // Redirect to main page
-    } else {
-        alert('Failed to delete book');
-    }
-})
-.catch((error) => {
-    console.error('Error:', error);
-});
+    const deletebook = document.querySelector('#deletebook');
+
+    deletebook.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            try {
+                const bookId = '<%= book.id %>'
+                const res = await fetch(`/deletebook/${bookId}`, {
+                    method: "POST"
+                });
+
+                const data = await res.json();
+                console.log(data);
+
+                if (data.errors) {
+                    alert(data.errors);
+                }
+                if (data.user) {  
+                    location.assign('/');
+                }
+            } catch (err) {
+            console.log(err);
+            }
+        });
+
 </script>
+
 </html>
 <%- include('partials/footer'); -%>
