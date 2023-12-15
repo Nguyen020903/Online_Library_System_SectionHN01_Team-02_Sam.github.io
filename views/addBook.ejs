@@ -1,6 +1,10 @@
 <%- include('partials/header'); -%>
-<form action="/addBook">
+<form enctype="multipart/form-data">
     <h2>Add Book</h2>
+    <label for="bookImage">Book Image</label>
+    <input type="file" name="bookImage" />
+    <div class="bookImage error"></div>
+
     <lable for="ISBN">ISBN</lable>
     <input type="text" name="ISBN"/>
     <div class="ISBN error"></div>
@@ -46,13 +50,8 @@
     <div class="description error"></div>
 
     <button>Add</button>
-
 </form>
-<div id="successAlert" style="display: none;">
-    <p>Data saved successfully!</p>
-  </div>
-<script>
-    
+  <script>
     const form = document.querySelector('form');
     // read the error
     const ISBNError = document.querySelector('.ISBN.error');
@@ -60,6 +59,7 @@
     const numberOfPagesError = document.querySelector('.numberOfPages.error');
     const bookCountAvailableError = document.querySelector('.bookCountAvailable.error');
     const descriptionError = document.querySelector('.description.error');
+    const bookImageError = document.querySelector('.bookImage.error');
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -69,31 +69,26 @@
         numberOfPagesError.textContent = '';
         bookCountAvailableError.textContent = '';
         descriptionError.textContent = '';
+        bookImageError.textContent = '';
 
-        //get value
-        const ISBN = form.ISBN.value;
-        const title = form.title.value;
-        const publisher = form.publisher.value;
-        const author = form.author.value;
-        const numberOfPages = form.numberOfPages.value;
-        const category = form.category.value;
-        const bookCountAvailable = form.bookCountAvailable.value;
-        const description = form.description.value;
-
+        // Create a FormData instance
+        const formData = new FormData(form);
+        formData.append('ISBN', form.ISBN.value);
+        formData.append('title', form.title.value);
+        formData.append('numberOfPages', form.numberOfPages.value);
+        formData.append('author', form.author.value);
+        formData.append('category', form.category.value);
+        formData.append('publisher', form.publisher.value);
+        formData.append('bookCountAvailable', form.bookCountAvailable.value);
+        formData.append('description', form.description.value);
+        if (form.bookImage.files.length > 0) {
+          formData.append('bookImage', form.bookImage.files[0]);
+        }
+        
         try{
-            const res = await fetch('/addBook', {
+            const res = await fetch('/addbook', {
                 method: 'POST',
-                body: JSON.stringify({
-                    ISBN,
-                    title,
-                    publisher: document.getElementsByName('publisher')[0].value,
-                    author: document.getElementsByName('author')[0].value,
-                    numberOfPages,
-                    category: document.getElementsByName('category')[0].value,
-                    bookCountAvailable,
-                    description,
-                }),
-                headers: { 'Content-Type': 'application/json' },
+                body: formData,// Send the form data
             });
             const data = await res.json();
             console.log(data);
@@ -103,6 +98,7 @@
                 numberOfPagesError.textContent = data.errors.numberOfPages;
                 bookCountAvailableError.textContent = data.errors.bookCountAvailable;
                 descriptionError.textContent = data.errors.description;
+                bookImageError.textContent = data.errors.bookImage;
             }
             else{
                 descriptionError.textContent = ('Added successfully');

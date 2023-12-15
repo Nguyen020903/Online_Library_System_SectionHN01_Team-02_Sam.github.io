@@ -5,6 +5,8 @@ const Book = require('../models/book');
 const Author = require('../models/author');
 const Category = require('../models/category');
 const Publisher = require('../models/publisher');
+const multer = require('multer');
+const jwt = require('jsonwebtoken');
 // error handler, use to handle error message from models (author,book, category and publisher)
 const handleErrors = (err) => {
     console.log(err.message, err.code);
@@ -65,22 +67,75 @@ module.exports.addbook_get = async (req, res) => {
     }
 };
 
-module.exports.addbook_post = async (req, res) => {
-    const { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description } = req.body;
-    try {
-        const book = await Book.create({ ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description });
-        // Update the author with the book ID
-        const updatedAuthor = await Author.findOneAndUpdate({ _id: author }, { $push: { book: book._id } }, { new: true });
-        const updatedCategory = await Category.findOneAndUpdate({ _id: category }, { $push: { book: book._id } }, { new: true });
-        const updatedPublisher = await Publisher.findOneAndUpdate({ _id: publisher }, { $push: { book: book._id } }, { new: true });
-        res.status(200).json(book, updatedAuthor, updatedCategory, updatedPublisher);
-    }
-    catch (err) {
-        const errors = handleErrors(err);
-        res.status(400).json({ errors });
-    }
-};
+// const storage1 = multer.diskStorage({
+//     destination: function(req, file, cb) {
+//         cb(null, 'public/images/bookImage/');
+//     },
+//     filename: function(req, file, cb) { // 'file' and 'cb' parameters were swapped
+//         const token = req.cookies.jwt;
+//         const decodedToken = jwt.verify(token, 'your-secret-key');
+//         const userId = decodedToken.id;
+//         // Get the current date
+//         const date = new Date();
+//         // Format the date
+//         const formattedDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}-${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
+//         // Add the date to the filename
+//         const newFilename = `${formattedDate}-${userId}-${file.originalname}`;
+//         cb(null, newFilename);
+//     }
+//   });
+  
+//   const upload = multer({ storage1: storage1 });
 
+// module.exports.addbook_post = async (req, res) => {
+//     const { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description } = req.body;
+//     const bookImage = "/images/bookImage/" + (req.file ? req.file.filename : '');
+//     try {
+//         const book = await Book.create({ ISBN, title, bookImage, author, category, publisher, numberOfPages, bookCountAvailable, description });
+//         // Update the author with the book ID
+//         const updatedAuthor = await Author.findOneAndUpdate({ _id: author }, { $push: { book: book._id } }, { new: true });
+//         const updatedCategory = await Category.findOneAndUpdate({ _id: category }, { $push: { book: book._id } }, { new: true });
+//         const updatedPublisher = await Publisher.findOneAndUpdate({ _id: publisher }, { $push: { book: book._id } }, { new: true });
+//         res.status(200).json({book, updatedAuthor, updatedCategory, updatedPublisher});
+//     }
+//     catch (err) {
+//         const errors = handleErrors(err);
+//         res.status(400).json({ errors });
+//     }
+// };
+
+// const storage = multer.diskStorage({
+//     destination: function(req, file, cb) {
+//         cb(null, 'public/images/bookImage/');
+//     },
+//     filename: function(req, file, cb) {
+//         const token = req.cookies.jwt;
+//         const decodedToken = jwt.verify(token, 'your-secret-key');
+//         const userId = decodedToken.id;
+//         const date = new Date();
+//         const formattedDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}-${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
+//         const newFilename = `${formattedDate}-${userId}-${file.originalname}`;
+//         cb(null, newFilename);
+//     }
+// });
+
+// const upload = multer({ storage: storage });
+
+// module.exports.addbook_post = upload.single('bookImage'), async (req, res) => {
+//     const { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description } = req.body;
+//     const bookImage = "/images/bookImage/" + (req.file ? req.file.filename : '');
+//     try {
+//         const book = await Book.create({ ISBN, title, bookImage, author, category, publisher, numberOfPages, bookCountAvailable, description });
+//         const updatedAuthor = await Author.findOneAndUpdate({ _id: author }, { $push: { book: book._id } }, { new: true });
+//         const updatedCategory = await Category.findOneAndUpdate({ _id: category }, { $push: { book: book._id } }, { new: true });
+//         const updatedPublisher = await Publisher.findOneAndUpdate({ _id: publisher }, { $push: { book: book._id } }, { new: true });
+//         res.status(200).json({book, updatedAuthor, updatedCategory, updatedPublisher});
+//     }
+//     catch (err) {
+//         const errors = handleErrors(err);
+//         res.status(400).json({ errors });
+//     }
+// };
 // Update book
 module.exports.updatebook_get = async (req, res) => {
     let book = await Book.findOne({ _id: req.params.id });
