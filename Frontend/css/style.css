@@ -196,6 +196,118 @@ section{
     background:var(--dark-color);
 }
 
+#addbook-btn {
+    margin-top: 1rem;
+    display:inline-block;
+    padding:.9rem 3rem;
+    border-radius: .5rem;
+    color:#fff;
+    background:var(--green);
+    font-size: 1.7rem;
+    cursor: pointer;
+    font-weight: 500;
+    display: block;
+    margin: 0 auto;
+    width: 18.5rem;
+}
+
+#addbook-btn i {
+    margin-left: 1rem;
+  }
+
+.addbook-form-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:rgba(255,255,255,.9);
+    position:fixed;
+    top:0; right:-105%;
+    z-index: 10000;
+    height:100%;
+    width:100%;
+}
+
+.addbook-form-container.active{
+    right:0;
+}
+
+.addbook-form-container form{
+    background:#fff;
+    border:var(--border);
+    width:40rem;
+    padding:2rem;
+    box-shadow: var(--box-shadow);
+    border-radius: .5rem;
+    margin:2rem;
+}
+
+.addbook-form-container form h3{
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    color:var(--black);
+    text-align: center;
+}
+
+.addbook-form-container form span{
+    display: block;
+    font-size: 1.5rem;
+    padding-top: 1rem;
+}
+
+.addbook-form-container form .box{
+    width: 100%;
+    margin:.7rem 0;
+    font-size: 1.6rem;
+    border:var(--border);
+    border-radius: .5rem;
+    padding:1rem 1.2rem;
+    color:var(--black);
+    text-transform: none;
+}
+
+.addbook-form-container form .checkbox{
+    display:flex;
+    align-items: center;
+    gap:.5rem;
+    padding:1rem 0;
+}
+
+.addbook-form-container form .checkbox label{
+    font-size: 1.5rem;
+    color:var(--light-color);
+    cursor: pointer;
+    user-select: none;
+}
+
+.addbook-form-container form .btn{
+    text-align: center;
+    width:100%;
+    margin:1.5rem 0;
+}
+
+.addbook-form-container form p{
+    padding-top: .8rem;
+    color:var(--light-color);
+    font-size: 1.5rem;
+}
+
+.addbook-form-container form p a{
+    color:var(--green);
+}
+
+.addbook-form-container form p a:hover{
+    color: var(--black);
+    text-decoration: underline;
+}
+
+.addbook-form-container #close-addbook-btn{
+    position: absolute;
+    top:1.5rem; right:2.5rem;
+    font-size: 5rem;
+    color:var(--black);
+    cursor: pointer;
+}
+
 .home-container{
     background: url(../image/banner-bg.jpg) no-repeat;
     background-size: cover;
@@ -675,11 +787,6 @@ section{
     width: 20%;
     height: 100%;
 }
-
-
-
-
-
 
 /* media queries  */
 
