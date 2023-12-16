@@ -150,12 +150,12 @@ var swiper = new Swiper(".blogs-slider", {
   },
 });
 
-let addbookForm = document.querySelector('.addbook-form-container');
+let bookmenuForm = document.querySelector('.bookmenu-form-container');
 
-document.querySelector('#addbook-btn').onclick = () =>{
-  addbookForm.classList.toggle('active');
+document.querySelector('#bookmenu-btn').onclick = () =>{
+  bookmenuForm.classList.toggle('active');
 }
 
-document.querySelector('#close-addbook-btn').onclick = () =>{
-  addbookForm.classList.remove('active');
+document.querySelector('#close-bookmenu-btn').onclick = () =>{
+  bookmenuForm.classList.remove('active');
 }

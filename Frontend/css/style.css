@@ -196,7 +196,7 @@ section{
     background:var(--dark-color);
 }
 
-#addbook-btn {
+#bookmenu-btn {
     margin-top: 1rem;
     display:inline-block;
     padding:.9rem 3rem;
@@ -211,11 +211,11 @@ section{
     width: 18.5rem;
 }
 
-#addbook-btn i {
+#bookmenu-btn i {
     margin-left: 1rem;
   }
 
-.addbook-form-container{
+.bookmenu-form-container{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -227,11 +227,11 @@ section{
     width:100%;
 }
 
-.addbook-form-container.active{
+.bookmenu-form-container.active{
     right:0;
 }
 
-.addbook-form-container form{
+.bookmenu-form-container form{
     background:#fff;
     border:var(--border);
     width:40rem;
@@ -241,20 +241,20 @@ section{
     margin:2rem;
 }
 
-.addbook-form-container form h3{
+.bookmenu-form-container form h3{
     font-size: 2.5rem;
     text-transform: uppercase;
     color:var(--black);
     text-align: center;
 }
 
-.addbook-form-container form span{
+.bookmenu-form-container form span{
     display: block;
     font-size: 1.5rem;
     padding-top: 1rem;
 }
 
-.addbook-form-container form .box{
+.bookmenu-form-container form .box{
     width: 100%;
     margin:.7rem 0;
     font-size: 1.6rem;
@@ -265,42 +265,42 @@ section{
     text-transform: none;
 }
 
-.addbook-form-container form .checkbox{
+.bookmenu-form-container form .checkbox{
     display:flex;
     align-items: center;
     gap:.5rem;
     padding:1rem 0;
 }
 
-.addbook-form-container form .checkbox label{
+.bookmenu-form-container form .checkbox label{
     font-size: 1.5rem;
     color:var(--light-color);
     cursor: pointer;
     user-select: none;
 }
 
-.addbook-form-container form .btn{
+.bookmenu-form-container form .btn{
     text-align: center;
     width:100%;
     margin:1.5rem 0;
 }
 
-.addbook-form-container form p{
+.bookmenu-form-container form p{
     padding-top: .8rem;
     color:var(--light-color);
     font-size: 1.5rem;
 }
 
-.addbook-form-container form p a{
+.bookmenu-form-container form p a{
     color:var(--green);
 }
 
-.addbook-form-container form p a:hover{
+.bookmenu-form-container form p a:hover{
     color: var(--black);
     text-decoration: underline;
 }
 
-.addbook-form-container #close-addbook-btn{
+.bookmenu-form-container #close-bookmenu-btn{
     position: absolute;
     top:1.5rem; right:2.5rem;
     font-size: 5rem;
