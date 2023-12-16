@@ -12,6 +12,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         require: [true, 'Please enter your full name']
     },
+    profileImage: {
+        type: String,
+        default: "https://drive.google.com/uc?id=1j9oMUsNA88sQYIgwRpD2FPBKZXlbYUyF",
+        require: true
+    },
     email: {
         type: String,
         require: [true, 'Please enter your email'],
