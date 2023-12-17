@@ -206,8 +206,7 @@ section{
     font-size: 1.7rem;
     cursor: pointer;
     font-weight: 500;
-    display: block;
-    margin: 0 auto;
+    text-align: center;
     width: 18.5rem;
 }
 
