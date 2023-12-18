@@ -521,6 +521,7 @@ section{
     padding:2rem 1rem;
     border:var(--border);
     margin:1rem 0;
+    width: 33.33%;
 }
 
 .arrivals .arrivals-slider .box:hover{
@@ -787,6 +788,47 @@ section{
     height: 100%;
 }
 
+/* allbooks page */
+
+.arrivals .allbook{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.arrivals .box{
+    display: flex;
+    align-items:center;
+    gap:1.5rem;
+    padding:2rem 1rem;
+    border:var(--border);
+    margin:1rem 1rem;
+    width: 31.5%;
+}
+
+.arrivals .box:hover{
+    border:var(--border-hover);
+}
+
+.arrivals .box .image img{
+    height:15rem;
+}
+
+.arrivals .box .content h3{
+    font-size: 2rem;
+    color:var(--black);
+}
+
+.arrivals .box .content .author{
+    font-size: 1.9rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+}
+
+.arrivals .box .content .stars i{
+    font-size: 1.5rem;
+    color:var(--green);
+}
+
 /* media queries  */
 
 @media (max-width:991px){
@@ -852,6 +894,10 @@ section{
         max-width: 100%;
     }
 
+    .arrivals .box{
+        width: 47%;
+    }
+
 }
 
 @media (max-width:450px){
@@ -864,4 +910,9 @@ section{
         width: 75%;
     }
 
+    .arrivals .box{
+        width: 100%;
+    }
+
 }
+
