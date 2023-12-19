@@ -40,7 +40,7 @@ const bookSchema = new mongoose.Schema(
     category: 
       {
         type: mongoose.Types.ObjectId,
-        ref: "BookCategory",
+        ref: "category",
       },
     transactions: [
       {

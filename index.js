@@ -304,7 +304,7 @@ app.get('/bookDetail/:id', async (req, res) => {
 });
 
 // Route for updating book details
-app.post('/bookDetail/:id', async (req, res) => {
+app.post('/bookDetail/:id', requireAuth, async (req, res) => {
   try {
       const updatedBook = await Book.findByIdAndUpdate(req.params.id, req.body, { new: true });
       res.redirect(`/bookDetail/${updatedBook._id}`);
@@ -355,7 +355,7 @@ app.get('/updateBook/:id', async (req, res) => {
 // });
 // Route for submitting the book update form
 
-app.post('/updateBook/:id', bookImageUpload.single('bookImage'), async (req, res) => {
+app.post('/updateBook/:id', requireAuth,bookImageUpload.single('bookImage'), async (req, res) => {
   const { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description } = req.body;
   try{
     const book = await Book.findById(req.params.id);

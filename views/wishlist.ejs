@@ -7,9 +7,9 @@
         <table border="1">
             <thead>
                 <tr>
+                    <th>ISBN</th>
                     <th>Title</th>
                     <th>Author</th>
-                    <th>ISBN</th>
                     <th>Category</th>
                     <!-- Add more columns if needed -->
                 </tr>
@@ -17,10 +17,10 @@
             <tbody>
                 <% books.forEach(book => { %>
                     <tr>
-                        <td><%= book.title %></td>
-                        <td><%= book.author %></td>
                         <td><%= book.ISBN %></td>
-                        <td><%= book.category%></td>
+                        <td><%= book.title %></td>
+                        <td><%= book.author.name %></td>
+                        <td><%= book.category.name %></td>
                         <!-- Add more columns if needed -->
                     </tr>
                 <% }); %>
