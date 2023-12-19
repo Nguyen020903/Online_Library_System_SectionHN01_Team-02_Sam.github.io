@@ -281,14 +281,25 @@ section {
     justify-content: center;
 }
 
-.tab-content.tab2 {
+.tab-content.tab2 { /*wishlist*/
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    overflow: auto;
+    width: 100%;
 }
 
-.tab-content.tab3 {
+.remove-btn {
+    color: red;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.remove-btn:hover {
+    color: darkred;
+}
+
+.tab-content.tab3 { /*borrowed books*/
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -355,8 +366,8 @@ section {
 .verticalNavItems {
     background-color: #ddd;
     margin: 10px;
-    border-radius: 5px;
-    padding: 10px;
+    border-radius: 10px;
+    padding: 1.5rem;
 }
 
 .verticalNavItems a {
