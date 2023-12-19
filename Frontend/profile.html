@@ -54,8 +54,32 @@
             </div>
             <!-- Tab Content inside leftContainer -->
             <div id="tab2" class="tab-content tab2">
-                <h3>Wishlist Content</h3>
-                <p>This is the content for the Wishlist tab.</p>
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Book Name</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Sample data, you can replace this with dynamic data -->
+                        <tr>
+                            <td>1</td>
+                            <td><a href="#">Book 1</a></td>
+                            <td>Available</td>
+                            <td><span class="remove-btn">Remove</span></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><a href="#">Book 2</a></td>
+                            <td>Unavailable</td>
+                            <td><span class="remove-btn">Remove</span></td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
             </div>
 
             <div id="tab3" class="tab-content tab3">
@@ -160,8 +184,8 @@
                         href="#">Wishlist</a></li>
                 <li class="verticalNavItems" onclick="openTab('tab3')"><i class="fas fa-arrow-right-from-bracket"></i><a
                         href="#">Borrowed Book</a></li>
-                <li id="logout-btn" class="verticalNavItems" onclick="openTab('tab4')"><i class="fas fa-arrow-right-from-bracket"></i><a
-                        href="#">Logout</a></li>
+                <li id="logout-btn" class="verticalNavItems" onclick="openTab('tab4')"><i
+                        class="fas fa-arrow-right-from-bracket"></i><a href="#">Logout</a></li>
             </ul>
         </div>
     </div>
