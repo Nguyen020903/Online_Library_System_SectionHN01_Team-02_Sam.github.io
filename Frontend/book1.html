@@ -83,8 +83,72 @@
                     and more recently with desktop publishing software like Aldus
                     PageMaker including versions of Lorem Ipsum.
                 </p>
-                <a href="#" class="btn">add to rentlist / check availability</a>
-                <a href="#" class="btn">favourite</a>
+                <div id="readerview">
+                    <a href="#" class="btn">add to rentlist / check availability</a>
+                    <a href="#" class="btn">favourite</a>
+                </div>
+                <div id="libview">
+                    <div id="bookmenu-btn">update book</div>
+                </div>
+
+                <div class="bookmenu-form-container">
+
+                    <div id="close-bookmenu-btn" class="fas fa-times"></div>
+            
+                    <form action="">
+                        <h3>update book</h3>
+                        
+                        <span>ISBN</span>
+                        <input type="text" name="ISBN" class="box" placeholder="enter the book ISBN" id="ISBN">
+                        
+                        <span>book title</span>
+                        <input type="text" name="title" class="box" placeholder="enter the book title" id="title">
+                        
+                        <span>details</span>
+                        <div>
+                            <select class="box" id="author" name="author">
+                                <option value="0">Select author:</option>
+                                <option value="1">Audi</option>
+                                <option value="2">BMW</option>
+                                <option value="3">Citroen</option>
+                            </select>
+                        </div>
+                        
+            
+                        <div>
+                            <select class="box" id="category" name="category">
+                                <option value="0">Select category:</option>
+                                <option value="1">Audi</option>
+                                <option value="2">BMW</option>
+                                <option value="3">Citroen</option>
+                            </select>
+                        </div>
+                        
+            
+                        <div>
+                            <select class="box" id="publisher" name="publisher">
+                                <option value="0">Select publisher:</option>
+                                <option value="1">Audi</option>
+                                <option value="2">BMW</option>
+                                <option value="3">Citroen</option>
+                            </select>
+                        </div>
+                        
+                        <span>number of book</span>
+                        <input type="number" name="bookCountAvailable" class="box" placeholder="enter the number of book" id="bookCountAvailable">
+                        
+                        <span>image</span>
+                        <input type="file" class="account-settings-fileinput box">
+            
+                        <span>description</span>
+                        <textarea name="description" id="description" rows="4" cols="40" class="box">enter book description</textarea>
+            
+                        <input type="submit" value="submit" class="btn">
+            
+                    </form>
+            
+                </div>
+                
             </div>
         </section>
     </div>

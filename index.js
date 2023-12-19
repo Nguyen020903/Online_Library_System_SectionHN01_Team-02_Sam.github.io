@@ -162,11 +162,16 @@ app.post('/updateUserImage', userImgUpload.single('profileImage'), async (req, r
       const user = await User.findById(userId);
 
       // If the user has an old image, delete it
-      if (user.profileImage) {
-          fs.unlink(path.join(__dirname, 'public', user.profileImage), err => {
-              if (err) console.error(err);
-          });
-      }
+      // if (user.profileImage) {
+      //     fs.unlink(path.join(__dirname, 'public', user.profileImage), err => {
+      //         if (err) console.error(err);
+      //     });
+      // }
+      if (user.profileImage && user.profileImage !== 'https://drive.google.com/uc?id=1j9oMUsNA88sQYIgwRpD2FPBKZXlbYUyF') {
+            fs.unlink(path.join(__dirname, 'public', user.profileImage), err => {
+                if (err) console.error(err);
+            });
+        }
 
       // Extract the filename from the uploaded file
       const profileImage = "/images/userImage/" + (req.file ? req.file.filename : '');
@@ -244,6 +249,26 @@ const bookImageStorage = multer.diskStorage({
 const bookImageUpload = multer({ storage: bookImageStorage });
 
 
+// app.post('/addbook', (req, res, next) => {
+//   console.log('Request Body:', req.body);
+//   console.log('Request File:', req.file);
+//   next();
+// }, checkUser, isAdmin, multer({ storage: bookImageStorage }).single('bookImage'), async (req, res) => {  
+//   try {
+//     const { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description } = req.body;
+//     const bookImage = req.file ? "/images/bookImage/" + req.file.filename : '';
+
+//     const book = await Book.create({ ISBN, title, bookImage, author, category, publisher, numberOfPages, bookCountAvailable, description });
+//     const updatedAuthor = await Author.findOneAndUpdate({ _id: author }, { $push: { book: book._id } }, { new: true });
+//     const updatedCategory = await Category.findOneAndUpdate({ _id: category }, { $push: { book: book._id } }, { new: true });
+//     const updatedPublisher = await Publisher.findOneAndUpdate({ _id: publisher }, { $push: { book: book._id } }, { new: true });
+//     res.status(200).json({book, updatedAuthor, updatedCategory, updatedPublisher});
+//   }
+//   catch (err) {
+//     const errors = handleErrors(err);
+//     res.status(400).json({ errors });
+//   }
+// });
 app.post('/addbook', (req, res, next) => {
   console.log('Request Body:', req.body);
   console.log('Request File:', req.file);
@@ -251,17 +276,19 @@ app.post('/addbook', (req, res, next) => {
 }, checkUser, isAdmin, multer({ storage: bookImageStorage }).single('bookImage'), async (req, res) => {  
   try {
     const { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description } = req.body;
-    const bookImage = "/images/bookImage/" + (req.file ? req.file.filename : '');
+    let bookData = { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description };
 
-    const book = await Book.create({ ISBN, title, bookImage, author, category, publisher, numberOfPages, bookCountAvailable, description });
+    if (req.file) {
+      bookData.bookImage = "/images/bookImage/" + req.file.filename;
+    }
+
+    const book = await Book.create(bookData);
     const updatedAuthor = await Author.findOneAndUpdate({ _id: author }, { $push: { book: book._id } }, { new: true });
     const updatedCategory = await Category.findOneAndUpdate({ _id: category }, { $push: { book: book._id } }, { new: true });
     const updatedPublisher = await Publisher.findOneAndUpdate({ _id: publisher }, { $push: { book: book._id } }, { new: true });
     res.status(200).json({book, updatedAuthor, updatedCategory, updatedPublisher});
   }
   catch (err) {
-    const errors = handleErrors(err);
-    res.status(400).json({ errors });
   }
 });
 
@@ -340,6 +367,25 @@ app.post('/updateBook/:id', bookImageUpload.single('bookImage'), async (req, res
     const bookImage = "/images/bookImage/" + (req.file ? req.file.filename : '');
 
     const updatedBook = await Book.findByIdAndUpdate(req.params.id, { ISBN, title, bookImage, author, category, publisher, numberOfPages, bookCountAvailable, description }, { new: true });
+    // Update the author, category, and publisher if provided
+    if (author) {
+      // Remove the book from the old author
+      await Author.updateOne({ 'book._id': req.params.id }, { $pull: { book: { _id: req.params.id } } });
+      await Author.findOneAndUpdate({ _id: author }, { $push: { book: req.params.id } });
+  }
+
+  if (category) {
+      // Remove the book from the old category
+      await Category.updateOne({ 'book._id': req.params.id }, { $pull: { book: { _id: req.params.id } } });
+      await Category.findOneAndUpdate({ _id: category }, { $push: { book: req.params.id } });
+  }
+
+  if (publisher) {
+      // Remove the book from the old publisher
+      await Publisher.updateOne({ 'book._id': req.params.id }, { $pull: { book: { _id: req.params.id } } });
+      await Publisher.findOneAndUpdate({ _id: publisher }, { $push: { book: req.params.id } });
+  }
+
     if (!updatedBook) {
       return res.status(404).json({ message: 'Book not found' });
     }

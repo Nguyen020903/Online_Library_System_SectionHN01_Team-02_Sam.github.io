@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile</title>
-    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="css/profile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
@@ -34,38 +34,135 @@
     <!-- Main Body -->
     <div class="main-part">
         <!-- Right Half - General Information, Contact Information, Profile Image, and Name -->
-        <div class="col-md-6 leftContainer">
-            <div class="text-center">
-                <img src="/Assets/Images/Logo.png" alt="Profile Picture" class="profilePic" id="profilePic">
-                <h2 id="name">Your Name</h2>
-                <button id="editBtn">Edit Profile</button>
+        <div class="leftContainer">
+            <div id="tab1" class="tab-content tab1 active">
+                <div class="text-center">
+                    <img src="/Assets/Images/Logo.png" alt="Profile Picture" class="profilePic" id="profilePic">
+                    <h2 id="name">Your Name</h2>
+                    <button id="editBtn">Edit Profile</button>
+                </div>
+                <div class="generalInfo">
+                    <h3 class="heading">General Information</h3>
+                    <ul id="generalInfoList">
+                        <li>Full Name: <span id="fullName">Your Full Name</span></li>
+                        <li>Date of Birth: <span id="dob">January 1, 1990</span></li>
+                        <li>Gender: <span id="gender">Male</span></li>
+                        <li>Email Address: <span id="email">your.email@example.com</span></li>
+                        <li>Phone Number: <span id="phone">123-456-7890</span></li>
+                    </ul>
+                </div>
             </div>
-            <div>
-                <h3 class="heading">General Information</h3>
-                <ul id="generalInfoList">
-                    <li>Full Name: <span id="fullName">Your Full Name</span></li>
-                    <li>Date of Birth: <span id="dob">January 1, 1990</span></li>
-                    <li>Gender: <span id="gender">Male</span></li>
-                    <li>Email Address: <span id="email">your.email@example.com</span>
-                        <!-- <button class="btn btn-outline-secondary btn-sm float-end "
-                            onclick="copyToClipboard('email')">Copy</button> -->
-                    </li>
-                    <li>Phone Number: <span id="phone">123-456-7890</span></li>
-                </ul>
+            <!-- Tab Content inside leftContainer -->
+            <div id="tab2" class="tab-content tab2">
+                <h3>Wishlist Content</h3>
+                <p>This is the content for the Wishlist tab.</p>
             </div>
 
+            <div id="tab3" class="tab-content tab3">
+                <div class="table-container">
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Book Title</th>
+                                <th>Borrowed Date</th>
+                                <th>Due Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Book 1</td>
+                                <td>2023-01-01</td>
+                                <td>2023-01-15</td>
+                                <td>Returned</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Book 2</td>
+                                <td>2023-02-01</td>
+                                <td>2023-02-15</td>
+                                <td>Not Returned</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Book 3</td>
+                                <td>2023-03-01</td>
+                                <td>2023-03-15</td>
+                                <td>Returned</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Book 4</td>
+                                <td>2023-04-01</td>
+                                <td>2023-04-15</td>
+                                <td>Not Returned</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Book 5</td>
+                                <td>2023-05-01</td>
+                                <td>2023-05-15</td>
+                                <td>Returned</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>This is the longest name a book can have</td>
+                                <td>2023-01-01</td>
+                                <td>2023-01-15</td>
+                                <td>Returned</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Book 2</td>
+                                <td>2023-02-01</td>
+                                <td>2023-02-15</td>
+                                <td>Not Returned</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Book 3</td>
+                                <td>2023-03-01</td>
+                                <td>2023-03-15</td>
+                                <td>Returned</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Book 4</td>
+                                <td>2023-04-01</td>
+                                <td>2023-04-15</td>
+                                <td>Not Returned</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Book 5</td>
+                                <td>2023-05-01</td>
+                                <td>2023-05-15</td>
+                                <td>Returned</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="tab4" class="tab-content tab4">
+                <h3>Logout Content</h3>
+                <p>This is the content for the Logout tab.</p>
+            </div>
         </div>
-        <!-- Left Half - Three Big Buttons -->
+        <!-- Left Half - vertical Navbar -->
         <div class="rightContainer">
-            <div>
-                <button class="main_btn" id="btn_1">Bookmark</button>
-            </div>
-            <div>
-                <button class="main_btn" id="btn_2">Wishlist</button>
-            </div>
-            <div>
-                <button class="main_btn" id="btn_3">Borrowed Book</button>
-            </div>
+            <ul class="verticalNavList">
+                <li class="verticalNavItems active" onclick="openTab('tab1')"><i class="far fa-user"></i><a
+                        href="#">Profile</a></li>
+                <li class="verticalNavItems" onclick="openTab('tab2')"><i class="far fa-bookmark"></i><a
+                        href="#">Wishlist</a></li>
+                <li class="verticalNavItems" onclick="openTab('tab3')"><i class="fas fa-arrow-right-from-bracket"></i><a
+                        href="#">Borrowed Book</a></li>
+                <li id="logout-btn" class="verticalNavItems" onclick="openTab('tab4')"><i class="fas fa-arrow-right-from-bracket"></i><a
+                        href="#">Logout</a></li>
+            </ul>
         </div>
     </div>
     <!-- footer -->
@@ -80,6 +177,8 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="https://kit.fontawesome.com/120cd899b7.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

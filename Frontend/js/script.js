@@ -4,7 +4,6 @@ document.querySelector('#search-btn').onclick = () =>{
   searchForm.classList.toggle('active');
 }
 
-let loginForm = document.querySelector('.login-form-container');
 
 window.onscroll = () =>{
 
@@ -150,3 +149,13 @@ var swiper = new Swiper(".blogs-slider", {
     },
   },
 });
+
+let bookmenuForm = document.querySelector('.bookmenu-form-container');
+
+document.querySelector('#bookmenu-btn').onclick = () =>{
+  bookmenuForm.classList.toggle('active');
+}
+
+document.querySelector('#close-bookmenu-btn').onclick = () =>{
+  bookmenuForm.classList.remove('active');
+}
