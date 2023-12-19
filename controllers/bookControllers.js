@@ -45,15 +45,15 @@ const handleErrors = (err) => {
 }
 
 // Book detail page
-module.exports.bookdetail_get = async (req, res) => {
-    let book = await Book.findOne({ _id: req.params.id });
+// module.exports.bookdetail_get = async (req, res) => {
+//     let book = await Book.findOne({ _id: req.params.id });
     
-    if (book) {
-        res.render('bookDetail', { book: book });
-    } else {
-        res.send('Book not found.');
-    }
-}
+//     if (book) {
+//         res.render('bookDetail', { book: book });
+//     } else {
+//         res.send('Book not found.');
+//     }
+// }
 
 // Add book
 module.exports.addbook_get = async (req, res) => {

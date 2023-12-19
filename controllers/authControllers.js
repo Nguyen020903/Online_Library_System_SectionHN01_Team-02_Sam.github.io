@@ -50,7 +50,7 @@ const handleErrors = (err) => {
 
 // Function for Signup (Get & Post method)
 module.exports.signup_get = (req, res) => {
-    res.render('signup');
+    res.render('login_&_signup');
 };
 
 module.exports.signup_post = async (req, res) => {
@@ -91,7 +91,7 @@ module.exports.signup_post = async (req, res) => {
 
 // Function for Login (Get & Post method)
 module.exports.login_get = (req, res) => {
-    res.render('login');
+    res.render('login_&_signup');
 };
 
 module.exports.login_post = async (req, res) => {

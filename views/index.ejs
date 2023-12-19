@@ -115,18 +115,20 @@
                                 </p>
                                 <p class="display-5 my-4 text-muted fw-bold">$<%= book.price %>
                                 </p>
-                                <% if (!isBookInWishlist) { %>
-                                    <form method="post" class="wishlist-form" data-action="/addToWishlist" data-book-id="<%= book._id %>">
-                                        <button type="button" class="btn btn-outline-dark btn-lg my-2 rounded-pill">
-                                            Add to Wishlist
-                                        </button>
-                                    </form>
-                                <% } else { %>
-                                    <form method="post" class="wishlist-form" data-action="/removeFromWishlist" data-book-id="<%= book._id %>">
-                                        <button type="button" class="btn btn-outline-dark btn-lg my-2 rounded-pill">
-                                            Remove from Wishlist
-                                        </button>
-                                    </form>
+                                <% if (user) { %>
+                                    <% if (!isBookInWishlist) { %>
+                                        <form method="post" class="wishlist-form" data-action="/addToWishlist" data-book-id="<%= book._id %>">
+                                            <button type="button" class="btn btn-outline-dark btn-lg my-2 rounded-pill">
+                                                Add to Wishlist
+                                            </button>
+                                        </form>
+                                    <% } else { %>
+                                        <form method="post" class="wishlist-form" data-action="/removeFromWishlist" data-book-id="<%= book._id %>">
+                                            <button type="button" class="btn btn-outline-dark btn-lg my-2 rounded-pill">
+                                                Remove from Wishlist
+                                            </button>
+                                        </form>
+                                    <% } %>
                                 <% } %>
                             </div>
                         </div>

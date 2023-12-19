@@ -293,7 +293,7 @@ app.post('/addbook', (req, res, next) => {
 });
 
 // Route for displaying book details
-app.get('/bookDetail/:id', async (req, res) => {
+app.get('/bookDetail/:id', requireAuth, async (req, res) => {
   try {
       const book = await Book.findById(req.params.id);
       res.render('bookDetail', { book: book });
@@ -304,7 +304,7 @@ app.get('/bookDetail/:id', async (req, res) => {
 });
 
 // Route for updating book details
-app.post('/bookDetail/:id', requireAuth, async (req, res) => {
+app.post('/bookDetail/:id', async (req, res) => {
   try {
       const updatedBook = await Book.findByIdAndUpdate(req.params.id, req.body, { new: true });
       res.redirect(`/bookDetail/${updatedBook._id}`);

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="Login.css">
+    <title>Library</title>
+</head>
+
+<body>
+
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <form id="sign_up">
+                <h1>Create Account</h1>
+                <input type="text" name="fullName" id="fullName" placeholder="Name">
+                <input type="email" name="email" id="email" placeholder="Email">
+                <input type="password" name="password" id="password" placeholder="Password">
+                <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm your password">
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+        <div class="form-container sign-in">
+            <form id="sign_in">
+                <h1>Sign In</h1>
+                <input type="email" name="email" id="email" placeholder="Email">
+                <input type="password" name="password" id="password" placeholder="Password">
+                <a href="#">Forget Your Password?</a>
+                <button type="submit">Sign In</button>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Welcome Back!</h1>
+                    <p>Enter your personal details to use all of site features</p>
+                    <button class="hidden" id="login">Sign In</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Register with your personal details to use all of site features</p>
+                    <button class="hidden" id="register">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
+    <script> 
+        const sign_up = document.querySelector('#sign_up');
+        const sign_in = document.querySelector('#sign_in');
+    
+        sign_up.addEventListener('submit', async (e) => {
+            e.preventDefault();
+    
+            // Get the value
+            const fullName = sign_up.fullName.value;
+            const email = sign_up.email.value;
+            const password = sign_up.password.value;
+            const confirmPassword = sign_up.confirmPassword.value;
+    
+            try {
+                const res = await fetch('/signup', {
+                    method: "POST",
+                    body: JSON.stringify({ fullName, email, password, confirmPassword }),
+                    headers: { 'Content-Type': 'application/json' }
+                });
+    
+                const data = await res.json();
+                console.log(data);
+    
+                if (data.errors) {
+                    emailError.textContent = data.errors.email;
+                    passwordError.textContent = data.errors.password;
+                }
+                if (data.user) {  
+                    location.assign('/');
+                }
+    
+            } catch (err) {
+            console.log(err);
+            }
+        });
+    
+        sign_in.addEventListener('submit', async (e) => {
+            e.preventDefault();
+    
+            // Get the value
+            const email = sign_in.email.value;
+            const password = sign_in.password.value;
+    
+            try {
+                const res = await fetch('/login', {
+                    method: "POST",
+                    body: JSON.stringify({ email, password }),
+                    headers: { 'Content-Type': 'application/json' }
+                });
+    
+                const data = await res.json();
+                console.log(data);
+    
+                if (data.errors) {
+                    emailError.textContent = data.errors.email;
+                    passwordError.textContent = data.errors.password;
+                }
+                if (data.user) {  
+                    location.assign('/');
+                }
+            } catch (err) {
+            console.log(err);
+            }
+        });
+    </script>
+</body>
+
+</html>

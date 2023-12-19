@@ -13,7 +13,7 @@ const isAdmin = async (req, res, next) => {
 };
 
 // Book detail page
-router.get('/bookDetail/:id', checkUser, isAdmin, bookController.bookdetail_get);
+// router.get('/bookDetail/:id', checkUser, isAdmin, bookController.bookdetail_get);
 
 // Add book
 router.get('/addbook', checkUser, isAdmin, bookController.addbook_get);
