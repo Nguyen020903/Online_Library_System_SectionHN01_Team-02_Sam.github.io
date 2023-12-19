@@ -59,55 +59,91 @@
             </div>
 
             <div id="tab3" class="tab-content tab3">
-                <table class="styled-table">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Book Title</th>
-                            <th>Borrowed Date</th>
-                            <th>Due Date</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Book 1</td>
-                            <td>2023-01-01</td>
-                            <td>2023-01-15</td>
-                            <td>Returned</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Book 2</td>
-                            <td>2023-02-01</td>
-                            <td>2023-02-15</td>
-                            <td>Not Returned</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Book 3</td>
-                            <td>2023-03-01</td>
-                            <td>2023-03-15</td>
-                            <td>Returned</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Book 4</td>
-                            <td>2023-04-01</td>
-                            <td>2023-04-15</td>
-                            <td>Not Returned</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Book 5</td>
-                            <td>2023-05-01</td>
-                            <td>2023-05-15</td>
-                            <td>Returned</td>
-                        </tr>
-                    </tbody>
-                </table>
-                
+                <div class="table-container">
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Book Title</th>
+                                <th>Borrowed Date</th>
+                                <th>Due Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Book 1</td>
+                                <td>2023-01-01</td>
+                                <td>2023-01-15</td>
+                                <td>Returned</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Book 2</td>
+                                <td>2023-02-01</td>
+                                <td>2023-02-15</td>
+                                <td>Not Returned</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Book 3</td>
+                                <td>2023-03-01</td>
+                                <td>2023-03-15</td>
+                                <td>Returned</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Book 4</td>
+                                <td>2023-04-01</td>
+                                <td>2023-04-15</td>
+                                <td>Not Returned</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Book 5</td>
+                                <td>2023-05-01</td>
+                                <td>2023-05-15</td>
+                                <td>Returned</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>This is the longest name a book can have</td>
+                                <td>2023-01-01</td>
+                                <td>2023-01-15</td>
+                                <td>Returned</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Book 2</td>
+                                <td>2023-02-01</td>
+                                <td>2023-02-15</td>
+                                <td>Not Returned</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Book 3</td>
+                                <td>2023-03-01</td>
+                                <td>2023-03-15</td>
+                                <td>Returned</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Book 4</td>
+                                <td>2023-04-01</td>
+                                <td>2023-04-15</td>
+                                <td>Not Returned</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Book 5</td>
+                                <td>2023-05-01</td>
+                                <td>2023-05-15</td>
+                                <td>Returned</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div id="tab4" class="tab-content tab4">
@@ -124,7 +160,7 @@
                         href="#">Wishlist</a></li>
                 <li class="verticalNavItems" onclick="openTab('tab3')"><i class="fas fa-arrow-right-from-bracket"></i><a
                         href="#">Borrowed Book</a></li>
-                <li class="verticalNavItems" onclick="openTab('tab4')"><i class="fas fa-arrow-right-from-bracket"></i><a
+                <li id="logout-btn" class="verticalNavItems" onclick="openTab('tab4')"><i class="fas fa-arrow-right-from-bracket"></i><a
                         href="#">Logout</a></li>
             </ul>
         </div>
