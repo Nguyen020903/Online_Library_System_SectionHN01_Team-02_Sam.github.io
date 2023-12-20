@@ -292,11 +292,56 @@ section {
 .remove-btn {
     color: red;
     cursor: pointer;
-    text-decoration: underline;
 }
 
 .remove-btn:hover {
     color: darkred;
+    border-radius: 5px;
+    transition: 0.3s ease-in-out;
+}
+
+.wishlist-btn-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin: 3rem 0 3rem 0;
+    width: 100%;
+}
+
+.wishlist-btn-container button {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #4F6F52;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.wishlist-btn-container button:hover {
+    background-color: #3A4D39;
+    color: #fff;
+}
+
+.wishlist-btn-container button:active {
+    background-color: #2f3d2e;
+    color: #fff;
+}
+
+#clear-btn {
+    background-color: #ddd;
+    color: #000;
+}
+
+#clear-btn:hover {
+    background-color: #ccc;
+    color: #000;
+}
+
+#clear-btn:active {
+    background-color: #bbb;
+    color: #000;
 }
 
 .tab-content.tab3 { /*borrowed books*/
@@ -375,7 +420,7 @@ section {
 
 /* Style the "Yes" button */
 .popup-content button.yes {
-    background-color: #4CAF50;
+    background-color: #4F6F52;
     color: white;
     border: none;
     border-radius: 5px;
@@ -383,8 +428,8 @@ section {
 
 /* Style the "No" button */
 .popup-content button.no {
-    background-color: #f44336;
-    color: white;
+    background-color: #ddd ;
+    color: black;
     border: none;
     border-radius: 5px;
 }
