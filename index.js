@@ -49,17 +49,17 @@ app.use(bookRoutes);
 app.use(reservationRoutes);
 
 // using session to implement shopping cart
-app.use(
-  session({
-    secret: 'your-secret-key',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { 
-      maxAge: 60 * 60 * 24 * 24 * 7,
-      secure: false 
-    },
-  })
-);
+// app.use(
+//   session({
+//     secret: 'your-secret-key',
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: { 
+//       maxAge: 60 * 60 * 24 * 24 * 7,
+//       secure: false 
+//     },
+//   })
+// );
 
 // Database Connection
 const mongoURI = 'mongodb+srv://hmyle:ingsqEe3t4CevFzo@onlinelibrarysystem.dpdir84.mongodb.net/?retryWrites=true&w=majority';
@@ -100,8 +100,6 @@ const agenda = new Agenda({ db: { address: mongoURI, collection: 'agendaJobs' } 
 // })();
 
 app.get('/', checkUser, async (req,res) => {
-  req.session.cart = req.session.cart || {};
-
   let books = await Book.find();
   res.render('index', {books});
 });
