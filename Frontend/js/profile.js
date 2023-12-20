@@ -6,6 +6,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+function openPopup() {
+    var popup = document.getElementById("popup");
+    popup.style.display = "block";
+}
+
+function closePopup() {
+    var popup = document.getElementById("popup");
+    popup.style.display = "none";
+}
+
 function openTab(tabName) {
     var tabs = document.querySelectorAll('.tab-content');
     var tabLinks = document.querySelectorAll('.verticalNavItems');
@@ -14,7 +24,7 @@ function openTab(tabName) {
     for (var i = 0; i < tabs.length; i++) {
         tabs[i].classList.remove('active');
     }
-    
+
     for (var i = 0; i < tabLinks.length; i++) {
         tabLinks[i].classList.remove('active');
     }
@@ -22,7 +32,7 @@ function openTab(tabName) {
     // Add the 'active' class to the selected tab and tab link
     var currentTab = document.getElementById(tabName);
     currentTab.classList.add('active');
-    
+
     var currentTabLink = document.querySelector(`.verticalNavItems[onclick="openTab('${tabName}')"]`);
     currentTabLink.classList.add('active');
 
