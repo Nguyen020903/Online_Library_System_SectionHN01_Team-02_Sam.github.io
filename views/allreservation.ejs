@@ -13,16 +13,16 @@
       </tr>
     </thead>
     <tbody>
-      <% transactions.forEach(transaction => { %>
-        <tr>
-          <td><%= transaction.userId %></td>
-          <td><%= transaction.bookId %></td>
-          <td><%= transaction.status %></td>
-          <td><%= transaction.pickUpDate %></td>
-          <td><%= transaction.returnDate %></td>
-          <td><%= transaction.fine %></td>
-        </tr>
-      <% }); %>
+        <% transactions.forEach(async (transaction) => { %>
+            <tr>
+              <td><%= transaction.userFullName %></td>
+              <td><%= transaction.bookTitle %></td>
+              <td><%= transaction.status %></td>
+              <td><%= transaction.pickUpDate %></td>
+              <td><%= transaction.returnDate %></td>
+              <td><%= transaction.fine %></td>
+            </tr>
+          <% }); %>
     </tbody>
 </table>
 
@@ -33,7 +33,7 @@
     } else {
       sessionStorage.removeItem('reloaded');
     }
-  </script>
+</script>
 
 
 

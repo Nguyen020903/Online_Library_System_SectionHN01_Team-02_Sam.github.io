@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const Book = require('../models/book');
 const Transaction = require('../models/transaction');
+const { getUserById, getBookById } = require('../middleware/nameMiddleware');
 
 module.exports.wishlist_get = async (req, res) => {
   
@@ -138,22 +139,32 @@ module.exports.create_reservation_post = async (req, res) => {
 }
 
 module.exports.reservations_get = async (req, res) => {
-  const transactions = await Transaction.find();
+  try {
+    // Fetch transactions from the database
+    // Assuming you have a Transaction model
+    const transactions = await Transaction.find();
 
-  await Promise.all(transactions.map(async (transaction) => {
-    if ((transaction.returnDate < Date.now() && transaction.status == 'Reserved') || (transaction.returnDate < Date.now() && transaction.status == 'Overdue')) {
-      await Transaction.findByIdAndUpdate(
-        transaction._id, 
-        { 
-          $set: { 
-            status: 'Overdue',
-            fine: 1000 * Math.floor((Date.now() - new Date(transaction.returnDate)) / (1000 * 60 * 60 * 24))
-          }
-        },
-        { new: true },
-      );
-    }
-  }));
+    // Fetch user and book details for each transaction
+    const transactionsWithDetails = await Promise.all(
+      transactions.map(async (transaction) => {
+        const user = await getUserById(transaction.userId);
+        const book = await getBookById(transaction.bookId);
 
-  res.render('allreservation', { transactions });
+        return {
+          userFullName: user.fullName,
+          bookTitle: book.title,
+          status: transaction.status,
+          pickUpDate: transaction.pickUpDate,
+          returnDate: transaction.returnDate,
+          fine: transaction.fine,
+        };
+      })
+    );
+
+    // Render the template with transaction data
+    res.render('allreservation', { transactions: transactionsWithDetails });
+  } catch (error) {
+    console.error('Error processing transactions:', error);
+    res.status(500).send('Internal Server Error');
+  }
 }
