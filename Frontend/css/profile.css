@@ -378,6 +378,7 @@ section {
     background-color: #4CAF50;
     color: white;
     border: none;
+    border-radius: 5px;
 }
 
 /* Style the "No" button */
@@ -385,12 +386,13 @@ section {
     background-color: #f44336;
     color: white;
     border: none;
+    border-radius: 5px;
 }
 
 /* Style the close button */
 .close {
     position: absolute;
-    top: 10px;
+    top: 1px;
     right: 10px;
     font-size: 20px;
     cursor: pointer;
