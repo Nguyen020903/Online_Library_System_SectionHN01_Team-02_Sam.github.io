@@ -34,5 +34,10 @@ const transactionSchema = new mongoose.Schema(
     }
 )
 
+transactionSchema.post('save', function (doc, next) {
+    console.log('Transaction was saved', doc);
+    next();
+});
+
 const Transaction = mongoose.model("transaction", transactionSchema);
 module.exports = Transaction;

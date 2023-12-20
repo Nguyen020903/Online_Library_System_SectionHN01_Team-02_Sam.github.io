@@ -136,3 +136,24 @@ module.exports.create_reservation_post = async (req, res) => {
     res.status(500).json({ error: 'An error occurred while creating the reservation' });
   }
 }
+
+module.exports.reservations_get = async (req, res) => {
+  const transactions = await Transaction.find();
+
+  await Promise.all(transactions.map(async (transaction) => {
+    if ((transaction.returnDate < Date.now() && transaction.status == 'Reserved') || (transaction.returnDate < Date.now() && transaction.status == 'Overdue')) {
+      await Transaction.findByIdAndUpdate(
+        transaction._id, 
+        { 
+          $set: { 
+            status: 'Overdue',
+            fine: 1000 * Math.floor((Date.now() - new Date(transaction.returnDate)) / (1000 * 60 * 60 * 24))
+          }
+        },
+        { new: true },
+      );
+    }
+  }));
+
+  res.render('allreservation', { transactions });
+}
