@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation Form</title>
+    <!-- Include necessary stylesheets and scripts for dropdown searchable bar -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+</head>
+<body>
+    <h1>Reservation Form</h1>
+
+    <form action="/createReservation">
+        <label for="user">Select User:</label>
+        <select class="user-select" name="userId" style="width: 300px;" required>
+            <!-- Populate the user options from the EJS data -->
+            <% users.forEach(user => { %>
+                <option value="<%= user._id %>"><%= user.email %></option>
+            <% }); %>
+        </select>
+
+        <br>
+
+        <label for="book">Select Book:</label>
+        <select class="book-select" name="bookId" style="width: 300px;" required>
+            <!-- Populate the book options from the EJS data -->
+            <% books.forEach(book => { %>
+                <option value="<%= book._id %>"><%= book.title %></option>
+            <% }); %>
+        </select>
+
+        <br>
+
+        <label for="pickUpDate">Pick Up Date:</label>
+        <input type="date" name="pickUpDate" required>
+
+        <br>
+
+        <button type="submit">Submit Reservation</button>
+    </form>
+
+    <script>
+        // Initialize Select2 for user and book dropdowns
+        $(document).ready(function() {
+            $('.user-select').select2({
+                placeholder: 'Search for a user',
+                allowClear: true,
+            });
+
+            $('.book-select').select2({
+                placeholder: 'Search for a book',
+                allowClear: true,
+            });
+        });
+    </script>
+
+    <script>
+        const form = document.querySelector('form');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Get the value
+            const userId = form.userId.value;
+            const bookId = form.bookId.value;
+            const pickUpDate = form.pickUpDate.value;
+
+            try {
+                const res = await fetch('/createReservation', {
+                    method: "POST",
+                    body: JSON.stringify({ userId, bookId, pickUpDate }),
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const data = await res.json();
+                console.log(data);
+
+                if (data.errors) {
+                    console.log(data.errors)
+                }
+                if (data.user) {  
+                    location.assign('/');
+                }
+            } catch (err) {
+            console.log(err);
+            }
+        });
+    </script>
+</body>
+</html>

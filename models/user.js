@@ -39,15 +39,15 @@ const userSchema = new mongoose.Schema({
     },
     activeTransactions: [{
         type: mongoose.Types.ObjectId,
-        ref: "BookTransaction"
+        ref: "transaction"
     }],
     prevTransactions: [{
         type: mongoose.Types.ObjectId,
-        ref: "BookTransaction"
+        ref: "transaction"
     }],
     favoriteBook: [{
         type: mongoose.Types.ObjectId,
-        ref: "Book",
+        ref: "book",
     }],
     isAdmin: {
         type: Boolean,

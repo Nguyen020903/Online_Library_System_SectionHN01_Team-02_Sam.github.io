@@ -1,19 +1,19 @@
 const mongoose = require('mongoose');
 
-const reservationSchema = new mongoose.Schema(
+const transactionSchema = new mongoose.Schema(
     {
-        memberID: { 
+        userId: { 
             type: mongoose.Schema.Types.ObjectId, 
             required: [true, 'Name need to be filled'], 
             ref: 'user'},
-        bookID: [{ 
+        bookId: [{ 
             type: mongoose.Schema.Types.ObjectId, 
             required: [true, 'Book need to be filled'], 
             ref: 'book'}],
         status: {
             type: String,
             default: 'Pending',
-            enum: ['Available', 'Reserved', 'Overdue', 'Pending'],
+            enum: ['Reserved', 'Overdue', 'Pending', 'Borrowed', 'Returned'],
         },
         pickUpDate: {
             type: Date,
@@ -30,5 +30,5 @@ const reservationSchema = new mongoose.Schema(
     }
 )
 
-const Reservation = mongoose.model("reservation", reservationSchema);
-module.exports = Reservation;
+const Transaction = mongoose.model("transaction", transactionSchema);
+module.exports = Transaction;
