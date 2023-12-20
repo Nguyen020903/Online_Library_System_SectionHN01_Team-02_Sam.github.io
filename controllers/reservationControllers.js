@@ -100,10 +100,16 @@ module.exports.create_reservation_post = async (req, res) => {
         status = 'Reserved'
       }
 
+      // Calculate the returnDate
+      const pickUpDateObj = new Date(pickUpDate);
+      pickUpDateObj.setDate(pickUpDateObj.getDate() + 14);
+      const returnDate = pickUpDateObj;
+      
       const transaction = new Transaction({
         userId: user._id,
         bookId: book._id,
         pickUpDate: pickUpDate,
+        returnDate: returnDate,
         status: status,
       });
 

@@ -19,11 +19,15 @@ const transactionSchema = new mongoose.Schema(
             type: Date,
             required: [true, 'Pick up date need to be filled']
         },
+        returnDate: {
+            type: Date,
+            required: [true, 'Return date need to be filled']
+        },
         fine: {
             type: Number,
             required: true,
             default: 0
-        }
+        },
     },
     {
         timestamps: true,

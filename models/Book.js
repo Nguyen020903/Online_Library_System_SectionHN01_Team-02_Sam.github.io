@@ -51,6 +51,18 @@
       description: {
         type: String
       },
+      rating: [{
+        userid: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'user',
+          unique: true,
+        },
+        rating: {
+          type: Number,
+          min: 1,
+          max: 5
+        }
+      }],
     },
     {
       timestamps: true,

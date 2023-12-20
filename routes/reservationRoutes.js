@@ -11,4 +11,5 @@ router.post('/removeFromWishlist', requireAuth, checkUser, reservationController
 router.get('/createReservation', requireAuth, checkUser, reservationController.create_reservation_get);
 router.post('/createReservation', requireAuth, checkUser, reservationController.create_reservation_post);
 
+
 module.exports = router;
