@@ -87,6 +87,22 @@ section{
     background:var(--dark-color);
 }
 
+#btn{
+    margin-top: 1rem;
+    display:inline-block;
+    padding:.9rem 3rem;
+    border-radius: .5rem;
+    color:#fff;
+    background:var(--green);
+    font-size: 1.7rem;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+#btn:hover{
+    background:var(--dark-color);
+}
+
 .header .header-1{
     background:#fff;
     display: flex;
@@ -818,8 +834,20 @@ section{
     color:var(--black);
 }
 
+.arrivals .box .content .booktitle{
+    font-size: 2rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+}
+
 .arrivals .box .content .author{
     font-size: 1.9rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+}
+
+.arrivals .box .content .bookstatus{
+    font-size: 1.4rem;
     color:var(--black);
     padding-bottom: .5rem;
 }
@@ -828,6 +856,62 @@ section{
     font-size: 1.5rem;
     color:var(--green);
 }
+
+.arrivals .wishlist{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.arrivals .wishlist .box{
+    display: flex;
+    align-items: center;   
+    gap:1.5rem;
+    padding:2rem 1rem 1rem;
+    border:var(--border);
+    margin:1rem 1rem 1rem;
+    width: 100%;
+}
+
+.arrivals .wishlist .box:hover{
+    border:var(--border-hover);
+}
+
+.arrivals .wishlist .box .image img{
+    height:15rem;
+}
+
+.arrivals .wishlist .box .content .booktitle{
+    font-size: 2rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+    font-weight: bold;
+}
+
+.arrivals .wishlist .box .content .author{
+    font-size: 1.9rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+}
+
+.arrivals .wishlist .box .content .bookstatus{
+    font-size: 1.4rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+}
+
+.arrivals .wishlist .box .rent{
+    margin-left: auto;
+    margin-right: 2%;
+}
+
+.arrivals .wishlist .buttons {
+    display: flex;
+    margin-left: 20%;
+    width: 60%;
+    justify-content: space-between;
+}
+
+
 
 /* media queries  */
 
@@ -898,6 +982,13 @@ section{
         width: 47%;
     }
 
+    .arrivals .wishlist .buttons {
+        display: flex;
+        margin-left: 10%;
+        width: 80%;
+        justify-content: space-between;
+    }
+
 }
 
 @media (max-width:450px){
@@ -943,16 +1034,18 @@ section{
     content: '★ ';
 }
 .rate > input:checked ~ label {
-    color: #ffc700;    
+    color: #4F6F52;    
 }
 .rate:not(:checked) > label:hover,
 .rate:not(:checked) > label:hover ~ label {
-    color: #deb217;  
+    color: #3b4b3a;  
 }
 .rate > input:checked + label:hover,
 .rate > input:checked + label:hover ~ label,
 .rate > input:checked ~ label:hover,
 .rate > input:checked ~ label:hover ~ label,
 .rate > label:hover ~ input:checked ~ label {
-    color: #c59b08;
+    color: #3A4D39;
 }
+
+
