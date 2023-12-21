@@ -1,0 +1,40 @@
+<%- include('partials/header'); -%>
+
+<h1>All Reservation</h1>
+<table>
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Book</th>
+        <th>Status</th>
+        <th>Pick Up Date</th>
+        <th>Return Date</th>
+        <th>Fine</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% transactions.forEach(async (transaction) => { %>
+            <tr>
+              <td><%= transaction.userFullName %></td>
+              <td><%= transaction.bookTitle %></td>
+              <td><%= transaction.status %></td>
+              <td><%= transaction.pickUpDate %></td>
+              <td><%= transaction.returnDate %></td>
+              <td><%= transaction.fine %></td>
+            </tr>
+          <% }); %>
+    </tbody>
+</table>
+
+<script>
+    if (!sessionStorage.getItem('reloaded')) {
+      sessionStorage.setItem('reloaded', 'true');
+      window.location.reload();
+    } else {
+      sessionStorage.removeItem('reloaded');
+    }
+</script>
+
+
+
+<%- include('partials/footer'); -%>
