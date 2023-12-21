@@ -530,6 +530,46 @@ section{
     text-transform: none;
 }
 
+.rate {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #4F6F52;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #3b4b3a;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #3A4D39;
+}
+
+
+
 .arrivals .arrivals-slider .box{
     display: flex;
     align-items:center;
@@ -921,6 +961,7 @@ section{
         font-size: 55%;
     }
 
+
 }
 
 @media (max-width:768px){
@@ -979,7 +1020,7 @@ section{
     }
 
     .arrivals .box{
-        width: 47%;
+        width: 100%;
     }
 
     .arrivals .wishlist .buttons {
@@ -1006,46 +1047,4 @@ section{
     }
 
 }
-
-
-
-
-.rate {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: center;
-    height: 46px;
-    padding: 0 10px;
-}
-.rate:not(:checked) > input {
-    position:absolute;
-    top:-9999px;
-}
-.rate:not(:checked) > label {
-    float:right;
-    width:1em;
-    overflow:hidden;
-    white-space:nowrap;
-    cursor:pointer;
-    font-size:30px;
-    color:#ccc;
-}
-.rate:not(:checked) > label:before {
-    content: '★ ';
-}
-.rate > input:checked ~ label {
-    color: #4F6F52;    
-}
-.rate:not(:checked) > label:hover,
-.rate:not(:checked) > label:hover ~ label {
-    color: #3b4b3a;  
-}
-.rate > input:checked + label:hover,
-.rate > input:checked + label:hover ~ label,
-.rate > input:checked ~ label:hover,
-.rate > input:checked ~ label:hover ~ label,
-.rate > label:hover ~ input:checked ~ label {
-    color: #3A4D39;
-}
-
 
