@@ -920,7 +920,9 @@ section{
 
 
 .rate {
-    float: left;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
     height: 46px;
     padding: 0 10px;
 }
