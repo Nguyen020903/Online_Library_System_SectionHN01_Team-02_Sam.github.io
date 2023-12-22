@@ -577,7 +577,7 @@ section{
     padding:2rem 1rem;
     border:var(--border);
     margin:1rem 0;
-    width: 33.33%;
+    width: 33.3%;
 }
 
 .arrivals .arrivals-slider .box:hover{
@@ -961,6 +961,9 @@ section{
         font-size: 55%;
     }
 
+    .arrivals .box{
+        width: 30%;
+    }
 
 }
 
