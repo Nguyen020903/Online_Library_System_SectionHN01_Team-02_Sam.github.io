@@ -144,6 +144,21 @@ module.exports.reservations_get = async (req, res) => {
     // Assuming you have a Transaction model
     const transactions = await Transaction.find();
 
+    await Promise.all(transactions.map(async (transaction) => {
+      if ((transaction.returnDate < Date.now() && transaction.status == 'Reserved') || (transaction.returnDate < Date.now() && transaction.status == 'Overdue')) {
+        await Transaction.findByIdAndUpdate(
+          transaction._id, 
+          { 
+            $set: { 
+              status: 'Overdue',
+              fine: 1000 * Math.floor((Date.now() - new Date(transaction.returnDate)) / (1000 * 60 * 60 * 24))
+            }
+          },
+          { new: true },
+        );
+      }
+    }));
+
     // Fetch user and book details for each transaction
     const transactionsWithDetails = await Promise.all(
       transactions.map(async (transaction) => {
@@ -151,6 +166,7 @@ module.exports.reservations_get = async (req, res) => {
         const book = await getBookById(transaction.bookId);
 
         return {
+          _id: transaction._id,
           userFullName: user.fullName,
           bookTitle: book.title,
           status: transaction.status,
@@ -168,3 +184,25 @@ module.exports.reservations_get = async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 }
+const mongoose = require('mongoose');
+
+module.exports.reservations_return_post = async (req, res) => {
+  try {
+    const id = req.body.id;
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      console.error('Invalid id:', id);
+      return res.status(400).json({ success: false, message: 'Invalid id' });
+    }
+
+    const transaction = await Transaction.findByIdAndUpdate(id, { status: 'Returned' }, { new: true });
+    if (!transaction) {
+      console.error('Transaction not found:', id);
+      return res.status(404).json({ success: false, message: 'Transaction not found' });
+    }
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error updating transaction:', error);
+    res.status(500).json({ success: false });
+  }
+};
