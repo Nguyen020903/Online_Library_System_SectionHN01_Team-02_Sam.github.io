@@ -16,7 +16,7 @@
       <% transactions.forEach((transaction) => { %>
         <% if (transaction.status !== 'Returned') { %>
           <tr>
-            <td><%= transaction.userFullName %></td>
+            <td><%= transaction.userEmail %></td>
             <td><%= transaction.bookTitle %></td>
             <td><%= transaction.status %></td>
             <td><%= new Date(transaction.pickUpDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }) %></td>
@@ -44,7 +44,7 @@
     <% transactions.forEach(async (transaction) => { %>
       <% if (transaction.status == 'Returned') { %>
           <tr>
-            <td><%= transaction.userFullName %></td>
+            <td><%= transaction.userEmail %></td>
             <td><%= transaction.bookTitle %></td>
             <td><%= transaction.status %></td>
             <td><%= new Date(transaction.pickUpDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }) %></td>
