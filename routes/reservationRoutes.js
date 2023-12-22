@@ -12,6 +12,6 @@ router.get('/createReservation', requireAuth, checkUser, reservationController.c
 router.post('/createReservation', requireAuth, checkUser, reservationController.create_reservation_post);
 
 router.get('/reservations', requireAuth, checkUser, reservationController.reservations_get);
-
+router.post('/reservations/return', requireAuth, checkUser, reservationController.reservations_return_post);
 
 module.exports = router;
