@@ -96,10 +96,19 @@ module.exports.create_reservation_post = async (req, res) => {
     const book = await Book.findById(bookId);
 
     if (user && book) {
+      if (book.bookStatus !== 'Available') {
+        return res.status(400).json({ error: 'Book is not available' });
+      }
+
       let status = 'Pending';
-      
-      if (book.bookCountAvailable > 0) {
+      // update book count available
+      if (book.bookCountAvailable > 1){
         status = 'Reserved'
+        book.bookCountAvailable -= 1;
+      } else if (book.bookCountAvailable === 1) {
+        status = 'Reserved'
+        book.bookStatus = 'Borrowed'
+        book.bookCountAvailable -= 1;
       }
 
       // Calculate the returnDate
@@ -127,6 +136,7 @@ module.exports.create_reservation_post = async (req, res) => {
 
       // Add the transaction to the book's transactions
       book.transactions.push(transaction._id);
+
       // Save the updated book
       await book.save();
 
@@ -207,6 +217,16 @@ module.exports.reservations_return_post = async (req, res) => {
       console.error('Book not found:', transaction.bookId);
       return res.status(404).json({ success: false, message: 'Book not found' });
     }
+
+    // Update the book's bookCountAvailable + 1
+    const bookStatus = await Book.findByIdAndUpdate(
+      transaction.bookId,
+      {
+        $inc: { bookCountAvailable: 1 },
+        $set: { bookStatus: 'Available' }
+      },
+      { new: true }
+    );
 
     // Update the user's activeTransactions to prevTransactions
     const user = await User.findByIdAndUpdate(transaction.userId, { $pull: { activeTransactions: id }, $push: { prevTransactions: id } }, { new: true });
