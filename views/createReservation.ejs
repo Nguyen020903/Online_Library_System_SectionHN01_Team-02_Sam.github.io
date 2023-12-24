@@ -76,10 +76,9 @@
                 const data = await res.json();
                 console.log(data);
 
-                if (data.errors) {
-                    console.log(data.errors)
-                }
-                if (data.user) {  
+                if (res.status === 400) {
+                    alert(data.error);
+                } else if (data.user) {  
                     location.assign('/');
                 }
             } catch (err) {
