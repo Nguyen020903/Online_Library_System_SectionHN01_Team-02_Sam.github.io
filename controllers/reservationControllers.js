@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const Book = require('../models/book');
 const Transaction = require('../models/transaction');
+const jwt = require('jsonwebtoken');
 const { getUserById, getBookById } = require('../middleware/nameMiddleware');
 
 module.exports.wishlist_get = async (req, res) => {
@@ -95,10 +96,19 @@ module.exports.create_reservation_post = async (req, res) => {
     const book = await Book.findById(bookId);
 
     if (user && book) {
+      if (book.bookStatus !== 'Available') {
+        return res.status(400).json({ error: 'Book is not available' });
+      }
+
       let status = 'Pending';
-      
-      if (book.bookCountAvailable > 0) {
+      // update book count available
+      if (book.bookCountAvailable > 1){
         status = 'Reserved'
+        book.bookCountAvailable -= 1;
+      } else if (book.bookCountAvailable === 1) {
+        status = 'Reserved'
+        book.bookStatus = 'Borrowed'
+        book.bookCountAvailable -= 1;
       }
 
       // Calculate the returnDate
@@ -126,6 +136,7 @@ module.exports.create_reservation_post = async (req, res) => {
 
       // Add the transaction to the book's transactions
       book.transactions.push(transaction._id);
+
       // Save the updated book
       await book.save();
 
@@ -167,7 +178,7 @@ module.exports.reservations_get = async (req, res) => {
 
         return {
           _id: transaction._id,
-          userFullName: user.fullName,
+          userEmail: user.email,
           bookTitle: book.title,
           status: transaction.status,
           pickUpDate: transaction.pickUpDate,
@@ -183,8 +194,7 @@ module.exports.reservations_get = async (req, res) => {
     console.error('Error processing transactions:', error);
     res.status(500).send('Internal Server Error');
   }
-}
-const mongoose = require('mongoose');
+};
 
 module.exports.reservations_return_post = async (req, res) => {
   try {
@@ -199,10 +209,116 @@ module.exports.reservations_return_post = async (req, res) => {
       console.error('Transaction not found:', id);
       return res.status(404).json({ success: false, message: 'Transaction not found' });
     }
+    
+    // Remove the transaction from the book's transactions
+    const book = await Book.findByIdAndUpdate(transaction.bookId,{ $pull: { transactions: id } },{ new: true }
+    );
+    if (!book) {
+      console.error('Book not found:', transaction.bookId);
+      return res.status(404).json({ success: false, message: 'Book not found' });
+    }
 
+    // Update the book's bookCountAvailable + 1
+    const bookStatus = await Book.findByIdAndUpdate(
+      transaction.bookId,
+      {
+        $inc: { bookCountAvailable: 1 },
+        $set: { bookStatus: 'Available' }
+      },
+      { new: true }
+    );
+
+    // Update the user's activeTransactions to prevTransactions
+    const user = await User.findByIdAndUpdate(transaction.userId, { $pull: { activeTransactions: id }, $push: { prevTransactions: id } }, { new: true });
+    if (!user) {
+      console.error('User not found:', transaction.userId);
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
     res.json({ success: true });
   } catch (error) {
     console.error('Error updating transaction:', error);
     res.status(500).json({ success: false });
   }
 };
+
+// Show all reservations of the user
+module.exports.userReservations_get = async (req, res, next) => {
+  try {
+    const token = req.cookies.jwt;
+    if (token) {
+      jwt.verify(token, 'your-secret-key', async (err, decodedToken) => {
+        if (err) {
+          console.error(err.message);
+          next();
+        } else {
+          console.log(decodedToken);
+          const userDetails = await User.findById(decodedToken.id).populate('activeTransactions').populate('prevTransactions').exec();
+          if (!userDetails) {
+            console.error('User not found:', userDetails._id);
+            return res.status(404).json({ success: false, message: 'User not found' });
+          }
+          const transactions = await Transaction.find();
+
+              await Promise.all(transactions.map(async (transaction) => {
+                if ((transaction.returnDate < Date.now() && transaction.status == 'Reserved') || (transaction.returnDate < Date.now() && transaction.status == 'Overdue')) {
+                  await Transaction.findByIdAndUpdate(
+                    transaction._id, 
+                    { 
+                      $set: { 
+                        status: 'Overdue',
+                        fine: 1000 * Math.floor((Date.now() - new Date(transaction.returnDate)) / (1000 * 60 * 60 * 24))
+                      }
+                    },
+                    { new: true },
+                  );
+                }
+              }));
+          const allActiveTransactions = await Promise.all(
+            userDetails.activeTransactions.map(async (transaction) => {
+              if (!transaction) {
+                console.error('Transaction not found');
+                return;
+              }
+
+              const book = await getBookById(transaction.bookId);
+              return {
+                bookTitle: book.title,
+                status: transaction.status,
+                pickUpDate: transaction.pickUpDate,
+                returnDate: transaction.returnDate,
+                fine: transaction.fine,
+              };
+            })
+          );
+
+          const allPrevTransactions = await Promise.all(
+            userDetails.prevTransactions.map(async (transaction) => {
+              if (!transaction) {
+                console.error('Transaction not found');
+                return;
+              }
+
+              const book = await getBookById(transaction.bookId);
+              return {
+                bookTitle: book.title,
+                status: transaction.status,
+                pickUpDate: transaction.pickUpDate,
+                returnDate: transaction.returnDate,
+                fine: transaction.fine,
+              };
+            })
+          );
+
+          res.render('userReservations', { allActiveTransactions, allPrevTransactions });
+        }
+      });
+    } else {
+      res.locals.user = null;
+      next();
+    }
+  } catch (error) {
+    console.error('Error processing transactions:', error);
+    res.status(500).send('Internal Server Error');
+  }
+};
+const mongoose = require('mongoose');
