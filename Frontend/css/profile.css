@@ -33,7 +33,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     height: 100%;
-    background: #ddd;
+    background: #fff;
 }
 
 .logo img {
@@ -220,24 +220,6 @@ section {
     background: var(--dark-color);
 }
 
-#bookmenu-btn {
-    margin-top: 1rem;
-    display: inline-block;
-    padding: .9rem 3rem;
-    border-radius: .5rem;
-    color: #fff;
-    background: var(--green);
-    font-size: 1.7rem;
-    cursor: pointer;
-    font-weight: 500;
-    text-align: center;
-    width: 18.5rem;
-}
-
-#bookmenu-btn i {
-    margin-left: 1rem;
-}
-
 /* search bar */
 .header .header-1 .search-form {
     width: 50rem;
@@ -288,8 +270,8 @@ section {
     flex-direction: row-reverse;
     justify-content: space-around;
     align-items: center;
-    /* margin-top: 50px; */
     flex: 1;
+    margin-top: 4rem;
 }
 
 #editBtn {
@@ -365,10 +347,10 @@ section {
     width: 80%;
     padding: 10px;
     border-radius: 5px 0 5px 5px;
-    /* box-shadow: 0.5rem 0.5rem 0.5rem 0.5rem rgba(0, 0, 0, .1); */
     /* margin-right: 3rem; */
     height: 50vh;
     background-color: #fff;
+    box-shadow: -6px 6px 10px 5px rgba(0, 0, 0, 0.1);
 }
 
 .text-center {
@@ -568,12 +550,12 @@ section {
     /* box-shadow: 0.5rem 0.5rem 0.5rem 0.5rem rgba(0, 0, 0, .1); */
     margin-right: 3rem;
     height: 50vh;
-    background-color: #ddd;
+    background-color: #fff;
 }
 
 /* button styling for vertical navbar*/
 .verticalNavItems {
-    background-color: #ddd;
+    background-color: #fff;
     margin: 10px;
     border-radius: 10px;
     padding: 1.5rem;
@@ -601,6 +583,10 @@ section {
 
 
 /* Footer */
+footer {
+    margin-top: 5rem;
+}
+
 .footer .box-container{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
@@ -673,7 +659,6 @@ section {
 }
 
 @media (max-width:768px) {
-
     html {
         scroll-padding-top: 0;
     }
@@ -708,6 +693,14 @@ section {
         margin: 0 3rem 0 3rem;
         padding: 20px 10px 20px 10px;
         width: 80%;
+    }
+
+    .header .header-2 {
+        display: none;
+    }
+
+    .bottom-navbar {
+        display: block;
     }
 }
 
@@ -787,14 +780,6 @@ section {
     }
 }
 
-@media (max-width:991px){
-
-    html{
-        font-size: 55%;
-    }
-
-}
-
 @media (max-width:768px){
 
     html{
@@ -832,42 +817,4 @@ section {
     .header .header-1 .search-form.active{
         top:115%;
     }
-
-    .home .row .content{
-        text-align: center;
-    }
-
-    .home .row .content h3{
-        font-size: 3.5rem;
-    }
-
-    .newsletter{
-        background-position: right;
-    }
-
-    .newsletter form{
-        margin-left:0;
-        max-width: 100%;
-    }
-
-    .arrivals .box{
-        width: 47%;
-    }
-
-}
-
-@media (max-width:450px){
-
-    html{
-        font-size: 50%;
-    }
-
-    .deal .image img {
-        width: 75%;
-    }
-
-    .arrivals .box{
-        width: 100%;
-    }
-
 }
