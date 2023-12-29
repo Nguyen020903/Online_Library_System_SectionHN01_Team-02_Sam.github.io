@@ -103,32 +103,6 @@ const bookImageStorage = multer.diskStorage({
         }
     }
 
-
-
-// // Add book
-// module.exports.addbook_get = async (req, res, next) => {
-//     console.log('Request Body:', req.body);
-//     console.log('Request File:', req.file);
-//     next();
-//   }, checkUser, isAdmin, multer({ storage: bookImageStorage }).single('bookImage'), async (req, res) => {  
-//     try {
-//       const { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description } = req.body;
-//       let bookData = { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description };
-  
-//       if (req.file) {
-//         bookData.bookImage = "/images/bookImage/" + req.file.filename;
-//       }
-  
-//       const book = await Book.create(bookData);
-//       const updatedAuthor = await Author.findOneAndUpdate({ _id: author }, { $push: { book: book._id } }, { new: true });
-//       const updatedCategory = await Category.findOneAndUpdate({ _id: category }, { $push: { book: book._id } }, { new: true });
-//       const updatedPublisher = await Publisher.findOneAndUpdate({ _id: publisher }, { $push: { book: book._id } }, { new: true });
-//       res.status(200).json({book, updatedAuthor, updatedCategory, updatedPublisher});
-//     }
-//     catch (err) {
-//     }
-// };
-
 module.exports.addbook_post = async (req, res) => {  
     try {
     const { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description } = req.body;
@@ -165,7 +139,6 @@ module.exports.updatebook_post = async (req, res) => {
     const { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description } = req.body;
     try{
       const book = await Book.findById(req.params.id);
-      console.log(book.bookImage);
       if (book.bookImage && book.bookImage != 'https://drive.google.com/uc?id=1j9oMUsNA88sQYIgwRpD2FPBKZXlbYUyF') {
         fs.unlink(path.join(path.resolve(__dirname, '..'), 'public', book.bookImage), err => {
             if (err) console.error(err);

@@ -102,7 +102,7 @@ module.exports.create_reservation_post = async (req, res) => {
 
       let status = 'Pending';
       // update book count available
-      if (book.bookCountAvailable > 1){
+      if (book.bookCountAvailable > 1) {
         status = 'Reserved'
         book.bookCountAvailable -= 1;
       } else if (book.bookCountAvailable === 1) {
@@ -152,7 +152,6 @@ module.exports.create_reservation_post = async (req, res) => {
 module.exports.reservations_get = async (req, res) => {
   try {
     // Fetch transactions from the database
-    // Assuming you have a Transaction model
     const transactions = await Transaction.find();
 
     await Promise.all(transactions.map(async (transaction) => {
@@ -173,13 +172,13 @@ module.exports.reservations_get = async (req, res) => {
     // Fetch user and book details for each transaction
     const transactionsWithDetails = await Promise.all(
       transactions.map(async (transaction) => {
-        const user = await getUserById(transaction.userId);
-        const book = await getBookById(transaction.bookId);
+        const userEmail = await getUserById(transaction.userId).email;
+        const bookTitle = await getBookById(transaction.bookId).title;
 
         return {
           _id: transaction._id,
-          userEmail: user.email,
-          bookTitle: book.title,
+          userEmail: userEmail,
+          bookTitle: bookTitle,
           status: transaction.status,
           pickUpDate: transaction.pickUpDate,
           returnDate: transaction.returnDate,
