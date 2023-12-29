@@ -8,11 +8,6 @@ const Publisher = require('../models/publisher');
 const multer = require('multer');
 const jwt = require('jsonwebtoken');
 const path = require('path');
-const {
-    requireAuth,
-    checkUser,
-    isAdmin
-} = require('../middleware/authMiddleware');
 
 
 // error handler, use to handle error message from models (author,book, category and publisher)

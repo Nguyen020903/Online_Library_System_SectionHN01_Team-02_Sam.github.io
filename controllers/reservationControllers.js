@@ -22,7 +22,7 @@ module.exports.wishlist_get = async (req, res) => {
     }
   }
 
-  res.render('wishlist', { user, books });
+  res.render('wishlistcart', { user, books });
 }
 
 module.exports.add_to_wishlist_post = async (req, res) => {
@@ -79,7 +79,7 @@ module.exports.remove_from_wishlist_post = async (req, res) => {
   }
 };
 
-
+// Create reservation
 module.exports.create_reservation_get = async (req, res) => {
   const users = await User.find();
   const books = await Book.find();
@@ -88,41 +88,49 @@ module.exports.create_reservation_get = async (req, res) => {
 }
 
 module.exports.create_reservation_post = async (req, res) => {
-  const { userId, bookId, pickUpDate } = req.body;
-  console.log(userId, bookId, pickUpDate);
+  const { bookId } = req.body;
 
   try {
-    const user = await User.findById(userId);
+    const user = res.locals.user;
     const book = await Book.findById(bookId);
 
     if (user && book) {
+      console.log(book.bookStatus);
+
       if (book.bookStatus !== 'Available') {
         return res.status(400).json({ error: 'Book is not available' });
       }
 
       let status = 'Pending';
-      // update book count available
-      if (book.bookCountAvailable > 1) {
-        status = 'Reserved'
-        book.bookCountAvailable -= 1;
-      } else if (book.bookCountAvailable === 1) {
-        status = 'Reserved'
-        book.bookStatus = 'Borrowed'
-        book.bookCountAvailable -= 1;
-      }
+      let transaction;
 
-      // Calculate the returnDate
-      const pickUpDateObj = new Date(pickUpDate);
-      pickUpDateObj.setDate(pickUpDateObj.getDate() + 14);
-      const returnDate = pickUpDateObj;
-      
-      const transaction = new Transaction({
-        userId: user._id,
-        bookId: book._id,
-        pickUpDate: pickUpDate,
-        returnDate: returnDate,
-        status: status,
-      });
+      if (book.bookCountAvailable >= 1) {
+        status = 'Reserved';
+        book.bookCountAvailable -= 1;
+        let pickUpDate = new Date(); // set pickUpDate to today's date
+
+        if (book.bookCountAvailable === 0) book.bookStatus = 'Borrowed';
+
+        // Calculate the returnDate
+        const pickUpDateObj = new Date(pickUpDate);
+        pickUpDateObj.setDate(pickUpDateObj.getDate() + 14);
+        const returnDate = pickUpDateObj;
+
+        transaction = new Transaction({
+          userId: user._id,
+          bookId: book._id,
+          pickUpDate: pickUpDate,
+          returnDate: returnDate,
+          status: status,
+        });
+
+      } else {
+        transaction = new Transaction({
+          userId: user._id,
+          bookId: book._id,
+          status: status,
+        });
+      }
 
       console.log(transaction);
 
