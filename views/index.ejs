@@ -141,68 +141,6 @@
 
     </footer>
     <script>
-        // document.addEventListener('DOMContentLoaded', () => {
-        // const wishlistForms = document.querySelectorAll('.wishlist-form');
-        // const unwishlistForms = document.querySelectorAll('.unwishlist-form');
-
-        // wishlistForms.forEach(form => {
-        //     form.addEventListener('submit', async (e) => {
-        //         e.preventDefault();
-        //         const bookId = form.elements.book_id.value;
-        //         console.log(bookId);
-
-        //         try {
-        //             const res = await fetch('/addToWishlist', {
-        //                 method: 'POST',
-        //                 body: JSON.stringify({ bookId }),
-        //                 headers: { 'Content-Type': 'application/json' }
-        //             });
-
-        //             const data = await res.json();
-        //             console.log(data);
-
-        //             if (data.errors) {
-        //                 alert(data.errors);
-        //             } else {
-        //                 alert('Book added to wishlist successfully!');
-        //                 // location.reload(); 
-        //                 // Reload the page instead of assigning a new location
-        //             }
-        //         } catch (err) {
-        //             console.log(err);
-        //         }
-        //     });
-        // });
-
-        // unwishlistForms.forEach(form => {
-        //     form.addEventListener('submit', async (e) => {
-        //         e.preventDefault();
-        //         const bookId = form.elements.book_id.value;
-        //         console.log(bookId);
-
-        //         try {
-        //             const res = await fetch('/removeFromWishlist', {
-        //                 method: 'POST',
-        //                 body: JSON.stringify({ bookId }),
-        //                 headers: { 'Content-Type': 'application/json' }
-        //             });
-
-        //             const data = await res.json();
-        //             console.log(data);
-
-        //             if (data.errors) {
-        //                 alert(data.errors);
-        //             } else {
-        //                 alert('Book removed from wishlist successfully!');
-        //                 // location.reload(); 
-        //                 // Reload the page instead of assigning a new location
-        //             }
-        //         } catch (err) {
-        //             console.log(err);
-        //         }
-        //     });
-        // });
-    // });
     document.addEventListener('DOMContentLoaded', () => {
     const handleFormSubmission = async (form, action) => {
         const bookId = form.dataset.bookId;

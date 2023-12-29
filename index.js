@@ -44,22 +44,22 @@ const isAdmin = async (req, res, next) => {
   }
 };
 
+app.use(
+  session({
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { 
+      maxAge: 60 * 60 * 24 * 24 * 7,
+      secure: false 
+    },
+  })
+);
 app.use(authRoutes);
 app.use(bookRoutes);
 app.use(reservationRoutes);
 
-// using session to implement shopping cart
-// app.use(
-//   session({
-//     secret: 'your-secret-key',
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: { 
-//       maxAge: 60 * 60 * 24 * 24 * 7,
-//       secure: false 
-//     },
-//   })
-// );
+
 
 // Database Connection
 const mongoURI = 'mongodb+srv://hmyle:ingsqEe3t4CevFzo@onlinelibrarysystem.dpdir84.mongodb.net/?retryWrites=true&w=majority';

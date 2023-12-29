@@ -1,0 +1,104 @@
+<%- include('partials/header'); -%>
+
+<h1>All Reservation</h1>
+<table>
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Book</th>
+        <th>Status</th>
+        <th>Pick Up Date</th>
+        <th>Return Date</th>
+        <th>Fine</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% transactions.forEach((transaction) => { %>
+        <% if (transaction.status !== 'Returned') { %>
+          <tr>
+            <td><%= transaction.userEmail %></td>
+            <td><%= transaction.bookTitle %></td>
+            <td><%= transaction.status %></td>
+            <td><%= new Date(transaction.pickUpDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }) %></td>
+            <td><%= new Date(transaction.returnDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></td>
+            <td><%= transaction.fine %> $</td>
+            <td><button class="return-button" data-id="<%= transaction._id %>">Return</button></td>
+          </tr>
+        <% } %>
+      <% }); %>
+    </tbody>
+</table>
+<h1>Finished Reservation</h1>
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Book</th>
+      <th>Status</th>
+      <th>Pick Up Date</th>
+      <th>Return Date</th>
+      <th>Fine</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% transactions.forEach(async (transaction) => { %>
+      <% if (transaction.status == 'Returned') { %>
+          <tr>
+            <td><%= transaction.userEmail %></td>
+            <td><%= transaction.bookTitle %></td>
+            <td><%= transaction.status %></td>
+            <td><%= new Date(transaction.pickUpDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }) %></td>
+            <td><%= new Date(transaction.returnDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></td>
+            <td><%= transaction.fine %> $</td>
+          </tr>
+      <% } %>
+  <% }); %>
+  </tbody>
+</table>
+<script>
+    if (!sessionStorage.getItem('reloaded')) {
+      sessionStorage.setItem('reloaded', 'true');
+      window.location.reload();
+    } else {
+      sessionStorage.removeItem('reloaded');
+    }
+</script>
+
+<script>
+  document.querySelectorAll('.return-button').forEach(button => {
+    button.addEventListener('click', function() {
+      const transactionId = this.getAttribute('data-id');
+      console.log('transactionId:', transactionId);
+  
+      fetch(`/reservations/return`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: transactionId }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // Update the status cell in the row
+          const row = this.parentElement.parentElement;
+          const statusCell = row.children[2]; // The status cell is the 3rd cell in the row
+          statusCell.innerText = 'Returned';
+          
+          // Remove the return button
+          this.parentElement.remove();
+
+          // Move the row to the "Finished Reservation" table
+          const finishedTable = document.querySelectorAll('table')[1].querySelector('tbody'); // The finished table is the 2nd table in the document
+          finishedTable.appendChild(row);
+          console.log('Successfully returned transaction');
+        } else {
+          console.error('Failed to return transaction');
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    });
+  });
+  </script>
+
+<%- include('partials/footer'); -%>

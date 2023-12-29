@@ -87,6 +87,22 @@ section{
     background:var(--dark-color);
 }
 
+#btn{
+    margin-top: 1rem;
+    display:inline-block;
+    padding:.9rem 3rem;
+    border-radius: .5rem;
+    color:#fff;
+    background:var(--green);
+    font-size: 1.7rem;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+#btn:hover{
+    background:var(--dark-color);
+}
+
 .header .header-1{
     background:#fff;
     display: flex;
@@ -514,6 +530,46 @@ section{
     text-transform: none;
 }
 
+.rate {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #4F6F52;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #3b4b3a;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #3A4D39;
+}
+
+
+
 .arrivals .arrivals-slider .box{
     display: flex;
     align-items:center;
@@ -521,7 +577,7 @@ section{
     padding:2rem 1rem;
     border:var(--border);
     margin:1rem 0;
-    width: 33.33%;
+    width: 33.3%;
 }
 
 .arrivals .arrivals-slider .box:hover{
@@ -788,6 +844,50 @@ section{
     height: 100%;
 }
 
+.rentlist .container {
+    background-color: lightgray;
+    border-radius: 10px;
+    width: 70%;
+    margin-top: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    text-align: center;
+}
+
+.rentlist .container .bookcover {
+    margin: 1%;
+}
+
+.rentlist .container .bookcover img {
+    width: 40%;
+    
+}
+
+.rentlist .container .verticalline {
+    border-left: 2px solid darkgray;
+    height: auto;
+}
+
+.rentlist .container .bookinfo {
+    font-size: 100%;
+    width: 60%;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 5rem;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.rentlist .container .bookinfo-buttons {
+    margin-left: auto;
+    margin-top: auto;
+    width: 20%;
+    height: 100%;
+}
+
 /* allbooks page */
 
 .arrivals .allbook{
@@ -818,8 +918,20 @@ section{
     color:var(--black);
 }
 
+.arrivals .box .content .booktitle{
+    font-size: 2rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+}
+
 .arrivals .box .content .author{
     font-size: 1.9rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+}
+
+.arrivals .box .content .bookstatus{
+    font-size: 1.4rem;
     color:var(--black);
     padding-bottom: .5rem;
 }
@@ -829,12 +941,186 @@ section{
     color:var(--green);
 }
 
+.arrivals .wishlist{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.arrivals .wishlist .box{
+    display: flex;
+    align-items: center;   
+    gap:1.5rem;
+    padding:2rem 1rem 1rem;
+    border:var(--border);
+    margin:1rem 1rem 1rem;
+    width: 100%;
+}
+
+.arrivals .wishlist .box:hover{
+    border:var(--border-hover);
+}
+
+.arrivals .wishlist .box .image img{
+    height:15rem;
+}
+
+.arrivals .wishlist .box .content .booktitle{
+    font-size: 2rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+    font-weight: bold;
+}
+
+.arrivals .wishlist .box .content .author{
+    font-size: 1.9rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+}
+
+.arrivals .wishlist .box .content .bookstatus{
+    font-size: 1.4rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+}
+
+.arrivals .wishlist .box .rent{
+    margin-left: auto;
+    margin-right: 2%;
+}
+
+.arrivals .wishlist .buttons {
+    display: flex;
+    margin-left: 20%;
+    width: 60%;
+    justify-content: space-between;
+}
+
+.arrivals .wishlist .buttons #addselected-btn{
+margin-top: 1rem;
+    padding:.9rem 3rem;
+    border-radius: .5rem;
+    color:#fff;
+    background:var(--green);
+    font-size: 1.7rem;
+    cursor: pointer;
+    font-weight: 500;
+    text-align: center;
+}
+
+.arrivals .wishlist .buttons #addall-btn{
+    margin-top: 1rem;
+    padding:.9rem 3rem;
+    border-radius: .5rem;
+    color:#fff;
+    background:var(--green);
+    font-size: 1.7rem;
+    cursor: pointer;
+    font-weight: 500;
+    text-align: center;
+}
+
+.arrivals .rentlist{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.arrivals .rentlist .box{
+    display: flex;
+    align-items: center;   
+    gap:1.5rem;
+    padding:2rem 1rem 1rem;
+    border:var(--border);
+    margin:1rem 1rem 1rem;
+    width: 100%;
+}
+
+.arrivals .rentlist .box:hover{
+    border:var(--border-hover);
+}
+
+.arrivals .rentlist .box .image img{
+    height:15rem;
+}
+
+.arrivals .rentlist .box .content .booktitle{
+    font-size: 2rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+    font-weight: bold;
+}
+
+.arrivals .rentlist .box .content .author{
+    font-size: 1.9rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+}
+
+.arrivals .rentlist .box .content .bookstatus{
+    font-size: 1.4rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+}
+
+.arrivals .rentlist .box .rent{
+    margin-left: auto;
+    margin-right: 2%;
+}
+
+.arrivals .rentlist .buttons {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.arrivals .rentlist .buttons #rentselected-btn{
+margin-top: 1rem;
+    padding:.9rem 3rem;
+    border-radius: .5rem;
+    color:#fff;
+    background:var(--green);
+    font-size: 1.7rem;
+    cursor: pointer;
+    font-weight: 500;
+    text-align: center;
+    margin-left: 20%;
+}
+
+.arrivals .rentlist .buttons #rentall-btn{
+    margin-top: 1rem;
+    padding:.9rem 3rem;
+    border-radius: .5rem;
+    color:#fff;
+    background:var(--green);
+    font-size: 1.7rem;
+    cursor: pointer;
+    font-weight: 500;
+    text-align: center;
+    margin-right: 20%;
+}
+
+.arrivals .rentlist #confirm-btn{
+    margin-top: 1rem;
+    padding:.9rem 3rem;
+    border-radius: .5rem;
+    color:#fff;
+    background:var(--green);
+    font-size: 1.7rem;
+    cursor: pointer;
+    font-weight: 500;
+    text-align: center;
+
+}
+
 /* media queries  */
 
 @media (max-width:991px){
 
     html{
         font-size: 55%;
+    }
+
+    .arrivals .box{
+        width: 30%;
     }
 
 }
@@ -895,7 +1181,14 @@ section{
     }
 
     .arrivals .box{
-        width: 47%;
+        width: 100%;
+    }
+
+    .arrivals .wishlist .buttons {
+        display: flex;
+        margin-left: 10%;
+        width: 80%;
+        justify-content: space-between;
     }
 
 }
