@@ -83,7 +83,7 @@
                     <div class="content">
                         <div class="booktitle"><%=book.title%></div>
                         <div class="author">Author name</div>
-                        <div class="bookstatus">status: available /not</div>
+                        <div class="bookstatus">Status: <%=book.bookStatus%></div>
                     </div>
                     <div class="rent">
                         <div class="btn" data-book-id="<%=book._id%>">add to rentlist</div>
@@ -147,7 +147,11 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            document.querySelector('.wishlist').addEventListener('click',  async function (event) {
+            const wishlistForm = document.querySelector('.wishlist');
+            const addSelectedBtn = document.getElementById('addselected-btn');
+            const addAllBtn = document.getElementById('addall-btn');
+
+            wishlistForm.addEventListener('click',  async function (event) {
                 // Check if the clicked element has the class 'btn'
                 if (event.target.classList.contains('btn')) {
                     // Prevent the default form submission behavior
@@ -171,12 +175,72 @@
 
                         if (res.status === 400) {
                             alert(data.error);
-                        } else if (data.user) {  
-                            location.assign('/');
+                        } else if (data.message) {  
+                            alert(data.message)
+                            location.assign('/wishlist');
                         }
+
                     } catch (err) {
                         console.log(err);
                     }
+                }
+            });
+
+            addSelectedBtn.addEventListener('click', async function () {
+                const selectedCheckboxes = wishlistForm.querySelectorAll('input[name="selection"]:checked');
+                const selectedBookIds = Array.from(selectedCheckboxes).map(checkbox => checkbox.value);
+    
+                // Send a POST request to add selected books to the rent list
+                try {
+                    const res = await fetch('/addSelectedToReservation', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ bookIds: selectedBookIds }),
+                    });
+    
+                    const data = await res.json();
+                    console.log(data);
+    
+                    if (res.status === 400) {
+                        alert(data.error);
+                    } else if (data.message) {
+                        alert(data.message);
+                        location.assign('/wishlist');
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
+            });
+    
+            addAllBtn.addEventListener('click', async function () {
+                // Get all book IDs
+                const allBookIds = Array.from(wishlistForm.querySelectorAll('input[name="selection"]'))
+                    .map(checkbox => checkbox.value);
+                
+                console.log('Here');
+                // Send a POST request to add all books to the rent list
+                try {
+                    const res = await fetch('/addAllToReservation', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ bookIds: allBookIds }),
+                    });
+    
+                    const data = await res.json();
+                    console.log(data);
+    
+                    if (res.status === 400) {
+                        alert(data.error);
+                    } else if (data.message) {
+                        alert(data.message);
+                        location.assign('/wishlist');
+                    }
+                } catch (err) {
+                    console.log(err);
                 }
             });
         });
