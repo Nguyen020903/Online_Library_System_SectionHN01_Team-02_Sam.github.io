@@ -180,135 +180,39 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Book Name</th>
-                            <th>Status</th>
+                            <th>Publisher Name</th>
+                            <th>Book Published</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td><a href="#">Book 1</a></td>
-                            <td>Available</td>
-                            <td><span class="remove-btn">Remove</span></td>
+                            <td>Publisher 1</td>
+                            <td>
+                                <ul class="bookList">
+                                    <li><a href="#">Book 1</a></li>
+                                    <li><a href="#">Book 2</a></li>
+                                </ul>
+                            </td>
+                            <td><button class="delete-btn">Delete</button></td>
                         </tr>
                         <tr>
                             <td>2</td>
-                            <td><a href="#">Book 2</a></td>
-                            <td>Unavailable</td>
-                            <td><span class="remove-btn">Remove</span></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a href="#">Book 2</a></td>
-                            <td>Unavailable</td>
-                            <td><span class="remove-btn">Remove</span></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a href="#">Book 2</a></td>
-                            <td>Unavailable</td>
-                            <td><span class="remove-btn">Remove</span></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a href="#">Book 2</a></td>
-                            <td>Unavailable</td>
-                            <td><span class="remove-btn">Remove</span></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a href="#">Book 2</a></td>
-                            <td>Unavailable</td>
-                            <td><span class="remove-btn">Remove</span></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a href="#">Book 2</a></td>
-                            <td>Unavailable</td>
-                            <td><span class="remove-btn">Remove</span></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a href="#">Book 2</a></td>
-                            <td>Unavailable</td>
-                            <td><span class="remove-btn">Remove</span></td>
+                            <td>Publisher 2</td>
+                            <td>
+                                <ul class="bookList">
+                                    <li><a href="#">Book 3</a></li>
+                                    <li><a href="#">This should be the longest book name</a></li>
+                                </ul>
+                            </td>
+                            <td><button class="delete-btn">Delete</button></td>
                         </tr>
                     </tbody>
                 </table> <!-- End of table-->
                 <div class="wishlist-btn-container">
-                    <button class="addBtn">More detail</button>
-                    <button class="clear-btn">Clear Wishlist</button>
-                </div>
-            </div>
-            <div id="tab5" class="tab-content tab5">
-                <div id="searchInputContainer">
-                    <input type="text" id="searchInput" placeholder="Search here...">
-                    <i id="searchIcon" class="fa fa-search"></i>
-                </div>
-                <table class="styled-table"> <!-- Start of table-->
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Book Name</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><a href="#">Book 1</a></td>
-                            <td>Available</td>
-                            <td><span class="remove-btn">Remove</span></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a href="#">Book 2</a></td>
-                            <td>Unavailable</td>
-                            <td><span class="remove-btn">Remove</span></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a href="#">Book 2</a></td>
-                            <td>Unavailable</td>
-                            <td><span class="remove-btn">Remove</span></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a href="#">Book 2</a></td>
-                            <td>Unavailable</td>
-                            <td><span class="remove-btn">Remove</span></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a href="#">Book 2</a></td>
-                            <td>Unavailable</td>
-                            <td><span class="remove-btn">Remove</span></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a href="#">Book 2</a></td>
-                            <td>Unavailable</td>
-                            <td><span class="remove-btn">Remove</span></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a href="#">Book 2</a></td>
-                            <td>Unavailable</td>
-                            <td><span class="remove-btn">Remove</span></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a href="#">Book 2</a></td>
-                            <td>Unavailable</td>
-                            <td><span class="remove-btn">Remove</span></td>
-                        </tr>
-                    </tbody>
-                </table> <!-- End of table-->
-                <div class="wishlist-btn-container">
-                    <button class="addBtn">More detail</button>
-                    <button class="clear-btn">Clear Wishlist</button>
+                    <button class="addBtn">Add Publisher</button>
+                    <button class="clear-btn">Edit List</button>
                 </div>
             </div>
             <div id="popup" class="popup">
@@ -331,8 +235,6 @@
                         Author</a></li>
                 <li class="verticalNavItems" onclick="openTab('tab4')"><i class="fa-regular fa-building"></i></i><a
                         href="#">All Publisher</a></li>
-                <li class="verticalNavItems" onclick="openTab('tab5')"><i class="fa-solid fa-table"></i><a href="#">All
-                        Category</a></li>
                 <li id="logout-btn" class="verticalNavItems" onclick="openPopup()"><i
                         class="fas fa-arrow-right-from-bracket"></i><a href="#">Logout</a></li>
             </ul>
@@ -342,8 +244,7 @@
     <!-- footer -->
     <footer>
         <section class="footer">
-            <!-- <div class="box-container">
-    
+            <!-- <div class="box-container">  
                 <div class="box">
                     <h3>extra links</h3>
                     <a href="#"> <i class="fas fa-arrow-right"></i> about us </a>
