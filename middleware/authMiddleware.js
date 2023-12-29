@@ -44,5 +44,13 @@ const checkUser = async (req, res, next) => {
   }
 };
 
+// Check if User is Librarian
+const isAdmin = async (req, res, next) => {
+  if (res.locals.user && res.locals.user.isAdmin) {
+      next(); // User is authenticated and is an admin, continue to the next middleware or route handler
+  } else {
+      res.status(403).send('You do not have permission to enter this page');
+  }
+};
 
-module.exports = { requireAuth, checkUser };
+module.exports = { requireAuth, checkUser, isAdmin };

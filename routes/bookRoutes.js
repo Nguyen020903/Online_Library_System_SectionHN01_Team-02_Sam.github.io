@@ -1,27 +1,46 @@
 const express = require('express');
-const { checkUser } = require('../middleware/authMiddleware');
+const { checkUser, isAdmin } = require('../middleware/authMiddleware');
 const router = express.Router();
 const bookController = require('../controllers/bookControllers');
+const multer = require('multer');
+const jwt = require('jsonwebtoken');
 
-// Check if User is Librarian
-const isAdmin = async (req, res, next) => {
-    if (res.locals.user && res.locals.user.isAdmin) {
-        next(); // User is authenticated and is an admin, continue to the next middleware or route handler
-    } else {
-        res.status(403).send('You do not have permission to enter this page');
+// function for save book image
+const bookImageStorage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'public/images/bookImage/');
+    },
+    filename: function(req, file, cb) { // 'file' and 'cb' parameters were swapped
+        const token = req.cookies.jwt;
+        const decodedToken = jwt.verify(token, 'your-secret-key');
+        const userId = decodedToken.id;
+        // Get the current date
+        const date = new Date();
+        // Format the date
+        const formattedDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}-${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
+        // Add the date to the filename
+        const newFilename = `${formattedDate}-${userId}-${file.originalname}`;
+        cb(null, newFilename);
     }
-};
+  });
+  
+  const bookImageUpload = multer({ storage: bookImageStorage });
 
 // Book detail page
-// router.get('/bookDetail/:id', checkUser, isAdmin, bookController.bookdetail_get);
+router.get('/bookDetail/:id', checkUser, isAdmin, bookController.bookdetail_get);
+router.post('/bookDetail/:id', checkUser, isAdmin, bookController.bookdetail_post);
 
 // Add book
 router.get('/addbook', checkUser, isAdmin, bookController.addbook_get);
-// router.post('/addbook', checkUser, isAdmin, bookController.addbook_post);
+router.post('/addbook', (req, res, next) => {
+      console.log('Request Body:', req.body);
+      console.log('Request File:', req.file);
+      next();
+}, checkUser, isAdmin, multer({ storage: bookImageStorage }).single('bookImage'), bookController.addbook_post);
 
 // Update book
-// router.get('/update/:id', checkUser, isAdmin, bookController.updatebook_get);
-// router.post('/update/:id', checkUser, isAdmin, bookController.updatebook_post);
+router.get('/updateBook/:id', checkUser, isAdmin, bookController.updatebook_get);
+router.post('/updateBook/:id', checkUser, isAdmin, bookImageUpload.single('bookImage'), bookController.updatebook_post);
 
 // Delete book
 router.post('/deletebook/:id', checkUser, isAdmin, bookController.deletebook);
