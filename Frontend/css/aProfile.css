@@ -491,7 +491,7 @@ section {
 
 .styled-table th,
 .styled-table td {
-    padding: 12px 15px;
+    padding: 1.8rem 2rem;
     border-bottom: 1px solid #ddd;
     text-align: center;
 }
@@ -509,8 +509,14 @@ section {
     text-align: center;
 }
 
+.action-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
 .action-dropdown {
-    width: 100%;
+    width: 80%;
     padding: 1rem;
     box-sizing: border-box;
 }
@@ -518,7 +524,26 @@ section {
 .check-icon {
     cursor: pointer;
     color: green;
-    font-size: 2.2rem;
+    font-size: 2.5rem;
+    padding: 0.2rem;
+    border-radius: 5px;
+    border: 0.01rem solid #ddd;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
+    transition: 200ms ease-in-out;
+}
+
+.check-icon:hover {
+    background-color: #4F6F52;
+    color: #fff;
+    box-shadow: 0 0 1rem #4F6F52;
+    border: none;
+}
+
+.check-icon:active {
+    background-color: #3A4D39;
+    color: #fff;
+    box-shadow: 0 0 1rem #3A4D39;
+    border:none;
 }
 
 /* tab4 */
@@ -623,6 +648,7 @@ section {
 .verticalNavItems.active, .verticalNavItems.active a {
     background-color: #3A4D39;
     color: #fff;
+    transition: 100ms ease-in-out;
 }
 
 #logout-btn{
