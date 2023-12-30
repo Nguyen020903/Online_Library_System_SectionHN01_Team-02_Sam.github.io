@@ -100,7 +100,7 @@ const agenda = new Agenda({ db: { address: mongoURI, collection: 'agendaJobs' } 
 // })();
 
 app.get('/', checkUser, async (req,res) => {
-  let books = await Book.find();
+  let books = await Book.find().populate('author').populate('category').populate('publisher');
   res.render('index', {books});
 });
 
