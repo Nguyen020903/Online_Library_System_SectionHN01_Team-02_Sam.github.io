@@ -100,8 +100,11 @@ const agenda = new Agenda({ db: { address: mongoURI, collection: 'agendaJobs' } 
 // })();
 
 app.get('/', checkUser, async (req,res) => {
+  const authors = await Author.find();
+  const categories = await Category.find();
+  const publishers = await Publisher.find();
   let books = await Book.find().populate('author').populate('category').populate('publisher');
-  res.render('index', {books});
+  res.render('index', { books, authors, categories, publishers });
 });
 
 // My Account page
@@ -246,27 +249,41 @@ const bookImageStorage = multer.diskStorage({
 
 const bookImageUpload = multer({ storage: bookImageStorage });
 
+const handleErrorsforaddbook = (err) => {
+  console.log(err.message, err.code);
+  let errors = { Name: '' };
 
-// app.post('/addbook', (req, res, next) => {
-//   console.log('Request Body:', req.body);
-//   console.log('Request File:', req.file);
-//   next();
-// }, checkUser, isAdmin, multer({ storage: bookImageStorage }).single('bookImage'), async (req, res) => {  
-//   try {
-//     const { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description } = req.body;
-//     const bookImage = req.file ? "/images/bookImage/" + req.file.filename : '';
+  // Duplicate Error Code for similar name
+  if (err.code == 11000) {
+      errors.ISBN = 'This ISBN has been registered';
+      return errors;
+  }
 
-//     const book = await Book.create({ ISBN, title, bookImage, author, category, publisher, numberOfPages, bookCountAvailable, description });
-//     const updatedAuthor = await Author.findOneAndUpdate({ _id: author }, { $push: { book: book._id } }, { new: true });
-//     const updatedCategory = await Category.findOneAndUpdate({ _id: category }, { $push: { book: book._id } }, { new: true });
-//     const updatedPublisher = await Publisher.findOneAndUpdate({ _id: publisher }, { $push: { book: book._id } }, { new: true });
-//     res.status(200).json({book, updatedAuthor, updatedCategory, updatedPublisher});
-//   }
-//   catch (err) {
-//     const errors = handleErrors(err);
-//     res.status(400).json({ errors });
-//   }
-// });
+  // check for type of error
+  if (err.message.includes('author validation failed')) {
+      Object.values(err.errors).forEach(({ properties }) => {
+          errors[properties.path] = properties.message;
+      });
+  }
+  if (err.message.includes('category validation failed')) {
+      Object.values(err.errors).forEach(({ properties }) => {
+          errors[properties.path] = properties.message;
+      });
+  }
+  if (err.message.includes('publisher validation failed')) {
+      Object.values(err.errors).forEach(({ properties }) => {
+          errors[properties.path] = properties.message;
+      });
+  }
+  if (err.message.includes('Book validation failed')) {
+      Object.values(err.errors).forEach(({ properties }) => {
+          errors[properties.path] = properties.message;
+      });
+  }
+
+  return errors;
+};
+
 app.post('/addbook', (req, res, next) => {
   console.log('Request Body:', req.body);
   console.log('Request File:', req.file);
@@ -287,6 +304,8 @@ app.post('/addbook', (req, res, next) => {
     res.status(200).json({book, updatedAuthor, updatedCategory, updatedPublisher});
   }
   catch (err) {
+    let error = handleErrorsforaddbook(err);
+    res.status(400).json({ error });
   }
 });
 

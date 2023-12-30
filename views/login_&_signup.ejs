@@ -15,18 +15,24 @@
         <div class="form-container sign-up">
             <form id="sign_up">
                 <h1>Create Account</h1>
-                <input type="text" name="fullName" id="fullName" placeholder="Name">
-                <input type="email" name="email" id="email" placeholder="Email">
-                <input type="password" name="password" id="password" placeholder="Password">
-                <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm your password">
+                <input type="text" name="fullName" id="fullName" placeholder="Name" required>
+                <div class="fullName error"></div>
+                <input type="email" name="email" id="email" placeholder="Email" required>
+                <div class="email error"></div>
+                <input type="password" name="password" id="password" placeholder="Password" required>
+                <div class="password error"></div>
+                <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm your password" required>
+                <div class="confirmPassword error"></div>
                 <button type="submit">Sign Up</button>
             </form>
         </div>
         <div class="form-container sign-in">
             <form id="sign_in">
                 <h1>Sign In</h1>
-                <input type="email" name="email" id="email" placeholder="Email">
-                <input type="password" name="password" id="password" placeholder="Password">
+                <input type="email" name="email" id="email" placeholder="Email" required>
+                <div class="email error"></div>
+                <input type="password" name="password" id="password" placeholder="Password" required>
+                <div class="password error"></div>
                 <a href="#">Forget Your Password?</a>
                 <button type="submit">Sign In</button>
             </form>
@@ -55,26 +61,37 @@
         sign_up.addEventListener('submit', async (e) => {
             e.preventDefault();
     
-            // Get the value
+            // Get the values from the form inputs
             const fullName = sign_up.fullName.value;
             const email = sign_up.email.value;
             const password = sign_up.password.value;
             const confirmPassword = sign_up.confirmPassword.value;
-    
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
             try {
                 const res = await fetch('/signup', {
                     method: "POST",
-                    body: JSON.stringify({ fullName, email, password, confirmPassword }),
+                    body: JSON.stringify({ fullName, email, password }),
                     headers: { 'Content-Type': 'application/json' }
                 });
     
                 const data = await res.json();
-                console.log(data);
+                // console.log(data);
     
-                if (data.errors) {
-                    emailError.textContent = data.errors.email;
-                    passwordError.textContent = data.errors.password;
+                if (data.error) {
+                    console.log(data.error);
+                    errorMessage = '';
                 }
+                if (data.error.includes('E11000 duplicate key error')) {
+                    errorMessage += 'This email is already registered';
+                }
+                if (data.error.includes('Minimum password length is 6 characters')) {
+                    errorMessage += 'Password must be at least 6 characters';
+                }
+                alert(errorMessage);
                 if (data.user) {  
                     location.assign('/');
                 }
@@ -99,17 +116,24 @@
                 });
     
                 const data = await res.json();
-                console.log(data);
-    
-                if (data.errors) {
-                    emailError.textContent = data.errors.email;
-                    passwordError.textContent = data.errors.password;
+                if (!data) {
+                    throw new Error('No response data');
+                }
+                if (data.error) {
+                    let errorMessage = '';
+
+                if (data.error.email || data.error.password) {
+                    errorMessage += 'Invalid email or password';
+                }
+
+                alert(errorMessage);
                 }
                 if (data.user) {  
                     location.assign('/');
                 }
             } catch (err) {
             console.log(err);
+            alert(err)
             }
         });
     </script>

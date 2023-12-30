@@ -17,6 +17,12 @@ body{
     height: 100vh;
 }
 
+.error{
+    color: #ff0099;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
 .container{
     background-color: #fff;
     border-radius: 30px;
