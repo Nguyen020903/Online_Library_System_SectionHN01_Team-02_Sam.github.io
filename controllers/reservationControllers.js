@@ -515,9 +515,9 @@ module.exports.userReservations_get = async (req, res, next) => {
                 return;
               }
 
-              const book = await getBookById(transaction.bookId);
+              const bookTitle = await getBookById(transaction.bookId).title;
               return {
-                bookTitle: book.title,
+                bookTitle: bookTitle,
                 status: transaction.status,
                 pickUpDate: transaction.pickUpDate,
                 returnDate: transaction.returnDate,

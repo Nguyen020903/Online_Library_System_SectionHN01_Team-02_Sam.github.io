@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
 const bookRoutes = require('./routes/bookRoutes');
 const reservationRoutes = require('./routes/reservationRoutes');
+const accountRoutes = require('./routes/accountRoutes');
 const multer = require('multer');
 const path = require('path');
 const bcrypt = require('bcrypt');
@@ -50,8 +51,7 @@ app.use(
 app.use(authRoutes);
 app.use(bookRoutes);
 app.use(reservationRoutes);
-
-
+app.use(accountRoutes);
 
 // Database Connection
 const mongoURI = 'mongodb+srv://hmyle:ingsqEe3t4CevFzo@onlinelibrarysystem.dpdir84.mongodb.net/?retryWrites=true&w=majority';
@@ -113,8 +113,8 @@ app.get('/myAccount', requireAuth, async (req, res) => {
     }
 });
 
-app.get('/updateUser', requireAuth, (req, res) => {
-  res.render('updateUser');
+app.get('/updateAccount', requireAuth, (req, res) => {
+  res.render('updateAccount');
 });
 
 // function for save user image
@@ -140,7 +140,7 @@ const userImgUpload = multer({ storage: userImgStorage });
 
 
 // Route for uploading the profile image
-app.post('/updateUserImage', userImgUpload.single('profileImage'), async (req, res) => {
+app.post('/updateAccountImage', userImgUpload.single('profileImage'), async (req, res) => {
   const token = req.cookies.jwt;
 
   try {
@@ -179,7 +179,7 @@ app.post('/updateUserImage', userImgUpload.single('profileImage'), async (req, r
 });
 
 // Route for updating the user's details
-app.post('/updateUserDetails', checkUser, requireAuth, async (req, res) => {
+app.post('/updateAccountDetails', checkUser, requireAuth, async (req, res) => {
   const token = req.cookies.jwt;
   const { fullName, email, password } = req.body;
 

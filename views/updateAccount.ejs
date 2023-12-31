@@ -40,7 +40,7 @@
         formData.append('profileImage', profileImageInput.files[0]);
 
         try {
-            const res = await fetch('/updateUserImage', {
+            const res = await fetch('/updateAccountImage', {
                 method: 'POST',
                 body: formData,
             });
@@ -71,7 +71,7 @@
         formData.append('password', detailsForm.password.value);
 
         try {
-            const res = await fetch('/updateUserDetails', {
+            const res = await fetch('/updateAccountDetails', {
                 method: 'POST',
                 body: formData,
             });

@@ -1,6 +1,5 @@
 const express = require('express');
 const fs = require('fs');
-const User = require('../models/user');
 const Book = require('../models/book');
 const Author = require('../models/author');
 const Category = require('../models/category');
@@ -8,6 +7,7 @@ const Publisher = require('../models/publisher');
 const multer = require('multer');
 const jwt = require('jsonwebtoken');
 const path = require('path');
+const mongoose = require('mongoose');
 
 
 // error handler, use to handle error message from models (author,book, category and publisher)
@@ -48,24 +48,30 @@ const handleErrors = (err) => {
 
 // Book detail page
 module.exports.bookdetail_get = async (req, res) => {
+    let bookId = req.params.id;
+    console.log(bookId);
+
     try {
-        const book = await Book.findById(req.params.id);
-        res.render('bookDetail', { book: book });
+        let book = await Book.findById(bookId).populate('author').populate('category').populate('publisher');
+        console.log(book);
+
+        let allBooks = await Book.find();
+        res.render('bookDetail11', { book: book, allBooks: allBooks });
     } catch (err) {
         console.error(err);
         res.redirect('/');
     }
 }
 
-module.exports.bookdetail_post = async (req, res) => {
-    try {
-        const updatedBook = await Book.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        res.redirect(`/bookDetail/${updatedBook._id}`);
-    } catch (err) {
-        console.error(err);
-        res.redirect('/');
-    }
-  }
+// module.exports.bookdetail_post = async (req, res) => {
+//     try {
+//         const updatedBook = await Book.findByIdAndUpdate(req.params.id, req.body, { new: true });
+//         res.redirect(`/bookDetail/${updatedBook._id}`);
+//     } catch (err) {
+//         console.error(err);
+//         res.redirect('/');
+//     }
+//   }
 
 // function for save book image
 const bookImageStorage = multer.diskStorage({
@@ -123,7 +129,7 @@ module.exports.updatebook_get = async (req, res) => {
         const authors = await Author.find();
         const categories = await Category.find();
         const publishers = await Publisher.find();
-        res.render('updateBook', { book: book, authors: authors, categories: categories, publishers: publishers });
+        res.render('updateBook', { book: book, authors: authors, categories: categories, publishers: publishers});
     } catch (err) {
         console.error(err);
         res.redirect('/');
@@ -172,7 +178,7 @@ module.exports.updatebook_post = async (req, res) => {
 }
 
 module.exports.deletebook = async (req, res) => {
-    const bookId = req.params.id;
+    let bookId = req.params.id;
     try {
         let book = await Book.findOne({ _id: req.params.id });
         if (!book) {
