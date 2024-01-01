@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <title>OLS</title>
+</head>
+<%- include('partials/header'); -%>
+    <header>
+        <div class="p-3 text-center bg-white border-bottom">
+            <div class="container">
+                <div class="row gy-3">
+                    <!-- Left elements -->
+                    <div class="col-lg-4 col-md-3 col-sm-6">
+                        <a href="#" class="float-start">
+                            <img src="\Assets\Images\Logo.png" id="Logo">
+                        </a>
+                    </div>
+                    <!-- Left elements -->
+
+                    <!-- Center elements -->
+                    <div class="col-lg-4 col-md-6 col-sm-0">
+                        <div class="input-group d-flex justify-content-center">
+                            <div class="form-outline w-75">
+                                <input type="search" id="form1" class="form-control float" placeholder="Search">
+                            </div>
+                            <button type="button" class="btn btn-success shadow-0">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Center elements -->
+
+                    <!-- Right elements -->
+                    <div class="col-lg-4 col-md-3 col-sm-6">
+                        <ul>
+                            <% if (user) {%>
+                                <li> Welcome, <%= user.email %>
+                                </li>
+                                <li> <a href='/logout'>Logout</a></li>
+                                <%} else {%>
+                                    <li><a href='/login'>Login</a></li>
+                                    <li><a href='/signup'>Sign up</a></li>
+                                    <%}; %>
+                        </ul>
+                    </div>
+                    <!-- Right elements -->
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- body starts here -->
+
+    <body>
+        <!-- navbar -->
+        <nav class="navbar navbar-expand-lg bg-success">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">Others</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">Others</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink"
+                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Dropdown link
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <h1>Book List</h1>
+
+
+
+        <div class="row justify-content-start g-3">
+            <% books.slice().reverse().forEach(book=> { %>
+                <% const isBookInWishlist=user && user.favoriteBook.includes(book._id); %>
+
+                    <div class="col-lg-4 col-md-6 col-sm-12 d-flex">
+                        <div class="card px-3">
+                            <a href="/bookDetail/<%= book._id %>">
+                                <!-- Assuming you have an image property for books -->
+                                <img src="<%= book.bookImage %>" alt="<%= book.title %>" class="ratio ratio-1x1" />
+                            </a>
+                            <div class="card-body text-center">
+                                <h4 class="card-title overflow-hidden">
+                                    <%= book.title %>
+                                </h4>
+                                <p class="lead card-subtitle">
+                                    <%= book.author %>
+                                </p>
+                                </p>
+                                <% if (user) { %>
+                                    <% if (!isBookInWishlist) { %>
+                                        <form method="post" class="wishlist-form" data-action="/addToWishlist" data-book-id="<%= book._id %>">
+                                            <a href="#" class="btn btn-outline-dark btn-lg my-2 rounded-pill submit-link">
+                                                Add to Wishlist
+                                            </a>
+                                        </form>
+                                    <% } else { %>
+                                        <form method="post" class="wishlist-form" data-action="/removeFromWishlist" data-book-id="<%= book._id %>">
+                                            <a href="#" class="btn btn-outline-dark btn-lg my-2 rounded-pill submit-link">
+                                                Remove from Wishlist
+                                            </a>
+                                        </form>
+                                    <% } %>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+        </div>
+    </body>
+
+    <footer>
+
+    </footer>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const handleFormSubmission = async (form, action) => {
+        const bookId = form.dataset.bookId;
+        const isAddAction = action === '/addToWishlist';
+
+        try {
+            const res = await fetch(action, {
+                method: 'POST',
+                body: JSON.stringify({ bookId }),
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const data = await res.json();
+
+            if (data.errors) {
+                alert(data.errors);
+            } else {
+                // Update the UI
+                const link = form.querySelector('a');
+                if (isAddAction) {
+                    link.textContent = 'Remove from Wishlist';
+                    form.dataset.action = '/removeFromWishlist';
+                } else {
+                    link.textContent = 'Add to Wishlist';
+                    form.dataset.action = '/addToWishlist';
+                }
+                // Remove the old event listener and add a new one
+                form.removeEventListener('click', handleFormClick);
+                form.addEventListener('click', handleFormClick);
+            }
+        } catch (err) { 
+            console.log(err);
+        }
+    };
+
+    const forms = document.querySelectorAll('.wishlist-form, .unwishlist-form');
+    forms.forEach(form => {
+        form.addEventListener('click', (event) => {
+            event.preventDefault();
+            const action = form.dataset.action;
+            handleFormSubmission(form, action);
+            });
+        });
+    });
+    </script>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</html>
