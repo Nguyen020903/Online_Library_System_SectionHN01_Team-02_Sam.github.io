@@ -369,46 +369,46 @@ app.get('/updateBook/:id', async (req, res) => {
   }
 });
 
-// app.post('/updateBook/:id', requireAuth,bookImageUpload.single('bookImage'), async (req, res) => {
-//   const { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description } = req.body;
-//   try{
-//     const book = await Book.findById(req.params.id);
-//     if (book.bookImage) {
-//       fs.unlink(path.join(__dirname, 'public', book.bookImage), err => {
-//           if (err) console.error(err);
-//       });
-//     }
-//     const bookImage = "/images/bookImage/" + (req.file ? req.file.filename : '');
+app.post('/updateBook/:id', requireAuth,bookImageUpload.single('bookImage'), async (req, res) => {
+  const { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description } = req.body;
+  try{
+    const book = await Book.findById(req.params.id);
+    if (book.bookImage) {
+      fs.unlink(path.join(__dirname, 'public', book.bookImage), err => {
+          if (err) console.error(err);
+      });
+    }
+    const bookImage = "/images/bookImage/" + (req.file ? req.file.filename : '');
 
-//     const updatedBook = await Book.findByIdAndUpdate(req.params.id, { ISBN, title, bookImage, author, category, publisher, numberOfPages, bookCountAvailable, description }, { new: true });
-//     // Update the author, category, and publisher if provided
-//     if (author) {
-//       // Remove the book from the old author
-//       await Author.updateOne({ 'book._id': req.params.id }, { $pull: { book: { _id: req.params.id } } });
-//       await Author.findOneAndUpdate({ _id: author }, { $push: { book: req.params.id } });
-//   }
+    const updatedBook = await Book.findByIdAndUpdate(req.params.id, { ISBN, title, bookImage, author, category, publisher, numberOfPages, bookCountAvailable, description }, { new: true });
+    // Update the author, category, and publisher if provided
+    if (author) {
+      // Remove the book from the old author
+      await Author.updateOne({ 'book._id': req.params.id }, { $pull: { book: { _id: req.params.id } } });
+      await Author.findOneAndUpdate({ _id: author }, { $push: { book: req.params.id } });
+  }
 
-//   if (category) {
-//       // Remove the book from the old category
-//       await Category.updateOne({ 'book._id': req.params.id }, { $pull: { book: { _id: req.params.id } } });
-//       await Category.findOneAndUpdate({ _id: category }, { $push: { book: req.params.id } });
-//   }
+  if (category) {
+      // Remove the book from the old category
+      await Category.updateOne({ 'book._id': req.params.id }, { $pull: { book: { _id: req.params.id } } });
+      await Category.findOneAndUpdate({ _id: category }, { $push: { book: req.params.id } });
+  }
 
-//   if (publisher) {
-//       // Remove the book from the old publisher
-//       await Publisher.updateOne({ 'book._id': req.params.id }, { $pull: { book: { _id: req.params.id } } });
-//       await Publisher.findOneAndUpdate({ _id: publisher }, { $push: { book: req.params.id } });
-//   }
+  if (publisher) {
+      // Remove the book from the old publisher
+      await Publisher.updateOne({ 'book._id': req.params.id }, { $pull: { book: { _id: req.params.id } } });
+      await Publisher.findOneAndUpdate({ _id: publisher }, { $push: { book: req.params.id } });
+  }
 
-//     if (!updatedBook) {
-//       return res.status(404).json({ message: 'Book not found' });
-//     }
-//     res.json({ message: 'Book update successful' });
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ message: 'An error occurred while updating the book' });
-//   }
-// });
+    if (!updatedBook) {
+      return res.status(404).json({ message: 'Book not found' });
+    }
+    res.json({ message: 'Book update successful' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'An error occurred while updating the book' });
+  }
+});
 
 app.post('/updateBookDetail/:id', requireAuth, async (req, res) => {
   const { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description } = req.body;
