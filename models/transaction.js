@@ -16,12 +16,10 @@ const transactionSchema = new mongoose.Schema(
             enum: ['Reserved', 'Overdue', 'Pending', 'Borrowed', 'Returned'],
         },
         pickUpDate: {
-            type: Date,
-            required: [true, 'Pick up date need to be filled']
+            type: Date
         },
         returnDate: {
             type: Date,
-            required: [true, 'Return date need to be filled']
         },
         fine: {
             type: Number,

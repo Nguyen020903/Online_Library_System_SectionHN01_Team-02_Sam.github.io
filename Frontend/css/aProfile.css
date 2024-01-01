@@ -25,7 +25,7 @@ html {
     overflow-x: hidden;
     scroll-padding-top: 5rem;
     scroll-behavior: smooth;
-
+    
 }
 
 body {
@@ -369,7 +369,7 @@ section {
 .active {
     display: block;
 }
-
+/* tab1 */
 .tab-content.tab1 {
     display: flex;
     flex-direction: row;
@@ -377,13 +377,38 @@ section {
     justify-content: center;
 }
 
-.tab-content.tab2 {
-    /*wishlist*/
+/* tab2 */
+.tab-content.tab2 { 
     display: flex;
     flex-direction: column;
     align-items: center;
     overflow: auto;
     width: 100%;
+}
+
+#searchInputContainer {
+    position: relative;
+    margin-bottom: 1rem;
+    width: 50%;
+}
+
+#searchInput {
+    padding: 0.5rem 4rem 0.5rem 1rem; 
+    border: 1px solid #ccc;
+    border-radius: 0.8rem;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 2rem;
+    align-self: center;
+}
+
+#searchIcon {
+    position: absolute;
+    top: 50%;
+    right: 1.5rem; 
+    transform: translateY(-50%);
+    font-size: 2rem; 
+    color: #555; 
 }
 
 .remove-btn {
@@ -426,47 +451,79 @@ section {
     color: #fff;
 }
 
-#clear-btn {
-    background-color: #ddd;
-    color: #000;
+.clear-btn { 
+    background-color: #ddd !important;;
+    color: #000 !important;;
 }
 
-#clear-btn:hover {
-    background-color: #ccc;
-    color: #000;
+.clear-btn:hover {
+    background-color: #ccc !important;;
+    color: #000 !important;;
 }
 
-#clear-btn:active {
-    background-color: #bbb;
-    color: #000;
+.clear-btn:active {
+    background-color: #bbb !important;;
+    color: #000 !important;;
 }
 
+.action-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.action-dropdown {
+    width: 80%;
+    padding: 1rem;
+    box-sizing: border-box;
+    min-width: 20rem;
+}
+
+.check-icon {
+    cursor: pointer;
+    color: green;
+    font-size: 2.5rem;
+    padding: 0.2rem;
+    border-radius: 5px;
+    border: 0.01rem solid #ddd;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
+    transition: 200ms ease-in-out;
+}
+
+.check-icon:hover {
+    background-color: #4F6F52;
+    color: #fff;
+    box-shadow: 0 0 1rem #4F6F52;
+    border: none;
+}
+
+.check-icon:active {
+    background-color: #3A4D39;
+    color: #fff;
+    box-shadow: 0 0 1rem #3A4D39;
+    border:none;
+}
+
+/* tab3 */
 .tab-content.tab3 {
-    /*borrowed books*/
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-}
-
-.table-container {
-    width: 100%;
-    height: 100%;
     overflow: auto;
+    width: 100%;
 }
 
 .styled-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 18px;
+    font-size: 1.7rem;
     text-align: left;
     overflow: auto;
 }
 
 .styled-table th,
 .styled-table td {
-    padding: 12px 15px;
+    padding: 1.8rem 2rem;
     border-bottom: 1px solid #ddd;
     text-align: center;
 }
@@ -484,7 +541,42 @@ section {
     text-align: center;
 }
 
-/* Style the logout container */
+.styled-table tbody td:nth-child(3) ul {
+    list-style-type: circle;
+}
+
+.bookList {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.delete-btn {
+    color: red;
+    cursor: pointer;
+    background-color: transparent;
+    font-size: 1.7rem;
+}  
+
+/* tab4 */
+.tab-content.tab4 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+    width: 100%;
+}
+
+/* tab5 */
+.tab-content.tab5 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+    width: 100%;
+}
+
+/* logout container */
 .popup {
     display: none;
     position: fixed;
@@ -495,7 +587,6 @@ section {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-/* Style the popup content */
 .popup-content {
     position: absolute;
     top: 50%;
@@ -508,7 +599,6 @@ section {
     text-align: center;
 }
 
-/* Style the buttons */
 .popup-content button {
     margin: 10px;
     padding: 10px 20px;
@@ -516,7 +606,6 @@ section {
     cursor: pointer;
 }
 
-/* Style the "Yes" button */
 .popup-content button.yes {
     background-color: #4F6F52;
     color: white;
@@ -524,15 +613,13 @@ section {
     border-radius: 5px;
 }
 
-/* Style the "No" button */
 .popup-content button.no {
-    background-color: #ddd;
+    background-color: #ddd ;
     color: black;
     border: none;
     border-radius: 5px;
 }
 
-/* Style the close button */
 .close {
     position: absolute;
     top: 1px;
@@ -570,17 +657,17 @@ section {
     margin-left: 1rem;
 }
 
-.verticalNavItems.active,
-.verticalNavItems.active a {
+.verticalNavItems.active, .verticalNavItems.active a {
     background-color: #3A4D39;
     color: #fff;
+    transition: 100ms ease-in-out;
 }
 
-#logout-btn {
+#logout-btn{
     color: red;
 }
 
-#logout-btn a {
+#logout-btn a{
     color: red;
 }
 
@@ -590,57 +677,59 @@ footer {
     margin-top: 5rem;
 }
 
-.footer .box-container {
+.footer .box-container{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
-    gap: 1.5rem;
+    gap:1.5rem;
 }
 
-.footer .box-container .box h3 {
+.footer .box-container .box h3{
     font-size: 2.2rem;
-    color: var(--black);
-    padding: 1rem 0;
+    color:var(--black);
+    padding:1rem 0;
 }
 
-.footer .box-container .box a {
+.footer .box-container .box a{
     display: block;
     font-size: 1.4rem;
-    color: var(--light-color);
-    padding: 1rem 0;
+    color:var(--light-color);
+    padding:1rem 0;
 }
 
-.footer .box-container .box a i {
-    color: var(--green);
+.footer .box-container .box a i{
+    color:var(--green);
     padding-right: .5rem;
 }
 
-.footer .box-container .box a:hover i {
+.footer .box-container .box a:hover i{
     padding-right: 2rem;
 }
 
-.footer .box-container .box .map {
-    width: 100%;
+.footer .box-container .box .map{
+    width:100%;
 }
 
-.footer .share {
-    padding: 1rem 0;
+.footer .share{
+    padding:1rem 0;
     text-align: center;
 }
 
-.footer .credit {
+.footer .credit{
     border-top: var(--border);
     margin-top: 2rem;
-    padding: 1rem;
+    padding:1rem;
     padding-top: 2.5rem;
     font-size: 2rem;
-    color: var(--light-color);
+    color:var(--light-color);
     text-align: center;
     /* padding-bottom: 10rem; */
 }
 
-.footer .credit span {
-    color: var(--green);
+.footer .credit span{
+    color:var(--green);
 }
+
+/****Responsive****/
 
 /****Responsive****/
 
@@ -737,15 +826,15 @@ footer {
         padding: 1rem 2rem;
     }
 
-    .verticalNavItems i {
-        font-size: 2rem;
-    }
-
     .verticalNavItems a {
         text-decoration: none;
         color: #000;
         font-weight: bold;
         display: none;
+    }
+
+    .verticalNavItems i {
+        font-size: 2rem;
     }
 
     .header .header-2 {

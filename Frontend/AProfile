@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile</title>
-    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/aProfile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
@@ -17,6 +17,7 @@
         <section class="header-1">
 
             <a href="#" class="logo"> <i class="fas fa-play"></i> playbook </a>
+
             <form action="" class="search-form">
                 <input type="search" name="" placeholder="search here..." id="search-box">
                 <label for="search-box" class="fas fa-search"></label>
@@ -76,157 +77,142 @@
             </div>
             <!-- Tab Content inside leftContainer -->
             <div id="tab2" class="tab-content tab2">
-                <table class="styled-table">
+                <div id="searchInputContainer">
+                    <input type="text" id="searchInput" placeholder="Search here...">
+                    <i id="searchIcon" class="fa fa-search"></i>
+                </div>
+                <table id="bookTable" class="styled-table"> <!-- Start of table-->
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Book Name</th>
-                            <th>Status</th>
+                            <th>Author</th>
+                            <th>Title</th>
+                            <th>Borrower</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>1</td>
+                            <td>Author 1</td>
                             <td><a href="#">Book 1</a></td>
-                            <td>Available</td>
-                            <td><span class="remove-btn">Remove</span></td>
+                            <td>Borrower 1</td>
+                            <td>
+                                <div class="action-container">
+                                    <select class="action-dropdown">
+                                        <option value="" disabled selected>Choose an action</option>
+                                        <option value="returned">Mark as Returned</option>
+                                        <option value="lost">Mark as Lost</option>
+                                    </select>
+                                    <i class="fa fa-check check-icon"></i>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
-                            <td>2</td>
-                            <td><a href="#">Book 2</a></td>
-                            <td>Unavailable</td>
-                            <td><span class="remove-btn">Remove</span></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a href="#">Book 2</a></td>
-                            <td>Unavailable</td>
-                            <td><span class="remove-btn">Remove</span></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a href="#">Book 2</a></td>
-                            <td>Unavailable</td>
-                            <td><span class="remove-btn">Remove</span></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a href="#">Book 2</a></td>
-                            <td>Unavailable</td>
-                            <td><span class="remove-btn">Remove</span></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a href="#">Book 2</a></td>
-                            <td>Unavailable</td>
-                            <td><span class="remove-btn">Remove</span></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a href="#">Book 2</a></td>
-                            <td>Unavailable</td>
-                            <td><span class="remove-btn">Remove</span></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a href="#">Book 2</a></td>
-                            <td>Unavailable</td>
-                            <td><span class="remove-btn">Remove</span></td>
+                            <td>1</td>
+                            <td>Author 1</td>
+                            <td><a href="#">Book 1</a></td>
+                            <td>Borrower 1</td>
+                            <td>
+                                <div class="action-container">
+                                    <select class="action-dropdown">
+                                        <option value="" disabled selected>Choose an action</option>
+                                        <option value="returned">Mark as Returned</option>
+                                        <option value="lost">Mark as Lost</option>
+                                    </select>
+                                    <i class="fa fa-check check-icon"></i>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
-                </table>
+                </table> <!-- End of table-->
+            </div>
+            <div id="tab3" class="tab-content tab3">
+                <div id="searchInputContainer">
+                    <input type="text" id="searchInput" placeholder="Search here...">
+                    <i id="searchIcon" class="fa fa-search"></i>
+                </div>
+                <table class="styled-table"> <!-- Start of table-->
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Author Name</th>
+                            <th>Book Written</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Author 1</td>
+                            <td>
+                                <ul class="bookList">
+                                    <li><a href="#">Book 1</a></li>
+                                    <li><a href="#">Book 2</a></li>
+                                </ul>
+                            </td>
+                            <td><button class="delete-btn">Delete</button></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Author 2</td>
+                            <td>
+                                <ul class="bookList">
+                                    <li><a href="#">Book 3</a></li>
+                                    <li><a href="#">This should be the longest book name</a></li>
+                                </ul>
+                            </td>
+                            <td><button class="delete-btn">Delete</button></td>
+                        </tr>
+                    </tbody>
+                </table> <!-- End of table-->
                 <div class="wishlist-btn-container">
-                    <button id="wishlist-btn">More detail</button>
-                    <button id="clear-btn">Clear Wishlist</button>
+                    <button class="addBtn">Add Author</button>
+                    <button class="clear-btn">Edit List</button>
                 </div>
             </div>
-
-            <div id="tab3" class="tab-content tab3">
-                <div class="table-container">
-                    <table class="styled-table">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Book Title</th>
-                                <th>Borrowed Date</th>
-                                <th>Due Date</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Book 1</td>
-                                <td>2023-01-01</td>
-                                <td>2023-01-15</td>
-                                <td>Returned</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Book 2</td>
-                                <td>2023-02-01</td>
-                                <td>2023-02-15</td>
-                                <td>Not Returned</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Book 3</td>
-                                <td>2023-03-01</td>
-                                <td>2023-03-15</td>
-                                <td>Returned</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Book 4</td>
-                                <td>2023-04-01</td>
-                                <td>2023-04-15</td>
-                                <td>Not Returned</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Book 5</td>
-                                <td>2023-05-01</td>
-                                <td>2023-05-15</td>
-                                <td>Returned</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>This is the longest name a book can have</td>
-                                <td>2023-01-01</td>
-                                <td>2023-01-15</td>
-                                <td>Returned</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Book 2</td>
-                                <td>2023-02-01</td>
-                                <td>2023-02-15</td>
-                                <td>Not Returned</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Book 3</td>
-                                <td>2023-03-01</td>
-                                <td>2023-03-15</td>
-                                <td>Returned</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Book 4</td>
-                                <td>2023-04-01</td>
-                                <td>2023-04-15</td>
-                                <td>Not Returned</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Book 5</td>
-                                <td>2023-05-01</td>
-                                <td>2023-05-15</td>
-                                <td>Returned</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div id="tab4" class="tab-content tab4">
+                <div id="searchInputContainer">
+                    <input type="text" id="searchInput" placeholder="Search here...">
+                    <i id="searchIcon" class="fa fa-search"></i>
+                </div>
+                <table class="styled-table"> <!-- Start of table-->
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Publisher Name</th>
+                            <th>Book Published</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Publisher 1</td>
+                            <td>
+                                <ul class="bookList">
+                                    <li><a href="#">Book 1</a></li>
+                                    <li><a href="#">Book 2</a></li>
+                                </ul>
+                            </td>
+                            <td><button class="delete-btn">Delete</button></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Publisher 2</td>
+                            <td>
+                                <ul class="bookList">
+                                    <li><a href="#">Book 3</a></li>
+                                    <li><a href="#">This should be the longest book name</a></li>
+                                </ul>
+                            </td>
+                            <td><button class="delete-btn">Delete</button></td>
+                        </tr>
+                    </tbody>
+                </table> <!-- End of table-->
+                <div class="wishlist-btn-container">
+                    <button class="addBtn">Add Publisher</button>
+                    <button class="clear-btn">Edit List</button>
                 </div>
             </div>
             <div id="popup" class="popup">
@@ -243,10 +229,12 @@
             <ul class="verticalNavList">
                 <li class="verticalNavItems active" onclick="openTab('tab1')"><i class="far fa-user"></i><a
                         href="#">Profile</a></li>
-                <li class="verticalNavItems" onclick="openTab('tab2')"><i class="far fa-bookmark"></i><a
-                        href="#">Wishlist</a></li>
-                <li class="verticalNavItems" onclick="openTab('tab3')"><i class="fa-solid fa-book"></i><a
-                        href="#">Borrowed Book</a></li>
+                <li class="verticalNavItems" onclick="openTab('tab2')"><i class="fa-solid fa-book"></i><a href="#">All
+                        Borrowed Book</a></li>
+                <li class="verticalNavItems" onclick="openTab('tab3')"><i class="fa-solid fa-pen"></i><a href="#">All
+                        Author</a></li>
+                <li class="verticalNavItems" onclick="openTab('tab4')"><i class="fa-regular fa-building"></i></i><a
+                        href="#">All Publisher</a></li>
                 <li id="logout-btn" class="verticalNavItems" onclick="openPopup()"><i
                         class="fas fa-arrow-right-from-bracket"></i><a href="#">Logout</a></li>
             </ul>
@@ -256,8 +244,7 @@
     <!-- footer -->
     <footer>
         <section class="footer">
-            <!-- <div class="box-container">
-    
+            <!-- <div class="box-container">  
                 <div class="box">
                     <h3>extra links</h3>
                     <a href="#"> <i class="fas fa-arrow-right"></i> about us </a>
