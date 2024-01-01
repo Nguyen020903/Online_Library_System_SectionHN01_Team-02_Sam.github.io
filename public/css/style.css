@@ -46,6 +46,12 @@ section{
     margin: 0 auto;
 }
 
+.error{
+    color: #ff0099;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
 .heading{
     text-align: center;
     margin-bottom: 2rem;
@@ -499,7 +505,7 @@ section{
 }
 
 .newsletter-container{
-    background:url(../image/bg.png) no-repeat;
+    background:url(../images/material/bg.png) no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;

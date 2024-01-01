@@ -27,20 +27,20 @@ const bookImageStorage = multer.diskStorage({
   const bookImageUpload = multer({ storage: bookImageStorage });
 
 // Book detail page
-router.get('/bookDetail/:id', checkUser, isAdmin, bookController.bookdetail_get);
-router.post('/bookDetail/:id', checkUser, isAdmin, bookController.bookdetail_post);
+// router.get('/bookDetail/:id', checkUser, isAdmin, bookController.bookdetail_get);
+// router.post('/bookDetail/:id', checkUser, isAdmin, bookController.bookdetail_post);
 
 // Add book
 router.get('/addbook', checkUser, isAdmin, bookController.addbook_get);
-router.post('/addbook', (req, res, next) => {
-      console.log('Request Body:', req.body);
-      console.log('Request File:', req.file);
-      next();
-}, checkUser, isAdmin, multer({ storage: bookImageStorage }).single('bookImage'), bookController.addbook_post);
+// router.post('/addbook', (req, res, next) => {
+//       console.log('Request Body:', req.body);
+//       console.log('Request File:', req.file);
+//       next();
+// }, checkUser, isAdmin, multer({ storage: bookImageStorage }).single('bookImage'), bookController.addbook_post);
 
-// Update book
-router.get('/updateBook/:id', checkUser, isAdmin, bookController.updatebook_get);
-router.post('/updateBook/:id', checkUser, isAdmin, bookImageUpload.single('bookImage'), bookController.updatebook_post);
+// // Update book
+// router.get('/updateBook/:id', checkUser, isAdmin, bookController.updatebook_get);
+// router.post('/updateBook/:id', checkUser, isAdmin, bookImageUpload.single('bookImage'), bookController.updatebook_post);
 
 // Delete book
 router.post('/deletebook/:id', checkUser, isAdmin, bookController.deletebook);

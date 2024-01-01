@@ -1,80 +1,428 @@
-<%- include('partials/header'); -%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <!-- ... same as in index.ejs ... -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playbook Online Library</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- favicon -->
+    <link rel="icon" type="image/x-icon" href="/images/material/favicon-removebg-preview1.png">
 </head>
 
 <body>
-    <!-- ... same header and navbar as in index.ejs ... -->
+    <!-- header section starts  -->
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-8 col-sm-12">
-                <div class="card mt-5">
-                    <img src="<%= book.bookImage %>" alt="<%= book.title %>" class="card-img-top" />
-                    <div class="card-body text-center">
-                        <h4 class="card-title">
-                            <%= book.title %>
-                        </h4>
-                        <p class="lead card-subtitle">
-                            <%= book.author %>
-                        </p>
-                        <p class="display-5 my-4 text-muted fw-bold">$<%= book.price %></p>
-                        <form method="post" action="/addToCart">
-                            <input type="hidden" name="book_id" value="<%= book._id %>" />
-                            <input type="hidden" name="book_title" value="<%= book.title %>" />
-                            <button type="submit" class="btn btn-outline-dark btn-lg my-2 rounded-pill">
-                                Add to Cart
-                            </button>
-                            
-                        </form>
-                        <button onclick="location.href='/updateBook/<%= book._id %>'" class="btn btn-outline-primary btn-lg my-2 rounded-pill">
-                            Update Book
-                        </button>
-                        <!-- <button onclick="location.href='/deletebook/<%= book._id %>'" class="btn btn-outline-danger btn-lg my-2 rounded-pill">
-                            Delete Book
-                        </button> -->
-                        <form id="deletebook" action="/deletebook/<%= book._id %>">
-                            <input type="hidden" name="bookId" value="<%= book._id %>">
-                            <button type="submit">Delete Book</button>
-                        </form>
+    <header class="header">
+
+        <section class="header-1">
+
+            <a href="/" class="logo"> <i class="fas fa-play"></i><%= book.title %></a>
+
+            <form action="" class="search-form">
+                <input type="search" name="" placeholder="search here..." id="search-box">
+                <label for="search-box" class="fas fa-search"></label>
+            </form>
+
+            <div class="icons">
+                <div id="search-btn" class="fas fa-search"></div>
+                <% if (user) { %>
+                    <a href="/wishlist" class="fas fa-heart"></a>
+                    <a href="/userReservations" class="fas fa-shopping-cart"></a>
+                    <a href="/myAccount" class="fas fa-user"></a>
+                <%} else { %>
+                    <a href="/login" class="fas fa-heart"></a>
+                    <a href="/login" class="fas fa-shopping-cart"></a>
+                    <a href="/login" class="fas fa-user"></a>
+                <%} %>
+            </div>
+
+        </section>
+
+        <div class="header-2">
+            <nav class="navbar">
+                <a href="/">home</a>
+                <!-- <a href="#featured">featured</a>
+                <a href="#arrivals">arrivals</a> -->
+                <a href="#reviews">reviews</a>
+            </nav>
+        </div>
+
+    </header>
+
+
+    <!-- header section ends -->
+
+    <!-- bottom navbar  -->
+
+    <nav class="bottom-navbar">
+        <a href="#home" class="fas fa-home"></a>
+        <a href="#deal" class="fas fa-book"></a>
+        <a href="#featured" class="fas fa-list"></a>
+        <a href="#reviews" class="fas fa-comments"></a>
+    </nav>
+
+    <!-- home section starts  -->
+
+    <div class="deal-container">
+        <section class="deal" id="deal">
+            <div class="image">
+                <img src="<%= book.bookImage %>" alt="<%= book.title %>" />
+            </div>
+
+            <div class="content">
+                <h3><%= book.category.name %></h3>
+                <h1><%= book.title %></h1>
+                <h2><%= book.author.name %></h2>
+                <p>
+                    <%= book.description %>
+                </p>
+                <div id="readerview">
+                    <a href="#" class="btn">add to rentlist / check availability</a>
+                    <a href="#" class="btn">favourite</a>
+                </div>
+                <div id="libview">
+                    <div id="bookmenu-btn">update book</div>
+                </div>
+
+                <div class="bookmenu-form-container">
+
+                    <div id="close-bookmenu-btn" class="fas fa-times"></div>
+            
+                    <form method="post" id="detailUpdate" action="/updateBookDetail/<%= book._id %>">
+                        <h3>update book detail</h3>
+                        
+                        <span>ISBN</span>
+                        <input type="text" name="ISBN" class="box" value="<%= book.ISBN %>" id="ISBN" required>
+                        
+                        <span>book title</span>
+                        <input type="text" name="title" class="box" value="<%= book.title %>" id="title" required>
+                        
+                        <span>details</span>
+                        <div>
+                            <select class="box" id="author" name="author">
+                                <option value="none" disabled selected>Select author:</option>
+                                <% authors.forEach(author => { %>
+                                    <option value="<%= author._id %>" name="author" <%= book.author && book.author._id.toString() === author._id.toString() ? 'selected' : '' %>><%= author.name %></option>
+                                <% }); %>
+                            </select>
+                            <div class="author error"></div>
+                        </div>
+                        
+            
+                        <div>
+                            <select class="box" id="category" name="category">
+                                <option value="none" disabled selected>Select category:</option>
+                                <% categories.forEach(category => { %>
+                                    <option value="<%= category._id %>" name="category" <%= book.category && book.category._id.toString() === category._id.toString() ? 'selected' : '' %>><%= category.name %></option>
+                                <% }); %>
+                            </select>
+                            <div class="category error"></div>
+                        </div>
+                        
+            
+                        <div>
+                            <select class="box" id="publisher" name="publisher">
+                                <option value="none" disabled selected>Select publisher:</option>
+                                <% publishers.forEach(publisher => { %>
+                                    <option value="<%= publisher._id %>" name="publisher" <%= book.publisher && book.publisher._id.toString() === publisher._id.toString() ? 'selected' : '' %>><%= publisher.name %></option>
+                                <% }); %>
+                            </select>
+                            <div class="publisher error"></div>
+                        </div>
+                        
+                        <span>number of book</span>
+                        <input type="number" name="bookCountAvailable" class="box" value="<%= book.bookCountAvailable %>" id="bookCountAvailable" required>
+                        <div class="bookCountAvailable error"></div>
+
+                        <span>number of pages</span>
+                        <input type="number" name="numberOfPages" class="box" value="<%= book.numberOfPages %>" id="numberOfPages" required>
+                        <div class="numberOfPages error"></div>
+
+                        <span>description</span>
+                        <textarea name="description" id="description" rows="4" cols="40" class="box"><%= book.description %></textarea>
+                        <div class="description error"></div>
+                        <input type="submit" vaslue="Update" class="btn">
+            
+                    </form>
+                    <form method="post" id="imgUpdate" action="/updateBookImage/<%= book._id %>">
+                        <h3>Update Book Image</h3>
+                        <img src="<%= book.bookImage %>" alt="<%= book.title %>" style="aspect-ratio: 1/1; object-fit: cover; width: 30vmin;"/>
+                        <input type="file" name="bookImage" value="<%= book.bookImage %>" class="account-settings-fileinput box" accept="image/*">
+                        <span>If you Update the image without selected one, the book Image will be return to the default Image.</span>
+                        <input type="submit" value="Update Image" class="btn">
+                    </form>
+                </div>
+                
+            </div>
+        </section>
+    </div>
+
+    <!-- home section end  -->
+
+    <!-- reviews section starts  -->
+
+    <section class="reviews" id="reviews">
+        <h1 class="heading"><span>reader's reviews</span></h1>
+
+        <div class="swiper reviews-slider">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide box">
+                    <img src="image/" alt="Son's photo" />
+                    <h3>Tran Hoang Son</h3>
+                    <p>review here</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+
+                <div class="swiper-slide box">
+                    <img src="image/" alt="Kiet's photo" />
+                    <h3>Luong Tuan Kiet</h3>
+                    <p>review here</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+
+                <div class="swiper-slide box">
+                    <img src="image/" alt="HNguyen's photo" />
+                    <h3>Nguyen Hai Nguyen</h3>
+                    <p>review here</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+                <div class="swiper-slide box">
+                    <img src="image/=" alt="TNguyen's photo" />
+                    <h3>Nguyen Hai Tuan Nguyen</h3>
+                    <p>review here</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+
+                <div class="swiper-slide box">
+                    <img src="image/" alt="My's photo" />
+                    <h3>Le Ha My</h3>
+                    <p>review here</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+
+                <div class="swiper-slide box">
+                    <img src="image/" alt="Thang's photo" />
+                    <h3>Dang Quoc Thang</h3>
+                    <p>review here</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+
+                <div class="swiper-slide box">
+                    <img src="image/" alt="Dang's photo" />
+                    <h3>To Hai Dang</h3>
+                    <p>review here</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- ... same footer and scripts as in index.ejs ... -->
+    <!-- reviews section ends -->
+
+    <!-- footer section starts  -->
+
+    <section class="footer">
+        <div class="box-container">
+            <div class="box">
+                <h3>extra links</h3>
+                <a href="#"> <i class="fas fa-arrow-right"></i> about us </a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> copyright </a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> privacy policy </a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> payment method </a>
+            </div>
+
+            <div class="box">
+                <h3>contact info</h3>
+                <a href="#">
+                    <i class="far fa-id-badge"></i> Tran Hoang Son - s3978450
+                </a>
+                <a href="#">
+                    <i class="far fa-id-badge"></i> To Hai Dang - s3927046
+                </a>
+                <a href="#">
+                    <i class="far fa-id-badge"></i> Luong Tuan Kiet - s3980288
+                </a>
+                <a href="#"> <i class="far fa-id-badge"></i> Le Ha My - s3938177 </a>
+                <a href="#">
+                    <i class="far fa-id-badge"></i> Nguyen Ha Tuan Nguyen - s3978072
+                </a>
+                <a href="#">
+                    <i class="far fa-id-badge"></i> Nguyen Hai Nguyen - s3978275
+                </a>
+                <a href="#">
+                    <i class="far fa-id-badge"></i> Dang Quoc Thang - s3977877
+                </a>
+            </div>
+        </div>
+
+        <div class="credit">
+            created by <span>Group 2</span> | all rights reserved!
+        </div>
+    </section> -->
+
+    <!-- footer section ends -->
+
+    <!-- loader  -->
+
+    <!-- <div class="loader-container">
+        <img src="/images/material/loader.gif" alt="" />
+    </div> -->
+
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
+    <!-- custom js file link  -->
+    <script src="/js/script.js"></script>
 </body>
+
 <script>
-    const deletebook = document.querySelector('#deletebook');
+    const detailUpdate = document.querySelector('#detailUpdate');
+    const imageUpdate = document.querySelector('#imgUpdate');
+    // read the error
+    const ISBNError = document.querySelector('.ISBN.error');
+    const authorError = document.querySelector('.author.error');
+    const categoryError = document.querySelector('.category.error');
+    const publisherError = document.querySelector('.publisher.error');
+    const descriptionError = document.querySelector('.description.error');
+    const bookImageError = document.querySelector('.bookImage.error');
 
-    deletebook.addEventListener('submit', async (e) => {
-            e.preventDefault();
+    detailUpdate.addEventListener('submit', async (e) => {
+        console.log('detailUpdate form submitted');
+        e.preventDefault();
+        // reset errors
+        ISBNError.textContent = '';
+        authorError.textContent = '';
+        categoryError.textContent = '';
+        publisherError.textContent = '';
+        descriptionError.textContent = '';
+        const authorSelect = document.querySelector('#author');
+        if (authorSelect.value === 'none') {
+            authorError.textContent = 'Please select an author';
+            return;
+        }
+        const categorySelect = document.querySelector('#category');
+        if (categorySelect.value === 'none') {
+            categoryError.textContent = 'Please select a category';
+            return;
+        }
+        const publisherSelect = document.querySelector('#publisher');
+        if (publisherSelect.value === 'none') {
+            publisherError.textContent = 'Please select a publisher';
+            return;
+        }
 
-            try {
-                const bookId = '<%= book.id %>'
-                const res = await fetch(`/deletebook/${bookId}`, {
-                    method: "POST"
-                });
+        // Create a FormData instance
+        const formData = new FormData();
+        formData.append('ISBN', detailUpdate.ISBN.value);
+        formData.append('title', detailUpdate.title.value);
+        formData.append('numberOfPages', detailUpdate.numberOfPages.value);
+        formData.append('author', detailUpdate.author.value);
+        formData.append('category', detailUpdate.category.value);
+        formData.append('publisher', detailUpdate.publisher.value);
+        formData.append('bookCountAvailable', detailUpdate.bookCountAvailable.value);
+        formData.append('description', detailUpdate.description.value);
+        console.log(formData);
+        
+        try{
+            const id = '<%= book._id %>'
+            const res = await fetch(`/updateBookDetail/${id}`, {
+                method: 'POST',
+                body: formData, // Send the form data
+            });
+            const data = await res.json();
+            console.log(data);
 
-                const data = await res.json();
-                console.log(data);
-
-                if (data.errors) {
-                    alert(data.errors);
-                }
-                if (data.deletedBookId) {  
-                    location.assign('/');
-                }
-            } catch (err) {
-            console.log(err);
+            if (data.errors){
+                ISBNError.textContent = ('This ISBN is already registered');
             }
-        });
+            else{
+                descriptionError.textContent = ('Added successfully');
+            }
+        }
+        catch (err){
+            console.log(err);
+        }
+    });
+    imageUpdate.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        // reset errors
+        bookImageError.textContent = '';
+        // Create a FormData instance
+        const formData = new FormData();
+        formData.append('bookImage', imageUpdate.bookImage.files[0]);
+        console.log(formData);
+        
+        try{
+            const id = '<%= book._id %>'
+            const res = await fetch(`/updateBookImage/${id}`, {
+                method: 'POST',
+                body: formData, // Send the form data
+            });
+            const data = await res.json();
+            console.log(data);
 
+            if (data.errors){
+                bookImageError.textContent = ('An error occure, please try again');
+            }
+            else{
+                bookImageError.textContent = ('Added successfully');
+            }
+        }
+        catch (err){
+            console.log(err);
+        }
+    });
 </script>
 
 </html>
-<%- include('partials/footer'); -%>
