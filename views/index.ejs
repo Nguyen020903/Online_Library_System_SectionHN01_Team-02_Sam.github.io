@@ -5,51 +5,118 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
-    <title>OLS</title>
+    <title>Playbook Online Library</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- favicon -->
+    <link rel="icon" type="image/x-icon" href="/images/material/favicon-removebg-preview1.png">
 </head>
-<%- include('partials/header'); -%>
-    <header>
-        <div class="p-3 text-center bg-white border-bottom">
-            <div class="container">
-                <div class="row gy-3">
-                    <!-- Left elements -->
-                    <div class="col-lg-4 col-md-3 col-sm-6">
-                        <a href="#" class="float-start">
-                            <img src="\Assets\Images\Logo.png" id="Logo">
-                        </a>
-                    </div>
-                    <!-- Left elements -->
 
-                    <!-- Center elements -->
-                    <div class="col-lg-4 col-md-6 col-sm-0">
-                        <div class="input-group d-flex justify-content-center">
-                            <div class="form-outline w-75">
-                                <input type="search" id="form1" class="form-control float" placeholder="Search">
-                            </div>
-                            <button type="button" class="btn btn-success shadow-0">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <!-- Center elements -->
+<body>
 
-                    <!-- Right elements -->
-                    <div class="col-lg-4 col-md-3 col-sm-6">
-                        <ul>
-                            <% if (user) {%>
-                                <li> Welcome, <%= user.email %>
-                                </li>
-                                <li> <a href='/logout'>Logout</a></li>
-                                <%} else {%>
-                                    <li><a href='/login'>Login</a></li>
-                                    <li><a href='/signup'>Sign up</a></li>
-                                    <%}; %>
-                        </ul>
-                    </div>
-                    <!-- Right elements -->
+    <!-- header section starts  -->
+
+    <header class="header">
+
+        <section class="header-1">
+
+            <a href="/" class="logo"> <i class="fas fa-play"></i> playbook </a>
+
+            <form action="" class="search-form">
+                <input type="search" name="" placeholder="search here..." id="search-box">
+                <label for="search-box" class="fas fa-search"></label>
+            </form>
+
+            <div class="icons">
+                <div id="search-btn" class="fas fa-search"></div>
+                <% if (user) { %>
+                    <a href="/wishlist" class="fas fa-heart"></a>
+                    <a href="/userReservations" class="fas fa-shopping-cart"></a>
+                    <a href="/myAccount" class="fas fa-user"></a>
+                <%} else { %>
+                    <a href="/login" class="fas fa-heart"></a>
+                    <a href="/login" class="fas fa-shopping-cart"></a>
+                    <a href="/login" class="fas fa-user"></a>
+                <%} %>
+            </div>
+
+        </section>
+
+        <div class="header-2">
+            <nav class="navbar">
+                <a href="#home">home</a>
+                <a href="#featured">featured</a>
+                <a href="#arrivals">arrivals</a>
+                <a href="#reviews">reviews</a>
+            </nav>
+        </div>
+
+    </header>
+
+    <!-- header section ends -->
+
+    <!-- bottom navbar  -->
+
+    <nav class="bottom-navbar">
+        <a href="#home" class="fas fa-home"></a>
+        <a href="#featured" class="fas fa-list"></a>
+        <a href="#arrivals" class="fas fa-tags"></a>
+        <a href="#reviews" class="fas fa-comments"></a>
+    </nav>
+
+    <!-- home section starts  -->
+
+    <div class="home-container">
+
+        <section class="home" id="home">
+
+            <div class="row">
+
+                <div class="content">
+                    <h3>Welcome to Playbook</h3>
+                    <h4>your digital library for boundless exploration.</h4>
+                    <p>Experience the fusion of literature and digital convenience, creating a dynamic space for all
+                        your reading needs. Dive into our diverse collection and discover a new era of online reading at
+                        Playbook.</p>
+                    <a href="#featured" class="btn">start exploring</a>
+                </div>
+
+                <div class="swiper books-slider">
+                    <div class="swiper-wrapper">
+                        <% books.sort((a, b) => {
+                            const regex = /^(\W+|\d+|[a-zA-Z]+)/;
+                            const aMatch = a.title.match(regex);
+                            const bMatch = b.title.match(regex);
+                            const aPrefix = aMatch ? aMatch[0] : '';
+                            const bPrefix = bMatch ? bMatch[0] : '';
+                    
+                            if (/\W/.test(aPrefix) && /\W/.test(bPrefix)) {
+                                return aPrefix.localeCompare(bPrefix);
+                            } else if (/\W/.test(aPrefix)) {
+                                return -1;
+                            } else if (/\W/.test(bPrefix)) {
+                                return 1;
+                            } else if (/\d/.test(aPrefix) && /\d/.test(bPrefix)) {
+                                return aPrefix.localeCompare(bPrefix, undefined, { numeric: true });
+                            } else if (/\d/.test(aPrefix)) {
+                                return -1;
+                            } else if (/\d/.test(bPrefix)) {
+                                return 1;
+                            } else {
+                                return aPrefix.localeCompare(bPrefix);
+                            }
+                        }).slice(0, 10).forEach(book => { %>
+                            <a href="/bookDetail/<%= book._id %>" class="swiper-slide"><img src="<%= book.bookImage %>" alt="<%= book.title %>" style="aspect-ratio: 555/710; object-fit: cover;"></a>
+                        <% }) %>
+                    </div>  
+                    <img src="/images/material/stand.png" class="stand" alt="">
                 </div>
 
             </div>
@@ -90,84 +157,373 @@
 
     </section>
 
-    <!-- body starts here -->
+    <!-- icons section ends -->
 
-    <body>
-        <!-- navbar -->
-        <nav class="navbar navbar-expand-lg bg-success">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="#">Others</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="#">Others</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown link
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+    <!-- add books feature start -->
+    <center>
+        <div id="bookmenu-btn">add books <i class="fas fa-plus"></i></div>
+    </center>
+    
+
+    <div class="bookmenu-form-container">
+
+        <div id="close-bookmenu-btn" class="fas fa-times"></div>
+
+        <form enctype="multipart/form-data" action="/addbook" id="addbook">
+            <h3>add book</h3>
+            
+            <span>ISBN</span>
+            <input type="text" name="ISBN" class="box" placeholder="enter the book ISBN" id="ISBN" required>
+            <div class="ISBN error"></div>
+            
+            <span>book title</span>
+            <input type="text" name="title" class="box" placeholder="enter the book title" id="title" required>
+            <div class="title error"></div>
+            
+            <span>details</span>
+            <div>
+                <select class="box" id="author" name="author">
+                    <option value="none" disabled selected>Select author:</option>
+                    <% authors.forEach(author => { %>
+                        <option value="<%= author._id %>" name="author"><%= author.name %></option>
+                    <% }); %>
+                </select>
+                <div class="author error"></div>
             </div>
-        </nav>
+            
 
-        <h1>Book List</h1>
+            <div>
+                <select class="box" id="category" name="category">
+                    <option value="none" disabled selected>Select category:</option>
+                    <% categories.forEach(category => { %>
+                        <option value="<%= category._id %>" name="category"><%= category.name %></option>
+                    <% }); %>
+                </select>
+                <div class="category error"></div>
+            </div>
+            
 
+            <div>
+                <select class="box" id="publisher" name="publisher">
+                    <option value="none" disabled selected>Select publisher:</option>
+                    <% publishers.forEach(publisher => { %>
+                        <option value="<%= publisher._id %>" name="publisher"><%= publisher.name %></option>
+                    <% }); %>
+                </select>
+                <div class="publisher error"></div>
+            </div>
+            
+            <span>number of book</span>
+            <input type="number" name="bookCountAvailable" class="box" placeholder="enter the number of book" id="bookCountAvailable" required>
+            <div class="bookCountAvailable error"></div>
 
+            <span>number of pages</span>
+            <input type="number" name="numberOfPages" class="box" placeholder="enter the number of pages" id="numberOfPages" required>
+            <div class="numberOfPages error"></div>
+            
+            <span>image</span>
+            <input type="file" name="bookImage" class="account-settings-fileinput box">
+            <div class="bookImage error"></div>
 
-        <div class="row justify-content-start g-3">
-            <% books.slice().reverse().forEach(book=> { %>
+            <span>description</span>
+            <textarea name="description" id="description" rows="4" cols="40" class="box">enter book description</textarea>
+            <div class="description error"></div>
+
+            <input type="submit" value="submit" class="btn">
+
+        </form>
+
+    </div>
+
+    <!-- add books feature end -->
+
+    <!-- featured section starts  -->
+
+    <section class="featured" id="featured">
+
+        <h1 class="heading"> <span>featured books</span> </h1>
+        
+        <div class="swiper featured-slider">
+            <div class="swiper-wrapper">
+                <!-- in this part, the code will show symbol first then number then alphabet letters -->
+                <% books.sort((a, b) => {
+                    const regex = /^(\W+|\d+|[a-zA-Z]+)/;
+                    const aMatch = a.title.match(regex);
+                    const bMatch = b.title.match(regex);
+                    const aPrefix = aMatch ? aMatch[0] : '';
+                    const bPrefix = bMatch ? bMatch[0] : '';
+            
+                    if (/\W/.test(aPrefix) && /\W/.test(bPrefix)) {
+                        return aPrefix.localeCompare(bPrefix);
+                    } else if (/\W/.test(aPrefix)) {
+                        return -1;
+                    } else if (/\W/.test(bPrefix)) {
+                        return 1;
+                    } else if (/\d/.test(aPrefix) && /\d/.test(bPrefix)) {
+                        return aPrefix.localeCompare(bPrefix, undefined, { numeric: true });
+                    } else if (/\d/.test(aPrefix)) {
+                        return -1;
+                    } else if (/\d/.test(bPrefix)) {
+                        return 1;
+                    } else {
+                        return aPrefix.localeCompare(bPrefix);
+                    }
+                }).slice(0, 10).forEach(book => { %>
                 <% const isBookInWishlist=user && user.favoriteBook.includes(book._id); %>
+                <div class="swiper-slide box">
+                    <div class="icons">
+                        <!-- <a href="#" class="fas fa-heart"><span>favourite</span></a> -->
+                        <% if (user) { %>
+                            <% if (!isBookInWishlist) { %>
+                                <form id="mainbook" method="post" class="wishlist-form" data-action="/addToWishlist" data-book-id="<%= book._id %>">
+                                    <a href="#" class="fas fa-heart submit-link">
+                                        <span>
+                                            Add to Wishlist
+                                        </span>
+                                    </a>
+                                </form>
+                            <% } else { %>
+                                <form id="mainbook" method="post" class="wishlist-form" data-action="/removeFromWishlist" data-book-id="<%= book._id %>">
+                                    <a href="#" class="fas fa-heart submit-link">
+                                        Remove from Wishlist
+                                    </a>
+                                </form>
+                            <% } %>
+                        <% } %>
+                    </div>
+                    <div class="image">
+                        <a href="/bookDetail/<%= book._id %>"><img src="<%= book.bookImage %>" alt="<%= book.title %>" style="aspect-ratio: 555/710; object-fit: cover;"></a>
+                    </div>
+                    <div class="content">
+                        <div class="author"><%= book.author.name %></div>
+                        <h3><%= book.title %></h3>
+                    </div>
+                </div>
+                <% }) %>
+            </div>
+            
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
 
-                    <div class="col-lg-4 col-md-6 col-sm-12 d-flex">
-                        <div class="card px-3">
-                            <a href="/bookDetail/<%= book._id %>">
-                                <!-- Assuming you have an image property for books -->
-                                <img src="<%= book.bookImage %>" alt="<%= book.title %>" class="ratio ratio-1x1" />
-                            </a>
-                            <div class="card-body text-center">
-                                <h4 class="card-title overflow-hidden">
-                                    <%= book.title %>
-                                </h4>
-                                <p class="lead card-subtitle">
-                                    <%= book.author %>
-                                </p>
-                                <p class="display-5 my-4 text-muted fw-bold">$<%= book.price %>
-                                </p>
-                                <% if (user) { %>
-                                    <% if (!isBookInWishlist) { %>
-                                        <form method="post" class="wishlist-form" data-action="/addToWishlist" data-book-id="<%= book._id %>">
-                                            <button type="button" class="btn btn-outline-dark btn-lg my-2 rounded-pill">
-                                                Add to Wishlist
-                                            </button>
-                                        </form>
-                                    <% } else { %>
-                                        <form method="post" class="wishlist-form" data-action="/removeFromWishlist" data-book-id="<%= book._id %>">
-                                            <button type="button" class="btn btn-outline-dark btn-lg my-2 rounded-pill">
-                                                Remove from Wishlist
-                                            </button>
-                                        </form>
-                                    <% } %>
-                                <% } %>
+        </div>
+
+    </section>
+
+    <!-- featured section ends -->
+
+    <!-- newsletter section starts -->
+
+    <div class="newsletter-container">
+
+        <section class="newsletter">
+
+            <form action="">
+                <h3>leave your library review</h3>
+                <input type="text" name="" placeholder="write your review" id="" class="box">
+                <div class="rate">
+                    <input type="radio" id="star5" name="rate" value="5" />
+                    <label for="star5" title="5star">5 stars</label>
+                    <input type="radio" id="star4" name="rate" value="4" />
+                    <label for="star4" title="4star">4 stars</label>
+                    <input type="radio" id="star3" name="rate" value="3" />
+                    <label for="star3" title="3star">3 stars</label>
+                    <input type="radio" id="star2" name="rate" value="2" />
+                    <label for="star2" title="2star">2 stars</label>
+                    <input type="radio" id="star1" name="rate" value="1" />
+                    <label for="star1" title="1star">1 star</label>
+                  </div>
+                <input type="submit" value="submit" class="btn">
+            </form>
+
+        </section>
+
+    </div>
+
+    <!-- newsletter section ends -->
+
+    <!-- arrivals section starts  -->
+<!-- 
+    <section class="arrivals" id="arrivals">
+
+        <h1 class="heading"> <span>new arrivals</span> </h1>
+
+        <% books.slice(0, 5).reverse().forEach(book=> { %>
+            <div class="swiper arrivals-slider">
+
+                <div class="swiper-wrapper">
+
+                    <a href="/bookDetail/<%= book._id %>" class="swiper-slide box">
+                        <div class="image">
+                            <img src="<%= book.bookImage %>" alt="<%= book.title %>" style="aspect-ratio: 555/710; object-fit: cover;">
+                        </div>
+                        <div class="content">
+                            <h3>new arrivals</h3>
+                            <div class="author"><%= book.author.name %></div>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
                             </div>
                         </div>
+                    </a>
+
+                </div>
+
+            </div>
+        <% }) %>
+        <% books.slice(5, 10).reverse().forEach(book=> { %>
+            <div class="swiper arrivals-slider">
+
+                <div class="swiper-wrapper">
+
+                    <a href="/bookDetail/<%= book._id %>" class="swiper-slide box">
+                        <div class="image">
+                            <img src="<%= book.bookImage %>" alt="<%= book.title %>" style="aspect-ratio: 555/710; object-fit: cover;">
+                        </div>
+                        <div class="content">
+                            <h3>new arrivals</h3>
+                            <div class="author"><%= book.author.name %></div>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+
+            </div>
+        <% }) %>
+
+
+    </section> -->
+
+    <!-- arrivals section ends -->
+
+    <!-- deal section starts  -->
+
+    <div class="deal-container">
+
+        <section class="deal">
+            <div class="content">
+                <h3>book of the day</h3>
+                <h1><%= bookoftheday.title %></h1>
+                <p><%= bookoftheday.description %></p>
+                <a href="/bookDetail/<%= bookoftheday._id %>" class="btn">Book Detail</a>
+            </div>
+        
+            <div class="image">
+                <img src="<%= bookoftheday.bookImage %>" alt="bookoftheday">
+            </div>
+        </section>
+
+
+    </div>
+
+    <!-- deal section ends -->
+
+    <!-- reviews section starts  -->
+
+    <section class="reviews" id="reviews">
+
+        <h1 class="heading"> <span>reader's reviews</span> </h1>
+
+        <div class="swiper reviews-slider">
+
+            <div class="swiper-wrapper">
+
+                <div class="swiper-slide box">
+                    <img src="image/" alt="Son's photo">
+                    <h3>Tran Hoang Son</h3>
+                    <p>review here</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+
+                <div class="swiper-slide box">
+                    <img src="image/" alt="Kiet's photo">
+                    <h3>Luong Tuan Kiet</h3>
+                    <p>review here</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+
+                <div class="swiper-slide box">
+                    <img src="image/" alt="HNguyen's photo">
+                    <h3>Nguyen Hai Nguyen</h3>
+                    <p>review here</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+                <div class="swiper-slide box">
+                    <img src="image/=" alt="TNguyen's photo">
+                    <h3>Nguyen Hai Tuan Nguyen</h3>
+                    <p>review here</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+
+                <div class="swiper-slide box">
+                    <img src="image/" alt="My's photo">
+                    <h3>Le Ha My</h3>
+                    <p>review here</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+
+                <div class="swiper-slide box">
+                    <img src="image/" alt="Thang's photo">
+                    <h3>Dang Quoc Thang</h3>
+                    <p>review here</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+
+                <div class="swiper-slide box">
+                    <img src="image/" alt="Dang's photo">
+                    <h3>To Hai Dang</h3>
+                    <p>review here</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
                     </div>
                 </div>
 
