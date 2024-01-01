@@ -26,7 +26,7 @@
 
         <section class="header-1">
 
-            <a href="/" class="logo"> <i class="fas fa-play"></i><%= book.title %></a>
+            <a href="/" class="logo"> <i class="fas fa-play"></i>Playbook</a>
 
             <form action="" class="search-form">
                 <input type="search" name="" placeholder="search here..." id="search-box">
@@ -310,7 +310,7 @@
         <div class="credit">
             created by <span>Group 2</span> | all rights reserved!
         </div>
-    </section> -->
+    </section>
 
     <!-- footer section ends -->
 
@@ -338,7 +338,6 @@
     const bookImageError = document.querySelector('.bookImage.error');
 
     detailUpdate.addEventListener('submit', async (e) => {
-        console.log('detailUpdate form submitted');
         e.preventDefault();
         // reset errors
         ISBNError.textContent = '';

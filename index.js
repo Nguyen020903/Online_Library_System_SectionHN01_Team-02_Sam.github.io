@@ -99,22 +99,32 @@ const agenda = new Agenda({ db: { address: mongoURI, collection: 'agendaJobs' } 
 //   await agenda.every('24 hours', 'deleteInactiveUsers');
 // })();
 
+let selectedBook;
+let selectedDate;
+
+// implement the book of the day feature to random one book per day
 app.get('/', checkUser, async (req,res) => {
   try {
-  const authors = await Author.find();
-  const categories = await Category.find();
-  const publishers = await Publisher.find();
-  let books = await Book.find().populate('author').populate('category').populate('publisher');
-  const count = await Book.countDocuments();
-  const random = Math.floor(Math.random() * count);
-  const book = await Book.findOne().skip(random);
-  res.render('index', { books, authors, categories, publishers, bookoftheday: book });
+    const authors = await Author.find();
+    const categories = await Category.find();
+    const publishers = await Publisher.find();
+    let books = await Book.find().populate('author').populate('category').populate('publisher');
+    const count = await Book.countDocuments();
+
+    const currentDate = new Date().toISOString().slice(0,10); // get the current date in YYYY-MM-DD format
+
+    if (!selectedBook || selectedDate !== currentDate) {
+      const random = Math.floor(Math.random() * count);
+      selectedBook = await Book.findOne().skip(random);
+      selectedDate = currentDate;
+    }
+
+    res.render('index', { books, authors, categories, publishers, bookoftheday: selectedBook });
   } catch (err) {
     console.error(err);
     res.redirect('/');
   }
 });
-
 // app.get('/', async (req, res) => {
 //   try {
 //     const bookId = '6592ed261e94d99c8d7937ba'; // replace with your specific book id
@@ -330,25 +340,13 @@ app.post('/addbook', (req, res, next) => {
 
 // Route for displaying book details
 app.get('/bookDetail/:id', requireAuth, async (req, res) => {
-  console.log(req.params.id); // Log the id
+  // console.log(req.params.id); // Log the id
   try {
     const authors = await Author.find();
     const categories = await Category.find();
     const publishers = await Publisher.find();
     const book = await Book.findById(req.params.id).populate('author').populate('category').populate('publisher');
     res.render('bookDetail', { book: book, authors: authors, categories: categories, publishers: publishers });
-  } catch (err) {
-      console.error(err);
-      res.redirect('/');
-  }
-});
-
-// Route for updating book details
-app.post('/bookDetail/:id', async (req, res) => {
-  // console.log(req.params.id); // Log the id
-  try {
-      const updatedBook = await Book.findByIdAndUpdate(req.params.id, req.body, { new: true });
-      res.redirect(`/bookDetail/${updatedBook._id}`);
   } catch (err) {
       console.error(err);
       res.redirect('/');
