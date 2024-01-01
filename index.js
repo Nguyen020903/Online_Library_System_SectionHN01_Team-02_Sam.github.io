@@ -100,15 +100,11 @@ const agenda = new Agenda({ db: { address: mongoURI, collection: 'agendaJobs' } 
 // })();
 
 app.get('/', checkUser, async (req,res) => {
-<<<<<<< HEAD
   try {
-=======
->>>>>>> fd8ff9142697605f5b39d39186ae307f8f70bb1f
   const authors = await Author.find();
   const categories = await Category.find();
   const publishers = await Publisher.find();
   let books = await Book.find().populate('author').populate('category').populate('publisher');
-<<<<<<< HEAD
   const count = await Book.countDocuments();
   const random = Math.floor(Math.random() * count);
   const book = await Book.findOne().skip(random);
@@ -117,9 +113,6 @@ app.get('/', checkUser, async (req,res) => {
     console.error(err);
     res.redirect('/');
   }
-=======
-  res.render('index', { books, authors, categories, publishers });
->>>>>>> fd8ff9142697605f5b39d39186ae307f8f70bb1f
 });
 
 // app.get('/', async (req, res) => {
@@ -337,7 +330,6 @@ app.post('/addbook', (req, res, next) => {
 
 // Route for displaying book details
 app.get('/bookDetail/:id', requireAuth, async (req, res) => {
-<<<<<<< HEAD
   console.log(req.params.id); // Log the id
   try {
     const authors = await Author.find();
@@ -345,11 +337,6 @@ app.get('/bookDetail/:id', requireAuth, async (req, res) => {
     const publishers = await Publisher.find();
     const book = await Book.findById(req.params.id).populate('author').populate('category').populate('publisher');
     res.render('bookDetail', { book: book, authors: authors, categories: categories, publishers: publishers });
-=======
-  try {
-      const book = await Book.findById(req.params.id);
-      res.render('bookDetail', { book: book });
->>>>>>> fd8ff9142697605f5b39d39186ae307f8f70bb1f
   } catch (err) {
       console.error(err);
       res.redirect('/');
@@ -358,10 +345,7 @@ app.get('/bookDetail/:id', requireAuth, async (req, res) => {
 
 // Route for updating book details
 app.post('/bookDetail/:id', async (req, res) => {
-<<<<<<< HEAD
   // console.log(req.params.id); // Log the id
-=======
->>>>>>> fd8ff9142697605f5b39d39186ae307f8f70bb1f
   try {
       const updatedBook = await Book.findByIdAndUpdate(req.params.id, req.body, { new: true });
       res.redirect(`/bookDetail/${updatedBook._id}`);
@@ -385,7 +369,6 @@ app.get('/updateBook/:id', async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
 // app.post('/updateBook/:id', requireAuth,bookImageUpload.single('bookImage'), async (req, res) => {
 //   const { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description } = req.body;
 //   try{
@@ -447,65 +430,6 @@ app.post('/updateBookDetail/:id', requireAuth, async (req, res) => {
       await Publisher.updateOne({ 'book._id': req.params.id }, { $pull: { book: { _id: req.params.id } } });
       await Publisher.findOneAndUpdate({ _id: publisher }, { $push: { book: req.params.id } });
     }
-=======
-// Route for submitting the book update form
-// app.post('/updateBook/:id', async (req, res) => {
-//   try {
-//     if (Book.bookImage) {
-//       fs.unlink(path.join(__dirname, 'public', book.bookImage), err => {
-//           if (err) console.error(err);
-//       });
-//   }
-//   const bookImage = "/images/bookImage/" + (req.file ? req.file.filename : '');
-
-//       const updatedBook = await Book.findOneAndUpdate(
-//           { _id: req.params.id }, // find a user with the provided book ID
-//           { bookImage }, // update the book with the new image
-//           { new: true } // return the updated book
-//       );
-//       if (!updatedBook) {
-//         return res.status(404).json({ message: 'Book not found' });
-//       }
-//       await Book.findByIdAndUpdate(req.params.id, req.body);
-//       res.redirect(`/bookDetail/${req.params.id}`);
-//   } catch (err) {
-//       console.error(err);
-//       res.redirect('/');
-//   }
-// });
-// Route for submitting the book update form
-
-app.post('/updateBook/:id', requireAuth,bookImageUpload.single('bookImage'), async (req, res) => {
-  const { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description } = req.body;
-  try{
-    const book = await Book.findById(req.params.id);
-    if (book.bookImage) {
-      fs.unlink(path.join(__dirname, 'public', book.bookImage), err => {
-          if (err) console.error(err);
-      });
-    }
-    const bookImage = "/images/bookImage/" + (req.file ? req.file.filename : '');
-
-    const updatedBook = await Book.findByIdAndUpdate(req.params.id, { ISBN, title, bookImage, author, category, publisher, numberOfPages, bookCountAvailable, description }, { new: true });
-    // Update the author, category, and publisher if provided
-    if (author) {
-      // Remove the book from the old author
-      await Author.updateOne({ 'book._id': req.params.id }, { $pull: { book: { _id: req.params.id } } });
-      await Author.findOneAndUpdate({ _id: author }, { $push: { book: req.params.id } });
-  }
-
-  if (category) {
-      // Remove the book from the old category
-      await Category.updateOne({ 'book._id': req.params.id }, { $pull: { book: { _id: req.params.id } } });
-      await Category.findOneAndUpdate({ _id: category }, { $push: { book: req.params.id } });
-  }
-
-  if (publisher) {
-      // Remove the book from the old publisher
-      await Publisher.updateOne({ 'book._id': req.params.id }, { $pull: { book: { _id: req.params.id } } });
-      await Publisher.findOneAndUpdate({ _id: publisher }, { $push: { book: req.params.id } });
-  }
->>>>>>> fd8ff9142697605f5b39d39186ae307f8f70bb1f
 
     if (!updatedBook) {
       return res.status(404).json({ message: 'Book not found' });
@@ -516,7 +440,6 @@ app.post('/updateBook/:id', requireAuth,bookImageUpload.single('bookImage'), asy
     res.status(500).json({ message: 'An error occurred while updating the book' });
   }
 });
-<<<<<<< HEAD
 
 app.post('/updateBookImage/:id', requireAuth, bookImageUpload.single('bookImage'), async (req, res) => {
   try {
@@ -539,8 +462,6 @@ app.post('/updateBookImage/:id', requireAuth, bookImageUpload.single('bookImage'
   }
 });
 
-=======
->>>>>>> fd8ff9142697605f5b39d39186ae307f8f70bb1f
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);
 });
