@@ -37,10 +37,14 @@ const handleErrors = (err) => {
 
     // Validation Errors
     if (err.message.includes('User validation failed')) {
+        console.log('err.errors:', err.errors); // Log the err.errors array
+    
         Object.values(err.errors).forEach(({ properties }) => {
-            console.log(properties);
-            errors[properties.path] = properties.message;
-
+            console.log('properties:', properties); // Log each properties object
+    
+            if (properties) {
+                errors[properties.path] = properties.message;
+            }
         });
     }
 
@@ -79,13 +83,13 @@ module.exports.signup_post = async (req, res) => {
             })
             .catch((err) => {
                 let error = handleErrors(err);
-                res.status(500).json({ err: err.message });
+                res.status(500).json({ error: err.message });
             }
             );
 
     } catch (err) {
-        let error = handleErrors(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        let error = handleErrors(err);
+        res.status(400).json({ error });
     }
 };
 
