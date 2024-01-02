@@ -340,7 +340,8 @@ app.post('/addbook', (req, res, next) => {
 
 // Route for displaying book details
 app.get('/bookDetail/:id', requireAuth, async (req, res) => {
-  // console.log(req.params.id); // Log the id
+  // console.log('Book detail route called with id:', req.params.id);
+  // console.log('Request headers:', req.headers);
   try {
     const authors = await Author.find();
     const categories = await Category.find();
@@ -409,6 +410,7 @@ app.post('/updateBook/:id', requireAuth,bookImageUpload.single('bookImage'), asy
 });
 
 app.post('/updateBookDetail/:id', requireAuth, async (req, res) => {
+  console.log(req.body)
   const { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description } = req.body;
   try {
     const updatedBook = await Book.findByIdAndUpdate(req.params.id, { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description }, { new: true });

@@ -88,7 +88,26 @@
                 </p>
                 <div id="readerview">
                     <a href="#" class="btn">add to rentlist / check availability</a>
-                    <a href="#" class="btn">favourite</a>
+                    <% const isBookInWishlist=user && user.favoriteBook.includes(book._id); %>
+                    <% if (user) { %>
+                        <% if(!isBookInWishlist) { %>
+                            <form id="mainbook" method="post" class="wishlist-form" data-action="/addToWishlist" data-book-id="<%= book._id %>">
+                                <a href="#" class="btn">
+                                    <span>
+                                        Add to Wishlist
+                                    </span>
+                                </a>
+                            </form>
+                        <% } else { %>
+                            <form id="mainbook" method="post" class="wishlist-form" data-action="/removeFromWishlist" data-book-id="<%= book._id %>">
+                                <a href="#" class="btn">
+                                    <span>
+                                        Remove from Wishlist
+                                    </span>
+                                </a>
+                            </form>
+                        <% } %>
+                    <% } %>
                 </div>
                 <div id="libview">
                     <div id="bookmenu-btn">update book</div>
@@ -103,16 +122,17 @@
                         
                         <span>ISBN</span>
                         <input type="text" name="ISBN" class="box" value="<%= book.ISBN %>" id="ISBN" required>
+                        <div class="ISBN error"></div>
                         
                         <span>book title</span>
                         <input type="text" name="title" class="box" value="<%= book.title %>" id="title" required>
+                        <div class="title error"></div>
                         
                         <span>details</span>
                         <div>
                             <select class="box" id="author" name="author">
-                                <option value="none" disabled selected>Select author:</option>
                                 <% authors.forEach(author => { %>
-                                    <option value="<%= author._id %>" name="author" <%= book.author && book.author._id.toString() === author._id.toString() ? 'selected' : '' %>><%= author.name %></option>
+                                    <option value="<%= author._id %>" name="<%= author._id %>" <%= book.author && book.author._id.toString() === author._id.toString() ? 'selected' : '' %>><%= author.name %></option>
                                 <% }); %>
                             </select>
                             <div class="author error"></div>
@@ -121,9 +141,8 @@
             
                         <div>
                             <select class="box" id="category" name="category">
-                                <option value="none" disabled selected>Select category:</option>
                                 <% categories.forEach(category => { %>
-                                    <option value="<%= category._id %>" name="category" <%= book.category && book.category._id.toString() === category._id.toString() ? 'selected' : '' %>><%= category.name %></option>
+                                    <option value="<%= category._id %>" name="<%= category._id %>" <%= book.category && book.category._id.toString() === category._id.toString() ? 'selected' : '' %>><%= category.name %></option>
                                 <% }); %>
                             </select>
                             <div class="category error"></div>
@@ -132,9 +151,8 @@
             
                         <div>
                             <select class="box" id="publisher" name="publisher">
-                                <option value="none" disabled selected>Select publisher:</option>
                                 <% publishers.forEach(publisher => { %>
-                                    <option value="<%= publisher._id %>" name="publisher" <%= book.publisher && book.publisher._id.toString() === publisher._id.toString() ? 'selected' : '' %>><%= publisher.name %></option>
+                                    <option value="<%= publisher._id %>" name="<%= publisher._id %>" <%= book.publisher && book.publisher._id.toString() === publisher._id.toString() ? 'selected' : '' %>><%= publisher.name %></option>
                                 <% }); %>
                             </select>
                             <div class="publisher error"></div>
@@ -151,15 +169,16 @@
                         <span>description</span>
                         <textarea name="description" id="description" rows="4" cols="40" class="box"><%= book.description %></textarea>
                         <div class="description error"></div>
-                        <input type="submit" vaslue="Update" class="btn">
+                        <input type="submit" value="Update" class="btn">
             
                     </form>
                     <form method="post" id="imgUpdate" action="/updateBookImage/<%= book._id %>">
                         <h3>Update Book Image</h3>
                         <img src="<%= book.bookImage %>" alt="<%= book.title %>" style="aspect-ratio: 1/1; object-fit: cover; width: 30vmin;"/>
                         <input type="file" name="bookImage" value="<%= book.bookImage %>" class="account-settings-fileinput box" accept="image/*">
+                        <div class="bookImage error"></div>
                         <span>If you Update the image without selected one, the book Image will be return to the default Image.</span>
-                        <input type="submit" value="Update Image" class="btn">
+                        <input type="submit" value="Update" class="btn">
                     </form>
                 </div>
                 
@@ -177,7 +196,7 @@
         <div class="swiper reviews-slider">
             <div class="swiper-wrapper">
                 <div class="swiper-slide box">
-                    <img src="image/" alt="Son's photo" />
+                    <img src="" alt="Son's photo" />
                     <h3>Tran Hoang Son</h3>
                     <p>review here</p>
                     <div class="stars">
@@ -190,7 +209,7 @@
                 </div>
 
                 <div class="swiper-slide box">
-                    <img src="image/" alt="Kiet's photo" />
+                    <img src="" alt="Kiet's photo" />
                     <h3>Luong Tuan Kiet</h3>
                     <p>review here</p>
                     <div class="stars">
@@ -203,7 +222,7 @@
                 </div>
 
                 <div class="swiper-slide box">
-                    <img src="image/" alt="HNguyen's photo" />
+                    <img src="" alt="HNguyen's photo" />
                     <h3>Nguyen Hai Nguyen</h3>
                     <p>review here</p>
                     <div class="stars">
@@ -215,7 +234,7 @@
                     </div>
                 </div>
                 <div class="swiper-slide box">
-                    <img src="image/=" alt="TNguyen's photo" />
+                    <img src="" alt="TNguyen's photo" />
                     <h3>Nguyen Hai Tuan Nguyen</h3>
                     <p>review here</p>
                     <div class="stars">
@@ -228,7 +247,7 @@
                 </div>
 
                 <div class="swiper-slide box">
-                    <img src="image/" alt="My's photo" />
+                    <img src="" alt="My's photo" />
                     <h3>Le Ha My</h3>
                     <p>review here</p>
                     <div class="stars">
@@ -241,7 +260,7 @@
                 </div>
 
                 <div class="swiper-slide box">
-                    <img src="image/" alt="Thang's photo" />
+                    <img src="" alt="Thang's photo" />
                     <h3>Dang Quoc Thang</h3>
                     <p>review here</p>
                     <div class="stars">
@@ -254,7 +273,7 @@
                 </div>
 
                 <div class="swiper-slide box">
-                    <img src="image/" alt="Dang's photo" />
+                    <img src="" alt="Dang's photo" />
                     <h3>To Hai Dang</h3>
                     <p>review here</p>
                     <div class="stars">
@@ -326,7 +345,9 @@
     <script src="/js/script.js"></script>
 </body>
 
+<!-- script for update book detail and img -->
 <script>
+window.addEventListener('DOMContentLoaded', (event) => {
     const detailUpdate = document.querySelector('#detailUpdate');
     const imageUpdate = document.querySelector('#imgUpdate');
     // read the error
@@ -345,39 +366,28 @@
         categoryError.textContent = '';
         publisherError.textContent = '';
         descriptionError.textContent = '';
-        const authorSelect = document.querySelector('#author');
-        if (authorSelect.value === 'none') {
-            authorError.textContent = 'Please select an author';
-            return;
-        }
-        const categorySelect = document.querySelector('#category');
-        if (categorySelect.value === 'none') {
-            categoryError.textContent = 'Please select a category';
-            return;
-        }
-        const publisherSelect = document.querySelector('#publisher');
-        if (publisherSelect.value === 'none') {
-            publisherError.textContent = 'Please select a publisher';
-            return;
-        }
 
-        // Create a FormData instance
-        const formData = new FormData();
-        formData.append('ISBN', detailUpdate.ISBN.value);
-        formData.append('title', detailUpdate.title.value);
-        formData.append('numberOfPages', detailUpdate.numberOfPages.value);
-        formData.append('author', detailUpdate.author.value);
-        formData.append('category', detailUpdate.category.value);
-        formData.append('publisher', detailUpdate.publisher.value);
-        formData.append('bookCountAvailable', detailUpdate.bookCountAvailable.value);
-        formData.append('description', detailUpdate.description.value);
+        // Create a JSON object
+        const formData = {
+            'ISBN': detailUpdate.ISBN.value,
+            'title': detailUpdate.title.value,
+            'numberOfPages': detailUpdate.numberOfPages.value,
+            'author': detailUpdate.author.value,
+            'category': detailUpdate.category.value,
+            'publisher': detailUpdate.publisher.value,
+            'bookCountAvailable': detailUpdate.bookCountAvailable.value,
+            'description': detailUpdate.description.value
+        };
         console.log(formData);
-        
+
         try{
             const id = '<%= book._id %>'
             const res = await fetch(`/updateBookDetail/${id}`, {
                 method: 'POST',
-                body: formData, // Send the form data
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData), // Send the JSON data
             });
             const data = await res.json();
             console.log(data);
@@ -386,7 +396,8 @@
                 ISBNError.textContent = ('This ISBN is already registered');
             }
             else{
-                descriptionError.textContent = ('Added successfully');
+                descriptionError.textContent = ('Updated successfully');
+                window.location.reload(); // Reload the webpage
             }
         }
         catch (err){
@@ -415,12 +426,63 @@
                 bookImageError.textContent = ('An error occure, please try again');
             }
             else{
-                bookImageError.textContent = ('Added successfully');
+                bookImageError.textContent = ('Updated successfully');
+                window.location.reload(); // Reload the webpage
             }
         }
         catch (err){
             console.log(err);
         }
+    });
+});
+</script>
+
+<!-- script section for wishlist function -->
+<script>
+    const mainbook = document.querySelectorAll('#mainbook');
+    document.addEventListener('DOMContentLoaded', () => {
+    const handleFormSubmission = async (mainbook, action) => {
+        const bookId = mainbook.dataset.bookId;
+        const isAddAction = action === '/addToWishlist';
+
+        try {
+            const res = await fetch(action, {
+                method: 'POST',
+                body: JSON.stringify({ bookId }),
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const data = await res.json();
+
+            if (data.errors) {
+                alert(data.errors);
+            } else {
+                // Update the UI
+                const link = mainbook.querySelector('a');
+                if (isAddAction) {
+                    link.textContent = 'Remove from Wishlist';
+                    mainbook.dataset.action = '/removeFromWishlist';
+                } else {
+                    link.textContent = 'Add to Wishlist';
+                    mainbook.dataset.action = '/addToWishlist';
+                }
+                // Remove the old event listener and add a new one
+                mainbook.removeEventListener('click', handleFormClick);
+                mainbook.addEventListener('click', handleFormClick);
+            }
+        } catch (err) { 
+            console.log(err);
+        }
+    };
+
+    const forms = document.querySelectorAll('.wishlist-form, .unwishlist-form');
+    forms.forEach(form => {
+        form.addEventListener('click', (event) => {
+            event.preventDefault();
+            const action = form.dataset.action;
+            handleFormSubmission(form, action);
+            });
+        });
     });
 </script>
 
