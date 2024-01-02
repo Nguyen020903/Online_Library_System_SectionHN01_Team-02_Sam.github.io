@@ -203,6 +203,168 @@ module.exports.reservations_get = async (req, res) => {
   }
 };
 
+module.exports.reserve_all_post = async (req, res) => {
+  const { bookIds } = req.body;
+
+  try {
+    let user = res.locals.user;
+
+    if (user && Array.isArray(bookIds) && bookIds.length > 0) {
+      const books = await Book.find({ _id: { $in: bookIds } });
+
+      let transactions = [];
+
+      for (const book of books) {
+        if (book.bookStatus !== "Available") {
+          return res
+            .status(400)
+            .json({ error: `Book ${book.title} is not available` });
+        }
+
+        let status = "Pending";
+        let transaction;
+
+        if (book.bookCountAvailable >= 1) {
+          status = "Reserved";
+          book.bookCountAvailable -= 1;
+          let pickUpDate = new Date(); // set pickUpDate to today's date
+
+          if (book.bookCountAvailable === 0) book.bookStatus = "Borrowed";
+
+          // Calculate the returnDate
+          const pickUpDateObj = new Date(pickUpDate);
+          pickUpDateObj.setDate(pickUpDateObj.getDate() + 14);
+          const returnDate = pickUpDateObj;
+
+          transaction = new Transaction({
+            userId: user._id,
+            bookId: book._id,
+            pickUpDate: pickUpDate,
+            returnDate: returnDate,
+            status: status,
+          });
+        } else {
+          transaction = new Transaction({
+            userId: user._id,
+            bookId: book._id,
+            status: status,
+          });
+        }
+
+        console.log(transaction);
+
+        // Save the transaction
+        const savedTransaction = await transaction.save();
+        transactions.push(savedTransaction);
+
+        // Add the transaction to the user's transactions
+        user.activeTransactions.push(transaction._id);
+        user.favoriteBook.pull(book._id);
+        // Save the updated user
+        await user.save();
+
+        // Add the transaction to the book's transactions
+        book.transactions.push(transaction._id);
+
+        // Save the updated book
+        await book.save();
+      }
+
+      res.status(200).json({ message: "Selected books has been reserved.", transactions });
+    } else {
+      res
+        .status(400)
+        .json({ error: "Invalid request. Please provide valid bookIds." });
+    }
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while processing the request." });
+  }
+};
+
+module.exports.reserve_selected_post = async (req, res) => {
+  const { bookIds } = req.body;
+
+  try {
+    let user = res.locals.user;
+
+    if (user && Array.isArray(bookIds) && bookIds.length > 0) {
+      const books = await Book.find({ _id: { $in: bookIds } });
+
+      let transactions = [];
+
+      for (const book of books) {
+        if (book.bookStatus !== "Available") {
+          return res
+            .status(400)
+            .json({ error: `Book ${book.title} is not available` });
+        }
+
+        let status = "Pending";
+        let transaction;
+
+        if (book.bookCountAvailable >= 1) {
+          status = "Reserved";
+          book.bookCountAvailable -= 1;
+          let pickUpDate = new Date(); // set pickUpDate to today's date
+
+          if (book.bookCountAvailable === 0) book.bookStatus = "Borrowed";
+
+          // Calculate the returnDate
+          const pickUpDateObj = new Date(pickUpDate);
+          pickUpDateObj.setDate(pickUpDateObj.getDate() + 14);
+          const returnDate = pickUpDateObj;
+
+          transaction = new Transaction({
+            userId: user._id,
+            bookId: book._id,
+            pickUpDate: pickUpDate,
+            returnDate: returnDate,
+            status: status,
+          });
+        } else {
+          transaction = new Transaction({
+            userId: user._id,
+            bookId: book._id,
+            status: status,
+          });
+        }
+
+        console.log(transaction);
+
+        // Save the transaction
+        const savedTransaction = await transaction.save();
+        transactions.push(savedTransaction);
+
+        // Add the transaction to the user's transactions
+        user.activeTransactions.push(transaction._id);
+        user.favoriteBook.pull(book._id);
+        // Save the updated user
+        await user.save();
+
+        // Add the transaction to the book's transactions
+        book.transactions.push(transaction._id);
+
+        // Save the updated book
+        await book.save();
+      }
+
+      res.status(200).json({ message: "Selected books has been reserved.", transactions });
+    } else {
+      res
+        .status(400)
+        .json({ error: "Invalid request. Please provide valid bookIds." });
+    }
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while processing the request." });
+  }
+};
+
 module.exports.reservations_return_post = async (req, res) => {
   try {
     const id = req.body.id;
