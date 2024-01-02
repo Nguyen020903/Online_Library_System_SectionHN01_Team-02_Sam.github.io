@@ -25,6 +25,7 @@ const Book = require('./models/book');
 const Author = require('./models/author');
 const Category = require('./models/category');
 const Publisher = require('./models/publisher');
+const Transaction = require('./models/transaction');
 
 const {
     requireAuth,
@@ -125,19 +126,10 @@ app.get('/', checkUser, async (req,res) => {
     res.redirect('/');
   }
 });
-// app.get('/', async (req, res) => {
-//   try {
-//     const bookId = '6592ed261e94d99c8d7937ba'; // replace with your specific book id
-//     const book = await Book.findById(bookId);
-//     res.render('index', { book: book });
-//   } catch (err) {
-//     console.error(err);
-//     res.redirect('/');
-//   }
-// });
 
 // My Account page
 app.get('/myAccount', requireAuth, async (req, res) => {
+  try {
     const token = req.cookies.jwt;
 
     if (token) {
@@ -146,11 +138,139 @@ app.get('/myAccount', requireAuth, async (req, res) => {
           console.log(err.message);
         } else {
           let user = await User.findById(decodedToken.id);
-          if (User) {
-            res.render('myAccount', { user: user });
+          if (user) {
+            let books = [];
+            // Find the user's favorite books
+            books = await Book.find({ _id: { $in: user.favoriteBook } })
+              .populate('author') // populate author details
+              .populate('category') // populate category details
+              .exec();
+
+            const userDetails = await User.findById(decodedToken.id).populate('activeTransactions').populate('prevTransactions').exec();
+            if (!userDetails) {
+              console.error('User not found:', userDetails._id);
+              return res.status(404).json({ success: false, message: 'User not found' });
+            }
+            const transactions = await Transaction.find();
+
+            await Promise.all(transactions.map(async (transaction) => {
+              if ((transaction.returnDate < Date.now() && transaction.status == 'Reserved') || (transaction.returnDate < Date.now() && transaction.status == 'Overdue')) {
+                await Transaction.findByIdAndUpdate(
+                  transaction._id,
+                  {
+                    $set: {
+                      status: 'Overdue',
+                      fine: 1000 * Math.floor((Date.now() - new Date(transaction.returnDate)) / (1000 * 60 * 60 * 24))
+                    }
+                  },
+                  { new: true },
+                );
+              }
+            }));
+
+            const allActiveTransactions = await Promise.all(
+              userDetails.activeTransactions.map(async (transaction) => {
+                if (!transaction) {
+                  console.error('Transaction not found');
+                  return;
+                }
+
+                const book = await getBookById(transaction.bookId);
+                return {
+                  bookTitle: book.title,
+                  status: transaction.status,
+                  pickUpDate: transaction.pickUpDate,
+                  returnDate: transaction.returnDate,
+                  fine: transaction.fine,
+                };
+              })
+            );
+
+            const allPrevTransactions = await Promise.all(
+              userDetails.prevTransactions.map(async (transaction) => {
+                if (!transaction) {
+                  console.error('Transaction not found');
+                  return;
+                }
+
+                const book = await getBookById(transaction.bookId);
+                return {
+                  bookTitle: book.title,
+                  status: transaction.status,
+                  pickUpDate: transaction.pickUpDate,
+                  returnDate: transaction.returnDate,
+                  fine: transaction.fine,
+                };
+              })
+            );
+
+            res.render('myAccount', { user: user, books: books, allActiveTransactions, allPrevTransactions });
+          }
         }
-        }});
+      });
+    } else {
+      res.locals.user = null;
+      next();
     }
+  } catch (error) {
+    console.error('Error processing transactions:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+// this one is remove from wishlist function for myAccount page
+app.post('/removeFromWishlist/:bookId', requireAuth, async (req, res) => {
+  const bookId = req.params.bookId;
+  const token = req.cookies.jwt;
+  const decodedToken = jwt.verify(token, 'your-secret-key');
+  const userId = decodedToken.id; // Assuming you have access to the user's ID
+
+  try {
+      // Find the user
+      const user = await User.findById(userId);
+      if (!user) {
+          return res.status(404).send('User not found');
+      }
+
+      // Remove the book from the user's favoriteBook
+      user.favoriteBook = user.favoriteBook.filter(book => book.toString() !== bookId);
+
+      // Save the user
+      await user.save();
+
+      // Redirect back to the myAccount page
+      res.redirect('/myAccount');
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+  }
+});
+
+// delete all wishlist book of that user
+app.post('/clearFavoriteBooks', requireAuth, async (req, res) => {
+  const token = req.cookies.jwt;
+  const decodedToken = jwt.verify(token, 'your-secret-key');
+  const userId = decodedToken.id; // Assuming you have access to the user's ID
+
+  try {
+      // Find the user
+      const user = await User.findById(userId);
+      if (!user) {
+          return res.status(404).send('User not found');
+      }
+
+      // Clear the user's favoriteBook array
+      user.favoriteBook = [];
+
+      // Save the user
+      await user.save();
+
+      // Redirect back to the myAccount page
+      res.redirect('/myAccount');
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+  }
 });
 
 app.get('/updateUser', requireAuth, (req, res) => {

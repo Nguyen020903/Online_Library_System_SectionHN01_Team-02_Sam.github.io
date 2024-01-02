@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <!-- header section starts  -->
+
+    <header class="header">
+
+        <section class="header-1">
+
+            <a href="/" class="logo"> <i class="fas fa-play"></i> playbook </a>
+            <form action="" class="search-form">
+                <input type="search" name="" placeholder="search here..." id="search-box">
+                <label for="search-box" class="fas fa-search"></label>
+            </form>
+
+            <div class="icons">
+                <div id="search-btn" class="fas fa-search"></div>
+                <a href="#" class="fas fa-heart"></a>
+                <a href="#" class="fas fa-shopping-cart"></a>
+                <a href="login.html" class="fas fa-user"></a>
+            </div>
+
+        </section>
+
+        <div class="header-2">
+            <nav class="navbar">
+                <a href="#home">home</a>
+                <a href="#featured">featured</a>
+                <a href="#arrivals">arrivals</a>
+                <a href="#reviews">reviews</a>
+            </nav>
+        </div>
+
+    </header>
+
+    <!-- header section ends -->
+
+    <!-- bottom navbar  -->
+
+    <nav class="bottom-navbar">
+        <a href="#home" class="fas fa-home"></a>
+        <a href="#featured" class="fas fa-list"></a>
+        <a href="#arrivals" class="fas fa-tags"></a>
+        <a href="#reviews" class="fas fa-comments"></a>
+    </nav>
+
+    <!-- Main Body -->
+    <div class="main-part">
+        <!-- Right Half - General Information, Contact Information, Profile Image, and Name -->
+        <div class="leftContainer">
+            <div id="tab1" class="tab-content tab1 active">
+                <div class="text-center">
+                    <img src="<%= user.profileImage %>" alt="Profile Picture" class="profilePic" id="profilePic">
+                    <h2 id="name"><%= user.fullName %></h2>
+                    <button id="editBtn">Edit Profile</button>
+                </div>
+                <div class="generalInfo">
+                    <h3 class="heading">General Information</h3>
+                    <ul id="generalInfoList">
+                        <li>Full Name: <span id="fullName"><%= user.fullName %></span></li>
+                        <!-- <li>Date of Birth: <span id="dob">January 1, 1990</span></li> -->
+                        <!-- <li>Gender: <span id="gender">Male</span></li> -->
+                        <li>Email Address: <span id="email"><%= user.email %></span></li>
+                        <!-- <li>Phone Number: <span id="phone">123-456-7890</span></li> -->
+                    </ul>
+                </div>
+            </div>
+            <!-- Tab Content inside leftContainer -->
+            <div id="tab2" class="tab-content tab2">
+                
+                <table class="styled-table">
+                    <% if (books && books.length > 0) { %>
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Book Name</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% books.forEach((book, index) => { %>
+                            <tr>
+                                <td><%= index + 1 %></td>
+                                <td><a href="/bookDetail/<%= book._id %>"><%= book.title %></a></td>
+                                <td><%= book.bookStatus %></td>
+                                <td><form class="removeBookForm" method="post" action="/removeFromWishlist/<%= book._id %>">
+                                    <button type="submit" class="remove-btn">Remove</button>
+                                </form></td>
+                                <!-- <td><span class="remove-btn">Remove</span></td> -->
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                    <% } else { %>
+                        <tr>
+                            <td>You don't have any wishlist</td>
+                        </tr>
+                    <% } %>
+                </table>
+                <% if (books && books.length > 0) { %>
+                <div class="wishlist-btn-container">
+                    <a href="/wishlist"><button id="wishlist-btn">More detail</button></a>
+                    <button id="clear-btn" onclick="clearFavoriteBooks()">Clear Wishlist</button>
+                </div>
+                <% } else { %>
+                    <!-- Show nothing -->
+                <% } %>
+            </div>
+
+            <div id="tab3" class="tab-content tab3">
+                <div class="table-container">
+
+                    <table class="styled-table">
+                        <% if ((Array.isArray(allActiveTransactions) && allActiveTransactions.length > 0) || (Array.isArray(allPrevTransactions) && allPrevTransactions.length > 0)) { %>
+                        <% if (Array.isArray(allActiveTransactions) && allActiveTransactions.length > 0) { %>
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Book Title</th>
+                                <th>Borrowed Date</th>
+                                <th>Due Date</th>
+                                <th>Status</th>
+                                <th>Fine</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% allActiveTransactions.forEach((transaction, index) => { %>
+                            <tr>
+                                <td><%= index + 1 %></td>
+                                <td><%= transaction.bookTitle %></td>
+                                <td><%= new Date(transaction.pickUpDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }) %></td>
+                                <td><%= new Date(transaction.returnDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></td>
+                                <td><%= transaction.status %></td>
+                                <td><%= transaction.fine %> $</td>
+                            </tr>
+                            <% }); %>
+                        </tbody>
+                        <% } else { %>
+                        <!-- Show nothing -->
+                        <% } %>
+                        <% if (Array.isArray(allPrevTransactions) && allPrevTransactions.length > 0) { %>
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Book Title</th>
+                                <th>Borrowed Date</th>
+                                <th>Due Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% allPrevTransactions.forEach((transaction, index) => { %>
+                            <tr>
+                                <td><%= index + 1 %></td>
+                                <td><%= transaction.bookTitle %></td>
+                                <td><%= new Date(transaction.pickUpDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }) %></td>
+                                <td><%= new Date(transaction.returnDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></td>
+                                <td><%= transaction.status %></td>
+                            </tr>
+                            <% }); %>
+                        </tbody>
+                        <% } else { %>
+                            <!-- Show nothing -->
+                        <% } %>
+                        <% } else { %>
+                            <tr>
+                                <td>You don't have any transactions</td>
+                            </tr>
+                        <% } %>
+                    </table>
+                </div>
+            </div>
+            <div id="popup" class="popup">
+                <div class="popup-content">
+                    <span class="close" onclick="closePopup()">&times;</span>
+                    <h1>Are you sure you want to log out?</h1>
+                    <!-- <button class="yes" href="/logout" onclick="logout()">Yes</button> -->
+                    <a href="/logout"><button class="yes" href="/logout" onclick="logout()">Yes</button></a>
+                    <button class="no" onclick="closePopup()">No</button>
+                </div>
+            </div>
+        </div>
+        <!-- Left Half - vertical Navbar -->
+        <div class="rightContainer">
+            <ul class="verticalNavList">
+                <li class="verticalNavItems active" onclick="openTab('tab1')"><i class="far fa-user"></i><a
+                        href="#">Profile</a></li>
+                <li class="verticalNavItems" onclick="openTab('tab2')"><i class="far fa-bookmark"></i><a
+                        href="#">Wishlist</a></li>
+                <li class="verticalNavItems" onclick="openTab('tab3')"><i class="fa-solid fa-book"></i><a
+                        href="#">Borrowed Book</a></li>
+                <li id="logout-btn" class="verticalNavItems" onclick="openPopup()"><i
+                        class="fas fa-arrow-right-from-bracket"></i><a href="#">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <footer>
+        <section class="footer">
+            <!-- <div class="box-container">
+    
+                <div class="box">
+                    <h3>extra links</h3>
+                    <a href="#"> <i class="fas fa-arrow-right"></i> about us </a>
+                    <a href="#"> <i class="fas fa-arrow-right"></i> copyright </a>
+                    <a href="#"> <i class="fas fa-arrow-right"></i> privacy policy </a>
+                    <a href="#"> <i class="fas fa-arrow-right"></i> payment method </a>
+                </div>
+    
+                <div class="box">
+                    <h3>contact info</h3>
+                    <a href="#"> <i class='far fa-id-badge'></i> Tran Hoang Son - s3978450 </a>
+                    <a href="#"> <i class='far fa-id-badge'></i> To Hai Dang - s3927046 </a>
+                    <a href="#"> <i class='far fa-id-badge'></i> Luong Tuan Kiet - s3980288 </a>
+                    <a href="#"> <i class='far fa-id-badge'></i> Le Ha My - s3938177 </a>
+                    <a href="#"> <i class='far fa-id-badge'></i> Nguyen Ha Tuan Nguyen - s3978072 </a>
+                    <a href="#"> <i class='far fa-id-badge'></i> Nguyen Hai Nguyen - s3978275 </a>
+                    <a href="#"> <i class='far fa-id-badge'></i> Dang Quoc Thang - s3977877
+                    </a>
+                </div>
+    
+            </div> -->
+            <div class="credit"> created by <span>Group 2</span> | all rights reserved! </div>
+
+        </section>
+    </footer>
+
+    <script src="/js/script.js"></script>
+    <script src="/js/profile.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/120cd899b7.js" crossorigin="anonymous"></script>
+</body>
+
+<!-- <script>
+    if (!sessionStorage.getItem('reloaded')) {
+      sessionStorage.setItem('reloaded', 'true');
+      window.location.reload();
+    } else {
+      sessionStorage.removeItem('reloaded');
+    }
+  </script> -->
+
+<!-- refresh prevention when remove book from wishlist -->
+<script>
+    $(document).ready(function() {
+        $('.removeBookForm').submit(function(e) {
+            e.preventDefault();
+
+            var $form = $(this);
+            var bookId = $form.attr('action').split('/').pop();
+
+            $.ajax({
+                url: $form.attr('action'),
+                type: 'post',
+                success: function() {
+                    // Remove the parent tr of the form that was submitted
+                    $form.closest('tr').remove();
+                },
+                error: function() {
+                    // Handle error here. For example, you can show an error message.
+                }
+            });
+        });
+    });
+</script>
+
+<!-- remove all wishlist -->
+<script>
+    async function clearFavoriteBooks() {
+        try {
+            const response = await fetch('/clearFavoriteBooks', {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            // Clear the favorite books on the page
+            const favoriteBooksElement = document.getElementById('tab2');
+            if (favoriteBooksElement) {
+                while (favoriteBooksElement.firstChild) {
+                    favoriteBooksElement.removeChild(favoriteBooksElement.firstChild);
+                }
+
+                // Add a message indicating that there are no favorite books
+                const messageElement = document.createElement('p');
+                messageElement.textContent = 'All books have been removed from the wishlist.';
+                favoriteBooksElement.appendChild(messageElement);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+</script>
+</html>
