@@ -46,15 +46,7 @@ section{
     margin: 0 auto;
 }
 
-.error{
-    color: #ff0099;
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-<<<<<<< HEAD
 
-=======
->>>>>>> fd8ff9142697605f5b39d39186ae307f8f70bb1f
 .heading{
     text-align: center;
     margin-bottom: 2rem;
@@ -333,7 +325,7 @@ section{
 }
 
 .home-container{
-    background: url(../image/banner-bg.jpg) no-repeat;
+    background: url(/images/banner-bg.jpg) no-repeat;
     background-size: cover;
     background-position: center;
 }
@@ -508,7 +500,7 @@ section{
 }
 
 .newsletter-container{
-    background:url(../images/material/bg.png) no-repeat;
+    background:url(/images/bg.png) no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
