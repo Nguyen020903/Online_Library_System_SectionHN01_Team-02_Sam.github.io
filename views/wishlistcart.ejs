@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- favicon -->
+    <link rel="icon" type="image/x-icon" href="image/favicon-removebg-preview1.png">
+</head>
+
+<body>
+
+    <!-- header section starts  -->
+
+    <header class="header">
+
+        <section class="header-1">
+
+            <a href="#" class="logo"> <i class="fas fa-play"></i> playbook </a>
+
+            <form action="" class="search-form">
+                <input type="search" name="" placeholder="search here..." id="search-box">
+                <label for="search-box" class="fas fa-search"></label>
+            </form>
+
+            <div class="icons">
+                <div id="search-btn" class="fas fa-search"></div>
+                <a href="#" class="fas fa-heart"></a>
+                <a href="#" class="fas fa-shopping-cart"></a>
+                <a href="login.html" class="fas fa-user"></a>
+            </div>
+
+        </section>
+
+        <div class="header-2">
+            <nav class="navbar">
+                <a href="#home">home</a>
+                <a href="#featured">featured</a>
+                <a href="#arrivals">arrivals</a>
+                <a href="#reviews">reviews</a>
+            </nav>
+        </div>
+
+    </header>
+
+    <!-- header section ends -->
+
+    <!-- bottom navbar  -->
+
+    <nav class="bottom-navbar">
+        <a href="#home" class="fas fa-home"></a>
+        <a href="#featured" class="fas fa-list"></a>
+        <a href="#arrivals" class="fas fa-tags"></a>
+        <a href="#reviews" class="fas fa-comments"></a>
+    </nav>
+
+    <!-- Bottom nav bar end -->
+
+    <!-- Wish list starts here -->
+
+    <section class="arrivals" id="arrivals">
+
+        <h1 class="heading"> <span>Wishlist</span> </h1>
+
+        <form action="" class="wishlist" onsubmit="return false;">
+            <% books.forEach(book => { %>
+                <a href="#" class="swiper-slide box">
+                    <input type="checkbox" name="selection" value="<%=book._id%>">
+                    <div class="image">
+                        <img src="<%=book.bookImage%>" alt="">
+                    </div>
+                    <div class="content">
+                        <div class="booktitle"><%=book.title%></div>
+                        <div class="author">Author name</div>
+                        <div class="bookstatus">Status: <%=book.bookStatus%></div>
+                    </div>
+                    <div class="rent">
+                        <div class="btn" data-book-id="<%=book._id%>">add to rentlist</div>
+                    </div>
+                </a>
+            <% }); %>
+        
+            <div class="buttons">
+                <div id="addselected-btn">add selected books <i class="fas fa-plus"></i></div>
+                <div id="addall-btn">add all books <i class="fas fa-plus"></i></div>
+            </div>
+        
+        </form>
+
+    </section>
+
+    <!-- Wish list ends here -->
+
+    <!-- footer section starts  -->
+
+    <section class="footer">
+
+        <div class="box-container">
+
+            <div class="box">
+                <h3>extra links</h3>
+                <a href="#"> <i class="fas fa-arrow-right"></i> about us </a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> copyright </a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> privacy policy </a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> payment method </a>
+            </div>
+
+            <div class="box">
+                <h3>contact info</h3>
+                <a href="#"> <i class='far fa-id-badge'></i> Tran Hoang Son - s3978450 </a>
+                <a href="#"> <i class='far fa-id-badge'></i> To Hai Dang - s3927046 </a>
+                <a href="#"> <i class='far fa-id-badge'></i> Luong Tuan Kiet - s3980288 </a>
+                <a href="#"> <i class='far fa-id-badge'></i> Le Ha My - s3938177 </a>
+                <a href="#"> <i class='far fa-id-badge'></i> Nguyen Ha Tuan Nguyen - s3978072 </a>
+                <a href="#"> <i class='far fa-id-badge'></i> Nguyen Hai Nguyen - s3978275 </a>
+                <a href="#"> <i class='far fa-id-badge'></i> Dang Quoc Thang - s3977877
+                </a>
+            </div>
+
+        </div>
+
+        <div class="credit"> created by <span>Group 2</span> | all rights reserved! </div>
+
+    </section>
+
+    <!-- footer section ends -->
+
+    <!-- loader  -->
+
+    <!-- <div class="loader-container">
+        <img src="image/loader.gif" alt="">
+    </div> -->
+
+
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const wishlistForm = document.querySelector('.wishlist');
+            const addSelectedBtn = document.getElementById('addselected-btn');
+            const addAllBtn = document.getElementById('addall-btn');
+
+            wishlistForm.addEventListener('click',  async function (event) {
+                // Check if the clicked element has the class 'btn'
+                if (event.target.classList.contains('btn')) {
+                    // Prevent the default form submission behavior
+                    event.preventDefault();
+        
+                    // Get the book ID from the data-book-id attribute
+                    const bookId = event.target.dataset.bookId;
+        
+                    // Send a POST request to the "/addOneToWishlist" route
+                    try {
+                        const res = await fetch('/createReservation', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ bookId: bookId }),
+                        })
+
+                        const data = await res.json();
+                        console.log(data);
+
+                        if (res.status === 400) {
+                            alert(data.error);
+                        } else if (data.message) {  
+                            alert(data.message)
+                            location.assign('/wishlist');
+                        }
+
+                    } catch (err) {
+                        console.log(err);
+                    }
+                }
+            });
+
+            addSelectedBtn.addEventListener('click', async function () {
+                const selectedCheckboxes = wishlistForm.querySelectorAll('input[name="selection"]:checked');
+                const selectedBookIds = Array.from(selectedCheckboxes).map(checkbox => checkbox.value);
+    
+                // Send a POST request to add selected books to the rent list
+                try {
+                    const res = await fetch('/addSelectedToReservation', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ bookIds: selectedBookIds }),
+                    });
+    
+                    const data = await res.json();
+                    console.log(data);
+    
+                    if (res.status === 400) {
+                        alert(data.error);
+                    } else if (data.message) {
+                        alert(data.message);
+                        location.assign('/wishlist');
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
+            });
+    
+            addAllBtn.addEventListener('click', async function () {
+                // Get all book IDs
+                const allBookIds = Array.from(wishlistForm.querySelectorAll('input[name="selection"]'))
+                    .map(checkbox => checkbox.value);
+                
+                console.log('Here');
+                // Send a POST request to add all books to the rent list
+                try {
+                    const res = await fetch('/addAllToReservation', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ bookIds: allBookIds }),
+                    });
+    
+                    const data = await res.json();
+                    console.log(data);
+    
+                    if (res.status === 400) {
+                        alert(data.error);
+                    } else if (data.message) {
+                        alert(data.message);
+                        location.assign('/wishlist');
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

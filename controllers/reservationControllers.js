@@ -139,6 +139,7 @@ module.exports.create_reservation_post = async (req, res) => {
 
       // Add the transaction to the user's transactions
       user.activeTransactions.push(transaction._id);
+      user.favoriteBook.pull(bookId);
       // Save the updated user
       await user.save();
 
