@@ -16,7 +16,8 @@
 
         <section class="header-1">
 
-            <a href="/" class="logo"> <i class="fas fa-play"></i> playbook </a>
+            <a href="/" class="logo"> <i class="fas fa-play"></i> Playbook </a>
+
             <form action="" class="search-form">
                 <input type="search" name="" placeholder="search here..." id="search-box">
                 <label for="search-box" class="fas fa-search"></label>
@@ -24,19 +25,25 @@
 
             <div class="icons">
                 <div id="search-btn" class="fas fa-search"></div>
-                <a href="#" class="fas fa-heart"></a>
-                <a href="#" class="fas fa-shopping-cart"></a>
-                <a href="login.html" class="fas fa-user"></a>
+                <% if (user) { %>
+                    <a href="/wishlist" class="fas fa-heart"></a>
+                    <a href="/userReservations" class="fas fa-shopping-cart"></a>
+                    <a href="/myAccount" class="fas fa-user"></a>
+                <%} else { %>
+                    <a href="/login" class="fas fa-heart"></a>
+                    <a href="/login" class="fas fa-shopping-cart"></a>
+                    <a href="/login" class="fas fa-user"></a>
+                <%} %>
             </div>
 
         </section>
 
         <div class="header-2">
             <nav class="navbar">
-                <a href="#home">home</a>
-                <a href="#featured">featured</a>
-                <a href="#arrivals">arrivals</a>
-                <a href="#reviews">reviews</a>
+                <a href="#home">Home</a>
+                <a href="#featured">Featured</a>
+                <!-- <a href="#arrivals">arrivals</a> -->
+                <a href="#reviews">Reviews</a>
             </nav>
         </div>
 

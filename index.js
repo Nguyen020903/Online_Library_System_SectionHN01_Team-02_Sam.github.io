@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
 const bookRoutes = require('./routes/bookRoutes');
 const reservationRoutes = require('./routes/reservationRoutes');
+const { getUserById, getBookById } = require('./middleware/nameMiddleware');
 const multer = require('multer');
 const path = require('path');
 const bcrypt = require('bcrypt');
