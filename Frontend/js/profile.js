@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Hide all tabs except the default one
     var tabs = document.querySelectorAll('.tab-content');
     for (var i = 1; i < tabs.length; i++) {
         tabs[i].style.display = 'none';
     }
 
+    // start of profile edit
     const editBtn = document.getElementById('editBtn');
     const nameField = document.getElementById('name');
     const fullNameField = document.getElementById('fullName');
@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const profileElements = [nameField, fullNameField, emailField, phoneField];
 
-    // Initial state: View Mode
     let isEditMode = false;
 
     editBtn.addEventListener('click', function () {
@@ -49,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log('Email:', emailField.innerText);
         console.log('Phone:', phoneField.innerText);
     }
-});
+}); // end of profile edit
 
 
 function openPopup() {
