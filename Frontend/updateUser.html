@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Edit</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/updateUser.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header class="header">
+
+        <section class="header-1">
+
+            <a href="#" class="logo"> <i class="fas fa-play"></i> playbook </a>
+            <form action="" class="search-form">
+                <input type="search" name="" placeholder="search here..." id="search-box">
+                <label for="search-box" class="fas fa-search"></label>
+            </form>
+
+            <div class="icons">
+                <div id="search-btn" class="fas fa-search"></div>
+                <a href="#" class="fas fa-heart"></a>
+                <a href="#" class="fas fa-shopping-cart"></a>
+                <a href="login.html" class="fas fa-user"></a>
+            </div>
+
+        </section>
+
+        <div class="header-2">
+            <nav class="navbar">
+                <a href="#home">home</a>
+                <a href="#featured">featured</a>
+                <a href="#arrivals">arrivals</a>
+                <a href="#reviews">reviews</a>
+            </nav>
+        </div>
+
+    </header>
+
+    <!-- header section ends -->
+
+    <!-- bottom navbar  -->
+
+    <nav class="bottom-navbar">
+        <a href="#home" class="fas fa-home"></a>
+        <a href="#featured" class="fas fa-list"></a>
+        <a href="#arrivals" class="fas fa-tags"></a>
+        <a href="#reviews" class="fas fa-comments"></a>
+    </nav>
+<section class="main-part">
+    <form id="imageForm">
+        <label for="profileImage">Profile Image</label>
+        <input class="input-form" type="file" name="profileImage" />
+        <div class="profileImage error"></div>
+        <button>Save Image</button>
+    </form>
+    
+    <!-- Form for updating the user's details -->
+    <form id="detailsForm">
+        <label for="fullName">Full Name*</label>
+        <input class="input-form" type="text" name="fullName" value="<%= user.fullName %>"/>
+        <div class="fullName error"></div>
+    
+        <label for="email">Email*</label>
+        <input class="input-form" type="text" name="email" value="<%= user.email %>"/>
+        <div class="email error"></div>
+    
+        <label for="password">Password*</label>
+        <input class="input-form" type="password" name="password"/>
+        <div class="password error"></div>
+    
+        <button>Save Details</button>
+    </form>
+</section>
+    <!-- footer section  -->
+    <footer>
+        <section class="footer">
+            <div class="credit"> created by <span>Group 2</span> | all rights reserved! </div>
+        </section>
+    </footer>
+</body>
+<script src="https://kit.fontawesome.com/120cd899b7.js" crossorigin="anonymous"></script>
+
+</html>
