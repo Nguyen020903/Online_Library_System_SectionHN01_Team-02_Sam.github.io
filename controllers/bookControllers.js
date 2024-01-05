@@ -292,3 +292,59 @@ module.exports.publisher_post = async (req, res) => {
         res.status(400).json({ errors });
     }
 }
+
+// delete for author, category, publisher
+
+module.exports.deleteAuthor = async (req, res) => {
+    const authorId = req.params.id;
+    try {
+        let author = await Author.findOne({ _id: authorId });
+        if (!author) {
+            return res.status(404).json({ message: 'Author not found' });
+        }
+
+        // Remove author
+        await Author.deleteOne({ _id: authorId });
+
+        res.status(200).json({ message: 'Author deleted successfully', deletedAuthorId: authorId });
+    } catch (err) {
+        const errors = handleErrors(err);
+        res.status(400).json({ errors });
+    }
+}
+
+module.exports.deletePublisher = async (req, res) => {
+    const publisherId = req.params.id;
+    try {
+        let publisher = await Publisher.findOne({ _id: publisherId });
+        if (!publisher) {
+            return res.status(404).json({ message: 'Publisher not found' });
+        }
+
+        // Remove publisher
+        await Publisher.deleteOne({ _id: publisherId });
+
+        res.status(200).json({ message: 'Publisher deleted successfully', deletedPublisherId: publisherId });
+    } catch (err) {
+        const errors = handleErrors(err);
+        res.status(400).json({ errors });
+    }
+}
+
+module.exports.deleteCategory = async (req, res) => {
+    const categoryId = req.params.id;
+    try{
+        let category = await Category.findOne({ _id: categoryId });
+        if (!category) {
+            return res.status(404).json({ message: 'Category not found' });
+        }
+
+        // Remove category
+        await Category.deleteOne({ _id: categoryId });
+
+        res.status(200).json({ message: 'Category deleted successfully', deletedCategoryId: categoryId });
+    } catch (err) {
+        const errors = handleErrors(err);
+        res.status(400).json({ errors });
+    }
+}

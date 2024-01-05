@@ -148,6 +148,7 @@
                     <table id="bookTable" class="styled-table"> <!-- Start of table-->
                         <thead>
                             <tr>
+                                <th>No.</th>
                                 <th>User</th>
                                 <th>Book</th>
                                 <th>Status</th>
@@ -157,15 +158,16 @@
                               </tr>
                         </thead>
                         <tbody>
-                            <% transactions.forEach(async (transaction) => { %>
+                            <% transactions.forEach(async (transaction, index) => { %>
                                 <% if (transaction.status == 'Returned') { %>
                                     <tr>
-                                      <td><%= transaction.userEmail %></td>
-                                      <td><%= transaction.bookTitle %></td>
-                                      <td><%= transaction.status %></td>
-                                      <td><%= new Date(transaction.pickUpDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }) %></td>
-                                      <td><%= new Date(transaction.returnDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></td>
-                                      <td><%= transaction.fine %> $</td>
+                                        <td><%= index + 1 %></td>
+                                        <td><%= transaction.userEmail %></td>
+                                        <td><%= transaction.bookTitle %></td>
+                                        <td><%= transaction.status %></td>
+                                        <td><%= new Date(transaction.pickUpDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }) %></td>
+                                        <td><%= new Date(transaction.returnDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></td>
+                                        <td><%= transaction.fine %> $</td>
                                     </tr>
                                 <% } %>
                             <% }); %>
@@ -187,33 +189,24 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <% authors.forEach(async (author, index) => { %>
                             <tr>
-                                <td>1</td>
-                                <td>Author 1</td>
+                                <td><%= index + 1 %></td>
+                                <td><%= author.name %></td>
                                 <td>
                                     <ul class="bookList">
-                                        <li><a href="#">Book 1</a></li>
-                                        <li><a href="#">Book 2</a></li>
+                                        <% author.books.forEach((Book) => { %>
+                                            <li><a href="/bookDetail/<%= book._id %>"><%= book.title %></a></li>
+                                        <% }); %>
                                     </ul>
                                 </td>
                                 <td><button class="delete-btn">Delete</button></td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Author 2</td>
-                                <td>
-                                    <ul class="bookList">
-                                        <li><a href="#">Book 3</a></li>
-                                        <li><a href="#">This should be the longest book name</a></li>
-                                    </ul>
-                                </td>
-                                <td><button class="delete-btn">Delete</button></td>
-                            </tr>
+                            <% }); %>
                         </tbody>
                     </table> <!-- End of table-->
                     <div class="wishlist-btn-container">
                         <a href="/author"><button class="addBtn">Add Author</button></a>
-                        <button class="clear-btn">Edit List</button>
                     </div>
                 </div>
                 <div id="tab5" class="tab-content tab5">
@@ -242,22 +235,10 @@
                                 </td>
                                 <td><button class="delete-btn">Delete</button></td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Publisher 2</td>
-                                <td>
-                                    <ul class="bookList">
-                                        <li><a href="#">Book 3</a></li>
-                                        <li><a href="#">This should be the longest book name</a></li>
-                                    </ul>
-                                </td>
-                                <td><button class="delete-btn">Delete</button></td>
-                            </tr>
                         </tbody>
                     </table> <!-- End of table-->
                     <div class="wishlist-btn-container">
                         <a href="/publisher"><button class="addBtn">Add Publisher</button></a>
-                        <button class="clear-btn">Edit List</button>
                     </div>
                 </div>
                 <div id="tab6" class="tab-content tab6">
@@ -297,7 +278,7 @@
                     <li class="verticalNavItems" onclick="openTab('tab6')"><i class="fa-solid fa-network-wired"></i></i><a
                             href="#">Add Libraian</a></li>
                     <li id="logout-btn" class="verticalNavItems" onclick="openPopup()"><i
-                            class="fas fa-arrow-right-from-bracket"></i><a href="#">Logout</a></li>
+                            class="fas fa-arrow-right-from-bracket"></i><a href="/logout">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -313,6 +294,49 @@
         <script src="js/script.js"></script>
         <script src="js/profile.js"></script>
         <script src="https://kit.fontawesome.com/120cd899b7.js" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- normal user profile -->
     <% } else { %>
     <!-- Main Body -->
     <div class="main-part">

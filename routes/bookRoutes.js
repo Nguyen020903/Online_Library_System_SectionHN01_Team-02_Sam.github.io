@@ -55,5 +55,8 @@ router.get('/category',checkUser, isAdmin, bookController.category_get);
 router.post('/category',checkUser, isAdmin, bookController.category_post);
 router.get('/publisher',checkUser, isAdmin,bookController.publisher_get);
 router.post('/publisher',checkUser, isAdmin, bookController.publisher_post);
+router.post('/deleteAuthor/:id',checkUser, isAdmin, bookController.deleteAuthor);
+router.post('/deleteCategory/:id',checkUser, isAdmin, bookController.deleteCategory);
+router.post('/deletePublisher/:id',checkUser, isAdmin, bookController.deletePublisher);
 
 module.exports = router;
