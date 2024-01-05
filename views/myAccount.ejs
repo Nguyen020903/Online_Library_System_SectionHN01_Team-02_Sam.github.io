@@ -4,9 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <if 
+    <title><%= user.fullName %> Profile</title>
     <link rel="stylesheet" href="/css/profile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- favicon -->
+    <link rel="icon" type="image/x-icon" href="/images/material/favicon-removebg-preview1.png">
 </head>
 
 <body>
@@ -68,7 +71,7 @@
                 <div class="text-center">
                     <img src="<%= user.profileImage %>" alt="Profile Picture" class="profilePic" id="profilePic">
                     <h2 id="name"><%= user.fullName %></h2>
-                    <button id="editBtn">Edit Profile</button>
+                    <a href="/updateUser"><button id="editBtn">Edit Profile</button></a> 
                 </div>
                 <div class="generalInfo">
                     <h3 class="heading">General Information</h3>
@@ -122,13 +125,63 @@
                     <!-- Show nothing -->
                 <% } %>
             </div>
-
             <div id="tab3" class="tab-content tab3">
                 <div class="table-container">
-
+                    <% if (Array.isArray(allActiveTransactions) && allActiveTransactions.length > 0) { %>
+                    <% let hasPending = false; %>
+                    <% allActiveTransactions.forEach((transaction, index) => { %>
+                    <% if (transaction.status === 'Pending') { %>
+                    <% hasPending = true; %>
+                    <% } %>
+                    <% }); %>
+                    <% if (hasPending) { %>
                     <table class="styled-table">
-                        <% if ((Array.isArray(allActiveTransactions) && allActiveTransactions.length > 0) || (Array.isArray(allPrevTransactions) && allPrevTransactions.length > 0)) { %>
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Book Title</th>
+                                <th>Borrowed Date</th>
+                                <th>Due Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% allActiveTransactions.forEach((transaction, index) => { %>
+                            <% if (transaction.status === 'Pending') { %>
+                            <tr>
+                                <td><%= index + 1 %></td>
+                                <td><%= transaction.bookTitle %></td>
+                                <td><%= new Date(transaction.pickUpDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }) %></td>
+                                <td><%= new Date(transaction.returnDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></td>
+                                <td><%= transaction.status %></td>
+                            </tr>
+                            <% } %>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                    <% } else { %>
+                    <table class="styled-table">
+                        <tr>
+                            <td>You don't have any Pending Reservation</td>
+                        </tr>
+                    </table>
+                    <% } %>
+                    <% } else { %>
+                    <!-- Show nothing -->
+                    <% } %>
+                </div>
+            </div>
+            <div id="tab4" class="tab-content tab4">
+                <div class="table-container">
+                    <table class="styled-table">
                         <% if (Array.isArray(allActiveTransactions) && allActiveTransactions.length > 0) { %>
+                        <% let hasBorrowing = false; %>
+                        <% allActiveTransactions.forEach((transaction, index) => { %>
+                        <% if (transaction.status !== 'Pending') { %>
+                        <% hasBorrowing = true; %>
+                        <% } %>
+                        <% }); %>
+                        <% if (hasBorrowing) { %>
                         <thead>
                             <tr>
                                 <th>No.</th>
@@ -141,6 +194,7 @@
                         </thead>
                         <tbody>
                             <% allActiveTransactions.forEach((transaction, index) => { %>
+                            <% if (transaction.status !== 'Pending') { %>
                             <tr>
                                 <td><%= index + 1 %></td>
                                 <td><%= transaction.bookTitle %></td>
@@ -148,12 +202,24 @@
                                 <td><%= new Date(transaction.returnDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></td>
                                 <td><%= transaction.status %></td>
                                 <td><%= transaction.fine %> $</td>
-                            </tr>
+                            </tr>   
+                            <% } %>
                             <% }); %>
                         </tbody>
-                        <% } else { %>
-                        <!-- Show nothing -->
                         <% } %>
+                    </table>
+                    <% } else { %>
+                        <table class="styled-table">
+                            <tr>
+                                <td>You don't have any Borrowing Book</td>
+                            </tr>
+                        </table>
+                    <% } %>
+                </div>
+            </div>
+            <div id="tab5" class="tab-content tab5">
+                <div class="table-container">
+                    <table class="styled-table">
                         <% if (Array.isArray(allPrevTransactions) && allPrevTransactions.length > 0) { %>
                         <thead>
                             <tr>
@@ -176,12 +242,8 @@
                             <% }); %>
                         </tbody>
                         <% } else { %>
-                            <!-- Show nothing -->
-                        <% } %>
-                        <% } else { %>
-                            <tr>
-                                <td>You don't have any transactions</td>
-                            </tr>
+                        <tr>
+                            <td>You don't have any Borrow History</td>
                         <% } %>
                     </table>
                 </div>
@@ -203,8 +265,12 @@
                         href="#">Profile</a></li>
                 <li class="verticalNavItems" onclick="openTab('tab2')"><i class="far fa-bookmark"></i><a
                         href="#">Wishlist</a></li>
-                <li class="verticalNavItems" onclick="openTab('tab3')"><i class="fa-solid fa-book"></i><a
-                        href="#">Borrowed Book</a></li>
+                <li class="verticalNavItems" onclick="openTab('tab3')"><i class="fa-solid fa-clock"></i><a
+                    href="#">Pending Book</a></li>
+                <li class="verticalNavItems" onclick="openTab('tab4')"><i class="fa-solid fa-book"></i><a
+                    href="#">Borrowing Book</a></li>
+                <li class="verticalNavItems" onclick="openTab('tab5')"><i class="fa-regular fa-clock"></i><a
+                    href="#">Borrowed History</a></li>
                 <li id="logout-btn" class="verticalNavItems" onclick="openPopup()"><i
                         class="fas fa-arrow-right-from-bracket"></i><a href="#">Logout</a></li>
             </ul>

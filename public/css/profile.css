@@ -8,6 +8,8 @@
     font-family: 'Poppins', sans-serif;
     outline: none;
     border: none;
+    text-transform: capitalize;
+    transition: all .1s linear;
 }
 
 :root {
@@ -337,7 +339,7 @@ section {
 
 #generalInfoList li {
     padding: 5px 0 5px 0;
-    font-size: 14.5px;
+    font-size: 2rem;
 }
 
 .leftContainer {
@@ -360,6 +362,10 @@ section {
     align-items: center;
     justify-content: center;
 }
+
+/* .edit-mode [contenteditable="true"] {
+    color: blue;
+} */
 
 /* different tab content */
 .tab-content {
@@ -441,7 +447,7 @@ section {
     color: #000;
 }
 
-.tab-content.tab3 {
+.tab-content.tab3, .tab-content.tab4, .tab-content.tab5{
     /*borrowed books*/
     display: flex;
     flex-direction: column;
@@ -650,7 +656,7 @@ footer {
     }
 
     .leftContainer {
-        height: auto;
+        height: 60vh;
     }
 
     #tab1 {
