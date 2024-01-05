@@ -4,9 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title> <%= user.fullName %> Profile</title>
-    <link rel="stylesheet" href="/css/profile.css">
+    <% if (user.isAdmin) { %>
+        <title><%= user.fullName %> Admin Profile</title>
+        <link rel="stylesheet" href="/css/aProfile.css">
+    <% } else { %>
+        <title><%= user.fullName %> Profile</title>
+        <link rel="stylesheet" href="/css/profile.css">
+    <% } %>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- favicon -->
     <link rel="icon" type="image/x-icon" href="/images/material/favicon-removebg-preview1.png">
@@ -62,7 +66,253 @@
         <a href="#arrivals" class="fas fa-tags"></a>
         <a href="#reviews" class="fas fa-comments"></a>
     </nav>
-
+    <!-- Divert between admin and user -->
+    <% if (user.isAdmin) { %>
+        <div class="main-part">
+            <!-- Right Half - General Information, Contact Information, Profile Image, and Name -->
+            <div class="leftContainer">
+                <div id="tab1" class="tab-content tab1 active">
+                    <div class="text-center">
+                        <img src="<%= user.profileImage %>" alt="Profile Picture" class="profilePic" id="profilePic">
+                        <h2 id="name"><%= user.fullName %></h2>
+                        <a href="/updateUser"><button id="editBtn">Edit Profile</button></a>
+                    </div>
+                    <div class="generalInfo">
+                        <h3 class="heading">General Information</h3>
+                        <ul id="generalInfoList">
+                            <li>Full Name: <span id="fullName"><%= user.fullName %></span></li>
+                            <li>Email Address: <span id="email"><%= user.email %></span></li>
+                            <!-- <li>Phone Number: <span id="phone">123-456-7890</span></li> -->
+                        </ul>
+                    </div>
+                </div>
+                <!-- Tab Content inside leftContainer -->
+                <div id="tab2" class="tab-content tab2">
+                    <div id="searchInputContainer">
+                        <input type="text" id="searchInput" placeholder="Search here...">
+                        <i id="searchIcon" class="fa fa-search"></i>
+                    </div>
+                    <table id="bookTable" class="styled-table"> <!-- Start of table-->
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Author</th>
+                                <th>Title</th>
+                                <th>Borrower</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Author 1</td>
+                                <td><a href="#">Book 1</a></td>
+                                <td>Borrower 1</td>
+                                <td>
+                                    <div class="action-container">
+                                        <select class="action-dropdown">
+                                            <option value="" disabled selected>Choose an action</option>
+                                            <option value="returned">Mark as Returned</option>
+                                            <option value="lost">Mark as Lost</option>
+                                        </select>
+                                        <i class="fa fa-check check-icon"></i>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Author 1</td>
+                                <td><a href="#">Book 1</a></td>
+                                <td>Borrower 1</td>
+                                <td>
+                                    <div class="action-container">
+                                        <select class="action-dropdown">
+                                            <option value="" disabled selected>Choose an action</option>
+                                            <option value="returned">Mark as Returned</option>
+                                            <option value="lost">Mark as Lost</option>
+                                        </select>
+                                        <i class="fa fa-check check-icon"></i>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table> <!-- End of table-->
+                </div>
+                <!-- Tab Content inside leftContainer -->
+                <div id="tab3" class="tab-content tab3">
+                    <div id="searchInputContainer">
+                        <input type="text" id="searchInput" placeholder="Search here...">
+                        <i id="searchIcon" class="fa fa-search"></i>
+                    </div>
+                    <table id="bookTable" class="styled-table"> <!-- Start of table-->
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Book</th>
+                                <th>Status</th>
+                                <th>Pick Up Date</th>
+                                <th>Return Date</th>
+                                <th>Fine</th>
+                              </tr>
+                        </thead>
+                        <tbody>
+                            <% transactions.forEach(async (transaction) => { %>
+                                <% if (transaction.status == 'Returned') { %>
+                                    <tr>
+                                      <td><%= transaction.userEmail %></td>
+                                      <td><%= transaction.bookTitle %></td>
+                                      <td><%= transaction.status %></td>
+                                      <td><%= new Date(transaction.pickUpDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }) %></td>
+                                      <td><%= new Date(transaction.returnDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></td>
+                                      <td><%= transaction.fine %> $</td>
+                                    </tr>
+                                <% } %>
+                            <% }); %>
+                        </tbody>
+                    </table> <!-- End of table-->
+                </div>
+                <div id="tab4" class="tab-content tab4">
+                    <div id="searchInputContainer">
+                        <input type="text" id="searchInput" placeholder="Search here...">
+                        <i id="searchIcon" class="fa fa-search"></i>
+                    </div>
+                    <table class="styled-table"> <!-- Start of table-->
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Author Name</th>
+                                <th>Book Written</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Author 1</td>
+                                <td>
+                                    <ul class="bookList">
+                                        <li><a href="#">Book 1</a></li>
+                                        <li><a href="#">Book 2</a></li>
+                                    </ul>
+                                </td>
+                                <td><button class="delete-btn">Delete</button></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Author 2</td>
+                                <td>
+                                    <ul class="bookList">
+                                        <li><a href="#">Book 3</a></li>
+                                        <li><a href="#">This should be the longest book name</a></li>
+                                    </ul>
+                                </td>
+                                <td><button class="delete-btn">Delete</button></td>
+                            </tr>
+                        </tbody>
+                    </table> <!-- End of table-->
+                    <div class="wishlist-btn-container">
+                        <a href="/author"><button class="addBtn">Add Author</button></a>
+                        <button class="clear-btn">Edit List</button>
+                    </div>
+                </div>
+                <div id="tab4" class="tab-content tab4">
+                    <div id="searchInputContainer">
+                        <input type="text" id="searchInput" placeholder="Search here...">
+                        <i id="searchIcon" class="fa fa-search"></i>
+                    </div>
+                    <table class="styled-table"> <!-- Start of table-->
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Publisher Name</th>
+                                <th>Book Published</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Publisher 1</td>
+                                <td>
+                                    <ul class="bookList">
+                                        <li><a href="#">Book 1</a></li>
+                                        <li><a href="#">Book 2</a></li>
+                                    </ul>
+                                </td>
+                                <td><button class="delete-btn">Delete</button></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Publisher 2</td>
+                                <td>
+                                    <ul class="bookList">
+                                        <li><a href="#">Book 3</a></li>
+                                        <li><a href="#">This should be the longest book name</a></li>
+                                    </ul>
+                                </td>
+                                <td><button class="delete-btn">Delete</button></td>
+                            </tr>
+                        </tbody>
+                    </table> <!-- End of table-->
+                    <div class="wishlist-btn-container">
+                        <a href="/publisher"><button class="addBtn">Add Publisher</button></a>
+                        <button class="clear-btn">Edit List</button>
+                    </div>
+                </div>
+                <div id="tab6" class="tab-content tab6">
+                    <div class="form-container">
+                        <form class="librarian-form">
+                            <h1>Create Account</h1>
+                            <input type="text" placeholder="Name">
+                            <input type="email" placeholder="Email">
+                            <input type="password" placeholder="Password">
+                            <input type="password" placeholder="Confirm your password">
+                            <button class="addBtn">Add Libraian</button>
+                        </form>
+                    </div>
+                </div>
+                <div id="popup" class="popup">
+                    <div class="popup-content">
+                        <span class="close" onclick="closePopup()">&times;</span>
+                        <h1>Are you sure you want to log out?</h1>
+                        <button class="yes" onclick="logout()">Yes</button>
+                        <button class="no" onclick="closePopup()">No</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Left Half - vertical Navbar -->
+            <div class="rightContainer">
+                <ul class="verticalNavList">
+                    <li class="verticalNavItems active" onclick="openTab('tab1')"><i class="far fa-user"></i><a
+                            href="#">Profile</a></li>
+                    <li class="verticalNavItems" onclick="openTab('tab2')"><i class="fa-solid fa-book"></i><a href="#">All
+                            Borrowed Book</a></li>
+                    <li class="verticalNavItems" onclick="openTab('tab3')"><i class="fa-solid fa-book"></i><a href="#">All
+                            Past Reservation</a></li>
+                    <li class="verticalNavItems" onclick="openTab('tab4')"><i class="fa-solid fa-pen"></i><a href="#">All
+                            Author</a></li>
+                    <li class="verticalNavItems" onclick="openTab('tab5')"><i class="fa-regular fa-building"></i></i><a
+                            href="#">All Publisher</a></li>
+                    <li class="verticalNavItems" onclick="openTab('tab6')"><i class="fa-solid fa-network-wired"></i></i><a
+                            href="#">Add Libraian</a></li>
+                    <li id="logout-btn" class="verticalNavItems" onclick="openPopup()"><i
+                            class="fas fa-arrow-right-from-bracket"></i><a href="#">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <!-- footer -->
+        <footer>
+            <section class="footer">
+                <div class="credit"> created by <span>Group 2</span> | all rights reserved! </div>
+    
+            </section>
+        </footer>
+    
+        <script src="js/script.js"></script>
+        <script src="js/profile.js"></script>
+        <script src="https://kit.fontawesome.com/120cd899b7.js" crossorigin="anonymous"></script>
+    <% } else { %>
     <!-- Main Body -->
     <div class="main-part">
         <!-- Right Half - General Information, Contact Information, Profile Image, and Name -->
@@ -158,20 +408,18 @@
                             <% } %>
                             <% }); %>
                         </tbody>
+                        <% } %>
                     </table>
                     <% } else { %>
-                    <table class="styled-table">
-                        <tr>
-                            <td>You don't have any Pending Reservation</td>
-                        </tr>
-                    </table>
-                    <% } %>
-                    <% } else { %>
-                    <!-- Show nothing -->
+                        <table class="styled-table">
+                            <tr>
+                                <td>You don't have any Pending Reservation</td>
+                            </tr>
+                        </table>
                     <% } %>
                 </div>
             </div>
-            <div id="tab4" class="tab-content tab4">
+            <div id="tab5" class="tab-content tab5">
                 <div class="table-container">
                     <table class="styled-table">
                         <% if (Array.isArray(allActiveTransactions) && allActiveTransactions.length > 0) { %>
@@ -312,6 +560,7 @@
     <script src="/js/profile.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/120cd899b7.js" crossorigin="anonymous"></script>
+    <% } %>
 </body>
 
 <!-- <script>

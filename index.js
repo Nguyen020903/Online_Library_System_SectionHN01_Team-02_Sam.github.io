@@ -205,7 +205,25 @@ app.get('/myAccount', requireAuth, async (req, res) => {
               })
             );
 
-            res.render('myAccount', { user: user, books: books, allActiveTransactions, allPrevTransactions });
+            // Fetch user and book details for each transaction
+            const transactionsWithDetails = await Promise.all(
+              transactions.map(async (transaction) => {
+                const userEmail = await getUserById(transaction.userId).email;
+                const bookTitle = await getBookById(transaction.bookId).title;
+
+                return {
+                  _id: transaction._id,
+                  userEmail: userEmail,
+                  bookTitle: bookTitle,
+                  status: transaction.status,
+                  pickUpDate: transaction.pickUpDate,
+                  returnDate: transaction.returnDate,
+                  fine: transaction.fine,
+                };
+              })
+            );
+
+            res.render('myAccount', { user: user, books: books, allActiveTransactions, allPrevTransactions, transactions: transactionsWithDetails });
           }
         }
       });
