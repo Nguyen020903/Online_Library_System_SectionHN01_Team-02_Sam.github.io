@@ -30,6 +30,9 @@ const bookImageStorage = multer.diskStorage({
 // router.get('/bookDetail/:id', checkUser, isAdmin, bookController.bookdetail_get);
 // router.post('/bookDetail/:id', checkUser, isAdmin, bookController.bookdetail_post);
 
+// Search book
+router.get('/searchResult', checkUser, bookController.search_get);
+
 // Add book
 router.get('/addbook', checkUser, isAdmin, bookController.addbook_get);
 // router.post('/addbook', (req, res, next) => {

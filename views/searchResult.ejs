@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Books</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- favicon -->
+    <link rel="icon" type="image/x-icon" href="image/favicon-removebg-preview1.png">
+</head>
+
+<body>
+
+    <!-- header section starts  -->
+
+    <header class="header">
+
+        <section class="header-1">
+
+            <a href="#" class="logo"> <i class="fas fa-play"></i> playbook </a>
+
+            <form action="/searchResult" method="get" class="search-form">
+                <input type="search" name="query" placeholder="search here..." id="search-box">
+                <label for="search-box" class="fas fa-search"></label>
+                <input type="submit" style="display: none;">
+            </form>
+
+            <div class="icons">
+                <div id="search-btn" class="fas fa-search"></div>
+                <a href="/wishlist" class="fas fa-heart"></a>
+                <a href="/userReservations" class="fas fa-shopping-cart"></a>
+                <a href="/myAccount" class="fas fa-user"></a>
+            </div>
+
+        </section>
+
+    </header>
+
+    <!-- header section ends -->
+
+    <!-- arrivals section starts  -->
+
+    <section class="arrivals" id="arrivals">
+
+        <h1 class="heading"> <span>Search result for "<%= searchQuery %>"</span> </h1>
+
+        <div class="allbook">
+            <% books.forEach((book) => { %>
+                <a href="#" class="swiper-slide box">
+                    <div class="image">
+                        <img src="<%=book.bookImage%>" alt="">
+                    </div>
+                    <div class="content">
+                        <h3>new arrivals</h3>
+                        <div class="author"><%=book.author.name%></div>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </a>
+            <% }) %>
+        </div>
+
+
+
+
+
+    </section>
+
+
+
+
+    <!-- arrivals section ends -->
+
+    <!-- footer section starts  -->
+
+    <section class="footer">
+
+        <div class="box-container">
+
+            <div class="box">
+                <h3>extra links</h3>
+                <a href="#"> <i class="fas fa-arrow-right"></i> about us </a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> copyright </a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> privacy policy </a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> payment method </a>
+            </div>
+
+            <div class="box">
+                <h3>contact info</h3>
+                <a href="#"> <i class='far fa-id-badge'></i> Tran Hoang Son - s3978450 </a>
+                <a href="#"> <i class='far fa-id-badge'></i> To Hai Dang - s3927046 </a>
+                <a href="#"> <i class='far fa-id-badge'></i> Luong Tuan Kiet - s3980288 </a>
+                <a href="#"> <i class='far fa-id-badge'></i> Le Ha My - s3938177 </a>
+                <a href="#"> <i class='far fa-id-badge'></i> Nguyen Ha Tuan Nguyen - s3978072 </a>
+                <a href="#"> <i class='far fa-id-badge'></i> Nguyen Hai Nguyen - s3978275 </a>
+                <a href="#"> <i class='far fa-id-badge'></i> Dang Quoc Thang - s3977877
+                </a>
+            </div>
+
+        </div>
+
+        <div class="credit"> created by <span>Group 2</span> | all rights reserved! </div>
+
+    </section>
+
+    <!-- footer section ends -->
+
+    <!-- loader  -->
+
+    <!-- <div class="loader-container">
+        <img src="image/loader.gif" alt="">
+    </div> -->
+
+
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
+    <!-- custom js file link  -->
+    <!-- <script src="js/script.js"></script> -->
+
+</body>
+
+</html>

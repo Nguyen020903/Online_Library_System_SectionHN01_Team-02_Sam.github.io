@@ -29,9 +29,10 @@
 
             <a href="/" class="logo"> <i class="fas fa-play"></i> playbook </a>
 
-            <form action="" class="search-form">
-                <input type="search" name="" placeholder="search here..." id="search-box">
+            <form action="/searchResult" method="get" class="search-form">
+                <input type="search" name="query" placeholder="search here..." id="search-box">
                 <label for="search-box" class="fas fa-search"></label>
+                <input type="submit" style="display: none;">
             </form>
 
             <div class="icons">
