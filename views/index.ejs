@@ -412,18 +412,20 @@
 
     <div class="deal-container">
 
-        <section class="deal">
-            <div class="content">
-                <h3>book of the day</h3>
-                <h1><%= bookoftheday.title %></h1>
-                <p><%= bookoftheday.description %></p>
-                <a href="/bookDetail/<%= bookoftheday._id %>" class="btn">Book Detail</a>
-            </div>
-        
-            <div class="image">
-                <img src="<%= bookoftheday.bookImage %>" alt="bookoftheday">
-            </div>
-        </section>
+        <% if (bookoftheday) { %>
+            <section class="deal">
+                <div class="content">
+                    <h3>book of the day</h3>
+                    <h1><%= bookoftheday.title %></h1>
+                    <p><%= bookoftheday.description %></p>
+                    <a href="/bookDetail/<%= bookoftheday._id %>" class="btn">Book Detail</a>
+                </div>
+            
+                <div class="image">
+                    <img src="<%= bookoftheday.bookImage %>" alt="bookoftheday">
+                </div>
+            </section>
+        <% } %>
 
 
     </div>

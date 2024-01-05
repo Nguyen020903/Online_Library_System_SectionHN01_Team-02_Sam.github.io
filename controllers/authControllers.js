@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const session = require('express-session');
 const fs = require('fs');
 const User = require('../models/user');
+const { isAdmin } = require('../middleware/authMiddleware');
 
 const maxAge = 3 * 24 * 60 * 60;
 
@@ -58,7 +59,7 @@ module.exports.signup_get = (req, res) => {
 };
 
 module.exports.signup_post = async (req, res) => {
-    const { fullName, email, password, confirmPassword } = req.body;
+    const { fullName, email, password } = req.body;
     console.log(fullName, email, password, confirmPassword);
     console.log(req.body);
 
@@ -79,6 +80,37 @@ module.exports.signup_post = async (req, res) => {
 
                 // Create Cookie based on user information
                 res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+                res.status(200).json({ user: user._id });
+            })
+            .catch((err) => {
+                let error = handleErrors(err);
+                res.status(500).json({ error: err.message });
+            }
+            );
+
+    } catch (err) {
+        let error = handleErrors(err);
+        res.status(400).json({ error });
+    }
+};
+
+
+module.exports.create_librarian_account_post = async (req, res) => {
+    const { fullName, email, password } = req.body;
+    console.log(fullName, email, password);
+    console.log(req.body);
+    try {
+        /* Create a new user */
+        const newUser = new User({
+            fullName: req.body.fullName,
+            email: req.body.email,
+            password: req.body.password, // Save the hashed password
+            isAdmin: true,
+        });
+
+        /* Save User and Return */
+        newUser.save()
+            .then((user) => {
                 res.status(200).json({ user: user._id });
             })
             .catch((err) => {

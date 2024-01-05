@@ -389,13 +389,22 @@ section {
     width: 100%;
 }
 
+/* tab3 */
+.tab-content.tab3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+    width: 100%;
+}
+
 #searchInputContainer {
     position: relative;
     margin-bottom: 1rem;
     width: 50%;
 }
 
-#searchInput {
+#searchInputreservation, #searchInputborrow, #searchInputreturn, #searchInputauthor, #searchInputpublisher {
     padding: 0.5rem 4rem 0.5rem 1rem;
     border: 1px solid #ccc;
     border-radius: 0.8rem;
@@ -533,8 +542,8 @@ section {
     border: none;
 }
 
-/* tab3 */
-.tab-content.tab3 {
+/* tab4 */
+.tab-content.tab4 {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -587,15 +596,6 @@ section {
     font-size: 1.7rem;
 }
 
-/* tab4 */
-.tab-content.tab4 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: auto;
-    width: 100%;
-}
-
 /* tab5 */
 .tab-content.tab5 {
     display: flex;
@@ -607,6 +607,15 @@ section {
 
 /* tab6 */
 .tab-content.tab6 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+    width: 100%;
+}
+
+/* tab7 */
+.tab-content.tab7 {
     display: flex;
     overflow: auto;
     width: 100%;

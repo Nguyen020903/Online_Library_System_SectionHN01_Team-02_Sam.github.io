@@ -19,6 +19,8 @@ router.post('/addAllToReservation', requireAuth, checkUser, reservationControlle
 router.get('/reservations', requireAuth, checkUser, isAdmin, reservationController.reservations_get);
 router.get('/userReservations', requireAuth, checkUser, reservationController.userReservations_get);
 
+// Update reservation from Reserved to Borrowed
+router.post('/reservations/borrow', requireAuth, checkUser, isAdmin, reservationController.reservations_borrowed_post);
 // Return book
 router.post('/reservations/return', requireAuth, checkUser, isAdmin, reservationController.reservations_return_post);
 

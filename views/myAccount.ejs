@@ -46,27 +46,12 @@
 
         </section>
 
-        <div class="header-2">
-            <nav class="navbar">
-                <a href="#home">Home</a>
-                <a href="#featured">Featured</a>
-                <!-- <a href="#arrivals">arrivals</a> -->
-                <a href="#reviews">Reviews</a>
-            </nav>
-        </div>
-
     </header>
 
     <!-- header section ends -->
 
     <!-- bottom navbar  -->
 
-    <nav class="bottom-navbar">
-        <a href="#home" class="fas fa-home"></a>
-        <a href="#featured" class="fas fa-list"></a>
-        <a href="#arrivals" class="fas fa-tags"></a>
-        <a href="#reviews" class="fas fa-comments"></a>
-    </nav>
     <!-- Divert between admin and user -->
     <% if (user.isAdmin) { %>
         <div class="main-part">
@@ -90,169 +75,200 @@
                 <!-- Tab Content inside leftContainer -->
                 <div id="tab2" class="tab-content tab2">
                     <div id="searchInputContainer">
-                        <input type="text" id="searchInput" placeholder="Search here...">
+                        <input type="text" id="searchInputreservation" placeholder="Search here...">
                         <i id="searchIcon" class="fa fa-search"></i>
                     </div>
-                    <table id="bookTable" class="styled-table"> <!-- Start of table-->
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Author</th>
-                                <th>Title</th>
-                                <th>Borrower</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Author 1</td>
-                                <td><a href="#">Book 1</a></td>
-                                <td>Borrower 1</td>
-                                <td>
-                                    <div class="action-container">
-                                        <select class="action-dropdown">
-                                            <option value="" disabled selected>Choose an action</option>
-                                            <option value="returned">Mark as Returned</option>
-                                            <option value="lost">Mark as Lost</option>
-                                        </select>
-                                        <i class="fa fa-check check-icon"></i>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Author 1</td>
-                                <td><a href="#">Book 1</a></td>
-                                <td>Borrower 1</td>
-                                <td>
-                                    <div class="action-container">
-                                        <select class="action-dropdown">
-                                            <option value="" disabled selected>Choose an action</option>
-                                            <option value="returned">Mark as Returned</option>
-                                            <option value="lost">Mark as Lost</option>
-                                        </select>
-                                        <i class="fa fa-check check-icon"></i>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table> <!-- End of table-->
+                    <% let reservationTransactions = transactions.filter(transaction => transaction.status == 'Reserved'); %>
+                        <table id="bookTable" class="styled-table">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>User</th>
+                                    <th>Book</th>
+                                    <th>Status</th>
+                                    <th>Pick Up Date</th>
+                                    <th>Return Date</th>
+                                    <th>Fine</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% reservationTransactions.forEach((transaction, index) => { %>
+                                    <tr>
+                                        <td class="searchablereservation"><%= index + 1 %></td>
+                                        <td class="searchablereservation"><%= transaction.userEmail %></td>
+                                        <td class="searchablereservation"><%= transaction.bookTitle %></td>
+                                        <td class="searchablereservation"><%= transaction.status %></td>
+                                        <td class="searchablereservation"><%= new Date(transaction.pickUpDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }) %></td>
+                                        <td class="searchablereservation"><%= new Date(transaction.returnDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></td>
+                                        <td class="searchablereservation"><%= transaction.fine %> $</td>
+                                        <td class="searchablereservation"><button class="borrow-button delete-btn" data-id="<%= transaction._id %>">Borrow</button></td>
+                                    </tr>
+                                <% }); %>
+                            </tbody>
+                        </table> <!-- End of table-->
                 </div>
                 <!-- Tab Content inside leftContainer -->
                 <div id="tab3" class="tab-content tab3">
                     <div id="searchInputContainer">
-                        <input type="text" id="searchInput" placeholder="Search here...">
+                        <input type="text" id="searchInputborrow" placeholder="Search here...">
                         <i id="searchIcon" class="fa fa-search"></i>
                     </div>
-                    <table id="bookTable" class="styled-table"> <!-- Start of table-->
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>User</th>
-                                <th>Book</th>
-                                <th>Status</th>
-                                <th>Pick Up Date</th>
-                                <th>Return Date</th>
-                                <th>Fine</th>
-                              </tr>
-                        </thead>
-                        <tbody>
-                            <% transactions.forEach(async (transaction, index) => { %>
-                                <% if (transaction.status == 'Returned') { %>
+                    <% let currentTransactions = transactions.filter(transaction => transaction.status !== 'Returned' && transaction.status !== 'Reserved'); %>
+                        <table id="bookTable" class="styled-table">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>User</th>
+                                    <th>Book</th>
+                                    <th>Status</th>
+                                    <th>Pick Up Date</th>
+                                    <th>Return Date</th>
+                                    <th>Fine</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% currentTransactions.forEach((transaction, index) => { %>
                                     <tr>
-                                        <td><%= index + 1 %></td>
-                                        <td><%= transaction.userEmail %></td>
-                                        <td><%= transaction.bookTitle %></td>
-                                        <td><%= transaction.status %></td>
-                                        <td><%= new Date(transaction.pickUpDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }) %></td>
-                                        <td><%= new Date(transaction.returnDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></td>
-                                        <td><%= transaction.fine %> $</td>
+                                        <td class="searchableborrow"><%= index + 1 %></td>
+                                        <td class="searchableborrow"><%= transaction.userEmail %></td>
+                                        <td class="searchableborrow"><%= transaction.bookTitle %></td>
+                                        <td class="searchableborrow"><%= transaction.status %></td>
+                                        <td class="searchableborrow"><%= new Date(transaction.pickUpDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }) %></td>
+                                        <td class="searchableborrow"><%= new Date(transaction.returnDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></td>
+                                        <td class="searchableborrow"><%= transaction.fine %> $</td>
+                                        <td class="searchableborrow"><button class="return-button delete-btn" data-id="<%= transaction._id %>">Return</button></td>
                                     </tr>
-                                <% } %>
-                            <% }); %>
-                        </tbody>
-                    </table> <!-- End of table-->
+                                <% }); %>
+                            </tbody>
+                        </table><!-- End of table-->
                 </div>
+                <!-- Tab Content inside leftContainer -->
                 <div id="tab4" class="tab-content tab4">
                     <div id="searchInputContainer">
-                        <input type="text" id="searchInput" placeholder="Search here...">
+                        <input type="text" id="searchInputreturn" placeholder="Search here...">
                         <i id="searchIcon" class="fa fa-search"></i>
                     </div>
-                    <table class="styled-table"> <!-- Start of table-->
-                        <thead>
+                    <% let returnedTransactions = transactions.filter(transaction => transaction.status == 'Returned'); %>
+                        <table id="bookTable" class="styled-table">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>User</th>
+                                    <th>Book</th>
+                                    <th>Status</th>
+                                    <th>Pick Up Date</th>
+                                    <th>Return Date</th>
+                                    <th>Fine</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% returnedTransactions.forEach((transaction, index) => { %>
+                                    <tr>
+                                        <td class="searchablereturn"><%= index + 1 %></td>
+                                        <td class="searchablereturn"><%= transaction.userEmail %></td>
+                                        <td class="searchablereturn"><%= transaction.bookTitle %></td>
+                                        <td class="searchablereturn"><%= transaction.status %></td>
+                                        <td class="searchablereturn"><%= new Date(transaction.pickUpDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }) %></td>
+                                        <td class="searchablereturn"><%= new Date(transaction.returnDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></td>
+                                        <td class="searchablereturn"><%= transaction.fine %> $</td>
+                                    </tr>
+                                <% }); %>
+                            </tbody>
+                        </table><!-- End of table-->
+                </div>
+                <div id="tab5" class="tab-content tab5">
+                    <div id="searchInputContainer">
+                        <input type="text" id="searchInputauthor" placeholder="Search here...">
+                        <i id="searchIcon" class="fa fa-search"></i>
+                    </div>
+                    <% if (authors.length === 0) { %>
+                        <table class="styled-table">
                             <tr>
-                                <th>No.</th>
-                                <th>Author Name</th>
-                                <th>Book Written</th>
-                                <th>Action</th>
+                                <td>You don't have any author</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <% authors.forEach(async (author, index) => { %>
-                            <tr>
-                                <td><%= index + 1 %></td>
-                                <td><%= author.name %></td>
-                                <td>
-                                    <ul class="bookList">
-                                        <% author.books.forEach((Book) => { %>
-                                            <li><a href="/bookDetail/<%= book._id %>"><%= book.title %></a></li>
-                                        <% }); %>
-                                    </ul>
-                                </td>
-                                <td><button class="delete-btn">Delete</button></td>
-                            </tr>
-                            <% }); %>
-                        </tbody>
-                    </table> <!-- End of table-->
+                        </table>
+                    <% } else { %>
+                        <table class="styled-table"> <!-- Start of table-->
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Author Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% authors.forEach(async (author, index) => { %>
+                                <tr>
+                                    <td class="searchableauthor"><%= index + 1 %></td>
+                                    <td class="searchableauthor"><%= author.name %></td>
+                                    <% if (author.book.length === 0) { %>
+                                        <td class="searchableauthor"><button class="delete-btn author-remove" data-id="<%= author._id %>">Delete</button></td>
+                                    <% } else { %>
+                                        <td class="searchableauthor">This Author is populated</td>
+                                    <% } %>
+                                </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>
+                    <% } %> <!-- End of table-->
                     <div class="wishlist-btn-container">
                         <a href="/author"><button class="addBtn">Add Author</button></a>
                     </div>
                 </div>
-                <div id="tab5" class="tab-content tab5">
+                <div id="tab6" class="tab-content tab6">
                     <div id="searchInputContainer">
-                        <input type="text" id="searchInput" placeholder="Search here...">
+                        <input type="text" id="searchInputpublisher" placeholder="Search here...">
                         <i id="searchIcon" class="fa fa-search"></i>
                     </div>
-                    <table class="styled-table"> <!-- Start of table-->
-                        <thead>
+                    <% if (publishers.length === 0) { %>
+                        <table class="styled-table">
                             <tr>
-                                <th>No.</th>
-                                <th>Publisher Name</th>
-                                <th>Book Published</th>
-                                <th>Action</th>
+                                <td>You don't have any publisher</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Publisher 1</td>
-                                <td>
-                                    <ul class="bookList">
-                                        <li><a href="#">Book 1</a></li>
-                                        <li><a href="#">Book 2</a></li>
-                                    </ul>
-                                </td>
-                                <td><button class="delete-btn">Delete</button></td>
-                            </tr>
-                        </tbody>
-                    </table> <!-- End of table-->
+                        </table>
+                    <% } else { %>
+                        <table class="styled-table">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Publisher Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% publishers.forEach((publisher, index) => { %>
+                                <tr>
+                                    <td class="searchablepublisher"><%= index + 1 %></td>
+                                    <td class="searchablepublisher"><%= publisher.name %></td>
+                                    <% if (publisher.book.length === 0) { %>
+                                        <td class="searchablepublisher"><button class="delete-btn publisher" data-id="<%= publisher._id %>">Delete</button></td>
+                                    <% } else { %>
+                                        <td class="searchablepublisher">This Publisher is populated</td>
+                                    <% } %>
+                                </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>
+                    <% } %> <!-- End of table-->
                     <div class="wishlist-btn-container">
                         <a href="/publisher"><button class="addBtn">Add Publisher</button></a>
                     </div>
                 </div>
-                <div id="tab6" class="tab-content tab6">
+                <div id="tab7" class="tab-content tab7">
                     <div class="form-container">
-                        <form class="librarian-form">
+                        <form class="librarian-form" id="librarianForm">
                             <h1>Create Account</h1>
-                            <input type="text" placeholder="Name">
-                            <input type="email" placeholder="Email">
-                            <input type="password" placeholder="Password">
-                            <input type="password" placeholder="Confirm your password">
-                            <button class="addBtn">Add Libraian</button>
+                            <input type="text" id="librarianName" placeholder="Name" required>
+                            <input type="email" id="librarianEmail" placeholder="Email" required>
+                            <input type="password" id="password" placeholder="Password" required>
+                            <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                            <button class="addBtn" id="addLibrarianBtn">Add Librarian</button>
                         </form>
                     </div>
                 </div>
+                
                 <div id="popup" class="popup">
                     <div class="popup-content">
                         <span class="close" onclick="closePopup()">&times;</span>
@@ -268,14 +284,16 @@
                     <li class="verticalNavItems active" onclick="openTab('tab1')"><i class="far fa-user"></i><a
                             href="#">Profile</a></li>
                     <li class="verticalNavItems" onclick="openTab('tab2')"><i class="fa-solid fa-book"></i><a href="#">All
-                            Borrowed Book</a></li>
+                            Reservation</a></li>
                     <li class="verticalNavItems" onclick="openTab('tab3')"><i class="fa-solid fa-book"></i><a href="#">All
+                            Borrowing Book</a></li>
+                    <li class="verticalNavItems" onclick="openTab('tab4')"><i class="fa-solid fa-book"></i><a href="#">All
                             Past Reservation</a></li>
-                    <li class="verticalNavItems" onclick="openTab('tab4')"><i class="fa-solid fa-pen"></i><a href="#">All
+                    <li class="verticalNavItems" onclick="openTab('tab5')"><i class="fa-solid fa-pen"></i><a href="#">All
                             Author</a></li>
-                    <li class="verticalNavItems" onclick="openTab('tab5')"><i class="fa-regular fa-building"></i></i><a
+                    <li class="verticalNavItems" onclick="openTab('tab6')"><i class="fa-regular fa-building"></i></i><a
                             href="#">All Publisher</a></li>
-                    <li class="verticalNavItems" onclick="openTab('tab6')"><i class="fa-solid fa-network-wired"></i></i><a
+                    <li class="verticalNavItems" onclick="openTab('tab7')"><i class="fa-solid fa-network-wired"></i></i><a
                             href="#">Add Libraian</a></li>
                     <li id="logout-btn" class="verticalNavItems" onclick="openPopup()"><i
                             class="fas fa-arrow-right-from-bracket"></i><a href="/logout">Logout</a></li>
@@ -291,10 +309,7 @@
             </section>
         </footer>
     
-        <script src="js/script.js"></script>
-        <script src="js/profile.js"></script>
-        <script src="https://kit.fontawesome.com/120cd899b7.js" crossorigin="anonymous"></script>
-
+        
 
 
 
@@ -580,22 +595,62 @@
 
         </section>
     </footer>
-
-    <script src="/js/script.js"></script>
-    <script src="/js/profile.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://kit.fontawesome.com/120cd899b7.js" crossorigin="anonymous"></script>
     <% } %>
+
+    <div class="loader-container">
+        <img src="/images/material/loader.gif" alt="">
+    </div>
+    <script src="js/script.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="https://kit.fontawesome.com/120cd899b7.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </body>
 
-<!-- <script>
-    if (!sessionStorage.getItem('reloaded')) {
-      sessionStorage.setItem('reloaded', 'true');
-      window.location.reload();
-    } else {
-      sessionStorage.removeItem('reloaded');
-    }
-  </script> -->
+<!-- add librarian -->
+<script>
+    document.addEventListener('click', async function(event) {
+        if (event.target.id === 'addLibrarianBtn') {
+            event.preventDefault();
+    
+            const fullName = document.getElementById('librarianName').value;
+            const email = document.getElementById('librarianEmail').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+    
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+    
+            try {
+                const res = await fetch('/create-librarian-account', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ fullName: fullName, email: email, password: password }),
+                });
+                const data = await res.json();
+                if (data.error) {
+                    let errorMessage = '';
+                    if (data.error.includes('E11000 duplicate key error')) {
+                        errorMessage += 'This email is already registered';
+                    }
+                    if (data.error.includes('Minimum password length is 6 characters')) {
+                        errorMessage += 'Password must be at least 6 characters';
+                    }
+                    alert(errorMessage);
+                }
+    
+                if (data.user) {  
+                    alert('Librarian account created successfully');
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        }
+    });
+    </script>
 
 <!-- refresh prevention when remove book from wishlist -->
 <script>
@@ -654,4 +709,205 @@
         }
     }
 </script>
+
+<!-- Reserved to Borrowing -->
+<script>
+    document.querySelectorAll('.borrow-button').forEach(button => {
+      button.addEventListener('click', function() {
+        const transactionId = this.getAttribute('data-id');
+        console.log('transactionId:', transactionId);
+
+        // Update the status cell in the row
+        const row = this.parentElement.parentElement;
+        const statusCell = row.children[3]; // The status cell is the 4rd cell in the row
+        statusCell.innerText = 'Borrowed'; // Change 'Returned' to 'Borrowed'
+        
+        // Remove the borrow button
+        this.remove(); // Change this to remove only the button
+
+        // Move the row to the "Finished Reservation" table
+        const finishedTable = document.querySelectorAll('table')[1].querySelector('tbody'); // The finished table is the 2nd table in the document
+        finishedTable.appendChild(row);
+
+        fetch(`/reservations/borrow`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ transactionId: transactionId }),
+        })
+        .then(response => response.text()) // Change this to response.text() if the server is sending a string
+        .then(data => {
+            console.log(data);
+            if (data === 'Transaction was saved') { // Check if the server response is 'Transaction was saved'
+                console.log('Successfully borrowed transaction');
+            } else {
+                console.error('Failed to borrow transaction');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+      });
+    });
+</script>
+
+<!-- borrowing to past reservation -->
+<script>
+    document.querySelectorAll('.return-button').forEach(button => {
+      button.addEventListener('click', function() {
+        const transactionId = this.getAttribute('data-id');
+        console.log('transactionId:', transactionId);
+    
+        fetch(`/reservations/return`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ id: transactionId }),
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            // Update the status cell in the row
+            const row = this.parentElement.parentElement;
+            const statusCell = row.children[3]; // The status cell is the 4rd cell in the row
+            statusCell.innerText = 'Returned';
+            
+            // Remove the return button
+            this.parentElement.remove();
+  
+            // Move the row to the "Finished Reservation" table
+            const finishedTable = document.querySelectorAll('table')[2].querySelector('tbody'); // The finished table is the 3nd table in the document
+            finishedTable.appendChild(row);
+            console.log('Successfully returned transaction');
+          } else {
+            console.error('Failed to return transaction');
+          }
+        })
+        .catch(error => console.error('Error:', error));
+      });
+    });
+    </script>
+
+    <!-- Delete author -->
+    <script>
+    $(document).ready(function() {
+        $('.author-remove').click(function(event) {
+            event.preventDefault();
+            const row = $(this).closest('tr');
+            const authorId = $(this).data('id');
+            $.ajax({
+                url: '/deleteAuthor/' + authorId,
+                type: 'POST',
+                success: function(response) {
+                    row.remove();
+                }
+            });
+        });
+    });
+    </script>
+
+    <!-- Delete publisher -->
+    <script>
+        $(document).ready(function() {
+            $('.publisher-remove').click(function(event) {
+                event.preventDefault();
+                const row = $(this).closest('tr');
+                const publisherId = $(this).data('id');
+                $.ajax({
+                    url: '/deletepublisher/' + publisherId,
+                    type: 'POST',
+                    success: function(response) {
+                        row.remove();
+                    }
+                });
+            });
+        });
+        </script>
+
+    <!-- Search -->
+    <script>
+        document.getElementById('searchInputreservation').addEventListener('keyup', function() {
+            const searchValue = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#bookTable tbody tr');
+    
+            rows.forEach(row => {
+                const cells = Array.from(row.getElementsByClassName('searchablereservation'));
+                const cellText = cells.map(cell => cell.textContent.toLowerCase()).join(' ');
+    
+                if (cellText.includes(searchValue)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
+    <script>
+        document.getElementById('searchInputborrow').addEventListener('keyup', function() {
+            const searchValue = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#bookTable tbody tr');
+
+            rows.forEach(row => {
+                const cells = Array.from(row.getElementsByClassName('searchableborrow'));
+                const cellText = cells.map(cell => cell.textContent.toLowerCase()).join(' ');
+
+                if (cellText.includes(searchValue)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
+    <script>
+        document.getElementById('searchInputreturn').addEventListener('keyup', function() {
+            const searchValue = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#bookTable tbody tr');
+
+            rows.forEach(row => {
+                const cells = Array.from(row.getElementsByClassName('searchablereturn'));
+                const cellText = cells.map(cell => cell.textContent.toLowerCase()).join(' ');
+
+                if (cellText.includes(searchValue)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
+    <script>
+        document.getElementById('searchInputauthor').addEventListener('keyup', function() {
+            const searchValue = this.value.toLowerCase();
+            const rows = document.querySelectorAll('.styled-table tbody tr');
+
+            rows.forEach(row => {
+                const cells = Array.from(row.getElementsByClassName('searchableauthor'));
+                const cellText = cells.map(cell => cell.textContent.toLowerCase()).join(' ');
+
+                if (cellText.includes(searchValue)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
+    <script>
+        document.getElementById('searchInputpublisher').addEventListener('keyup', function() {
+            const searchValue = this.value.toLowerCase();
+            const rows = document.querySelectorAll('.styled-table tbody tr');
+    
+            rows.forEach(row => {
+                const cells = Array.from(row.getElementsByClassName('searchablepublisher'));
+                const cellText = cells.map(cell => cell.textContent.toLowerCase()).join(' ');
+    
+                if (cellText.includes(searchValue)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </html>

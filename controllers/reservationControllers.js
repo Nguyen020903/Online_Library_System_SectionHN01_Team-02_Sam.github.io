@@ -411,6 +411,30 @@ module.exports.reservations_return_post = async (req, res) => {
   }
 };
 
+// update reservation status from Reserved to Borrowed
+module.exports.reservations_borrowed_post = async (req, res) => {
+  try {
+      const transactionId = req.body.transactionId; // Get the transaction ID from the request body
+      const transaction = await Transaction.findById(transactionId); // Find the transaction by its ID
+
+      if (!transaction) {
+          res.status(404).send('Transaction not found');
+          return;
+      }
+
+      if (transaction.status === 'Reserved') {
+          transaction.status = 'Borrowed'; // Update the status
+          await transaction.save(); // Save the transaction
+          res.status(200).send('Transaction status updated successfully');
+      } else {
+          res.status(400).send('Transaction is not in Reserved status');
+      }
+  } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+  }
+};
+
 // Show all reservations of the user
 module.exports.userReservations_get = async (req, res, next) => {
   try {

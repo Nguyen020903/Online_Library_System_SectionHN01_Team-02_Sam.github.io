@@ -135,6 +135,7 @@ app.get('/myAccount', requireAuth, async (req, res) => {
   try {
     const token = req.cookies.jwt;
     const authors = await Author.find();
+    const publishers = await Publisher.find();
     if (token) {
       jwt.verify(token, 'your-secret-key', async (err, decodedToken) => {
         if (err) {
@@ -230,7 +231,7 @@ app.get('/myAccount', requireAuth, async (req, res) => {
               })
             );
 
-            res.render('myAccount', { user: user, books: books, allActiveTransactions, allPrevTransactions, transactions: transactionsWithDetails, authors: authors});
+            res.render('myAccount', { user: user, books: books, allActiveTransactions, allPrevTransactions, transactions: transactionsWithDetails, authors: authors, publishers: publishers });
           }
         }
       });

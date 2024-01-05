@@ -5,6 +5,7 @@ const authController = require('../controllers/authControllers');
 // User Registration
 router.get('/signup', authController.signup_get);
 router.post('/signup', authController.signup_post);
+router.post('/create-librarian-account', authController.create_librarian_account_post);
 
 // User Login
 router.get('/login', authController.login_get);

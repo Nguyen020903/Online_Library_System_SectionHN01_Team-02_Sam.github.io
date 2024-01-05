@@ -80,9 +80,10 @@
             </div>
 
             <div class="content">
-                <h3><%= book.category.name %></h3>
+                <h3>Category: <%= book.category.name %></h3>
                 <h1><%= book.title %></h1>
-                <h2><%= book.author.name %></h2>
+                <h2>By: <%= book.author.name %></h2>
+                <h2>Publisher: <%= book.publisher.name %></h2>
                 <p>
                     <%= book.description %>
                 </p>
