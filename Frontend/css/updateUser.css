@@ -1,0 +1,48 @@
+.main-part {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 70vh;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    margin-bottom: 3rem;
+    width: 300px;
+}
+
+label {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.input-form {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+}
+
+button {
+    background-color: var(--green);
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--dark-color);
+}
+
+.error {
+    color: red;
+    margin-top: 5px;
+}
+
+
