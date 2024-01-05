@@ -4,7 +4,53 @@ document.addEventListener("DOMContentLoaded", function () {
     for (var i = 1; i < tabs.length; i++) {
         tabs[i].style.display = 'none';
     }
+
+    const editBtn = document.getElementById('editBtn');
+    const nameField = document.getElementById('name');
+    const fullNameField = document.getElementById('fullName');
+    const emailField = document.getElementById('email');
+    const phoneField = document.getElementById('phone');
+
+    const profileElements = [nameField, fullNameField, emailField, phoneField];
+
+    // Initial state: View Mode
+    let isEditMode = false;
+
+    editBtn.addEventListener('click', function () {
+        if (isEditMode) {
+            saveChanges();
+            isEditMode = false;
+            editBtn.innerText = 'Edit Profile';
+            disableEditMode();
+        } else {
+            isEditMode = true;
+            editBtn.innerText = 'Save Changes';
+            enableEditMode();
+        }
+    });
+
+    function enableEditMode() {
+        profileElements.forEach(element => {
+            element.contentEditable = true;
+        });
+        document.getElementById('profileContainer').classList.add('edit-mode');
+    }
+
+    function disableEditMode() {
+        profileElements.forEach(element => {
+            element.contentEditable = false;
+        });
+        document.getElementById('profileContainer').classList.remove('edit-mode');
+    }
+
+    function saveChanges() {
+        console.log('Name:', nameField.innerText);
+        console.log('Full Name:', fullNameField.innerText);
+        console.log('Email:', emailField.innerText);
+        console.log('Phone:', phoneField.innerText);
+    }
 });
+
 
 function openPopup() {
     var popup = document.getElementById("popup");

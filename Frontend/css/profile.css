@@ -363,6 +363,10 @@ section {
     justify-content: center;
 }
 
+/* .edit-mode [contenteditable="true"] {
+    color: blue;
+} */
+
 /* different tab content */
 .tab-content {
     display: none;
