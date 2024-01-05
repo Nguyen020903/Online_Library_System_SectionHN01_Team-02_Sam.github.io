@@ -208,9 +208,14 @@ app.get('/myAccount', requireAuth, async (req, res) => {
             // Fetch user and book details for each transaction
             const transactionsWithDetails = await Promise.all(
               transactions.map(async (transaction) => {
-                const userEmail = await getUserById(transaction.userId).email;
-                const bookTitle = await getBookById(transaction.bookId).title;
+                // Get user name and book title
+                const user = await User.findById(transaction.userId).exec();
+                const book = await Book.findById(transaction.bookId).exec();
+            
+                const userEmail = user ? user.email : 'User not found';
+                const bookTitle = book ? book.title : 'Book not found';
 
+                // Return book with user and book name
                 return {
                   _id: transaction._id,
                   userEmail: userEmail,
