@@ -8,6 +8,8 @@
     font-family: 'Poppins', sans-serif;
     outline: none;
     border: none;
+    text-transform: capitalize;
+    transition: all .1s linear;
 }
 
 :root {
@@ -484,6 +486,16 @@ section {
     text-align: center;
 }
 
+.tab-content.tab4 {
+    /*borrow history*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+
 /* Style the logout container */
 .popup {
     display: none;
@@ -650,7 +662,7 @@ footer {
     }
 
     .leftContainer {
-        height: auto;
+        height: 60vh;
     }
 
     #tab1 {

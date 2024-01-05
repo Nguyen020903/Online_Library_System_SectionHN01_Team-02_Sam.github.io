@@ -6,6 +6,8 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+    text-transform: capitalize;
+    transition: all .1s linear;
     outline: none;
     border: none;
 }
@@ -794,8 +796,7 @@ footer {
     }
 
     .leftContainer {
-        height: auto;
-        min-height: 60vh;
+        height: 60vh;
     }
 
     #tab1 {

@@ -67,8 +67,6 @@
                     <h3 class="heading">General Information</h3>
                     <ul id="generalInfoList">
                         <li>Full Name: <span id="fullName">Your Full Name</span></li>
-                        <li>Date of Birth: <span id="dob">January 1, 1990</span></li>
-                        <li>Gender: <span id="gender">Male</span></li>
                         <li>Email Address: <span id="email">your.email@example.com</span></li>
                         <li>Phone Number: <span id="phone">123-456-7890</span></li>
                     </ul>
@@ -229,6 +227,49 @@
                     </table>
                 </div>
             </div>
+            <div id="tab4" class="tab-content tab4">
+            <div class="table-container">
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Book Title</th>
+                            <th>Borrowed Date</th>
+                            <th>Due Date</th>
+                            <th>Status</th>
+                            <th>Fine</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>The Great Gatsby</td>
+                            <td>2023-01-15</td>
+                            <td>2023-02-15</td>
+                            <td>Returned</td>
+                            <td>$0.00</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>To Kill a Mockingbird</td>
+                            <td>2023-02-10</td>
+                            <td>2023-03-10</td>
+                            <td>Overdue</td>
+                            <td>$5.00</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>1984</td>
+                            <td>2023-03-05</td>
+                            <td>2023-04-05</td>
+                            <td>Borrowed</td>
+                            <td>N/A</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            </div>
             <div id="popup" class="popup">
                 <div class="popup-content">
                     <span class="close" onclick="closePopup()">&times;</span>
@@ -247,6 +288,8 @@
                         href="#">Wishlist</a></li>
                 <li class="verticalNavItems" onclick="openTab('tab3')"><i class="fa-solid fa-book"></i><a
                         href="#">Borrowed Book</a></li>
+                <li class="verticalNavItems" onclick="openTab('tab4')"><i class="fa-regular fa-clock"></i><a
+                        href="#">Borrow History</a></li>
                 <li id="logout-btn" class="verticalNavItems" onclick="openPopup()"><i
                         class="fas fa-arrow-right-from-bracket"></i><a href="#">Logout</a></li>
             </ul>
