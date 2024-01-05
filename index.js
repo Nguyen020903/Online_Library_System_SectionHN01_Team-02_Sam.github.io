@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
 const bookRoutes = require('./routes/bookRoutes');
 const reservationRoutes = require('./routes/reservationRoutes');
+const reviewRoutes = require('./routes/reviewRoutes');
 const { getUserById, getBookById } = require('./middleware/nameMiddleware');
 const multer = require('multer');
 const path = require('path');
@@ -60,6 +61,7 @@ app.use(
 app.use(authRoutes);
 app.use(bookRoutes);
 app.use(reservationRoutes);
+app.use(reviewRoutes);
 
 
 
@@ -132,7 +134,7 @@ app.get('/', checkUser, async (req,res) => {
 app.get('/myAccount', requireAuth, async (req, res) => {
   try {
     const token = req.cookies.jwt;
-    const authors = await Author.find().populate('book');
+    const authors = await Author.find();
     if (token) {
       jwt.verify(token, 'your-secret-key', async (err, decodedToken) => {
         if (err) {

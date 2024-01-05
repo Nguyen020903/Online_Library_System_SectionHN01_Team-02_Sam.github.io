@@ -186,11 +186,10 @@ const bookImageStorage = multer.diskStorage({
 
 module.exports.search_get = async (req, res) => {
     const searchQuery = req.query.query;
-    console.log(searchQuery);
 
     try {
         const books = await Book.find({ title: new RegExp(searchQuery, 'i') }).populate('author');
-        res.render('searchResult', { searchQuery: searchQuery, books: books });
+        res.render('searchResult', { searchQuery: searchQuery, books: books , authors: authors, categories: categories});
     } catch (err) {
         console.error(err);
         res.status(500).send('An error occurred while searching for books');
