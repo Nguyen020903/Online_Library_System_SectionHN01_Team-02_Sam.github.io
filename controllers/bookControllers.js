@@ -189,7 +189,7 @@ module.exports.search_get = async (req, res) => {
 
     try {
         const books = await Book.find({ title: new RegExp(searchQuery, 'i') }).populate('author');
-        res.render('searchResult', { searchQuery: searchQuery, books: books , authors: authors, categories: categories});
+        res.render('searchResult', { searchQuery: searchQuery, books: books });
     } catch (err) {
         console.error(err);
         res.status(500).send('An error occurred while searching for books');
