@@ -274,7 +274,7 @@
                     <div class="popup-content">
                         <span class="close" onclick="closePopup()">&times;</span>
                         <h1>Are you sure you want to log out?</h1>
-                        <button class="yes" onclick="logout()">Yes</button>
+                        <a href="/logout"><button class="yes" onclick="logout()">Yes</button></a>
                         <button class="no" onclick="closePopup()">No</button>
                     </div>
                 </div>
@@ -297,7 +297,7 @@
                     <li class="verticalNavItems" onclick="openTab('tab7')"><i class="fa-solid fa-network-wired"></i></i><a
                             href="#">Add Libraian</a></li>
                     <li id="logout-btn" class="verticalNavItems" onclick="openPopup()"><i
-                            class="fas fa-arrow-right-from-bracket"></i><a href="/logout">Logout</a></li>
+                            class="fas fa-arrow-right-from-bracket"></i><a href="#">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -542,7 +542,7 @@
                     <span class="close" onclick="closePopup()">&times;</span>
                     <h1>Are you sure you want to log out?</h1>
                     <!-- <button class="yes" href="/logout" onclick="logout()">Yes</button> -->
-                    <a href="/logout"><button class="yes" href="/logout" onclick="logout()">Yes</button></a>
+                    <a href="/logout"><button class="yes" onclick="logout()">Yes</button></a>
                     <button class="no" onclick="closePopup()">No</button>
                 </div>
             </div>
