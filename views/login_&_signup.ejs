@@ -60,7 +60,7 @@
     
         sign_up.addEventListener('submit', async (e) => {
             e.preventDefault();
-    
+
             // Get the values from the form inputs
             const fullName = sign_up.fullName.value;
             const email = sign_up.email.value;
@@ -77,25 +77,22 @@
                     body: JSON.stringify({ fullName, email, password }),
                     headers: { 'Content-Type': 'application/json' }
                 });
-    
+
                 const data = await res.json();
-                // console.log(data);
-    
+
                 if (data.error) {
-                    console.log(data.error);
-                    errorMessage = '';
-                }
-                if (data.error.includes('E11000 duplicate key error')) {
-                    errorMessage += 'This email is already registered';
-                }
-                if (data.error.includes('Minimum password length is 6 characters')) {
-                    errorMessage += 'Password must be at least 6 characters';
-                }
-                alert(errorMessage);
-                if (data.user) {  
+                    let errorMessage = '';
+                    if (data.error.includes('E11000 duplicate key error')) {
+                        errorMessage += 'This email is already registered';
+                    }
+                    if (data.error.includes('Minimum password length is 6 characters')) {
+                        errorMessage += 'Password must be at least 6 characters';
+                    }
+                    alert(errorMessage);
+                } else if (data.user) {  
                     location.assign('/');
                 }
-    
+
             } catch (err) {
             console.log(err);
             }

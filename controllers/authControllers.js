@@ -60,7 +60,7 @@ module.exports.signup_get = (req, res) => {
 
 module.exports.signup_post = async (req, res) => {
     const { fullName, email, password } = req.body;
-    console.log(fullName, email, password, confirmPassword);
+    console.log(fullName, email, password);
     console.log(req.body);
 
     try {
