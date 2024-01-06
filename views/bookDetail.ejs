@@ -88,6 +88,11 @@
                     <%= book.description %>
                 </p>
                 <div id="readerview">
+                    <% if (user.isAdmin) { %>
+                        <div id="libview">
+                            <div id="bookmenu-btn">update book</div>
+                        </div>
+                    <% } else { %>
                     <a href="#" class="btn">add to rentlist / check availability</a>
                     <% const isBookInWishlist=user && user.favoriteBook.includes(book._id); %>
                     <% if (user) { %>
@@ -109,14 +114,8 @@
                             </form>
                         <% } %>
                     <% } %>
-                </div>
-                <% if (user.isAdmin) { %>
-                <div id="libview">
-                    <div id="bookmenu-btn">update book</div>
-                </div>
-                <% } else { %>
-                    <!-- show nothing -->
-                <% } %>
+                    <% } %>
+                </div>            
 
                 <div class="bookmenu-form-container">
 
