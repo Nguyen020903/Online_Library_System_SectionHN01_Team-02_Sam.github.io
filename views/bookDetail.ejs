@@ -110,9 +110,13 @@
                         <% } %>
                     <% } %>
                 </div>
+                <% if (user.isAdmin) { %>
                 <div id="libview">
                     <div id="bookmenu-btn">update book</div>
                 </div>
+                <% } else { %>
+                    <!-- show nothing -->
+                <% } %>
 
                 <div class="bookmenu-form-container">
 
@@ -486,5 +490,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
         });
     });
 </script>
+
 
 </html>

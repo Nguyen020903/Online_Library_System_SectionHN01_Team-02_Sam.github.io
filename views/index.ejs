@@ -161,9 +161,13 @@
     <!-- icons section ends -->
 
     <!-- add books feature start -->
+    <% if (user.isAdmin) { %>
     <center>
         <div id="bookmenu-btn">add books <i class="fas fa-plus"></i></div>
     </center>
+    <% } else { %>
+        <!-- show nothing -->
+    <% } %>
     
 
     <div class="bookmenu-form-container">

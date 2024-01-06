@@ -1,0 +1,93 @@
+<%- include('partials/header'); -%>
+   <!-- Form for uploading the profile image -->
+<form id="imageForm">
+    <label for="profileImage">Profile Image</label>
+    <input type="file" name="profileImage" />
+    <div class="profileImage error"></div>
+    <button>Save Image</button>
+</form>
+
+<!-- Form for updating the user's details -->
+<form id="detailsForm">
+    <label for="fullName">Full Name*</label>
+    <input type="text" name="fullName" value="<%= user.fullName %>"/>
+    <div class="fullName error"></div>
+
+    <label for="email">Email*</label>
+    <input type="text" name="email" value="<%= user.email %>"/>
+    <div class="email error"></div>
+
+    <label for="password">Password*</label>
+    <input type="password" name="password"/>
+    <div class="password error"></div>
+
+    <button>Save Details</button>
+</form>
+
+<script>
+    const imageForm = document.querySelector('#imageForm');
+    const detailsForm = document.querySelector('#detailsForm');
+    const fullNameError = document.querySelector('.fullName.error');
+    const emailError = document.querySelector('.email.error');
+    const passwordError = document.querySelector('.password.error');
+    const profileImageInput = document.querySelector('input[name="profileImage"]');
+
+    // Event listener for the image form
+    imageForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('profileImage', profileImageInput.files[0]);
+
+        try {
+            const res = await fetch('/updateUserImage', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const data = await res.json();
+            console.log(data);
+            if (data.errors) {
+                alert(data.errors.profileImage);
+            } else {
+                alert('Image updated successfully');
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    });
+
+    // Event listener for the details form
+    detailsForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        // reset error
+        fullNameError.textContent = '';
+        emailError.textContent = '';
+        passwordError.textContent = '';
+
+        const formData = new FormData();
+        formData.append('fullName', detailsForm.fullName.value);
+        formData.append('email', detailsForm.email.value);
+        formData.append('password', detailsForm.password.value);
+
+        try {
+            const res = await fetch('/updateUserDetails', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const data = await res.json();
+            console.log(data);
+            if (data.errors) {
+                fullNameError.textContent = data.errors.fullName;
+                emailError.textContent = data.errors.email;
+                passwordError.textContent = data.errors.password;
+            } else {
+                window.location.href = '/myAccount';
+                alert('Details updated successfully');
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    });
+</script>
