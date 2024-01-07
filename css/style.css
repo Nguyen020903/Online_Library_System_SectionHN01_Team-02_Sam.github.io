@@ -640,6 +640,310 @@ section{
 
 
 
+<<<<<<< Updated upstream:css/style.css
+=======
+.rentlist .container .bookcover img {
+    width: 40%;
+    
+}
+
+.rentlist .container .verticalline {
+    border-left: 2px solid darkgray;
+    height: auto;
+}
+
+.rentlist .container .bookinfo {
+    font-size: 100%;
+    width: 60%;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 5rem;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.rentlist .container .bookinfo-buttons {
+    margin-left: auto;
+    margin-top: auto;
+    width: 20%;
+    height: 100%;
+}
+
+/* allbooks page */
+
+.arrivals .allbook{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.filterDiv {
+    display: none;
+    align-items:center;
+    gap:1.5rem;
+    padding:2rem 1rem;
+    border:var(--border);
+    margin:1rem 1rem;
+    width: 31.5%;
+}
+
+.filterDiv:hover{
+    border:var(--border-hover);
+}
+
+.filterDiv .image img{
+    height:15rem;
+}
+
+.filterDiv .content h3{
+    font-size: 2rem;
+    color:var(--black);
+}
+
+.filterDiv .content .booktitle{
+    font-size: 2rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+}
+
+.filterDiv .content .author{
+    font-size: 1.9rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+}
+
+.filterDiv .content .bookstatus{
+    font-size: 1.4rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+}
+
+.filterDiv .content .stars i{
+    font-size: 1.5rem;
+    color:var(--green);
+}
+
+.show {
+    display: block;
+}
+
+.arrivals .box{
+    display: flex;
+    align-items:center;
+    gap:1.5rem;
+    padding:2rem 1rem;
+    border:var(--border);
+    margin:1rem 1rem;
+    width: 31.5%;
+}
+
+.arrivals .box:hover{
+    border:var(--border-hover);
+}
+
+.arrivals .box .image img{
+    height:15rem;
+}
+
+.arrivals .box .content h3{
+    font-size: 2rem;
+    color:var(--black);
+}
+
+.arrivals .box .content .booktitle{
+    font-size: 2rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+}
+
+.arrivals .box .content .author{
+    font-size: 1.9rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+}
+
+.arrivals .box .content .bookstatus{
+    font-size: 1.4rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+}
+
+.arrivals .box .content .stars i{
+    font-size: 1.5rem;
+    color:var(--green);
+}
+
+.arrivals .wishlist{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.arrivals .wishlist .box{
+    display: flex;
+    align-items: center;   
+    gap:1.5rem;
+    padding:2rem 1rem 1rem;
+    border:var(--border);
+    margin:1rem 1rem 1rem;
+    width: 100%;
+}
+
+.arrivals .wishlist .box:hover{
+    border:var(--border-hover);
+}
+
+.arrivals .wishlist .box .image img{
+    height:15rem;
+}
+
+.arrivals .wishlist .box .content .booktitle{
+    font-size: 2rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+    font-weight: bold;
+}
+
+.arrivals .wishlist .box .content .author{
+    font-size: 1.9rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+}
+
+.arrivals .wishlist .box .content .bookstatus{
+    font-size: 1.4rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+}
+
+.arrivals .wishlist .box .rent{
+    margin-left: auto;
+    margin-right: 2%;
+}
+
+.arrivals .wishlist .buttons {
+    display: flex;
+    margin-left: 20%;
+    width: 60%;
+    justify-content: space-between;
+}
+
+.arrivals .wishlist .buttons #addselected-btn{
+margin-top: 1rem;
+    padding:.9rem 3rem;
+    border-radius: .5rem;
+    color:#fff;
+    background:var(--green);
+    font-size: 1.7rem;
+    cursor: pointer;
+    font-weight: 500;
+    text-align: center;
+}
+
+.arrivals .wishlist .buttons #addall-btn{
+    margin-top: 1rem;
+    padding:.9rem 3rem;
+    border-radius: .5rem;
+    color:#fff;
+    background:var(--green);
+    font-size: 1.7rem;
+    cursor: pointer;
+    font-weight: 500;
+    text-align: center;
+}
+
+.arrivals .rentlist{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.arrivals .rentlist .box{
+    display: flex;
+    align-items: center;   
+    gap:1.5rem;
+    padding:2rem 1rem 1rem;
+    border:var(--border);
+    margin:1rem 1rem 1rem;
+    width: 100%;
+}
+
+.arrivals .rentlist .box:hover{
+    border:var(--border-hover);
+}
+
+.arrivals .rentlist .box .image img{
+    height:15rem;
+}
+
+.arrivals .rentlist .box .content .booktitle{
+    font-size: 2rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+    font-weight: bold;
+}
+
+.arrivals .rentlist .box .content .author{
+    font-size: 1.9rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+}
+
+.arrivals .rentlist .box .content .bookstatus{
+    font-size: 1.4rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+}
+
+.arrivals .rentlist .box .rent{
+    margin-left: auto;
+    margin-right: 2%;
+}
+
+.arrivals .rentlist .buttons {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.arrivals .rentlist .buttons #rentselected-btn{
+margin-top: 1rem;
+    padding:.9rem 3rem;
+    border-radius: .5rem;
+    color:#fff;
+    background:var(--green);
+    font-size: 1.7rem;
+    cursor: pointer;
+    font-weight: 500;
+    text-align: center;
+    margin-left: 20%;
+}
+
+.arrivals .rentlist .buttons #rentall-btn{
+    margin-top: 1rem;
+    padding:.9rem 3rem;
+    border-radius: .5rem;
+    color:#fff;
+    background:var(--green);
+    font-size: 1.7rem;
+    cursor: pointer;
+    font-weight: 500;
+    text-align: center;
+    margin-right: 20%;
+}
+
+.arrivals .rentlist #confirm-btn{
+    margin-top: 1rem;
+    padding:.9rem 3rem;
+    border-radius: .5rem;
+    color:#fff;
+    background:var(--green);
+    font-size: 1.7rem;
+    cursor: pointer;
+    font-weight: 500;
+    text-align: center;
+
+}
+>>>>>>> Stashed changes:Frontend/css/style.css
 
 /* media queries  */
 
