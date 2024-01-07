@@ -1,3 +1,4 @@
+// Import the necessary libraries and modules
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -6,16 +7,17 @@ const fs = require('fs');
 const User = require('../models/user');
 const { isAdmin } = require('../middleware/authMiddleware');
 
+// Define the maximum age for the JWT token (3 days)
 const maxAge = 3 * 24 * 60 * 60;
 
-
+// Function to create a JWT token
 const createToken = (id) => {
     return jwt.sign({ id }, 'your-secret-key', {
         expiresIn: maxAge,
     });
 };
 
-// Handle errors
+// Function to handle errors
 const handleErrors = (err) => {
     console.log(err.message, err.code);
     let errors = { email: '', password: '' };
@@ -52,7 +54,6 @@ const handleErrors = (err) => {
     return errors;
 };
 
-
 // Function for Signup (Get & Post method)
 module.exports.signup_get = (req, res) => {
     res.render('login_&_signup');
@@ -60,11 +61,9 @@ module.exports.signup_get = (req, res) => {
 
 module.exports.signup_post = async (req, res) => {
     const { fullName, email, password } = req.body;
-    console.log(fullName, email, password);
-    console.log(req.body);
 
     try {
-        /* Create a new user */
+        // Create a new user
         const newUser = new User({
             fullName: req.body.fullName,
             email: req.body.email,
@@ -72,7 +71,7 @@ module.exports.signup_post = async (req, res) => {
             isAdmin: Boolean(req.body.isAdmin),
         });
 
-        /* Save User and Return */
+        // Save User and Return
         newUser.save()
             .then((user) => {
                 // Create Token for current user
@@ -94,13 +93,11 @@ module.exports.signup_post = async (req, res) => {
     }
 };
 
-
 module.exports.create_librarian_account_post = async (req, res) => {
     const { fullName, email, password } = req.body;
-    console.log(fullName, email, password);
-    console.log(req.body);
+
     try {
-        /* Create a new user */
+        // Create a new user
         const newUser = new User({
             fullName: req.body.fullName,
             email: req.body.email,
@@ -108,7 +105,7 @@ module.exports.create_librarian_account_post = async (req, res) => {
             isAdmin: true,
         });
 
-        /* Save User and Return */
+        // Save User and Return
         newUser.save()
             .then((user) => {
                 res.status(200).json({ user: user._id });
@@ -132,7 +129,6 @@ module.exports.login_get = (req, res) => {
 
 module.exports.login_post = async (req, res) => {
     const { email, password } = req.body;
-    console.log(req.body);
 
     try {
         const user = await User.login(email, password);

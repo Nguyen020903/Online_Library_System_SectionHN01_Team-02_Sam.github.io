@@ -9,7 +9,6 @@ const multer = require('multer');
 const jwt = require('jsonwebtoken');
 const path = require('path');
 
-
 // error handler, use to handle error message from models (author,book, category and publisher)
 const handleErrors = (err) => {
     console.log(err.message, err.code);
