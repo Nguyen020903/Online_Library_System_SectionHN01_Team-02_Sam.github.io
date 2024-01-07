@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
     },
     profileImage: {
         type: String,
-        default: "https://drive.google.com/uc?id=1j9oMUsNA88sQYIgwRpD2FPBKZXlbYUyF",
+        default: "https://i.ibb.co/K05xQk1/book7.png",
         require: true
     },
     email: {

@@ -28,6 +28,7 @@ const Author = require('./models/author');
 const Category = require('./models/category');
 const Publisher = require('./models/publisher');
 const Transaction = require('./models/transaction');
+const Review = require('./models/review');
 
 const {
     requireAuth,
@@ -72,36 +73,6 @@ mongoose.connect(mongoURI)
 .then(() => console.log('Connected to MongoDB Atlas'))
 .catch((error) => console.log(error.message));
 
-const agenda = new Agenda({ db: { address: mongoURI, collection: 'agendaJobs' } });
-
-// Check book reservation
-// agenda.define('deleteInactiveUsers', async (job) => {
-//   try {
-//     // const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
-
-//     const timePeriod = new Date(Date.now() - 60 * 1000);
-
-//     // Find users whose updatedAt is older than seven days
-//     // const overdueReservation = await 
-
-
-//     const inactiveUsers = await User.find({ updatedAt: { $lt: sevenDaysAgo } });
-
-//     // Delete each inactive user
-//     await Promise.all(inactiveUsers.map((user) => user.remove()));
-
-//     console.log(`Deleted ${inactiveUsers.length} inactive users`);
-//   } catch (error) {
-//     console.error('Error deleting inactive users:', error);
-//   }
-// });
-
-// (async () => {
-//   await agenda.start();
-
-//   // Schedule the job to run every day
-//   await agenda.every('24 hours', 'deleteInactiveUsers');
-// })();
 
 let selectedBook;
 let selectedDate;
@@ -123,7 +94,18 @@ app.get('/', checkUser, async (req,res) => {
       selectedDate = currentDate;
     }
 
-    res.render('index', { books, authors, categories, publishers, bookoftheday: selectedBook });
+    // Get Library Review
+    const reviews = await Review.find().limit(5);
+    
+    const reviewsWithUser = await Promise.all(reviews.map(async (review) => {
+        const user = await User.findById(review.userId);
+        return {
+            ...review._doc,
+            reviewedUser: user
+        };
+    }));
+
+    res.render('index', { books, authors, categories, publishers, bookoftheday: selectedBook, reviews: reviewsWithUser });
   } catch (err) {
     console.error(err);
     res.redirect('/');
@@ -344,7 +326,7 @@ app.post('/updateUserImage', userImgUpload.single('profileImage'), async (req, r
       //         if (err) console.error(err);
       //     });
       // }
-      if (user.profileImage && user.profileImage !== 'https://drive.google.com/uc?id=1j9oMUsNA88sQYIgwRpD2FPBKZXlbYUyF') {
+      if (user.profileImage && user.profileImage !== 'https://i.ibb.co/K05xQk1/book7.png') {
             fs.unlink(path.join(__dirname, 'public', user.profileImage), err => {
                 if (err) console.error(err);
             });

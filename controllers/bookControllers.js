@@ -134,7 +134,7 @@ const bookImageStorage = multer.diskStorage({
 //     const { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description } = req.body;
 //     try{
 //       const book = await Book.findById(req.params.id);
-//       if (book.bookImage && book.bookImage != 'https://drive.google.com/uc?id=1j9oMUsNA88sQYIgwRpD2FPBKZXlbYUyF') {
+//       if (book.bookImage && book.bookImage != 'https://i.ibb.co/K05xQk1/book7.png') {
 //         fs.unlink(path.join(path.resolve(__dirname, '..'), 'public', book.bookImage), err => {
 //             if (err) console.error(err);
 //         });
@@ -214,7 +214,7 @@ module.exports.deletebook = async (req, res) => {
         );
 
         // remove Image
-        if (book.bookImage && book.bookImage !== 'https://drive.google.com/uc?id=1j9oMUsNA88sQYIgwRpD2FPBKZXlbYUyF') {
+        if (book.bookImage && book.bookImage !== 'https://i.ibb.co/K05xQk1/book7.png') {
             fs.unlink(path.join(__dirname, 'public', book.bookImage), err => {
                 if (err) console.error(err);
             });

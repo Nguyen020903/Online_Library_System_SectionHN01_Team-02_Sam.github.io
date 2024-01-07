@@ -446,95 +446,20 @@
 
             <div class="swiper-wrapper">
 
-                <div class="swiper-slide box">
-                    <img src="image/" alt="Son's photo">
-                    <h3>Tran Hoang Son</h3>
-                    <p>review here</p>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
+                <% reviews.forEach(function(review) { %>
+                    <div class="swiper-slide box">
+                        <% if (review.reviewedUser) { %>
+                            <img src="<%= review.reviewedUser.profileImage %>" alt="<%= review.reviewedUser.fullName %> photo">
+                            <h3><%= review.reviewedUser.fullName %></h3>
+                        <% } %>
+                        <p><%= review.review %></p>
+                        <div class="stars">
+                            <% for(let i = 0; i < review.star; i++) { %>
+                                <i class="fas fa-star"></i>
+                            <% } %>
+                        </div>
                     </div>
-                </div>
-
-                <div class="swiper-slide box">
-                    <img src="image/" alt="Kiet's photo">
-                    <h3>Luong Tuan Kiet</h3>
-                    <p>review here</p>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-
-                <div class="swiper-slide box">
-                    <img src="image/" alt="HNguyen's photo">
-                    <h3>Nguyen Hai Nguyen</h3>
-                    <p>review here</p>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-                <div class="swiper-slide box">
-                    <img src="image/=" alt="TNguyen's photo">
-                    <h3>Nguyen Hai Tuan Nguyen</h3>
-                    <p>review here</p>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-
-                <div class="swiper-slide box">
-                    <img src="image/" alt="My's photo">
-                    <h3>Le Ha My</h3>
-                    <p>review here</p>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-
-                <div class="swiper-slide box">
-                    <img src="image/" alt="Thang's photo">
-                    <h3>Dang Quoc Thang</h3>
-                    <p>review here</p>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-
-                <div class="swiper-slide box">
-                    <img src="image/" alt="Dang's photo">
-                    <h3>To Hai Dang</h3>
-                    <p>review here</p>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
+                <% }); %>
 
             </div>
 
