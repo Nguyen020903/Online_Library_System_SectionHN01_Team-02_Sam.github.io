@@ -27,7 +27,18 @@ html {
     overflow-x: hidden;
     scroll-padding-top: 5rem;
     scroll-behavior: smooth;
+}
 
+html::-webkit-scrollbar{
+    width:1rem;
+}
+
+html::-webkit-scrollbar-track{
+    background:transparent;
+}
+
+html::-webkit-scrollbar-thumb{
+    background:var(--black);
 }
 
 body {
@@ -263,11 +274,24 @@ section {
 
 
 /* body */
+
+.main-part {
+    display: flex;
+    flex-direction: column;
+}
+
 .table-container {
-    margin-top: 2rem;
     overflow: auto;
     width: 100%;
     height: 30vh;
+}
+
+.table-heading{
+    font-size: 2.5rem;
+    font-weight: bolder;
+    color: var(--black);
+    margin-bottom: 0.5rem;    
+    margin-top: 3rem;
 }
 
 .styled-table {
