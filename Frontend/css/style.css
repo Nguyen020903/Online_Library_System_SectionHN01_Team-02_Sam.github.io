@@ -900,47 +900,10 @@ section{
     display: none;
     align-items:center;
     gap:1.5rem;
-    padding:2rem 1rem;
-    border:var(--border);
     margin:1rem 1rem;
     width: 31.5%;
 }
 
-.filterDiv:hover{
-    border:var(--border-hover);
-}
-
-.filterDiv .image img{
-    height:15rem;
-}
-
-.filterDiv .content h3{
-    font-size: 2rem;
-    color:var(--black);
-}
-
-.filterDiv .content .booktitle{
-    font-size: 2rem;
-    color:var(--black);
-    padding-bottom: .5rem;
-}
-
-.filterDiv .content .author{
-    font-size: 1.9rem;
-    color:var(--black);
-    padding-bottom: .5rem;
-}
-
-.filterDiv .content .bookstatus{
-    font-size: 1.4rem;
-    color:var(--black);
-    padding-bottom: .5rem;
-}
-
-.filterDiv .content .stars i{
-    font-size: 1.5rem;
-    color:var(--green);
-}
 
 .show {
     display: block;
@@ -953,7 +916,7 @@ section{
     padding:2rem 1rem;
     border:var(--border);
     margin:1rem 1rem;
-    width: 31.5%;
+    width: 100%;
 }
 
 .arrivals .box:hover{
@@ -1171,7 +1134,7 @@ margin-top: 1rem;
     }
 
     .arrivals .box{
-        width: 30%;
+        width: 50%;
     }
 
 }
