@@ -165,10 +165,25 @@
                     </tbody>
                 </table> <!-- End of table-->
                 <div class="wishlist-btn-container">
-                    <button class="addBtn">Add Author</button>
+                    <button class="addBtn" onclick="openAuthorForm()">Add Author</button>
                     <button class="clear-btn">Edit List</button>
                 </div>
             </div>
+
+            <!-- Popup Form for Author -->
+            <div id="authorForm" class="authorForm">
+                <div class="popup-content">
+                    <form>
+                        <span class="close" onclick="closeAuthorForm()">&times;</span>
+                        <label for="authorName">Author Name:</label>
+                        <input type="text" id="authorName" name="authorName" required>
+                        <label for="booksWritten">Books Written:</label>
+                        <input type="text" id="booksWritten" name="booksWritten" required>
+                        <button class="addBtn" type="submit">Add Author</button>
+                    </form>
+                </div>
+            </div>
+
             <div id="tab4" class="tab-content tab4">
                 <div id="searchInputContainer">
                     <input type="text" id="searchInput" placeholder="Search here...">
@@ -209,10 +224,25 @@
                     </tbody>
                 </table> <!-- End of table-->
                 <div class="wishlist-btn-container">
-                    <button class="addBtn">Add Publisher</button>
+                    <button class="addBtn" onclick="openPublisherForm()">Add Publisher</button>
                     <button class="clear-btn">Edit List</button>
                 </div>
             </div>
+
+            <!-- Popup Form -->
+            <div id="publisherForm" class="publisherForm">
+                <div class="popup-content">
+                    <form>
+                        <span class="close" onclick="closePublisherForm()">&times;</span>
+                        <label for="publisherName">Publisher Name:</label>
+                        <input type="text" id="publisherName" name="publisherName" required>
+                        <label for="bookPublished">Book Published:</label>
+                        <input type="text" id="bookPublished" name="bookPublished" required>
+                        <button class="addBtn" type="submit">Add Publisher</button>
+                    </form>
+                </div>
+            </div>
+
             <div id="tab5" class="tab-content tab5">
                 <div class="form-container">
                     <form class="librarian-form">

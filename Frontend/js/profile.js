@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
     for (var i = 1; i < tabs.length; i++) {
         tabs[i].style.display = 'none';
     }
-
     // start of profile edit
     // const editBtn = document.getElementById('editBtn');
     // const nameField = document.getElementById('name');
@@ -52,6 +51,26 @@ document.addEventListener("DOMContentLoaded", function () {
     // }
 }); // end of profile edit
 
+
+function openPublisherForm() {
+    var publisherForm = document.getElementById("publisherForm");
+    publisherForm.style.display = "block";
+}
+
+function closePublisherForm() {
+    var publisherForm = document.getElementById("publisherForm");
+    publisherForm.style.display = "none";
+}
+
+function openAuthorForm() {
+    var authorForm = document.getElementById("authorForm");
+    authorForm.style.display = "block";
+}
+
+function closeAuthorForm() {
+    var authorForm = document.getElementById("authorForm");
+    authorForm.style.display = "none";
+}
 
 function openPopup() {
     var popup = document.getElementById("popup");

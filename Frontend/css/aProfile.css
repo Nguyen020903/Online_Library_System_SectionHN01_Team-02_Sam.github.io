@@ -29,16 +29,16 @@ html {
     scroll-behavior: smooth;
 }
 
-html::-webkit-scrollbar{
-    width:1rem;
+html::-webkit-scrollbar {
+    width: 1rem;
 }
 
-html::-webkit-scrollbar-track{
-    background:transparent;
+html::-webkit-scrollbar-track {
+    background: transparent;
 }
 
-html::-webkit-scrollbar-thumb{
-    background:var(--black);
+html::-webkit-scrollbar-thumb {
+    background: var(--black);
 }
 
 body {
@@ -597,6 +597,30 @@ section {
     font-size: 1.7rem;
 }
 
+.authorForm {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.authorForm input {
+    background-color: #eee;
+    border: none;
+    margin: 1rem 0;
+    padding: 1rem 2rem;
+    font-size: 2rem;
+    border-radius: 1rem;
+    width: 100%;
+}
+
+.authorForm label {
+    font-size: 2rem;
+}
+
 /* tab4 */
 .tab-content.tab4 {
     display: flex;
@@ -604,6 +628,31 @@ section {
     align-items: center;
     overflow: auto;
     width: 100%;
+}
+
+.publisherForm {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.publisherForm input {
+    background-color: #eee;
+    border: none;
+    margin: 1rem 0;
+    padding: 1rem 2rem;
+    font-size: 2rem;
+    border-radius: 1rem;
+    width: 100%;
+
+}
+
+.publisherForm label {
+    font-size: 2rem;
 }
 
 /* tab5 */
