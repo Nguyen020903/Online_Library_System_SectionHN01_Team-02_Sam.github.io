@@ -100,6 +100,7 @@ const userImgStorage = multer.diskStorage({
 
 const userImgUpload = multer({ storage: userImgStorage });
 
+
 // ---------------------------------------------------------------------------------------- //
 
 // Route for all types of users
@@ -154,6 +155,7 @@ app.get('/', checkUser, async (req,res) => {
 });
 
 
+// ---------------------------------------------------------------------------------------- //
 
 // My Account page
 app.get('/myAccount', requireAuth, checkUser, async (req, res) => {
@@ -269,13 +271,12 @@ app.get('/myAccount', requireAuth, checkUser, async (req, res) => {
 });
 
 
+// ---------------------------------------------------------------------------------------- //
 
 // Route for updating user details
 app.get('/updateUser', requireAuth, (req, res) => {
   res.render('updateUser');
 });
-
-
 
 // Route for uploading the profile image
 app.post('/updateUserImage', requireAuth, checkUser, userImgUpload.single('profileImage'), async (req, res) => {
@@ -316,8 +317,6 @@ app.post('/updateUserImage', requireAuth, checkUser, userImgUpload.single('profi
     res.status(500).json({ message: 'An error occurred while updating the user image' });
   }
 });
-
-
 
 // Route for updating the user's details
 app.post('/updateUserDetails', requireAuth, checkUser, async (req, res) => {

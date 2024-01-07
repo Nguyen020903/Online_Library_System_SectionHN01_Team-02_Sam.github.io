@@ -81,7 +81,7 @@ const handleErrorsforaddbook = (err) => {
 };
 
 // Book detail page
-module.exports.bookdetail_get = async (req, res) => {
+module.exports.bookDetailGet = async (req, res) => {
     try {
         const authors = await Author.find();
         const categories = await Category.find();
@@ -104,7 +104,7 @@ module.exports.bookdetail_get = async (req, res) => {
 //     }
 //   }
 
-module.exports.addbook_get = async (req, res) => {
+module.exports.addBookGet = async (req, res) => {
     try {
         const authors = await Author.find();
         const categories = await Category.find();
@@ -116,7 +116,7 @@ module.exports.addbook_get = async (req, res) => {
     }
 }
 
-module.exports.addbook_post = async (req, res) => {
+module.exports.addBookPost = async (req, res) => {
     try {
         const { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description } = req.body;
         let bookData = { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description };
@@ -137,7 +137,7 @@ module.exports.addbook_post = async (req, res) => {
     }
 }
 
-module.exports.updatebook_get = async (req, res) => {
+module.exports.updateBookGet = async (req, res) => {
     try {
         const book = await Book.findById(req.params.id);
         const authors = await Author.find();
@@ -150,7 +150,7 @@ module.exports.updatebook_get = async (req, res) => {
     }
 }
 
-module.exports.updatebook_post = async (req, res) => {
+module.exports.updateBookPost = async (req, res) => {
     const { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description } = req.body;
     try {
         const book = await Book.findById(req.params.id);
@@ -191,7 +191,7 @@ module.exports.updatebook_post = async (req, res) => {
     }
 }
 
-module.exports.updatebookdetail_post = async (req, res) => {
+module.exports.updateBookDetailPost = async (req, res) => {
     console.log(req.body)
     const { ISBN, title, author, category, publisher, numberOfPages, bookCountAvailable, description } = req.body;
     try {
@@ -223,7 +223,7 @@ module.exports.updatebookdetail_post = async (req, res) => {
     }
 }
 
-module.exports.updatebookimage_post = async (req, res) => {
+module.exports.updateBookImagePost = async (req, res) => {
     try {
         const book = await Book.findById(req.params.id);
         if (book.bookImage) {
@@ -245,7 +245,7 @@ module.exports.updatebookimage_post = async (req, res) => {
 }
 
 
-module.exports.search_get = async (req, res) => {
+module.exports.searchGet = async (req, res) => {
     const searchQuery = req.query.query;
 
     try {
@@ -257,7 +257,7 @@ module.exports.search_get = async (req, res) => {
     }
 }
 
-module.exports.deletebook = async (req, res) => {
+module.exports.deleteBook = async (req, res) => {
     const bookId = req.params.id;
     try {
         let book = await Book.findOne({ _id: req.params.id });
@@ -305,11 +305,11 @@ module.exports.deletebook = async (req, res) => {
 }
 
 // Get and post for author, category, publisher
-module.exports.author_get = (req, res) => {
+module.exports.authorGet = (req, res) => {
     res.render('author');
 }
 
-module.exports.author_post = async (req, res) => {
+module.exports.authorPost = async (req, res) => {
     const { name } = req.body;
     try {
         const author = await Author.create({ name });
@@ -320,11 +320,11 @@ module.exports.author_post = async (req, res) => {
         res.status(400).json({ errors });
     }
 }
-module.exports.category_get = (req, res) => {
+module.exports.categoryGet = (req, res) => {
     res.render('category');
 }
 
-module.exports.category_post = async (req, res) => {
+module.exports.categoryPost = async (req, res) => {
     const { name } = req.body;
     try {
         const category = await Category.create({ name });
@@ -337,11 +337,11 @@ module.exports.category_post = async (req, res) => {
 }
 
 
-module.exports.publisher_get = (req, res) => {
+module.exports.publisherGet = (req, res) => {
     res.render('publisher');
 }
 
-module.exports.publisher_post = async (req, res) => {
+module.exports.publisherPost = async (req, res) => {
     const { name } = req.body;
     try {
         const publisher = await Publisher.create({ name });

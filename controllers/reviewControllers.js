@@ -12,7 +12,7 @@ const jwt = require('jsonwebtoken');
 const path = require('path');
 
 // Function to post a library review
-module.exports.library_review_post = async (req, res) => {
+module.exports.libraryReviewPost = async (req, res) => {
     // Extract review and rate from the request body
     const { review, rate } = req.body;
 
@@ -32,9 +32,4 @@ module.exports.library_review_post = async (req, res) => {
         // Return an error message if the review could not be saved
         res.status(400).json({ message: err.message });
     }
-}
-
-// Function to post a book review
-module.exports.book_review_post = async (req, res) => {
-    // The function body goes here
 }

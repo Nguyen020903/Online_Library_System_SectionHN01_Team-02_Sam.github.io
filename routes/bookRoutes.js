@@ -39,30 +39,33 @@ const bookImageStorage = multer.diskStorage({
 const bookImageUpload = multer({ storage: bookImageStorage });
 
 // Define the routes for book details
-router.get('/bookDetail/:id', checkUser, bookController.bookdetail_get);
+router.get('/bookDetail/:id', checkUser, bookController.bookDetailGet);
 
 // Define the routes for searching books
-router.get('/searchResult', checkUser, bookController.search_get);
+router.get('/searchResult', checkUser, bookController.searchGet);
 
 // Define the routes for adding books
-router.get('/addbook', checkUser, isAdmin, bookController.addbook_get);
-router.post('/addbook', checkUser, isAdmin, bookImageUpload.single('bookImage'), bookController.addbook_post);
+router.get('/addbook', checkUser, isAdmin, bookController.addBookGet);
+router.post('/addbook', checkUser, isAdmin, bookImageUpload.single('bookImage'), bookController.addBookPost);
 
 // Define the routes for updating books
-router.get('/updateBook/:id', checkUser, isAdmin, bookController.updatebook_get);
-router.post('/updateBook/:id', checkUser, isAdmin, bookImageUpload.single('bookImage'), bookController.updatebook_post);
-router.post('/updateBookDetail/:id', checkUser, isAdmin, bookController.updatebookdetail_post);
-router.post('/updateBookImage/:id', checkUser, isAdmin, bookImageUpload.single('bookImage'), bookController.updatebookimage_post);
+router.get('/updateBook/:id', checkUser, isAdmin, bookController.updateBookGet);
+router.post('/updateBook/:id', checkUser, isAdmin, bookImageUpload.single('bookImage'), bookController.updateBookPost);
+router.post('/updateBookDetail/:id', checkUser, isAdmin, bookController.updateBookDetailPost);
+router.post('/updateBookImage/:id', checkUser, isAdmin, bookImageUpload.single('bookImage'), bookController.updateBookImagePost);
 
 // Define the routes for deleting books
-router.post('/deletebook/:id', checkUser, isAdmin, bookController.deletebook);
+router.post('/deleteBook/:id', checkUser, isAdmin, bookController.deleteBook);
 
 // Define the routes for managing authors, categories, and publishers
-router.get('/author', checkUser, isAdmin, bookController.author_get);
-router.post('/author', checkUser, isAdmin, bookController.author_post);
-router.get('/category', checkUser, isAdmin, bookController.category_get);
-router.post('/category', checkUser, isAdmin, bookController.category_post);
-router.get('/publisher', checkUser, isAdmin, bookController.publisher_get);
-router.post('/publisher', checkUser, isAdmin, bookController.publisher_post);
+router.get('/author', checkUser, isAdmin, bookController.authorGet);
+router.post('/author', checkUser, isAdmin, bookController.authorPost);
+router.get('/category', checkUser, isAdmin, bookController.categoryGet);
+router.post('/category', checkUser, isAdmin, bookController.categoryPost);
+router.get('/publisher', checkUser, isAdmin, bookController.publisherGet);
+router.post('/publisher', checkUser, isAdmin, bookController.publisherPost);
 router.post('/deleteAuthor/:id', checkUser, isAdmin, bookController.deleteAuthor);
 router.post('/deleteCategory/:id', checkUser, isAdmin, bookController.deleteCategory);
+
+// Export the router
+module.exports = router;
