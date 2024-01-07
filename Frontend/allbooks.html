@@ -49,122 +49,142 @@
 
     <!-- arrivals section starts  -->
 
-    <section class="arrivals" id="arrivals">
+    <div class="searchcontainer">
 
-        <h1 class="heading"> <span>Search result for "abcd"</span> </h1>
+        <section class="arrivals" id="arrivals">
 
-        <div class="allbook">
+            <h1 class="heading"> <span>Search result for "abcd"</span> </h1>
 
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-2.png" alt="">
+            <center>
+                <div id="myBtnContainer">
+                    <button class="btn active" onclick="filterSelection('all')"> show all</button>
+                    <button class="btn" onclick="filterSelection('fction')"> fiction</button>
+                    <button class="btn" onclick="filterSelection('nonfiction')"> nonfiction</button>
+                    <button class="btn" onclick="filterSelection('economic')"> economic</button>
                 </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="author">author name</div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
+            </center>
+
+            <div class="allbook">
+
+                <div class="filterDiv fction">
+                    <a href="#" class="swiper-slide box">
+                        <div class="image">
+                            <img src="image/book-2.png" alt="">
+                        </div>
+                        <div class="content">
+                            <h3>fiction</h3>
+                            <div class="author">author name</div>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-            </a>
 
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-2.png" alt="">
+                <div class="filterDiv nonfiction">
+                    <a href="#" class="swiper-slide box">
+                        <div class="image">
+                            <img src="image/book-2.png" alt="">
+                        </div>
+                        <div class="content">
+                            <h3>nonfiction</h3>
+                            <div class="author">author name</div>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="author">author name</div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
+
+                <div class="filterDiv economic">
+                    <a href="#" class="swiper-slide box">
+                        <div class="image">
+                            <img src="image/book-2.png" alt="">
+                        </div>
+                        <div class="content">
+                            <h3>economic</h3>
+                            <div class="author">author name</div>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-            </a>
 
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-2.png" alt="">
+                <div class="filterDiv fction">
+                    <a href="#" class="swiper-slide box">
+                        <div class="image">
+                            <img src="image/book-2.png" alt="">
+                        </div>
+                        <div class="content">
+                            <h3>fiction</h3>
+                            <div class="author">author name</div>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="author">author name</div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
+
+                <div class="filterDiv fction">
+                    <a href="#" class="swiper-slide box">
+                        <div class="image">
+                            <img src="image/book-2.png" alt="">
+                        </div>
+                        <div class="content">
+                            <h3>fiction</h3>
+                            <div class="author">author name</div>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-            </a>
 
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-2.png" alt="">
+                <div class="filterDiv fction">
+                    <a href="#" class="swiper-slide box">
+                        <div class="image">
+                            <img src="image/book-2.png" alt="">
+                        </div>
+                        <div class="content">
+                            <h3>fiction</h3>
+                            <div class="author">author name</div>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="author">author name</div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
 
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-2.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="author">author name</div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
+            </div>
 
-            <a href="#" class="swiper-slide box">
-                <div class="image">
-                    <img src="image/book-2.png" alt="">
-                </div>
-                <div class="content">
-                    <h3>new arrivals</h3>
-                    <div class="author">author name</div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </a>
+        </section>
 
-        </div>
-
-
-
-
-
-    </section>
-
+    </div>
 
 
 
@@ -214,7 +234,50 @@
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 
     <!-- custom js file link  -->
-    <!-- <script src="js/script.js"></script> -->
+    <script>
+        filterSelection("all")
+        function filterSelection(c) {
+            var x, i;
+            x = document.getElementsByClassName("filterDiv");
+            if (c == "all") c = "";
+            for (i = 0; i < x.length; i++) {
+                RemoveClass(x[i], "show");
+                if (x[i].className.indexOf(c) > -1) AddClass(x[i], "show");
+            }
+        }
+
+        function AddClass(element, name) {
+            var i, arr1, arr2;
+            arr1 = element.className.split(" ");
+            arr2 = name.split(" ");
+            for (i = 0; i < arr2.length; i++) {
+                if (arr1.indexOf(arr2[i]) == -1) { element.className += " " + arr2[i]; }
+            }
+        }
+
+        function RemoveClass(element, name) {
+            var i, arr1, arr2;
+            arr1 = element.className.split(" ");
+            arr2 = name.split(" ");
+            for (i = 0; i < arr2.length; i++) {
+                while (arr1.indexOf(arr2[i]) > -1) {
+                    arr1.splice(arr1.indexOf(arr2[i]), 1);
+                }
+            }
+            element.className = arr1.join(" ");
+        }
+
+        // Add active class to the current button (highlight it)
+        var btnContainer = document.getElementById("myBtnContainer");
+        var btns = btnContainer.getElementsByClassName("btn");
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].addEventListener("click", function () {
+                var current = document.getElementsByClassName("active");
+                current[0].className = current[0].className.replace(" active", "");
+                this.className += " active";
+            });
+        }
+    </script>
 
 </body>
 

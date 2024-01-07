@@ -3,55 +3,27 @@ document.addEventListener("DOMContentLoaded", function () {
     for (var i = 1; i < tabs.length; i++) {
         tabs[i].style.display = 'none';
     }
+}); 
 
-    // start of profile edit
-    // const editBtn = document.getElementById('editBtn');
-    // const nameField = document.getElementById('name');
-    // const fullNameField = document.getElementById('fullName');
-    // const emailField = document.getElementById('email');
-    // const phoneField = document.getElementById('phone');
+function openPublisherForm() {
+    var publisherForm = document.getElementById("publisherForm");
+    publisherForm.style.display = "block";
+}
 
-    // const profileElements = [nameField, fullNameField, emailField, phoneField];
+function closePublisherForm() {
+    var publisherForm = document.getElementById("publisherForm");
+    publisherForm.style.display = "none";
+}
 
-    // let isEditMode = false;
+function openAuthorForm() {
+    var authorForm = document.getElementById("authorForm");
+    authorForm.style.display = "block";
+}
 
-    // editBtn.addEventListener('click', function () {
-    //     if (isEditMode) {
-    //         saveChanges();
-    //         isEditMode = false;
-    //         editBtn.innerText = 'Edit Profile';
-    //         disableEditMode();
-    //         console.log('Edit mode disabled');
-    //     } else {
-    //         isEditMode = true;
-    //         editBtn.innerText = 'Save Changes';
-    //         enableEditMode();
-    //         console.log('Edit mode enabled');
-    //     }
-    // });
-
-    // function enableEditMode() {
-    //     profileElements.forEach(element => {
-    //         element.contentEditable = true;
-    //     });
-    //     document.getElementById('profileContainer').classList.add('edit-mode');
-    // }
-
-    // function disableEditMode() {
-    //     profileElements.forEach(element => {
-    //         element.contentEditable = false;
-    //     });
-    //     document.getElementById('profileContainer').classList.remove('edit-mode');
-    // }
-
-    // function saveChanges() {
-    //     console.log('Name:', nameField.innerText);
-    //     console.log('Full Name:', fullNameField.innerText);
-    //     console.log('Email:', emailField.innerText);
-    //     console.log('Phone:', phoneField.innerText);
-    // }
-}); // end of profile edit
-
+function closeAuthorForm() {
+    var authorForm = document.getElementById("authorForm");
+    authorForm.style.display = "none";
+}
 
 function openPopup() {
     var popup = document.getElementById("popup");

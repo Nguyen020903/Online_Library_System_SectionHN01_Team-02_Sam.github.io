@@ -896,6 +896,19 @@ section{
     flex-wrap: wrap;
 }
 
+.filterDiv {
+    display: none;
+    align-items:center;
+    gap:1.5rem;
+    margin:1rem 1rem;
+    width: 31.5%;
+}
+
+
+.show {
+    display: block;
+}
+
 .arrivals .box{
     display: flex;
     align-items:center;
@@ -903,7 +916,7 @@ section{
     padding:2rem 1rem;
     border:var(--border);
     margin:1rem 1rem;
-    width: 31.5%;
+    width: 100%;
 }
 
 .arrivals .box:hover{
@@ -1121,7 +1134,7 @@ margin-top: 1rem;
     }
 
     .arrivals .box{
-        width: 30%;
+        width: 50%;
     }
 
 }
