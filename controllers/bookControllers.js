@@ -171,19 +171,6 @@ const bookImageStorage = multer.diskStorage({
 //     }
 // }
 
-// Search book
-// module.exports.search_get = async (req, res) => {
-//     const searchQuery = req.body.query;
-
-//     try {
-//         const books = await Book.find({ title: new RegExp(searchQuery, 'i') }).populate('author');
-//         res.render('searchResult', { searchQuery: JSON.stringify(searchQuery), books: books });
-//     } catch (err) {
-//         console.error(err);
-//         res.status(500).send('An error occurred while searching for books');
-//     }
-// }
-
 module.exports.search_get = async (req, res) => {
     const searchQuery = req.query.query;
 

@@ -39,11 +39,11 @@
                 <div id="search-btn" class="fas fa-search"></div>
                 <% if (user) { %>
                     <a href="/wishlist" class="fas fa-heart"></a>
-                    <a href="/userReservations" class="fas fa-shopping-cart"></a>
+                    <a href="/userReservations" class="fas fa-list"></a>
                     <a href="/myAccount" class="fas fa-user"></a>
                 <%} else { %>
                     <a href="/login" class="fas fa-heart"></a>
-                    <a href="/login" class="fas fa-shopping-cart"></a>
+                    <a href="/login" class="fas fa-list"></a>
                     <a href="/login" class="fas fa-user"></a>
                 <%} %>
             </div>
@@ -643,12 +643,14 @@
 
 <!-- script section for add book function -->
 <script>
+    
     const addbook = document.querySelector('#addbook');
     const ISBNError = document.querySelector('.ISBN.error');
     const authorError = document.querySelector('.author.error');
     const categoryError = document.querySelector('.category.error');
     const publisherError = document.querySelector('.publisher.error');
     const descriptionError = document.querySelector('.description.error');
+    
 
     addbook.addEventListener('submit', async (e) => {
         e.preventDefault();
