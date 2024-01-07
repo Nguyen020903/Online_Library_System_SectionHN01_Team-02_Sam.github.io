@@ -263,6 +263,13 @@ section {
 
 
 /* body */
+.table-container {
+    margin-top: 2rem;
+    overflow: auto;
+    width: 100%;
+    height: 30vh;
+}
+
 .styled-table {
     width: 100%;
     border-collapse: collapse;
@@ -293,6 +300,28 @@ section {
 
 .styled-table tbody td:nth-child(3) ul {
     list-style-type: circle;
+}
+
+.return-btn{
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    border-radius: 0.7rem;
+    background-color: #4F6F52;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    width: 15rem;
+    height: 5rem;
+    font-size: 2rem;
+}
+
+.return-btn:hover {
+    background-color: #3A4D39;
+}
+
+.return-btn:active {
+    transform: scale(0.95);
 }
 
 /* Footer */

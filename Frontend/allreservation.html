@@ -49,90 +49,95 @@
         <a href="#arrivals" class="fas fa-tags"></a>
         <a href="#reviews" class="fas fa-comments"></a>
     </nav>
-    <h1>All Reservation</h1>
-    <table class="styled-table">
-        <thead>
-            <tr>
-                <th>User</th>
-                <th>Book</th>
-                <th>Status</th>
-                <th>Pick Up Date</th>
-                <th>Return Date</th>
-                <th>Fine</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% transactions.forEach((transaction)=> { %>
-                <% if (transaction.status !=='Returned' ) { %>
-                    <tr>
-                        <td>
-                            <%= transaction.userEmail %>
-                        </td>
-                        <td>
-                            <%= transaction.bookTitle %>
-                        </td>
-                        <td>
-                            <%= transaction.status %>
-                        </td>
-                        <td>
-                            <%= new Date(transaction.pickUpDate).toLocaleDateString('en-US', { day: 'numeric' ,
-                                month: 'short' , year: 'numeric' }) %>
-                        </td>
-                        <td>
-                            <%= new Date(transaction.returnDate).toLocaleDateString('en-US', { month: 'short' ,
-                                day: 'numeric' , year: 'numeric' }) %>
-                        </td>
-                        <td>
-                            <%= transaction.fine %> $
-                        </td>
-                        <td><button class="return-button" data-id="<%= transaction._id %>">Return</button></td>
-                    </tr>
-                    <% } %>
-                        <% }); %>
-        </tbody>
-    </table>
-    <h1>Finished Reservation</h1>
-    <table class="styled-table">
-        <thead>
-            <tr>
-                <th>User</th>
-                <th>Book</th>
-                <th>Status</th>
-                <th>Pick Up Date</th>
-                <th>Return Date</th>
-                <th>Fine</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% transactions.forEach(async (transaction)=> { %>
-                <% if (transaction.status=='Returned' ) { %>
-                    <tr>
-                        <td>
-                            <%= transaction.userEmail %>
-                        </td>
-                        <td>
-                            <%= transaction.bookTitle %>
-                        </td>
-                        <td>
-                            <%= transaction.status %>
-                        </td>
-                        <td>
-                            <%= new Date(transaction.pickUpDate).toLocaleDateString('en-US', { day: 'numeric' ,
-                                month: 'short' , year: 'numeric' }) %>
-                        </td>
-                        <td>
-                            <%= new Date(transaction.returnDate).toLocaleDateString('en-US', { month: 'short' ,
-                                day: 'numeric' , year: 'numeric' }) %>
-                        </td>
-                        <td>
-                            <%= transaction.fine %> $
-                        </td>
-                    </tr>
-                    <% } %>
-                        <% }); %>
-        </tbody>
-    </table>
-    
+    <!-- body -->
+    <div class="table-container">
+        <h1>All Reservation</h1>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Book</th>
+                    <th>Status</th>
+                    <th>Pick Up Date</th>
+                    <th>Return Date</th>
+                    <th>Fine</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% transactions.forEach((transaction)=> { %>
+                    <% if (transaction.status !=='Returned' ) { %>
+                        <tr>
+                            <td>
+                                <%= transaction.userEmail %>
+                            </td>
+                            <td>
+                                <%= transaction.bookTitle %>
+                            </td>
+                            <td>
+                                <%= transaction.status %>
+                            </td>
+                            <td>
+                                <%= new Date(transaction.pickUpDate).toLocaleDateString('en-US', { day: 'numeric' ,
+                                    month: 'short' , year: 'numeric' }) %>
+                            </td>
+                            <td>
+                                <%= new Date(transaction.returnDate).toLocaleDateString('en-US', { month: 'short' ,
+                                    day: 'numeric' , year: 'numeric' }) %>
+                            </td>
+                            <td>
+                                <%= transaction.fine %> $
+                                <button class="return-btn" data-id="<%= transaction._id %>">Return</button>
+                            </td>
+                        </tr>
+                        <% } %>
+                            <% }); %>
+            </tbody>
+        </table>
+    </div>
+    <div class="table-container">
+        <h1>Finished Reservation</h1>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Book</th>
+                    <th>Status</th>
+                    <th>Pick Up Date</th>
+                    <th>Return Date</th>
+                    <th>Fine</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% transactions.forEach(async (transaction)=> { %>
+                    <% if (transaction.status=='Returned' ) { %>
+                        <tr>
+                            <td>
+                                <%= transaction.userEmail %>
+                            </td>
+                            <td>
+                                <%= transaction.bookTitle %>
+                            </td>
+                            <td>
+                                <%= transaction.status %>
+                            </td>
+                            <td>
+                                <%= new Date(transaction.pickUpDate).toLocaleDateString('en-US', { day: 'numeric' ,
+                                    month: 'short' , year: 'numeric' }) %>
+                            </td>
+                            <td>
+                                <%= new Date(transaction.returnDate).toLocaleDateString('en-US', { month: 'short' ,
+                                    day: 'numeric' , year: 'numeric' }) %>
+                            </td>
+                            <td>
+                                <%= transaction.fine %> $
+                            </td>
+                        </tr>
+                        <% } %>
+                            <% }); %>
+            </tbody>
+        </table>
+    </div>
+
     <!-- footer -->
     <footer>
         <section class="footer">
