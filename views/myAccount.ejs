@@ -351,7 +351,7 @@
                                 <td><%= index + 1 %></td>
                                 <td><a href="/bookDetail/<%= book._id %>"><%= book.title %></a></td>
                                 <td><%= book.bookStatus %></td>
-                                <td><form class="removeBookForm" method="post" action="/removeFromWishlist/<%= book._id %>">
+                                <td><form class="removeBookForm" method="post" action="/removeFromWishlist" data-book-id="<%= book._id %>">
                                     <button type="submit" class="remove-btn">Remove</button>
                                 </form></td>
                                 <!-- <td><span class="remove-btn">Remove</span></td> -->
@@ -614,7 +614,7 @@
 <script>
     async function clearFavoriteBooks() {
         try {
-            const response = await fetch('/clearFavoriteBooks', {
+            const response = await fetch('/clearWishlist', {
                 method: 'POST',
                 credentials: 'include',
                 headers: {

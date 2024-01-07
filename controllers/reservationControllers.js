@@ -79,6 +79,28 @@ module.exports.remove_from_wishlist_post = async (req, res) => {
   }
 };
 
+module.exports.clear_wishlist_post = async (req, res) => {
+  let user = res.locals.user;
+
+  try {
+      if (!user) {
+          return res.status(404).send('User not found');
+      }
+
+      // Clear the user's favoriteBook array
+      user.favoriteBook = [];
+
+      // Save the user
+      await user.save();
+
+      // Redirect back to the myAccount page
+      res.redirect('/myAccount');
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+  }
+};
+
 // Create reservation
 module.exports.create_reservation_get = async (req, res) => {
   const users = await User.find();

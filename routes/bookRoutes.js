@@ -1,62 +1,68 @@
+// Import the necessary libraries
 const express = require('express');
 const { checkUser, isAdmin } = require('../middleware/authMiddleware');
-const router = express.Router();
 const bookController = require('../controllers/bookControllers');
 const multer = require('multer');
 const jwt = require('jsonwebtoken');
 
-// function for save book image
+// Initialize the Express router
+const router = express.Router();
+
+// Define the storage location and naming convention for book images
 const bookImageStorage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, 'public/images/bookImage/');
-    },
-    filename: function(req, file, cb) { // 'file' and 'cb' parameters were swapped
-        const token = req.cookies.jwt;
-        const decodedToken = jwt.verify(token, 'your-secret-key');
-        const userId = decodedToken.id;
-        // Get the current date
-        const date = new Date();
-        // Format the date
-        const formattedDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}-${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
-        // Add the date to the filename
-        const newFilename = `${formattedDate}-${userId}-${file.originalname}`;
-        cb(null, newFilename);
-    }
-  });
-  
-  const bookImageUpload = multer({ storage: bookImageStorage });
+  // Set the destination for storing book images
+  destination: function(req, file, cb) {
+    cb(null, 'public/images/bookImage/');
+  },
+  // Define the filename for the uploaded image
+  filename: function(req, file, cb) {
+    // Extract the JWT token from the cookies
+    const token = req.cookies.jwt;
+    // Verify the JWT token and extract the user ID
+    const decodedToken = jwt.verify(token, 'your-secret-key');
+    const userId = decodedToken.id;
 
-// Book detail page
-// router.get('/bookDetail/:id', checkUser, isAdmin, bookController.bookdetail_get);
-// router.post('/bookDetail/:id', checkUser, isAdmin, bookController.bookdetail_post);
+    // Get the current date and time
+    const date = new Date();
+    // Format the date and time in the 'YYYY-MM-DD-HH-MM-SS' format
+    const formattedDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}-${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
 
-// Search book
+    // Construct the new filename using the formatted date and time, user ID, and original file name
+    const newFilename = `${formattedDate}-${userId}-${file.originalname}`;
+
+    // Set the new filename
+    cb(null, newFilename);
+  }
+});
+
+// Initialize multer with the defined storage
+const bookImageUpload = multer({ storage: bookImageStorage });
+
+// Define the routes for book details
+router.get('/bookDetail/:id', checkUser, bookController.bookdetail_get);
+
+// Define the routes for searching books
 router.get('/searchResult', checkUser, bookController.search_get);
 
-// Add book
+// Define the routes for adding books
 router.get('/addbook', checkUser, isAdmin, bookController.addbook_get);
-// router.post('/addbook', (req, res, next) => {
-//       console.log('Request Body:', req.body);
-//       console.log('Request File:', req.file);
-//       next();
-// }, checkUser, isAdmin, multer({ storage: bookImageStorage }).single('bookImage'), bookController.addbook_post);
+router.post('/addbook', checkUser, isAdmin, bookImageUpload.single('bookImage'), bookController.addbook_post);
 
-// // Update book
-// router.get('/updateBook/:id', checkUser, isAdmin, bookController.updatebook_get);
-// router.post('/updateBook/:id', checkUser, isAdmin, bookImageUpload.single('bookImage'), bookController.updatebook_post);
+// Define the routes for updating books
+router.get('/updateBook/:id', checkUser, isAdmin, bookController.updatebook_get);
+router.post('/updateBook/:id', checkUser, isAdmin, bookImageUpload.single('bookImage'), bookController.updatebook_post);
+router.post('/updateBookDetail/:id', checkUser, isAdmin, bookController.updatebookdetail_post);
+router.post('/updateBookImage/:id', checkUser, isAdmin, bookImageUpload.single('bookImage'), bookController.updatebookimage_post);
 
-// Delete book
+// Define the routes for deleting books
 router.post('/deletebook/:id', checkUser, isAdmin, bookController.deletebook);
 
-//Route for author, category and publisher
-router.get('/author',checkUser, isAdmin, bookController.author_get);
-router.post('/author',checkUser, isAdmin, bookController.author_post);
-router.get('/category',checkUser, isAdmin, bookController.category_get);
-router.post('/category',checkUser, isAdmin, bookController.category_post);
-router.get('/publisher',checkUser, isAdmin,bookController.publisher_get);
-router.post('/publisher',checkUser, isAdmin, bookController.publisher_post);
-router.post('/deleteAuthor/:id',checkUser, isAdmin, bookController.deleteAuthor);
-router.post('/deleteCategory/:id',checkUser, isAdmin, bookController.deleteCategory);
-router.post('/deletePublisher/:id',checkUser, isAdmin, bookController.deletePublisher);
-
-module.exports = router;
+// Define the routes for managing authors, categories, and publishers
+router.get('/author', checkUser, isAdmin, bookController.author_get);
+router.post('/author', checkUser, isAdmin, bookController.author_post);
+router.get('/category', checkUser, isAdmin, bookController.category_get);
+router.post('/category', checkUser, isAdmin, bookController.category_post);
+router.get('/publisher', checkUser, isAdmin, bookController.publisher_get);
+router.post('/publisher', checkUser, isAdmin, bookController.publisher_post);
+router.post('/deleteAuthor/:id', checkUser, isAdmin, bookController.deleteAuthor);
+router.post('/deleteCategory/:id', checkUser, isAdmin, bookController.deleteCategory);
