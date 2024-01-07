@@ -308,8 +308,7 @@ section {
     align-items: center;
     justify-content: center;
     padding: 1rem 2rem;
-    background-color: #4F6F52;
-    color: #fff;
+    /* background-color: #4F6F52; */
     border-radius: 1rem;
 }
 
@@ -323,6 +322,13 @@ section {
 .verticalNavItems i {
     font-size: 2rem;
 }   
+
+.verticalNavItems.active,
+.verticalNavItems.active a {
+    background-color: #3A4D39;
+    color: #fff;
+    transition: 100ms ease-in-out;
+}
 
 .table-container {
     display: flex;
