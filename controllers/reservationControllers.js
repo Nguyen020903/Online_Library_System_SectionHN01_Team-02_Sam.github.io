@@ -28,7 +28,7 @@ module.exports.wishlistGet = async (req, res) => {
   }
 
   // Render the wishlist page with user and books data
-  res.render('wishlistcart', { user, books });
+  res.render('wishlist', { user, books });
 }
 
 // Controller to add a book to user's wishlist

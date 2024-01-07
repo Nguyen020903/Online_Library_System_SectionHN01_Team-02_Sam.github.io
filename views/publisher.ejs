@@ -1,12 +1,102 @@
-<%- include('partials/header'); -%>
-<form>
-    <h2>Add Publisher</h2>
-    <lable for="name">Name</lable>
-    <input type="text" name="name"/>
-    <div class="name error"></div>
+<!DOCTYPE html>
+<html lang="en">
 
-    <button>Add</button>
-</form>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playbook Online Library</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- favicon -->
+    <link rel="icon" type="image/x-icon" href="/images/material/favicon-removebg-preview1.png">
+</head>
+
+<body>
+    <!-- header section starts  -->
+
+    <header class="header">
+
+        <section class="header-1">
+
+            <a href="/" class="logo"> <i class="fas fa-play"></i> playbook </a>
+
+            <form action="/searchResult" method="get" class="search-form">
+                <input type="search" name="query" placeholder="search here..." id="search-box">
+                <label for="search-box" class="fas fa-search"></label>
+                <input type="submit" style="display: none;">
+            </form>
+
+            <div class="icons">
+                <div id="search-btn" class="fas fa-search"></div>
+                <% if (user) { %>
+                    <a href="/wishlist" class="fas fa-heart"></a>
+                    <a href="/userReservations" class="fas fa-list"></a>
+                    <a href="/myAccount" class="fas fa-user"></a>
+                <%} else { %>
+                    <a href="/login" class="fas fa-heart"></a>
+                    <a href="/login" class="fas fa-list"></a>
+                    <a href="/login" class="fas fa-user"></a>
+                <% } %>
+            </div>
+
+        </section>
+
+        <div class="header-2">
+            <nav class="navbar">
+                <a href="#home">home</a>
+                <a href="#featured">featured</a>
+                <!-- <a href="#arrivals">arrivals</a> -->
+                <a href="#reviews">reviews</a>
+            </nav>
+        </div>
+
+    </header>
+
+    <nav class="bottom-navbar">
+        <a href="#home" class="fas fa-home"></a>
+        <a href="#featured" class="fas fa-list"></a>
+        <a href="#arrivals" class="fas fa-tags"></a>
+        <a href="#reviews" class="fas fa-comments"></a>
+    </nav>
+
+    <form>
+        <h2>Add Publisher</h2>
+        <lable for="name">Name</lable>
+        <input type="text" name="name"/>
+        <div class="name error"></div>
+
+        <button>Add</button>
+    </form>
+
+<!-- footer section starts  -->
+
+    <section class="footer">
+        <div class="credit">
+            created by <span>Group 2</span> | all rights reserved!
+        </div>
+    </section>
+
+    <!-- footer section ends -->
+
+    <!-- loader  -->
+
+    <!-- <div class="loader-container">
+        <img src="/images/material/loader.gif" alt="" />
+    </div> -->
+
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
+    <!-- custom js file link  -->
+    <script src="/js/script.js"></script>
+</body>
 
 <script>
     // Thows Error and notification for Adding content.
