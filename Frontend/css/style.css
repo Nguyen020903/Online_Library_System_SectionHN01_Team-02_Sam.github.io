@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap');
 
+img {
+    width: 17rem;
+    height: auto;
+    margin: 20px;
+}
+
 :root{
     --green:#4F6F52;
     --dark-color:#3A4D39;
@@ -103,6 +109,23 @@ section{
 #btn:hover{
     background:var(--dark-color);
 }
+
+.delete-btn{
+    margin-top: 1rem;
+    display:inline-block;
+    padding:.9rem 3rem;
+    border-radius: .5rem;
+    color:#fff;
+    background:rgb(204, 0, 0);
+    font-size: 1.7rem;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.delete-btn:hover{
+    background:rgb(155, 0, 0);
+}
+
 
 .header .header-1{
     background:#fff;
@@ -227,6 +250,10 @@ section{
     width: 18.5rem;
 }
 
+#bookmenu-btn:hover {
+    background-color: var(--dark-color);
+}
+
 #bookmenu-btn i {
     margin-left: 1rem;
   }
@@ -310,7 +337,8 @@ section{
 .bookmenu-form-container form img{
     display: flex;
     width: 100%;
-    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .bookmenu-form-container form p a{
@@ -434,6 +462,7 @@ section{
 }
 
 .featured .featured-slider .box .image img{
+    width: 17rem;
     height: 25rem;
 }
 
@@ -592,7 +621,8 @@ section{
 }
 
 .arrivals .arrivals-slider .box .image img{
-    height:15rem;
+    width: 12rem;
+    height: 16rem;
 }
 
 .arrivals .arrivals-slider .box .content h3{
@@ -630,10 +660,16 @@ section{
 
 .deal .image{
     flex:1 1 42rem;
+    justify-content: center;
+    display: flex;
 }
 
 .deal .image img{
-    width: 100%;
+    width: 34rem;
+    height: 50rem;
+    margin-left: auto;
+    margin-right: auto;
+    align-self: center;
 }
 
 .deal .content h3{
@@ -930,7 +966,8 @@ section{
 }
 
 .arrivals .box .image img{
-    height:15rem;
+    width: 12rem;
+    height: 16rem;
 }
 
 .arrivals .box .content h3{
