@@ -597,7 +597,7 @@ section {
     font-size: 1.7rem;
 }
 
-.authorForm {
+.authorForm, .publisherForm {
     display: none;
     position: fixed;
     top: 0;
@@ -607,7 +607,7 @@ section {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.authorForm input {
+.authorForm input, .publisherForm input {
     background-color: #eee;
     border: none;
     margin: 1rem 0;
@@ -617,7 +617,7 @@ section {
     width: 100%;
 }
 
-.authorForm label {
+.authorForm label, .publisherForm label {
     font-size: 2rem;
 }
 

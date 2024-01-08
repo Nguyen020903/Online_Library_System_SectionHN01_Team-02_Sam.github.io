@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <% if (user.isAdmin) { %>
+    <% if (user && user.isAdmin) { %>
         <title><%= user.fullName %> Admin Profile</title>
         <link rel="stylesheet" href="/css/aProfile.css">
     <% } else { %>
@@ -51,7 +51,7 @@
     <!-- header section ends -->
 
     <!-- Divert between admin and user -->
-    <% if (user.isAdmin) { %>
+    <% if (user && user.isAdmin) { %>
         <div class="main-part">
             <!-- Right Half - General Information, Contact Information, Profile Image, and Name -->
             <div class="leftContainer">
@@ -213,7 +213,20 @@
                         </table>
                     <% } %> <!-- End of table-->
                     <div class="wishlist-btn-container">
-                        <a href="/author"><button class="addBtn">Add Author</button></a>
+                        <button class="addBtn" onclick="openAuthorForm()">Add Author</button>
+                        <!-- <a href="/author"><button class="addBtn">Add Author</button></a> -->
+                    </div>
+                </div>
+                <!-- Popup Form for Author -->
+                <div id="authorForm" class="authorForm">
+                    <div class="popup-content">
+                        <form id="addauthorinfor">
+                            <span class="close" onclick="closeAuthorForm()">&times;</span>
+                            <label for="authorName">Author Name:</label>
+                            <input type="text" id="authorName" name="authorName" required>
+                            <div class="authorName error"></div>
+                            <button class="addBtn" type="submit">Add Author</button>
+                        </form>
                     </div>
                 </div>
                 <div id="tab6" class="tab-content tab6">
@@ -252,7 +265,20 @@
                         </table>
                     <% } %> <!-- End of table-->
                     <div class="wishlist-btn-container">
-                        <a href="/publisher"><button class="addBtn">Add Publisher</button></a>
+                        <button class="addBtn" onclick="openPublisherForm()">Add Publisher</button>
+                        <!-- <a href="/publisher"><button class="addBtn">Add Publisher</button></a> -->
+                    </div>
+                </div>
+                <!-- Popup Form -->
+                <div id="publisherForm" class="publisherForm">
+                    <div class="popup-content">
+                        <form id="addpublisherinfor">
+                            <span class="close" onclick="closePublisherForm()">&times;</span>
+                            <label for="publisherName">Publisher Name:</label>
+                            <input type="text" id="publisherName" name="publisherName" required>
+                            <div class="publisherName error"></div>
+                            <button class="addBtn" type="submit">Add Publisher</button>
+                        </form>
                     </div>
                 </div>
                 <div id="tab7" class="tab-content tab7">
@@ -307,6 +333,53 @@
             </section>
         </footer>
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <!-- Normal User Profile -->
 
@@ -720,7 +793,66 @@
         .catch(error => console.error('Error:', error));
       });
     });
-    </script>
+</script>
+<!-- add author popup -->
+<script>
+    const addauthorinfor = document.querySelector('#addauthorinfor');
+    const authorNameError = document.querySelector('.authorName.error');
+    addauthorinfor.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const name = addauthorinfor.authorName.value;
+
+        try {
+            const res = await fetch('/author', {
+                method: 'POST',
+                body: JSON.stringify({ name }),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await res.json();
+            console.log(data);
+            if (data.errors) {
+                authorNameError.textContent = data.errors.name;
+            }
+            else {
+                authorNameError.textContent = ('Added successfully');
+            }
+        }
+        catch (err) {
+            console.log(err);
+        }
+    });
+</script>
+
+<!-- add publisher popup -->
+<script>
+    const addpublisherinfor = document.querySelector('#addpublisherinfor');
+    const publisherNameError = document.querySelector('.publisherName.error');
+    addpublisherinfor.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const name = addpublisherinfor.publisherName.value;
+
+        try{
+            const res = await fetch('/publisher', {
+                method: 'POST',
+                body: JSON.stringify({ name }),
+                headers: { 'Content-Type': 'application/json'}
+            });
+            const data = await res.json();
+            console.log(data);
+            if (data.errors){
+                publisherNameError.textContent = data.errors.name;
+            }
+            else{
+                publisherNameError.textContent = ('Added successfully');
+            }
+        }
+        catch (err){
+            console.log(err);
+        }
+    });
+</script>
 
     <!-- Delete author -->
     <script>

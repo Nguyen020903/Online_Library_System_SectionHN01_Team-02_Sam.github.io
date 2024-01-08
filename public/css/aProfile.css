@@ -38,6 +38,36 @@ body {
     background: #fff;
 }
 
+.error{
+    color: #ff0099;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.authorForm, .publisherForm {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.authorForm input, .publisherForm input {
+    background-color: #eee;
+    border: none;
+    margin: 1rem 0;
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    border-radius: 1rem;
+    width: 100%;
+}
+
+.authorForm label, .publisherForm label {
+    font-size: 2rem;
+}
+
 .logo img {
     max-height: 100%;
     height: 45px;

@@ -1,10 +1,29 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Hide all tabs except the default one
     var tabs = document.querySelectorAll('.tab-content');
     for (var i = 1; i < tabs.length; i++) {
         tabs[i].style.display = 'none';
     }
-});
+}); 
+
+function openPublisherForm() {
+    var publisherForm = document.getElementById("publisherForm");
+    publisherForm.style.display = "block";
+}
+
+function closePublisherForm() {
+    var publisherForm = document.getElementById("publisherForm");
+    publisherForm.style.display = "none";
+}
+
+function openAuthorForm() {
+    var authorForm = document.getElementById("authorForm");
+    authorForm.style.display = "block";
+}
+
+function closeAuthorForm() {
+    var authorForm = document.getElementById("authorForm");
+    authorForm.style.display = "none";
+}
 
 function openPopup() {
     var popup = document.getElementById("popup");
