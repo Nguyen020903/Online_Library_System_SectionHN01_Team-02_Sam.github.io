@@ -27,18 +27,25 @@
 
         <section class="header-1">
 
-            <a href="#" class="logo"> <i class="fas fa-play"></i> playbook </a>
+            <a href="/" class="logo"> <i class="fas fa-play"></i> playbook </a>
 
-            <form action="" class="search-form">
-                <input type="search" name="" placeholder="search here..." id="search-box">
-                <label for="search-box" class="fas fa-search"></label>
+            <form action="/searchResult" method="get" class="search-form">
+                <input type="search" name="query" placeholder="search here..." id="search-box">
+                <label for="search-box" class="fas fa-search" id="search-icon"></label>
+                <input type="submit" style="display: none;">
             </form>
 
             <div class="icons">
                 <div id="search-btn" class="fas fa-search"></div>
-                <a href="#" class="fas fa-heart"></a>
-                <a href="#" class="fas fa-shopping-cart"></a>
-                <a href="login.html" class="fas fa-user"></a>
+                <% if (user) { %>
+                    <a href="/wishlist" class="fas fa-heart"></a>
+                    <a href="/userReservations" class="fas fa-list"></a>
+                    <a href="/myAccount" class="fas fa-user"></a>
+                <%} else { %>
+                    <a href="/login" class="fas fa-heart"></a>
+                    <a href="/login" class="fas fa-list"></a>
+                    <a href="/login" class="fas fa-user"></a>
+                <%} %>
             </div>
 
         </section>
