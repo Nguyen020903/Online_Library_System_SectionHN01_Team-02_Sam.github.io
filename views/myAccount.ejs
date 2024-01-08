@@ -58,7 +58,6 @@
                 <div id="tab1" class="tab-content tab1 active">
                     <div class="text-center">
                         <img src="<%= user.profileImage %>" alt="Profile Picture" class="profilePic" id="profilePic">
-                        <h2 id="name"><%= user.fullName %></h2>
                         <a href="/updateUser"><button id="editBtn">Edit Profile</button></a>
                         <!-- <a href="/category"><button id="editBtn">Category</button></a> -->
                     </div>
@@ -67,7 +66,7 @@
                         <ul id="generalInfoList">
                             <li>Full Name: <span id="fullName"><%= user.fullName %></span></li>
                             <li>Email Address: <span id="email"><%= user.email %></span></li>
-                            <!-- <li>Phone Number: <span id="phone">123-456-7890</span></li> -->
+                            <li>Phone Number: <span id="phone"><%= user.phone %></span></li>
                         </ul>
                     </div>
                 </div>
@@ -391,7 +390,6 @@
             <div id="tab1" class="tab-content tab1 active">
                 <div class="text-center">
                     <img src="<%= user.profileImage %>" alt="Profile Picture" class="profilePic" id="profilePic">
-                    <h2 id="name"><%= user.fullName %></h2>
                     <a href="/updateUser"><button id="editBtn">Edit Profile</button></a> 
                 </div>
                 <div class="generalInfo">
@@ -401,7 +399,7 @@
                         <!-- <li>Date of Birth: <span id="dob">January 1, 1990</span></li> -->
                         <!-- <li>Gender: <span id="gender">Male</span></li> -->
                         <li>Email Address: <span id="email"><%= user.email %></span></li>
-                        <!-- <li>Phone Number: <span id="phone">123-456-7890</span></li> -->
+                        <li>Phone Number: <span id="phone"><%= user.phone %></span></li>
                     </ul>
                 </div>
             </div>

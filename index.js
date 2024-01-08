@@ -286,7 +286,7 @@ app.post('/updateUserImage', requireAuth, checkUser, userImgUpload.single('profi
     const user = res.locals.user;
 
     // If the user already has a profile image that is not the default image
-    if (user.profileImage && user.profileImage !== 'https://i.ibb.co/K05xQk1/book7.png') {
+    if (user.profileImage && user.profileImage !== 'https://www.rmit.edu.vn/content/dam/rmit/vn/en/assets-for-production/images/staff/sam-goundar-it.jpg') {
       // Delete the existing profile image
       fs.unlink(path.join(__dirname, 'public', user.profileImage), err => {
         // Log any error that occurs while deleting the image
@@ -295,7 +295,12 @@ app.post('/updateUserImage', requireAuth, checkUser, userImgUpload.single('profi
     }
 
     // Extract the filename from the uploaded file
-    const profileImage = "/images/userImage/" + (req.file ? req.file.filename : '');
+    let profileImage = "/images/userImage/" + (req.file ? req.file.filename : '');
+
+    // If the user has sent '/images/userImage/', replace it with the default image URL
+    if (profileImage === '/images/userImage/') {
+      profileImage = 'https://www.rmit.edu.vn/content/dam/rmit/vn/en/assets-for-production/images/staff/sam-goundar-it.jpg';
+    }
 
     // Update the user's profile image in the database
     const updatedUser = await User.findOneAndUpdate(
@@ -320,8 +325,9 @@ app.post('/updateUserImage', requireAuth, checkUser, userImgUpload.single('profi
 
 // Route for updating the user's details
 app.post('/updateUserDetails', requireAuth, checkUser, async (req, res) => {
-  // Extract the full name, email, and password from the request body
-  const { fullName, email, password } = req.body;
+  // Extract the full name, email, phone and password from the request body
+  const { fullName, email, phone, password } = req.body;
+  console.log(req.body);
 
   try {
     // Get the user ID from res.locals
@@ -334,7 +340,7 @@ app.post('/updateUserDetails', requireAuth, checkUser, async (req, res) => {
     // Update the user's details in the database
     const updatedUser = await User.findOneAndUpdate(
       { _id: userId }, // find a user with the provided user ID
-      { fullName, email, password: hashedPassword }, // update the user with the new details
+      { fullName, email, phone, password: hashedPassword }, // update the user with the new details
       { new: true } // return the updated user
     );
 

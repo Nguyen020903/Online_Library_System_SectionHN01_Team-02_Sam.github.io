@@ -58,9 +58,13 @@
         <label for="email">Email*</label>
         <input class="input-form" type="text" name="email" value="<%= user.email %>"/>
         <div class="email error"></div>
+
+        <label for="phone">Phone number*</label>
+        <input class="input-form" type="text" name="phone" value="<%= user.phone %>"/>
+        <div class="phone error"></div>
     
         <label for="password">Password*</label>
-        <input class="input-form" type="password" name="password"/>
+        <input class="input-form" type="password" name="password" required/>
         <div class="password error"></div>
     
         <button>Save Details</button>
@@ -109,37 +113,40 @@
 
     // Event listener for the details form
     detailsForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        // reset error
-        fullNameError.textContent = '';
-        emailError.textContent = '';
-        passwordError.textContent = '';
+    e.preventDefault();
+    // reset error
+    fullNameError.textContent = '';
+    emailError.textContent = '';
+    passwordError.textContent = '';
 
-        const formData = new FormData();
-        formData.append('fullName', detailsForm.fullName.value);
-        formData.append('email', detailsForm.email.value);
-        formData.append('password', detailsForm.password.value);
+    const userDetails = {
+        fullName: detailsForm.fullName.value,
+        email: detailsForm.email.value,
+        phone: detailsForm.phone.value,
+        password: detailsForm.password.value
+    };
 
-        try {
-            const res = await fetch('/updateUserDetails', {
-                method: 'POST',
-                body: formData,
-            });
+    try {
+        const res = await fetch('/updateUserDetails', {
+            method: 'POST',
+            body: JSON.stringify(userDetails),
+            headers: { 'Content-Type': 'application/json' }
+        });
 
-            const data = await res.json();
-            console.log(data);
-            if (data.errors) {
-                fullNameError.textContent = data.errors.fullName;
-                emailError.textContent = data.errors.email;
-                passwordError.textContent = data.errors.password;
-            } else {
-                window.location.href = '/myAccount';
-                alert('Details updated successfully');
-            }
-        } catch (err) {
-            console.log(err);
+        const data = await res.json();
+        console.log(data);
+        if (data.errors) {
+            fullNameError.textContent = data.errors.fullName;
+            emailError.textContent = data.errors.email;
+            passwordError.textContent = data.errors.password;
+        } else {
+            window.location.href = '/myAccount';
+            alert('Details updated successfully');
         }
-    });
+    } catch (err) {
+        console.log(err);
+    }
+});
 </script>
 
 </html>
