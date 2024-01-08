@@ -59,14 +59,12 @@ router.post('/updateBookImage/:id', checkUser, isAdmin, bookImageUpload.single('
 router.post('/deleteBook/:id', checkUser, isAdmin, bookController.deleteBook);
 
 // Define the routes for managing authors, categories, and publishers
-router.get('/author', checkUser, isAdmin, bookController.authorGet);
 router.post('/author', checkUser, isAdmin, bookController.authorPost);
-router.get('/category', checkUser, isAdmin, bookController.categoryGet);
-router.post('/category', checkUser, isAdmin, bookController.categoryPost);
-router.get('/publisher', checkUser, isAdmin, bookController.publisherGet);
+router.post('/category', checkUser, isAdmin, bookController.categoryPost);;
 router.post('/publisher', checkUser, isAdmin, bookController.publisherPost);
 router.post('/deleteAuthor/:id', checkUser, isAdmin, bookController.deleteAuthor);
 router.post('/deleteCategory/:id', checkUser, isAdmin, bookController.deleteCategory);
+router.post('/deletePublisher/:id', checkUser, isAdmin, bookController.deletePublisher);
 
 // Export the router
 module.exports = router;

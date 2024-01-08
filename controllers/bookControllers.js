@@ -310,10 +310,7 @@ module.exports.deleteBook = async (req, res) => {
     }
 }
 
-// Get and post for author, category, publisher
-module.exports.authorGet = (req, res) => {
-    res.render('author');
-}
+// Post for author, category, publisher
 
 module.exports.authorPost = async (req, res) => {
     const { name } = req.body;
@@ -325,9 +322,6 @@ module.exports.authorPost = async (req, res) => {
         const errors = handleErrors(err);
         res.status(400).json({ errors });
     }
-}
-module.exports.categoryGet = (req, res) => {
-    res.render('category');
 }
 
 module.exports.categoryPost = async (req, res) => {
@@ -342,11 +336,6 @@ module.exports.categoryPost = async (req, res) => {
     }
 }
 
-
-module.exports.publisherGet = (req, res) => {
-    res.render('publisher');
-}
-
 module.exports.publisherPost = async (req, res) => {
     const { name } = req.body;
     try {
@@ -359,7 +348,7 @@ module.exports.publisherPost = async (req, res) => {
     }
 }
 
-// delete for author, category, publisher
+// Delete for author, category, publisher
 
 module.exports.deleteAuthor = async (req, res) => {
     const authorId = req.params.id;

@@ -254,7 +254,7 @@
                                     <td class="searchablepublisher"><%= index + 1 %></td>
                                     <td class="searchablepublisher"><%= publisher.name %></td>
                                     <% if (publisher.book.length === 0) { %>
-                                        <td class="searchablepublisher"><button class="delete-btn publisher" data-id="<%= publisher._id %>">Delete</button></td>
+                                        <td class="searchablepublisher"><button class="delete-btn publisher-remove" data-id="<%= publisher._id %>">Delete</button></td>
                                     <% } else { %>
                                         <td class="searchablepublisher">This Publisher is populated</td>
                                     <% } %>
@@ -872,10 +872,11 @@
         $(document).ready(function() {
             $('.publisher-remove').click(function(event) {
                 event.preventDefault();
+
                 const row = $(this).closest('tr');
                 const publisherId = $(this).data('id');
                 $.ajax({
-                    url: '/deletepublisher/' + publisherId,
+                    url: '/deletePublisher/' + publisherId,
                     type: 'POST',
                     success: function(response) {
                         row.remove();
