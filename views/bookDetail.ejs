@@ -88,7 +88,7 @@
                     <%= book.description %>
                 </p>
                 <div id="readerview">
-                    <% if (user.isAdmin) { %>
+                    <% if (user && user.isAdmin) { %>
                         <div id="libview">
                             <div id="bookmenu-btn">update book</div>
                         </div>
@@ -97,7 +97,6 @@
                             <button class="delete-btn" type="submit">Delete</button>
                         </form>
                     <% } else { %>
-                    <a href="#" class="btn">add to rentlist / check availability</a>
                     <% const isBookInWishlist=user && user.favoriteBook.includes(book._id); %>
                     <% if (user) { %>
                         <% if(!isBookInWishlist) { %>

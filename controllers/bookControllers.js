@@ -272,11 +272,8 @@ module.exports.deleteBook = async (req, res) => {
             { $pull: { activeTransactions: bookId, prevTransactions: bookId }}
         );
 
-        // Remove book from Transaction
-        await Transaction.updateMany(
-            { bookId: bookId },
-            { $pull: { bookId: bookId }}
-        );
+        // Remove Transaction that has this book
+        await Transaction.deleteMany({ bookId: bookId });
 
         // Remove book from Author
         await Author.updateOne(

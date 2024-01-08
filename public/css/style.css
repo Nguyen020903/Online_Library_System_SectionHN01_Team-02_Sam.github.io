@@ -359,7 +359,7 @@ section{
 }
 
 .home-container{
-    background: url(../image/banner-bg.jpg) no-repeat;
+    background: url(/images/material/banner-bg.jpg) no-repeat;
     background-size: cover;
     background-position: center;
 }
@@ -535,7 +535,7 @@ section{
 }
 
 .newsletter-container{
-    background:url(../image/bg.png) no-repeat;
+    background:url(/images/material/bg.png) no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
