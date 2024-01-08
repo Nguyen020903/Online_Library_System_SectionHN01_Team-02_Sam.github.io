@@ -46,11 +46,7 @@ section{
     margin: 0 auto;
 }
 
-.error{
-    color: #ff0099;
-    font-size: 0.8em;
-    font-weight: bold;
-}
+
 .heading{
     text-align: center;
     margin-bottom: 2rem;
@@ -311,6 +307,12 @@ section{
     font-size: 1.5rem;
 }
 
+.bookmenu-form-container form img{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
 .bookmenu-form-container form p a{
     color:var(--green);
 }
@@ -329,7 +331,7 @@ section{
 }
 
 .home-container{
-    background: url(/images/banner-bg.jpg) no-repeat;
+    background: url(../image/banner-bg.jpg) no-repeat;
     background-size: cover;
     background-position: center;
 }
@@ -504,7 +506,7 @@ section{
 }
 
 .newsletter-container{
-    background:url(/images/bg.png) no-repeat;
+    background:url(../image/bg.png) no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -900,6 +902,19 @@ section{
     flex-wrap: wrap;
 }
 
+.filterDiv {
+    display: none;
+    align-items:center;
+    gap:1.5rem;
+    margin:1rem 1rem;
+    width: 31.5%;
+}
+
+
+.show {
+    display: block;
+}
+
 .arrivals .box{
     display: flex;
     align-items:center;
@@ -907,7 +922,7 @@ section{
     padding:2rem 1rem;
     border:var(--border);
     margin:1rem 1rem;
-    width: 31.5%;
+    width: 100%;
 }
 
 .arrivals .box:hover{
@@ -1125,7 +1140,7 @@ margin-top: 1rem;
     }
 
     .arrivals .box{
-        width: 30%;
+        width: 50%;
     }
 
 }

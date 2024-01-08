@@ -39,6 +39,7 @@ const bookImageStorage = multer.diskStorage({
 const bookImageUpload = multer({ storage: bookImageStorage });
 
 // Define the routes for book details
+router.get('/allBooks', checkUser, bookController.allBooksGet);
 router.get('/bookDetail/:id', checkUser, bookController.bookDetailGet);
 
 // Define the routes for searching books
