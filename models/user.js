@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
     },
     profileImage: {
         type: String,
-        default: "https://i.ibb.co/K05xQk1/book7.png",
+        default: "https://www.rmit.edu.vn/content/dam/rmit/vn/en/assets-for-production/images/staff/sam-goundar-it.jpg",
         require: true
     },
     email: {

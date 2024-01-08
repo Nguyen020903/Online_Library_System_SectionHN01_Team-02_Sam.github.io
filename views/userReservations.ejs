@@ -1,57 +1,176 @@
-<%- include('partials/header'); -%>
+<!DOCTYPE html>
+<html lang="en">
 
-<h1><%= user.email %> Reservations</h1>
-<h1>Current Reservation</h1>
-<table>
-    <thead>
-      <tr>
-        <th>Book</th>
-        <th>Status</th>
-        <th>Pick Up Date</th>
-        <th>Return Date</th>
-        <th>Fine</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% allActiveTransactions.forEach((transaction) => { %>
-          <tr>
-            <td><%= transaction.bookTitle %></td>
-            <td><%= transaction.status %></td>
-            <td><%= new Date(transaction.pickUpDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }) %></td>
-            <td><%= new Date(transaction.returnDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></td>
-            <td><%= transaction.fine %> $</td>
-          </tr>
-      <% }); %>
-    </tbody>
-</table>
-<h1>Past Reservations</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Book</th>
-      <th>Status</th>
-      <th>Pick Up Date</th>
-      <th>Return Date</th>
-      <th>Fine</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% allPrevTransactions.forEach(async (transaction) => { %>
-          <tr>
-            <td><%= transaction.bookTitle %></td>
-            <td><%= transaction.status %></td>
-            <td><%= new Date(transaction.pickUpDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }) %></td>
-            <td><%= new Date(transaction.returnDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></td>
-            <td><%= transaction.fine %> $</td>
-          </tr>
-  <% }); %>
-  </tbody>
-</table>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/allreservation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Reservation page</title>
+</head>
+<header class="header">
+
+    <section class="header-1">
+
+        <a href="/" class="logo"> <i class="fas fa-play"></i> playbook </a>
+
+        <form action="/searchResult" method="get" class="search-form">
+            <input type="search" name="query" placeholder="search here..." id="search-box">
+            <label for="search-box" class="fas fa-search" id="search-icon"></label>
+            <input type="submit" style="display: none;">
+        </form>
+
+        <div class="icons">
+            <div id="search-btn" class="fas fa-search"></div>
+            <a href="/wishlist" class="fas fa-heart"></a>
+            <a href="/userReservations" class="fas fa-shopping-cart"></a>
+            <a href="/myAccount" class="fas fa-user"></a>
+        </div>
+
+    </section>
+    <div class="header-2">
+        <nav class="navbar">
+            <a href="/">home</a>
+            <a href="/">featured</a>
+            <a href="/">arrivals</a>
+            <a href="/">reviews</a>
+        </nav>
+    </div>
+</header>
+
+<!-- header section ends -->
+
+<!-- bottom navbar  -->
+
+<nav class="bottom-navbar">
+    <a href="#home" class="fas fa-home"></a>
+    <a href="#featured" class="fas fa-list"></a>
+    <a href="#arrivals" class="fas fa-tags"></a>
+    <a href="#reviews" class="fas fa-comments"></a>
+</nav>
+<!-- body -->
+
+<body>
+    <div class="content-navbar">
+        <ul class="tab-selector">
+            <li class="verticalNavItems active" onclick="openTab('tab1')"><i class="far fa-user"></i><a
+                    href="#">All Reservation</a></li>
+            <li class="verticalNavItems" onclick="openTab('tab2')"><i class="fa-solid fa-book"></i><a href="#">All
+                    Finished Reservation</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <div id="tab1" class="table-container tab-content tab1 active">
+            <h1 class="table-heading">All Reservation</h1>
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Book</th>
+                        <th>Status</th>
+                        <th>Pick Up Date</th>
+                        <th>Return Date</th>
+                        <th>Fine</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% allActiveTransactions.forEach((transaction)=> { %>
+                        <% if (transaction.status !=='Returned' ) { %>
+                            <tr>
+                                <td>
+                                    <%= transaction.userEmail %>
+                                </td>
+                                <td>
+                                    <%= transaction.bookTitle %>
+                                </td>
+                                <td>
+                                    <%= transaction.status %>
+                                </td>
+                                <td>
+                                    <%= new Date(transaction.pickUpDate).toLocaleDateString('en-US', { day: 'numeric' ,
+                                        month: 'short' , year: 'numeric' }) %>
+                                </td>
+                                <td>
+                                    <%= new Date(transaction.returnDate).toLocaleDateString('en-US', { month: 'short' ,
+                                        day: 'numeric' , year: 'numeric' }) %>
+                                </td>
+                                <td>
+                                    <%= transaction.fine %> $
+                                        <button class="return-btn" data-id="<%= transaction._id %>">Return</button>
+                                </td>
+                            </tr>
+                            <% } %>
+                                <% }); %>
+                </tbody>
+            </table>
+        </div>
+        <div id="tab2" class="table-container tab-content tab2">
+            <table class="styled-table">
+                <h1 class="table-heading">Finished Reservation</h1>
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Book</th>
+                        <th>Status</th>
+                        <th>Pick Up Date</th>
+                        <th>Return Date</th>
+                        <th>Fine</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% allPrevTransactions.forEach(async (transaction)=> { %>
+                        <% if (transaction.status=='Returned' ) { %>
+                            <tr>
+                                <td>
+                                    <%= transaction.userEmail %>
+                                </td>
+                                <td>
+                                    <%= transaction.bookTitle %>
+                                </td>
+                                <td>
+                                    <%= transaction.status %>
+                                </td>
+                                <td>
+                                    <%= new Date(transaction.pickUpDate).toLocaleDateString('en-US', { day: 'numeric' ,
+                                        month: 'short' , year: 'numeric' }) %>
+                                </td>
+                                <td>
+                                    <%= new Date(transaction.returnDate).toLocaleDateString('en-US', { month: 'short' ,
+                                        day: 'numeric' , year: 'numeric' }) %>
+                                </td>
+                                <td>
+                                    <%= transaction.fine %> $
+                                </td>
+                            </tr>
+                            <% } %>
+                                <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <footer>
+        <section class="footer">
+            <div class="credit"> created by <span>Group 2</span> | all rights reserved! </div>
+
+        </section>
+    </footer>
+    <script src="https://kit.fontawesome.com/120cd899b7.js" crossorigin="anonymous"></script>
+    <script src="js/allreservation.js"></script>
+</body>
+
 <script>
-  if (!sessionStorage.getItem('reloaded')) {
-    sessionStorage.setItem('reloaded', 'true');
-    window.location.reload();
-  } else {
-    sessionStorage.removeItem('reloaded');
-  }
+    // Get the search icon and form elements
+    const searchIcon = document.getElementById('search-icon');
+    const searchForm = document.querySelector('.search-form');
+
+    // Add a click event listener to the search icon
+    searchIcon.addEventListener('click', function() {
+        // Submit the form when the search icon is clicked
+        searchForm.submit();
+    });
 </script>
+
+
+</html>

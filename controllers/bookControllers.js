@@ -80,6 +80,12 @@ const handleErrorsforaddbook = (err) => {
     return errors;
 };
 
+module.exports.allBooksGet = async (req, res) => {
+    const books = await Book.find().populate('author').populate('category');
+    const categories = await Category.find();
+    res.render('allBooks', {books, categories});
+}
+
 // Book detail page
 module.exports.bookDetailGet = async (req, res) => {
     try {
@@ -93,16 +99,6 @@ module.exports.bookDetailGet = async (req, res) => {
         res.redirect('/');
     }
 }
-
-// module.exports.bookdetail_post = async (req, res) => {
-//     try {
-//         const updatedBook = await Book.findByIdAndUpdate(req.params.id, req.body, { new: true });
-//         res.redirect(`/bookDetail/${updatedBook._id}`);
-//     } catch (err) {
-//         console.error(err);
-//         res.redirect('/');
-//     }
-//   }
 
 module.exports.addBookGet = async (req, res) => {
     try {
@@ -287,7 +283,7 @@ module.exports.deleteBook = async (req, res) => {
             { $pull: { 'book': { _id: req.params.id } } }
         );
 
-        // remove Image
+        // Remove Image
         if (book.bookImage && book.bookImage !== 'https://i.ibb.co/K05xQk1/book7.png') {
             fs.unlink(path.join(__dirname, 'public', book.bookImage), err => {
                 if (err) console.error(err);
