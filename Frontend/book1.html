@@ -65,7 +65,7 @@
     <div class="deal-container">
         <section class="deal" id="deal">
             <div class="image">
-                <img src="image/book-1.png" alt="bookimg" />
+                <img src="image/bg.png" alt="bookimg" />
             </div>
 
             <div class="content">
@@ -90,6 +90,7 @@
                 <div id="libview">
                     <div id="bookmenu-btn">update book</div>
                 </div>
+                <button class="delete-btn">delete</button>
 
                 <div class="bookmenu-form-container">
 
@@ -99,10 +100,10 @@
                         <h3>update book</h3>
                         
                         <span>ISBN</span>
-                        <input type="text" name="ISBN" class="box" placeholder="enter the book ISBN" id="ISBN">
+                        <input type="text" name="ISBN" class="box" placeholder="enter the book ISBN" id="ISBN" required>
                         
                         <span>book title</span>
-                        <input type="text" name="title" class="box" placeholder="enter the book title" id="title">
+                        <input type="text" name="title" class="box" placeholder="enter the book title" id="title" required>
                         
                         <span>details</span>
                         <div>
@@ -135,18 +136,21 @@
                         </div>
                         
                         <span>number of book</span>
-                        <input type="number" name="bookCountAvailable" class="box" placeholder="enter the number of book" id="bookCountAvailable">
+                        <input type="number" name="bookCountAvailable" class="box" placeholder="enter the number of book" id="bookCountAvailable" required>
                         
+                        <span>number of pages</span>
+                        <input type="number" name="numberOfPages" class="box" placeholder="enter the number of pages" id="numberOfPages" required>
+
                         <span>description</span>
                         <textarea name="description" id="description" rows="4" cols="40" class="box">enter book description</textarea>
-            
+  
                         <input type="submit" value="update book" class="btn">
             
                     </form>
 
                     <form action="">
                         <h3>update image</h3>
-                        <img src="image/book-1.png" alt="updateimage">                                               
+                        <img src="image/bg.png" alt="updateimage">                                               
                         <input type="file" class="account-settings-fileinput box">
                         <span>If you Update the image without selected one, the book Image will be return to the default Image.</span>  
                              
