@@ -5,6 +5,7 @@ const Book = require('../models/book');
 const Author = require('../models/author');
 const Category = require('../models/category');
 const Publisher = require('../models/publisher');
+const Transaction = require('../models/transaction')
 const multer = require('multer');
 const jwt = require('jsonwebtoken');
 const path = require('path');
@@ -264,6 +265,18 @@ module.exports.deleteBook = async (req, res) => {
         let author = book.author;
         let category = book.category;
         let publisher = book.publisher;
+
+        // Remove book from User reservations
+        await User.updateMany(
+            { activeTransactions: bookId, prevTransactions: bookId },
+            { $pull: { activeTransactions: bookId, prevTransactions: bookId }}
+        );
+
+        // Remove book from Transaction
+        await Transaction.updateMany(
+            { bookId: bookId },
+            { $pull: { bookId: bookId }}
+        );
 
         // Remove book from Author
         await Author.updateOne(

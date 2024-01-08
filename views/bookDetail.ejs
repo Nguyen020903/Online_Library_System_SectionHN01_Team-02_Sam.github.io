@@ -92,6 +92,10 @@
                         <div id="libview">
                             <div id="bookmenu-btn">update book</div>
                         </div>
+                        <form id="deleteBook" action="/deleteBook/<%= book._id %>">
+                            <input type="hidden" name="bookId" value="<%= book._id %>">
+                            <button class="delete-btn" type="submit">Delete</button>
+                        </form>
                     <% } else { %>
                     <a href="#" class="btn">add to rentlist / check availability</a>
                     <% const isBookInWishlist=user && user.favoriteBook.includes(book._id); %>
@@ -348,6 +352,35 @@
     <!-- custom js file link  -->
     <script src="/js/script.js"></script>
 </body>
+
+<script>
+    const deleteBook = document.querySelector('#deleteBook');
+
+    deleteBook.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            try {
+                const bookId = '<%= book.id %>'
+                const res = await fetch(`/deleteBook/${bookId}`, {
+                    method: "POST"
+                });
+
+                const data = await res.json();
+                console.log(data);
+
+                if (data.errors) {
+                    alert(data.errors);
+                }
+                if (data.deletedBookId) {  
+                    alert('Book deleted successfully');
+                    location.assign('/');
+                }
+            } catch (err) {
+            console.log(err);
+            }
+        });
+
+</script>
 
 <!-- script for update book detail and img -->
 <script>

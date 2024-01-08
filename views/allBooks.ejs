@@ -54,7 +54,7 @@
 
     <!-- header section ends -->
 
-    <!-- arrivals section starts  -->
+    <!-- all book section starts  -->
 
     <div class="searchcontainer">
 
@@ -72,9 +72,9 @@
             <div class="allbook">
                 <% books.forEach(book => { %>
                     <div class="filterDiv <%= book.category.name %>">
-                        <a href="#" class="swiper-slide box">
+                        <a href="/bookDetail/<%=book.id%>" class="swiper-slide box">
                             <div class="image">
-                                <img src="<%= book.bookImage %>" alt="">
+                                <img src="<%= book.bookImage %>" alt="<%= book.title %> Image">
                             </div>
                             <div class="content">
                                 <h3><%= book.category.name %></h3>
@@ -95,8 +95,6 @@
         </section>
 
     </div>
-
-
 
     <!-- arrivals section ends -->
 
