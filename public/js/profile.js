@@ -3,7 +3,14 @@ document.addEventListener("DOMContentLoaded", function () {
     for (var i = 1; i < tabs.length; i++) {
         tabs[i].style.display = 'none';
     }
-}); 
+
+    // Check if a tab parameter is present in the URL
+    var urlParams = new URLSearchParams(window.location.search);
+    var tab = urlParams.get('tab');
+    if (tab) {
+        openTab(tab);
+    }
+});
 
 function openPublisherForm() {
     var publisherForm = document.getElementById("publisherForm");
@@ -13,6 +20,7 @@ function openPublisherForm() {
 function closePublisherForm() {
     var publisherForm = document.getElementById("publisherForm");
     publisherForm.style.display = "none";
+    location.assign('/myAccount?tab=tab6');
 }
 
 function openAuthorForm() {
@@ -23,6 +31,7 @@ function openAuthorForm() {
 function closeAuthorForm() {
     var authorForm = document.getElementById("authorForm");
     authorForm.style.display = "none";
+    location.assign('/myAccount?tab=tab5');
 }
 
 function openPopup() {
