@@ -126,7 +126,7 @@ module.exports.createReservationPost = async (req, res) => {
       let transaction;
 
       if (book.bookCountAvailable >= 1) {
-        status = 'Reserved';
+        status = 'Pending';
         book.bookCountAvailable -= 1;
         let pickUpDate = new Date(); // set pickUpDate to today's date
 
@@ -306,7 +306,7 @@ async function reserveBooks(req, res) {
         let transaction;
 
         if (book.bookCountAvailable >= 1) {
-          status = "Reserved";
+          status = "Pending";
           book.bookCountAvailable -= 1;
           let pickUpDate = new Date(); // set pickUpDate to today's date
 
@@ -436,7 +436,7 @@ module.exports.reservationsBorrowedPost = async (req, res) => {
     }
 
     // If the transaction status is 'Reserved', update it to 'Borrowed'
-    if (transaction.status === 'Reserved') {
+    if (transaction.status === 'Pending') {
       transaction.status = 'Borrowed';
       await transaction.save(); // Save the updated transaction
       res.status(200).send('Transaction status updated successfully');

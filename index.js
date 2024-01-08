@@ -157,6 +157,10 @@ app.get('/', checkUser, async (req,res) => {
 
 // ---------------------------------------------------------------------------------------- //
 
+// Information page
+app.get('/information', (req, res) => {
+  res.render('information');
+});
 // My Account page
 app.get('/myAccount', requireAuth, checkUser, async (req, res) => {
   try {

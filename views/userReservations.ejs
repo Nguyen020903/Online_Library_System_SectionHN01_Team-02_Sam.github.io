@@ -22,32 +22,23 @@
 
         <div class="icons">
             <div id="search-btn" class="fas fa-search"></div>
-            <a href="/wishlist" class="fas fa-heart"></a>
-            <a href="/userReservations" class="fas fa-shopping-cart"></a>
-            <a href="/myAccount" class="fas fa-user"></a>
+            <% if (user) { %>
+                <% if (!user.isAdmin) { %>
+                    <a href="/wishlist" class="fas fa-heart"></a>
+                    <a href="/userReservations" class="fas fa-list"></a>
+                <% } %>
+                <a href="/myAccount" class="fas fa-user"></a>
+            <%} else { %>
+                <a href="/login" class="fas fa-heart"></a>
+                <a href="/login" class="fas fa-list"></a>
+                <a href="/login" class="fas fa-user"></a>
+            <%} %>
         </div>
 
+
     </section>
-    <div class="header-2">
-        <nav class="navbar">
-            <a href="/">home</a>
-            <a href="/">featured</a>
-            <a href="/">arrivals</a>
-            <a href="/">reviews</a>
-        </nav>
-    </div>
+        
 </header>
-
-<!-- header section ends -->
-
-<!-- bottom navbar  -->
-
-<nav class="bottom-navbar">
-    <a href="#home" class="fas fa-home"></a>
-    <a href="#featured" class="fas fa-list"></a>
-    <a href="#arrivals" class="fas fa-tags"></a>
-    <a href="#reviews" class="fas fa-comments"></a>
-</nav>
 <!-- body -->
 
 <body>

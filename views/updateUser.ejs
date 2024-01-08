@@ -20,11 +20,19 @@
 
             <a href="/" class="logo"> <i class="fas fa-play"></i> playbook </a>
 
+            <form action="/searchResult" method="get" class="search-form">
+                <input type="search" name="query" placeholder="search here..." id="search-box">
+                <label for="search-box" class="fas fa-search" id="search-icon"></label>
+                <input type="submit" style="display: none;">
+            </form>
+
             <div class="icons">
                 <div id="search-btn" class="fas fa-search"></div>
                 <% if (user) { %>
-                    <a href="/wishlist" class="fas fa-heart"></a>
-                    <a href="/userReservations" class="fas fa-list"></a>
+                    <% if (!user.isAdmin) { %>
+                        <a href="/wishlist" class="fas fa-heart"></a>
+                        <a href="/userReservations" class="fas fa-list"></a>
+                    <% } %>
                     <a href="/myAccount" class="fas fa-user"></a>
                 <%} else { %>
                     <a href="/login" class="fas fa-heart"></a>
@@ -32,6 +40,7 @@
                     <a href="/login" class="fas fa-user"></a>
                 <%} %>
             </div>
+
 
         </section>
 

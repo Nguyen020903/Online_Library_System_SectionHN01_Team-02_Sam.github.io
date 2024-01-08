@@ -38,8 +38,10 @@
             <div class="icons">
                 <div id="search-btn" class="fas fa-search"></div>
                 <% if (user) { %>
-                    <a href="/wishlist" class="fas fa-heart"></a>
-                    <a href="/userReservations" class="fas fa-list"></a>
+                    <% if (!user.isAdmin) { %>
+                        <a href="/wishlist" class="fas fa-heart"></a>
+                        <a href="/userReservations" class="fas fa-list"></a>
+                    <% } %>
                     <a href="/myAccount" class="fas fa-user"></a>
                 <%} else { %>
                     <a href="/login" class="fas fa-heart"></a>
@@ -47,6 +49,7 @@
                     <a href="/login" class="fas fa-user"></a>
                 <%} %>
             </div>
+
 
         </section>
 
@@ -77,15 +80,16 @@
                                 <img src="<%= book.bookImage %>" alt="<%= book.title %> Image">
                             </div>
                             <div class="content">
+                                <h1><%= book.title %></h1>
                                 <h3><%= book.category.name %></h3>
                                 <div class="author"><%= book.author.name %></div>
-                                <div class="stars">
+                                <!-- <div class="stars">
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star-half-alt"></i>
-                                </div>
+                                </div> -->
                             </div>
                         </a>
                     </div>
@@ -106,22 +110,21 @@
 
             <div class="box">
                 <h3>extra links</h3>
-                <a href="#"> <i class="fas fa-arrow-right"></i> about us </a>
-                <a href="#"> <i class="fas fa-arrow-right"></i> copyright </a>
-                <a href="#"> <i class="fas fa-arrow-right"></i> privacy policy </a>
-                <a href="#"> <i class="fas fa-arrow-right"></i> payment method </a>
+                <a href="/information#aboutUs"> <i class="fas fa-arrow-right"></i> about us </a>
+                <a href="/information#copyRight"> <i class="fas fa-arrow-right"></i> copyright </a>
+                <a href="/information#privatePolicy"> <i class="fas fa-arrow-right"></i> privacy policy </a>
+                <a href="/information#paymentMethod"> <i class="fas fa-arrow-right"></i> payment method </a>
             </div>
 
             <div class="box">
                 <h3>contact info</h3>
-                <a href="#"> <i class='far fa-id-badge'></i> Tran Hoang Son - s3978450 </a>
-                <a href="#"> <i class='far fa-id-badge'></i> To Hai Dang - s3927046 </a>
-                <a href="#"> <i class='far fa-id-badge'></i> Luong Tuan Kiet - s3980288 </a>
-                <a href="#"> <i class='far fa-id-badge'></i> Le Ha My - s3938177 </a>
-                <a href="#"> <i class='far fa-id-badge'></i> Nguyen Ha Tuan Nguyen - s3978072 </a>
-                <a href="#"> <i class='far fa-id-badge'></i> Nguyen Hai Nguyen - s3978275 </a>
-                <a href="#"> <i class='far fa-id-badge'></i> Dang Quoc Thang - s3977877
-                </a>
+                <a href="https://www.facebook.com/sonnnayyyf" target="_blank"> <i class='far fa-id-badge'></i> Tran Hoang Son - s3978450 </a>
+                <a href="https://www.facebook.com/profile.php?id=100011122297129" target="_blank"> <i class='far fa-id-badge'></i> To Hai Dang - s3927046 </a>
+                <a href="https://www.facebook.com/tuankiet.luong.218" target="_blank"> <i class='far fa-id-badge'></i> Luong Tuan Kiet - s3980288 </a>
+                <a href="https://www.facebook.com/hmy031" target="_blank"> <i class='far fa-id-badge'></i> Le Ha My - s3938177 </a>
+                <a href="https://www.facebook.com/tuannguyen.nguyenha/" target="_blank"> <i class='far fa-id-badge'></i> Nguyen Ha Tuan Nguyen - s3978072 </a>
+                <a href="https://www.facebook.com/nguyen.nguyenhai.10441" target="_blank"> <i class='far fa-id-badge'></i> Nguyen Hai Nguyen - s3978275 </a>
+                <a href="https://www.facebook.com/profile.php?id=100014016729432" target="_blank"> <i class='far fa-id-badge'></i> Dang Quoc Thang - s3977877 </a>
             </div>
 
         </div>

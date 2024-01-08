@@ -23,7 +23,7 @@
 
         <section class="header-1">
 
-            <a href="/" class="logo"> <i class="fas fa-play"></i> Playbook </a>
+            <a href="/" class="logo"> <i class="fas fa-play"></i> playbook </a>
 
             <form action="/searchResult" method="get" class="search-form">
                 <input type="search" name="query" placeholder="search here..." id="search-box">
@@ -34,8 +34,10 @@
             <div class="icons">
                 <div id="search-btn" class="fas fa-search"></div>
                 <% if (user) { %>
-                    <a href="/wishlist" class="fas fa-heart"></a>
-                    <a href="/userReservations" class="fas fa-list"></a>
+                    <% if (!user.isAdmin) { %>
+                        <a href="/wishlist" class="fas fa-heart"></a>
+                        <a href="/userReservations" class="fas fa-list"></a>
+                    <% } %>
                     <a href="/myAccount" class="fas fa-user"></a>
                 <%} else { %>
                     <a href="/login" class="fas fa-heart"></a>
@@ -43,6 +45,7 @@
                     <a href="/login" class="fas fa-user"></a>
                 <%} %>
             </div>
+
 
         </section>
 
@@ -76,7 +79,7 @@
                         <input type="text" id="searchInputreservation" placeholder="Search here...">
                         <i id="searchIcon" class="fa fa-search"></i>
                     </div>
-                    <% let reservationTransactions = transactions.filter(transaction => transaction.status == 'Reserved'); %>
+                    <% let reservationTransactions = transactions.filter(transaction => transaction.status == 'Pending'); %>
                         <table id="bookTable" class="styled-table">
                             <thead>
                                 <tr>
@@ -112,7 +115,7 @@
                         <input type="text" id="searchInputborrow" placeholder="Search here...">
                         <i id="searchIcon" class="fa fa-search"></i>
                     </div>
-                    <% let currentTransactions = transactions.filter(transaction => transaction.status !== 'Returned' && transaction.status !== 'Reserved'); %>
+                    <% let currentTransactions = transactions.filter(transaction => transaction.status !== 'Returned' && transaction.status !== 'Pending'); %>
                         <table id="bookTable" class="styled-table">
                             <thead>
                                 <tr>
