@@ -287,7 +287,7 @@ module.exports.deleteBook = async (req, res) => {
             { $pull: { 'book': { _id: req.params.id } } }
         );
 
-        // remove Image
+        // Remove Image
         if (book.bookImage && book.bookImage !== 'https://i.ibb.co/K05xQk1/book7.png') {
             fs.unlink(path.join(__dirname, 'public', book.bookImage), err => {
                 if (err) console.error(err);

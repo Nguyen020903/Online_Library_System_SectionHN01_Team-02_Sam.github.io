@@ -27,7 +27,7 @@
 
             <form action="/searchResult" method="get" class="search-form">
                 <input type="search" name="query" placeholder="search here..." id="search-box">
-                <label for="search-box" class="fas fa-search"></label>
+                <label for="search-box" class="fas fa-search" id="search-icon"></label>
                 <input type="submit" style="display: none;">
             </form>
 
@@ -844,4 +844,16 @@
             });
         });
     </script>
+
+<script>
+    // Get the search icon and form elements
+    const searchIcon = document.getElementById('search-icon');
+    const searchForm = document.querySelector('.search-form');
+
+    // Add a click event listener to the search icon
+    searchIcon.addEventListener('click', function() {
+        // Submit the form when the search icon is clicked
+        searchForm.submit();
+    });
+</script>
 </html>
