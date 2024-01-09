@@ -1,0 +1,40 @@
+<%- include('partials/header'); -%>
+<form>
+    <h2>Add Category</h2>
+    <lable for="name">Name</lable>
+    <input type="text" name="name"/>
+    <div class="name error"></div>
+
+    <button>Add</button>
+</form>
+
+<script>
+    // Thows Error and notification for Adding content.
+    const form = document.querySelector('form');
+    const nameError = document.querySelector('.name.error');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const name = form.name.value;
+
+        try{
+            const res = await fetch('/category', {
+                method: 'POST',
+                body: JSON.stringify({name}),
+                headers: { 'Content-Type': 'application/json'}
+            });
+            const data = await res.json();
+            console.log(data);
+            if (data.errors){
+                nameError.textContent = data.errors.name;
+            }
+            else{
+                nameError.textContent = ('Added successfully');
+            }
+        }
+        catch (err){
+            console.log(err);
+        }
+    });
+</script>
+<%- include('partials/footer'); -%>

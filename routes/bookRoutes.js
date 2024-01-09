@@ -66,5 +66,7 @@ router.post('/deleteAuthor/:id', checkUser, isAdmin, bookController.deleteAuthor
 router.post('/deleteCategory/:id', checkUser, isAdmin, bookController.deleteCategory);
 router.post('/deletePublisher/:id', checkUser, isAdmin, bookController.deletePublisher);
 
+// get for category
+router.get('/category', checkUser, isAdmin, bookController.categoryGet);
 // Export the router
 module.exports = router;
