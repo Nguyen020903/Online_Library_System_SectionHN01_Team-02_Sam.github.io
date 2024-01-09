@@ -278,9 +278,11 @@
                     }
                 }).slice(0, 10).forEach(book => { %>
                 <% const isBookInWishlist=user && user.favoriteBook.includes(book._id); %>
+                
                 <div class="swiper-slide box">
                     <div class="icons">
                         <!-- <a href="#" class="fas fa-heart"><span>favourite</span></a> -->
+                        <% if (user && !user.isAdmin) { %>
                         <% if (user) { %>
                             <% if (!isBookInWishlist) { %>
                                 <form id="mainbook" method="post" class="wishlist-form" data-action="/addToWishlist" data-book-id="<%= book._id %>">
@@ -300,7 +302,9 @@
                                 </form>
                             <% } %>
                         <% } %>
+                        <% } %>
                     </div>
+                    
                     <div class="image">
                         <a href="/bookDetail/<%= book._id %>"><img src="<%= book.bookImage %>" alt="<%= book.title %>" style="aspect-ratio: 555/710; object-fit: cover;"></a>
                     </div>
