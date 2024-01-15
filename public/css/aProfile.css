@@ -38,6 +38,18 @@ body {
     background: #fff;
 }
 
+html::-webkit-scrollbar{
+    width:1rem;
+}
+
+html::-webkit-scrollbar-track{
+    background:transparent;
+}
+
+html::-webkit-scrollbar-thumb{
+    background:var(--black);
+}
+
 .error{
     color: #ff0099;
     font-size: 0.8em;
@@ -419,6 +431,18 @@ section {
     width: 100%;
 }
 
+.tab-content.tab2::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+.tab-content.tab2::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.tab-content.tab2::-webkit-scrollbar-thumb {
+    background:var(--black);
+}
+
 /* tab3 */
 .tab-content.tab3 {
     display: flex;
@@ -426,6 +450,18 @@ section {
     align-items: center;
     overflow: auto;
     width: 100%;
+}
+
+.tab-content.tab3::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+.tab-content.tab3::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.tab-content.tab3::-webkit-scrollbar-thumb {
+    background:var(--black);
 }
 
 #searchInputContainer {
@@ -581,6 +617,18 @@ section {
     width: 100%;
 }
 
+.tab-content.tab4::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+.tab-content.tab4::-webkit-scrollbar-track {
+    background: transparent;
+}   
+
+.tab-content.tab4::-webkit-scrollbar-thumb {
+    background:var(--black);
+}
+
 .styled-table {
     width: 100%;
     border-collapse: collapse;
@@ -588,6 +636,18 @@ section {
     text-align: left;
     overflow: auto;
 }
+
+.styled-table::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+.styled-table::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.styled-table::-webkit-scrollbar-thumb {
+    background:var(--black);
+} 
 
 .styled-table th,
 .styled-table td {
@@ -635,6 +695,18 @@ section {
     width: 100%;
 }
 
+.tab-content.tab5::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+.tab-content.tab5::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.tab-content.tab5::-webkit-scrollbar-thumb {
+    background:var(--black);
+}
+
 /* tab6 */
 .tab-content.tab6 {
     display: flex;
@@ -644,6 +716,18 @@ section {
     width: 100%;
 }
 
+.tab-content.tab6::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+.tab-content.tab6::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.tab-content.tab6::-webkit-scrollbar-thumb {
+    background:var(--black);
+}
+
 /* tab7 */
 .tab-content.tab7 {
     display: flex;
@@ -651,6 +735,18 @@ section {
     width: 100%;
     justify-content: center;
     align-items: center;
+}
+
+.tab-content.tab7::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+.tab-content.tab7::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.tab-content.tab7::-webkit-scrollbar-thumb {
+    background:var(--black);
 }
 
 .librarian-form {

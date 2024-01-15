@@ -68,6 +68,7 @@ img {
 }
 
 /* Header */
+/* Header */
 .heading {
     text-align: center;
     margin-bottom: 2rem;
@@ -402,6 +403,18 @@ section {
     width: 100%;
 }
 
+.tab2::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+.tab2::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.tab2::-webkit-scrollbar-thumb {
+    background: var(--black);
+}
+
 .remove-btn {
     color: red;
     cursor: pointer;
@@ -457,7 +470,7 @@ section {
     color: #000;
 }
 
-.tab-content.tab3 {
+.tab-content.tab3, .tab-content.tab4, .tab-content.tab5{
     /*borrowed books*/
     display: flex;
     flex-direction: column;
@@ -470,6 +483,18 @@ section {
     width: 100%;
     height: 100%;
     overflow: auto;
+}
+
+.table-container::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: var(--black);
 }
 
 .styled-table {
@@ -499,16 +524,6 @@ section {
 .styled-table tbody td:last-child {
     text-align: center;
 }
-
-.tab-content.tab4 {
-    /*borrow history*/
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-}
-
 
 /* Style the logout container */
 .popup {
