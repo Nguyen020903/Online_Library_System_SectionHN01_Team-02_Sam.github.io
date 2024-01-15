@@ -103,6 +103,7 @@
                         <div class="label">Box_name</div>
                     </div>
                     <div class="box-content">
+                        <canvas id="chartCanvas"></canvas>
                     </div>
                 </div>
             </div>
@@ -143,5 +144,37 @@
 </body>
 <script src="js/dashboard.js"></script>
 <script src="https://kit.fontawesome.com/120cd899b7.js" crossorigin="anonymous"></script>
+<!-- Include Chart.js library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Your HTML structure -->
+
+<!-- Include your chart rendering script -->
+<script>
+    // Sample data for the chart
+    const chartData = {
+        labels: ['Label 1', 'Label 2', 'Label 3'],
+        datasets: [{
+            data: [30, 40, 30],
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+            hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+        }],
+    };
+
+    // Get the canvas element
+    const chartCanvas = document.getElementById('chartCanvas').getContext('2d');
+
+    // Create the doughnut chart
+    const myDoughnutChart = new Chart(chartCanvas, {
+        type: 'doughnut',
+        data: chartData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+        },
+    });
+
+</script>
+
 
 </html>
