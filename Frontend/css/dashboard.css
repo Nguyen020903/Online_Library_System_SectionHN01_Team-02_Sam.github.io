@@ -453,6 +453,7 @@ a {
 /* Footer */
 footer {
     background-color: #fff;
+    display: hidden;
 }
 
 .footer .box-container {
