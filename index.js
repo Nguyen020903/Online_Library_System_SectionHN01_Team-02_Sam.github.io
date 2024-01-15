@@ -337,7 +337,7 @@ app.post('/updateUserImage', requireAuth, checkUser, userImgUpload.single('profi
     const user = res.locals.user;
 
     // If the user already has a profile image that is not the default image
-    if (user.profileImage && user.profileImage !== 'https://www.rmit.edu.vn/content/dam/rmit/vn/en/assets-for-production/images/staff/sam-goundar-it.jpg') {
+    if (user.profileImage && user.profileImage !== 'https://static.vecteezy.com/system/resources/previews/020/765/399/non_2x/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg') {
       // Delete the existing profile image
       fs.unlink(path.join(__dirname, 'public', user.profileImage), err => {
         // Log any error that occurs while deleting the image
@@ -350,7 +350,7 @@ app.post('/updateUserImage', requireAuth, checkUser, userImgUpload.single('profi
 
     // If the user has sent '/images/userImage/', replace it with the default image URL
     if (profileImage === '/images/userImage/') {
-      profileImage = 'https://www.rmit.edu.vn/content/dam/rmit/vn/en/assets-for-production/images/staff/sam-goundar-it.jpg';
+      profileImage = 'https://static.vecteezy.com/system/resources/previews/020/765/399/non_2x/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg';
     }
 
     // Update the user's profile image in the database
