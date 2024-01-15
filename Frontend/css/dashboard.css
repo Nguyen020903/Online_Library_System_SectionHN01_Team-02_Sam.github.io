@@ -351,16 +351,16 @@ a {
 }
 
 .bottom-box .content-container {
-    padding: 2rem;
+    padding: 2.5rem;
     height: 100%;
 }
 
 .bottom-box .content-container .box-label-container {
-    height: 15%;
+    height: 17%;
 }
 
 .bottom-box .content-container .box-content {
-    height: 85%;
+    height: 83%;
 }
 
 #left-box{
