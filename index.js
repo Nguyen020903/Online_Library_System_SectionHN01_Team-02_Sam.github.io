@@ -103,6 +103,11 @@ const userImgUpload = multer({ storage: userImgStorage });
 
 // ---------------------------------------------------------------------------------------- //
 
+app.get('/chart', (req, res) => {
+  res.render('charttest');
+});
+
+
 // Route for all types of users
 app.get('/', checkUser, async (req,res) => {
   try {

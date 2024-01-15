@@ -1,0 +1,75 @@
+<!-- views/chart.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Charts Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div style="width: 80%; margin: auto;">
+        <canvas id="chart1" width="400" height="400"></canvas>
+        <canvas id="chart2" width="400" height="400"></canvas>
+    </div>
+<body>
+
+<script>
+        // public/chartScript.js
+        // public/chartScript.js
+    document.addEventListener('DOMContentLoaded', () => {
+        // Chart 1 Data
+        const data1 = {
+            labels: ['January', 'February', 'March', 'April', 'May'],
+            datasets: [{
+                label: 'Monthly Sales 1',
+                data: [20, 30, 25, 35, 40],
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+            }],
+        };
+
+        // Chart 2 Data
+        const data2 = {
+            labels: ['A', 'B', 'C', 'D', 'E'],
+            datasets: [{
+                label: 'Data Set 2',
+                data: [50, 30, 45, 20, 60],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1,
+            }],
+        };
+
+        // Get the canvas elements
+        const ctx1 = document.getElementById('chart1').getContext('2d');
+        const ctx2 = document.getElementById('chart2').getContext('2d');
+
+        // Create the charts
+        const chart1 = new Chart(ctx1, {
+            type: 'bar',
+            data: data1,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    },
+                },
+            },
+        });
+
+        const chart2 = new Chart(ctx2, {
+            type: 'bar',
+            data: data2,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    },
+                },
+            },
+        });
+    });
+    </script>
+</html>
