@@ -96,6 +96,38 @@ const userImgUpload = multer({ storage: userImgStorage });
 
 app.get('/dashboard', checkUser, isAdmin, async (req, res) => {
   const bookCount = await Book.countDocuments();
+
+  const activeTransactionCount = await Transaction.countDocuments({ status: { $nin: ['Returned', 'Pending'] } });
+
+  const pendingTransactionCount = await Transaction.countDocuments({ status: 'Pending' });
+
+  const userCount = await User.countDocuments();
+
+  // Calculate the number of transactions for each month
+  const transactionsByMonth = await Transaction.aggregate([
+    {
+      $group: {
+        _id: { $month: "$createdAt" },
+        count: { $sum: 1 }
+      }
+    },
+    {
+      $sort: { _id: 1 }
+    }
+  ]);
+
+  // Convert the month numbers to names
+  const monthCounts = new Array(12).fill(0);
+
+  transactionsByMonth.forEach(transaction => {
+    const monthIndex = monthNames.indexOf(transaction.month);
+    if (monthIndex !== -1) {
+      monthCounts[monthIndex] = transaction.count;
+    }
+  });
+
+  console.log(monthCounts);
+
   const overdueTransactions = await Transaction.find({ status: 'Overdue' });
 
   const allOverdueTransactions = await Promise.all(
@@ -110,7 +142,7 @@ app.get('/dashboard', checkUser, isAdmin, async (req, res) => {
     })
   );
 
-  res.render('dashboard', { allOverdueTransactions, bookCount });
+  res.render('dashboard', { allOverdueTransactions, bookCount, activeTransactionCount, pendingTransactionCount, userCount, transactionsByMonth });
 });
 
 

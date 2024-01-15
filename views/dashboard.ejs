@@ -51,30 +51,33 @@
             <div class="top-box" id="box-2">
                 <div class="content-container">
                     <div class="box-label-container">
-                        <div class="number">2 (100%)</div>
-                        <div class="label">Box_name</div>
+                        <div class="number">Active Transaction</div>
+                        <div class="label">Count of total active transaction.</div>
                     </div>
                     <div class="box-content">
+                        <div> <%= activeTransactionCount %></div>
                     </div>
                 </div>
             </div>
             <div class="top-box" id="box-3">
                 <div class="content-container">
                     <div class="box-label-container">
-                        <div class="number">3 (100%)</div>
-                        <div class="label">Box_name</div>
+                        <div class="number">Pending Transaction</div>
+                        <div class="label">Count of total pending transaction.</div>
                     </div>
                     <div class="box-content">
+                        <div> <%= pendingTransactionCount %></div>
                     </div>
                 </div>
             </div>
             <div class="top-box" id="box-4">
                 <div class="content-container">
                     <div class="box-label-container">
-                        <div class="number">4 (100%)</div>
-                        <div class="label">Box_name</div>
+                        <div class="number">Total User</div>
+                        <div class="label">Count of total user.</div>
                     </div>
                     <div class="box-content">
+                        <div> <%= userCount %> </div>
                     </div>
                 </div>
             </div>
@@ -87,10 +90,11 @@
                         <div class="label">Box_name</div>
                     </div>
                     <div class="box-content">
-                        <canvas id="chartCanvas"></canvas>
+                        <canvas id="lineChart"></canvas>
                     </div>
                 </div>
             </div>
+
             <div class="bottom-box" id="box-6">
                 <div class="content-container">
                     <div class="box-label-container">
@@ -133,34 +137,36 @@
 <!-- Include Chart.js library -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<!-- Your HTML structure -->
-
-<!-- Include your chart rendering script -->
 <script>
-    // Sample data for the chart
-    const chartData = {
-        labels: ['Label 1', 'Label 2', 'Label 3'],
-        datasets: [{
-            data: [30, 40, 30],
-            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-            hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-        }],
+    // Sample data for the line chart
+    var data = {
+      labels: ['January', 'February', 'March', 'April', 'May'],
+      datasets: [{
+        label: 'Monthly Sales',
+        borderColor: 'rgb(75, 192, 192)',
+        data: [10, 25, 15, 30, 20],
+        fill: false,
+      }]
     };
-
+    
+    // Configuration options
+    var options = {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    };
+    
     // Get the canvas element
-    const chartCanvas = document.getElementById('chartCanvas').getContext('2d');
-
-    // Create the doughnut chart
-    const myDoughnutChart = new Chart(chartCanvas, {
-        type: 'doughnut',
-        data: chartData,
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-        },
+    var ctx = document.getElementById('lineChart').getContext('2d');
+    
+    // Create the line chart
+    var lineChart = new Chart(ctx, {
+      type: 'line',
+      data: data,
+      options: options
     });
-
-</script>
-
+    </script>
 
 </html>

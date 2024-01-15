@@ -330,8 +330,12 @@ a {
 }
 
 .box-content {
+    display: flex;
     height: 60%;
     width: 100%;
+    align-self: center;
+    justify-content: center;
+    font-size: 9rem;
     /* background-color: aqua; */
 }
 
@@ -339,6 +343,10 @@ a {
     background-color: #4D4139;
     color: #f2f2f2;
 }
+
+/* #box-1 .box-content {
+    
+} */
 
 #box-2 {
     background-color: #3B394D;
@@ -567,8 +575,15 @@ footer {
         display: none;
     }
 
-    .bottom-navbar {
-        display: block;
+    .label {
+        font-size: 1.2rem;
+    }
+    
+    .number {
+        font-size: 2.2rem;
+    }
+    .box-content {
+        font-size: 6.8rem;
     }
 }
 
@@ -576,12 +591,34 @@ footer {
     html {
         font-size: 50%;
     }
+
+    .label {
+        font-size: 1rem;
+    }
+    
+    .number {
+        font-size: 2rem;
+    }
+    .box-content {
+        font-size: 4.8rem;
+    }
 }
 
 @media (max-width: 280px) {
     #Web-name {
         visibility: hidden;
         display: none;
+    }
+
+    .label {
+        font-size: 0.7rem;
+    }
+    
+    .number {
+        font-size: 1.6rem;
+    }
+    .box-content {
+        font-size: 5rem;
     }
 }
 
