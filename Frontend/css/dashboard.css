@@ -24,7 +24,7 @@
 
 html {
     font-size: 62.5%;
-    overflow-x: hidden;
+    overflow: hidden;
     scroll-padding-top: 5rem;
     scroll-behavior: smooth;
 }
@@ -304,7 +304,7 @@ a {
 }
 
 .top-box{
-    width: 20%;
+    width: 24%;
     height: 100%;
     border-radius: 1rem;
     box-sizing: border-box;
@@ -332,6 +332,7 @@ a {
 .box-content {
     height: 60%;
     width: 100%;
+    /* background-color: aqua; */
 }
 
 #box-1 {
@@ -371,6 +372,36 @@ a {
     box-sizing: border-box;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-top: 0.1px solid rgba(0, 0, 0, 0.1);
+}
+
+#box-5 {
+    width: 60%;
+    height: 100%;
+}
+
+#box-6 {
+    width: 39%;
+    height: 100%;
+}
+
+#box-6 .box-label-container {
+    height: auto;
+}
+
+#box-6 .content-container .box-content {
+    overflow: auto;
+}
+
+#box-6 .content-container .box-content::-webkit-scrollbar {
+    width:0.5rem;
+}
+
+#box-6 .content-container .box-content::-webkit-scrollbar-track {
+    background:transparent;
+}
+
+#box-6 .content-container .box-content::-webkit-scrollbar-thumb {
+    background:var(--black);
 }
 
 .styled-table {
@@ -418,15 +449,6 @@ a {
     height: 83%;
 }
 
-#left-box{
-    width: 60%;
-    height: 100%;
-}
-
-#right-box{
-    width: 30%;
-    height: 100%;
-}
 
 /* Footer */
 footer {
@@ -490,17 +512,22 @@ footer {
 @media (max-width:992px) {
     html {
         font-size: 55%;
+        overflow-x: hidden;
+        overflow-y: auto;
     }
-
-    /* footer */
-    .footer-list {
-        display: flex;
+    
+    #bottom-row {
         flex-direction: column;
-        align-items: center;
+        height: auto;
+    }
+    
+    #box-5 {
+        width: 100%;
+        margin-bottom: 3rem;
     }
 
-    .footer-list li {
-        padding: 5px 15px;
+    #box-6 {
+        width: 100%;
     }
 }
 
