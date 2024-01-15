@@ -18,7 +18,7 @@ const reviewRoutes = require('./routes/reviewRoutes');
 
 // Importing middleware
 const { getUserById, getBookById } = require('./middleware/nameMiddleware');
-const { requireAuth, checkUser } = require('./middleware/authMiddleware');
+const { requireAuth, checkUser, isAdmin } = require('./middleware/authMiddleware');
 
 // Importing models
 const User = require('./models/user');
@@ -42,15 +42,6 @@ app.use(express.static('public'));
 
 // Checking user for all routes
 app.get('*', checkUser);
-
-// Middleware to check if user is an admin
-const isAdmin = async (req, res, next) => {
-  if (res.locals.user && res.locals.user.isAdmin) {
-    next(); // User is authenticated and is an admin, continue to the next middleware or route handler
-  } else {
-    res.status(403).send('You do not have permission to enter this page');
-  }
-};
 
 // Setting up session
 app.use(
@@ -103,8 +94,23 @@ const userImgUpload = multer({ storage: userImgStorage });
 
 // ---------------------------------------------------------------------------------------- //
 
-app.get('/chart', (req, res) => {
-  res.render('charttest');
+app.get('/dashboard', checkUser, isAdmin, async (req, res) => {
+  const bookCount = await Book.countDocuments();
+  const overdueTransactions = await Transaction.find({ status: 'Overdue' });
+
+  const allOverdueTransactions = await Promise.all(
+    overdueTransactions.map(async (transaction) => {
+      const book = await getBookById(transaction.bookId);
+      const user = await getUserById(transaction.userId);
+      return {
+        userName: user.fullName,
+        bookTitle: book.title,
+        dayOverdue: Math.floor((Date.now() - new Date(transaction.returnDate)) / (1000 * 60 * 60 * 24)),
+      };
+    })
+  );
+
+  res.render('dashboard', { allOverdueTransactions, bookCount });
 });
 
 
@@ -166,6 +172,7 @@ app.get('/', checkUser, async (req,res) => {
 app.get('/information', (req, res) => {
   res.render('information');
 });
+
 // My Account page
 app.get('/myAccount', requireAuth, checkUser, async (req, res) => {
   try {
