@@ -86,11 +86,11 @@
             <div class="bottom-box" id="box-5">
                 <div class="content-container">
                     <div class="box-label-container">
-                        <div class="number">5 (100%)</div>
-                        <div class="label">Box_name</div>
+                        <div class="number">Transaction</div>
+                        <div class="label">Transaction by Month</div>
                     </div>
                     <div class="box-content">
-                        <canvas id="lineChart"></canvas>
+                        <canvas id="chartCanvas"></canvas>
                     </div>
                 </div>
             </div>
@@ -138,35 +138,34 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    // Sample data for the line chart
-    var data = {
-      labels: ['January', 'February', 'March', 'April', 'May'],
-      datasets: [{
-        label: 'Monthly Sales',
-        borderColor: 'rgb(75, 192, 192)',
-        data: [10, 25, 15, 30, 20],
-        fill: false,
-      }]
-    };
-    
-    // Configuration options
-    var options = {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    };
-    
+    // Get the data from the server
+    const monthCounts = JSON.parse('<%- JSON.stringify(monthCounts) %>');
+    console.log(monthCounts);
+
+    // Prepare the labels for the chart
+    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
     // Get the canvas element
-    var ctx = document.getElementById('lineChart').getContext('2d');
-    
+    const chartCanvas = document.getElementById('chartCanvas').getContext('2d');
+
     // Create the line chart
-    var lineChart = new Chart(ctx, {
-      type: 'line',
-      data: data,
-      options: options
+    const myLineChart = new Chart(chartCanvas, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Number of Transactions',
+                data: monthCounts,
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+        },
     });
-    </script>
+</script>
 
 </html>

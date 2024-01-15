@@ -104,27 +104,30 @@ app.get('/dashboard', checkUser, isAdmin, async (req, res) => {
   const userCount = await User.countDocuments();
 
   // Calculate the number of transactions for each month
-  const transactionsByMonth = await Transaction.aggregate([
-    {
-      $group: {
-        _id: { $month: "$createdAt" },
-        count: { $sum: 1 }
-      }
-    },
-    {
-      $sort: { _id: 1 }
+const transactionsByMonth = await Transaction.aggregate([
+  {
+    $group: {
+      _id: { $month: "$createdAt" },
+      count: { $sum: 1 }
     }
-  ]);
+  },
+  {
+    $sort: { _id: 1 }
+  }
+]);
 
-  // Convert the month numbers to names
-  const monthCounts = new Array(12).fill(0);
+// Initialize an array to hold the counts for each month
+const monthCounts = new Array(12).fill(0);
 
-  transactionsByMonth.forEach(transaction => {
-    const monthIndex = monthNames.indexOf(transaction.month);
-    if (monthIndex !== -1) {
-      monthCounts[monthIndex] = transaction.count;
-    }
-  });
+// Fill the monthCounts array with the counts from transactionsByMonth
+transactionsByMonth.forEach(transaction => {
+  // MongoDB's $month operator returns months in the range 1-12, 
+  // but JavaScript's array indices are in the range 0-11, so we subtract 1
+  const monthIndex = transaction._id - 1;
+
+  // Set the count for this month in the monthCounts array
+  monthCounts[monthIndex] = transaction.count;
+});
 
   console.log(monthCounts);
 
@@ -142,7 +145,7 @@ app.get('/dashboard', checkUser, isAdmin, async (req, res) => {
     })
   );
 
-  res.render('dashboard', { allOverdueTransactions, bookCount, activeTransactionCount, pendingTransactionCount, userCount, transactionsByMonth });
+  res.render('dashboard', { allOverdueTransactions, bookCount, activeTransactionCount, pendingTransactionCount, userCount, monthCounts });
 });
 
 
