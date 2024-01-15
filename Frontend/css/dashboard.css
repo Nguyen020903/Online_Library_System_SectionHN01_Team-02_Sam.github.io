@@ -330,8 +330,12 @@ a {
 }
 
 .box-content {
+    display: flex;
     height: 60%;
     width: 100%;
+    align-self: center;
+    justify-content: center;
+    font-size: 9rem;
     /* background-color: aqua; */
 }
 
@@ -339,6 +343,10 @@ a {
     background-color: #4D4139;
     color: #f2f2f2;
 }
+
+/* #box-1 .box-content {
+    
+} */
 
 #box-2 {
     background-color: #3B394D;
