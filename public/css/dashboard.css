@@ -461,7 +461,7 @@ a {
 /* Footer */
 footer {
     background-color: #fff;
-    display: hidden;
+    display: none;
 }
 
 .footer .box-container {
@@ -519,6 +519,9 @@ footer {
 /****Responsive****/
 
 @media (max-width:992px) {
+    footer {
+        display: block;
+    }
     html {
         font-size: 55%;
         overflow-x: hidden;

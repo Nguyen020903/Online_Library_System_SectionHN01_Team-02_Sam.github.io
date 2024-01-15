@@ -129,8 +129,6 @@ app.get('/dashboard', checkUser, isAdmin, async (req, res) => {
     monthCounts[monthIndex] = transaction.count;
   });
 
-  console.log(monthCounts);
-
   const overdueTransactions = await Transaction.find({ status: 'Overdue' });
 
   const allOverdueTransactions = await Promise.all(
