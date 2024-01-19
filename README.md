@@ -14,11 +14,11 @@ Proposing an Online Library with dual benefits, this proposal outlines a platfor
 - Authentication
 - Profile Customization
 
-For Reader:
+<b> For Reader: </b>
 - Browse and Search Functionalities
 - Book Wishlist and Reservation
 
-For Librarian:
+<b> For Librarian: </b>
 - Book Management
 - Reservation and Fine Management
 - Dashboard and Statistical Insight
