@@ -1,4 +1,4 @@
-# Online Library System SectionHN01 Team02
+# Playbook - Library Management System
 Repository for Semester C 2023 COSC2634 - Building IT Systems
 
 ## 📖 Description
