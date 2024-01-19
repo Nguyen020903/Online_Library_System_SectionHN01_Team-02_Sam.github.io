@@ -2,8 +2,7 @@
 Repository for Semester C 2023 COSC2634 - Building IT Systems
 
 ## 📖 Description
-Proposing an Online Library with dual benefits, this proposal outlines a platform that caters adeptly to both library managers and readers	 by offering tools and resources for efficient book management through an intuitive interface. For managers, it prioritizes streamlined management processes, offering seamless tasks like collection updates and organization. Readers gain from advanced search capabilities and personalized features like bookmarking and wish lists, ensuring a smooth and enhanced user experience. Additionally, users can take advantage of a well-integrated book reservation and fine system, further enhancing the overall utility of the platform.
-
+Proposing an Online Library with dual benefits, this proposal outlines a platform that caters adeptly to both library managers and readers	 by offering tools and resources for efficient book management through an intuitive interface.
 <br>
 
 <p> 
