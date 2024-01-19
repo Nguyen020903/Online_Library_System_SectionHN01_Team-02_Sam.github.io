@@ -1,23 +1,40 @@
-# Online_Library_System_SectionHN01_Team-02_Sam.github.io
-### Repository for Semester C 2023 COSC2634 - Building IT Systems
+# Online Library System SectionHN01 Team02
+Repository for Semester C 2023 COSC2634 - Building IT Systems
 
-Authors:
+# 📖 Description
+Proposing an Online Library with dual benefits, this proposal outlines a platform that caters adeptly to both library managers and readers	 by offering tools and resources for efficient book management through an intuitive interface. For managers, it prioritizes streamlined management processes, offering seamless tasks like collection updates and organization. Readers gain from advanced search capabilities and personalized features like bookmarking and wish lists, ensuring a smooth and enhanced user experience. Additionally, users can take advantage of a well-integrated book reservation and fine system, further enhancing the overall utility of the platform.
 
-Tran Hoang Son
+<br>
 
-To Hai Dang
+<p> 
+<img src = 'https://github.com/Nguyen020903/Online_Library_System_SectionHN01_Team-02_Sam.github.io/assets/116583355/18bf18cc-c5c8-4430-af69-660f9b608ced'>
+</p>
 
-Dang Quoc Thang
 
-Le Ha My
+# How to Run
+First, you need to install NPM Libraries required for this project
+```
+npm install
+```
 
-Luong Tuan Kiet
+Then, to run the web application, run Node
+```
+node index.js
+```
 
-Nguyen Ha Tuan Nguyen
+After that, go to http://localhost:3000 to view it in your browser!
 
-Nguyen Hai Nguyen
 
-important link:
+## 🌟 Authors:
+- Nguyen Ha Tuan Nguyen
+- Nguyen Hai Nguyen
+- Dang Quoc Thang
+- Luong Tuan Kiet
+- Tran Hoang Son
+- To Hai Dang
+- Le Ha My
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+
+
+
+
