@@ -26,15 +26,9 @@ After that, go to http://localhost:3000 to view it in your browser!
 
 
 ## 🌟 Authors:
-- Nguyen Ha Tuan Nguyen
-- Nguyen Hai Nguyen
-- Dang Quoc Thang
-- Luong Tuan Kiet
-- Tran Hoang Son
-- To Hai Dang
-- Le Ha My
-
-
-
-
-
+- Nguyen Ha Tuan Nguyen (Backend Developer/Database Developer)
+- Nguyen Hai Nguyen (Frontend Developer)
+- Dang Quoc Thang (Backend Developer/Database Developer)
+- Luong Tuan Kiet (Frontend Developer)
+- Tran Hoang Son (Frontend Developer)
+- Le Ha My (Backend Developer/System Architecture)
